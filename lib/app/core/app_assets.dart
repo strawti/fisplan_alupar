@@ -1,0 +1,1 @@
+const appAssetExample = "assets/images/app_assets_example.png";
