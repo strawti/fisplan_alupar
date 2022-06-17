@@ -4,16 +4,15 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/request/request.dart';
 
-
 class AppBindings implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() {
-      final _connect = GetConnect();
-      _connect.timeout = const Duration(seconds: 30);
-      _connect.httpClient.addRequestModifier(requestModifier);
-      _connect.httpClient.addResponseModifier(responseModifier);
-      return _connect;
+      final connect = GetConnect();
+      connect.timeout = const Duration(seconds: 30);
+      connect.httpClient.addRequestModifier(requestModifier);
+      connect.httpClient.addResponseModifier(responseModifier);
+      return connect;
     });
   }
 
@@ -31,8 +30,7 @@ class AppBindings implements Bindings {
   FutureOr<dynamic> responseModifier(Request request, Response response) async {
     showLogs(request, response);
 
-    if (response.unauthorized) {
-    }
+    if (response.unauthorized) {}
 
     return response;
   }
