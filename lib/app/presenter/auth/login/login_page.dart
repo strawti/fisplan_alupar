@@ -1,3 +1,5 @@
+import 'package:fisplan_alupar/app/presenter/auth/login/widgets/login_body.dart';
+import 'package:fisplan_alupar/app/shared/widgets/base_widget.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -11,7 +13,9 @@ class LoginPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('LoginPage'),
       ),
-      body: Container(),
+      body: const BaseWidget(
+        child: LoginBody(),
+      ),
     );
   }
 }
