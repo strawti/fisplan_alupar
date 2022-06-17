@@ -14,8 +14,8 @@ class AuthProvider {
     AuthRequestModel request,
   ) async {
     try {
-      final response = await _repository.signIn(request);
-      return ProviderResponseModel.fromMap(response.toMap());
+      final _response = await _repository.signIn(request);
+      return ProviderResponseModel.fromMap(_response.toMap());
     } on SocketException {
       return AppErrorDefaultModel('Erro de conexão');
     } catch (e) {
@@ -25,9 +25,9 @@ class AuthProvider {
 
   Future<ProviderResponseModel> logout() async {
     try {
-      final response = await _repository.logout();
+      final _response = await _repository.logout();
       return ProviderResponseModel.fromMap(
-        response.toMap(),
+        _response.toMap(),
       );
     } catch (e) {
       return AppErrorDefaultModel(
