@@ -24,3 +24,5 @@ const apiInstallationTypes = '$apiBase/installation-types';
 const apiInstallations = '$apiBase/installations';
 
 const apiCompanies = '$apiBase/companies';
+// for projects
+// companies/${user.get('company_id')}//projects
