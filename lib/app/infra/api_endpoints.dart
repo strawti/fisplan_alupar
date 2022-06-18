@@ -1,6 +1,11 @@
-const apiBase = 'http://ec2-54-80-244-185.compute-1.amazonaws.com:3333/api/v1';
+// PRODUCTION
+//const apiBase = 'https://fisplan.alupar.com.br/api/';
 
-/// Auth
+// DEVELOPMENT
+const apiBase = '';
+
+
+/// Endpoints
 const apiLogin = '$apiBase/auth/login';
 const apiLoginRefresh = '$apiBase/auth/login/refresh';
 const apiLogout = '$apiBase/auth/me/disconnect';
