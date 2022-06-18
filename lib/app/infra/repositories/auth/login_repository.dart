@@ -1,3 +1,4 @@
+import 'package:fisplan_alupar/app/infra/models/requests/auth/login_request_model.dart';
 import 'package:get/get.dart';
 
 import '../../../core/app_token.dart';
@@ -5,7 +6,6 @@ import '../../api_endpoints.dart';
 import '../../models/defaults/api_error_default_model.dart';
 import '../../models/defaults/api_response_model.dart';
 import '../../models/defaults/default_response_model.dart';
-import '../../models/requests/auth_request_model.dart';
 import '../../models/responses/user_response_model.dart';
 
 class LoginRepository {
@@ -13,7 +13,7 @@ class LoginRepository {
   final GetConnect _connect;
 
   Future<ApiResponseModel<UserResponseModel>> signIn(
-    AuthRequestModel requestModel,
+    LoginRequestModel requestModel,
   ) async {
     final response = await _connect.post(
       apiLogin,

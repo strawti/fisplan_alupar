@@ -1,10 +1,10 @@
 import 'dart:io';
 
+import 'package:fisplan_alupar/app/infra/models/requests/auth/login_request_model.dart';
 import 'package:fisplan_alupar/app/infra/repositories/auth/login_repository.dart';
 
 import '../../models/defaults/app_error_model.dart';
 import '../../models/defaults/provider_response_model.dart';
-import '../../models/requests/auth_request_model.dart';
 import '../../models/responses/user_response_model.dart';
 
 class LoginProvider {
@@ -12,7 +12,7 @@ class LoginProvider {
   LoginProvider(this._repository);
 
   Future<ProviderResponseModel<UserResponseModel>> signIn(
-    AuthRequestModel request,
+    LoginRequestModel request,
   ) async {
     try {
       final response = await _repository.signIn(request);
