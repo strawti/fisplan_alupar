@@ -16,3 +16,4 @@ const apiEquipmentCategories = '$apiBase/equipment-categories';
 const apiEquipments = '$apiBase/equipments';
 const apiInspections = '$apiBase/inspections';
 
+const apiInspectionsSyncSingle = '$apiBase/inspections/sync-single';
