@@ -11,3 +11,5 @@ const apiLoginRefresh = '$apiBase/auth/login/refresh';
 const apiForgotPassword = '$apiBase/auth/password/email';
 
 const apiActivities = '$apiBase/activities';
+
+const apiEquipmentCategories = '$apiBase/equipment-categories';
