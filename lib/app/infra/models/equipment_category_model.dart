@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-class EquipmentCategory {
+class EquipmentCategoryModel {
   final int id;
   final String name;
   final String description;
   final String createdAt;
   final String updatedAt;
-  EquipmentCategory({
+  EquipmentCategoryModel({
     required this.id,
     required this.name,
     required this.description,
@@ -26,8 +26,8 @@ class EquipmentCategory {
     return result;
   }
 
-  factory EquipmentCategory.fromMap(Map<String, dynamic> map) {
-    return EquipmentCategory(
+  factory EquipmentCategoryModel.fromMap(Map<String, dynamic> map) {
+    return EquipmentCategoryModel(
       id: map['id']?.toInt() ?? 0,
       name: map['name'] ?? '',
       description: map['description'] ?? '',
@@ -38,6 +38,6 @@ class EquipmentCategory {
 
   String toJson() => json.encode(toMap());
 
-  factory EquipmentCategory.fromJson(String source) =>
-      EquipmentCategory.fromMap(json.decode(source));
+  factory EquipmentCategoryModel.fromJson(String source) =>
+      EquipmentCategoryModel.fromMap(json.decode(source));
 }
