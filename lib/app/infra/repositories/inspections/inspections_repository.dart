@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fisplan_alupar/app/infra/api_endpoints.dart';
 import 'package:get/get.dart';
 
@@ -12,6 +14,32 @@ class InspectionsRepository {
 
   Future<ApiResponseModel<EquipmentModel>> getAll() async {
     final response = await _connect.get(apiInspections);
+
+    final responseModel = DefaultResponseModel.fromMap({
+      'statusCode': response.statusCode,
+      'data': response.body,
+    });
+
+    if (responseModel.success) {
+      return ApiResponseModel(
+        data: EquipmentModel.fromMap(responseModel.data),
+      );
+    }
+
+    return ApiErrorDefaultModel(
+      message: 'Não foi possível obter dados',
+      response: responseModel,
+    );
+  }
+
+  Future<ApiResponseModel> sendPhoto(
+    int inspectionId,
+    String photoInBase64,
+  ) async {
+    final response = await _connect.post(
+      "$apiInspections/$inspectionId/photos",
+      json.encode({'photo': photoInBase64}),
+    );
 
     final responseModel = DefaultResponseModel.fromMap({
       'statusCode': response.statusCode,
