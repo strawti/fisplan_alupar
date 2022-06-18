@@ -14,7 +14,7 @@ class ForgotPasswordRepository {
     RecoveryPasswordRequestModel requestModel,
   ) async {
     final response = await _connect.post(
-      apiRecoveryPassword,
+      apiForgotPassword,
       requestModel.toMap(),
     );
 
