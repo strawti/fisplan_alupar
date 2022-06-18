@@ -22,3 +22,5 @@ const apiInspectionsSyncSingle = '$apiBase/inspections/sync-single';
 
 const apiInstallationTypes = '$apiBase/installation-types';
 const apiInstallations = '$apiBase/installations';
+
+const apiCompanies = '$apiBase/companies';
