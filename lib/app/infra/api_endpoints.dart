@@ -14,4 +14,5 @@ const apiActivities = '$apiBase/activities';
 
 const apiEquipmentCategories = '$apiBase/equipment-categories';
 const apiEquipments = '$apiBase/equipments';
+const apiInspections = '$apiBase/inspections';
 
