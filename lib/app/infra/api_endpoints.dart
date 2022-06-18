@@ -13,4 +13,5 @@ const apiForgotPassword = '$apiBase/auth/password/email';
 const apiActivities = '$apiBase/activities';
 
 const apiEquipmentCategories = '$apiBase/equipment-categories';
-const equipments = '$apiBase/equipments';
+const apiEquipments = '$apiBase/equipments';
+
