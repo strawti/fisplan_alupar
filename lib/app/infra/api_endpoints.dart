@@ -19,3 +19,5 @@ const apiInspections = '$apiBase/inspections';
 // inspections/${upload.server_inspection_id}/photo
 
 const apiInspectionsSyncSingle = '$apiBase/inspections/sync-single';
+
+const apiInstallationTypes = '$apiBase/installation-types';
