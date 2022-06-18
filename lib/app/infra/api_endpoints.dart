@@ -29,3 +29,5 @@ const apiCompanies = '$apiBase/companies';
 // companies/${user.get('company_id')}/by-projects/questionnaires
 // companies/${user.get('company_id')}/by-projects/steps
 // companies/${user.get('company_id')}/tension-levels
+
+const apiTowers = '$apiBase/towers';
