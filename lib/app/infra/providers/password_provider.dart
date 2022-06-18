@@ -6,7 +6,7 @@ import '../models/requests/recovery_password_request_model.dart';
 import '../repositories/password_repository.dart';
 
 class PasswordProvider {
-  final PasswordRepository _repository;
+  final ForgotPasswordRepository _repository;
   PasswordProvider(this._repository);
 
   Future<ProviderResponseModel> recoveryPassword(

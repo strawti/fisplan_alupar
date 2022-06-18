@@ -6,9 +6,9 @@ import '../models/defaults/api_response_model.dart';
 import '../models/defaults/default_response_model.dart';
 import '../models/requests/recovery_password_request_model.dart';
 
-class PasswordRepository {
+class ForgotPasswordRepository {
   final GetConnect _connect;
-  const PasswordRepository(this._connect);
+  const ForgotPasswordRepository(this._connect);
 
   Future<ApiResponseModel> recoveryPassword(
     RecoveryPasswordRequestModel requestModel,
