@@ -1,5 +1,7 @@
 import 'package:fisplan_alupar/app/presenter/home/home_bindings.dart';
 import 'package:fisplan_alupar/app/presenter/home/home_page.dart';
+import 'package:fisplan_alupar/app/presenter/new_inspection/new_inspection_bindings.dart';
+import 'package:fisplan_alupar/app/presenter/new_inspection/new_inspection_page.dart';
 import 'package:fisplan_alupar/app/presenter/selection_page/selection_page.dart';
 import 'package:fisplan_alupar/app/presenter/splash/splash_page.dart';
 import 'package:get/get.dart';
@@ -26,5 +28,10 @@ final List<GetPage> appPages = [
     name: SelectionPage.route,
     page: () => const SelectionPage(),
     binding: SelectionBindings(),
+  ),
+  GetPage(
+    name: NewInspectionPage.route,
+    page: () => const NewInspectionPage(),
+    binding: NewInspectionBindings(),
   ),
 ];
