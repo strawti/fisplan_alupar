@@ -1,10 +1,10 @@
 import 'package:fisplan_alupar/app/infra/api_endpoints.dart';
-import 'package:fisplan_alupar/app/infra/models/installation_type_model.dart';
 import 'package:get/get.dart';
 
 import '../../models/defaults/api_error_default_model.dart';
 import '../../models/defaults/api_response_model.dart';
 import '../../models/defaults/default_response_model.dart';
+import '../../models/installation_type_model.dart';
 
 class InstallationsTypeRepository {
   final GetConnect _connect;
