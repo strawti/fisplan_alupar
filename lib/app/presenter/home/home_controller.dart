@@ -1,3 +1,4 @@
+import 'package:fisplan_alupar/app/core/app_connectivity.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/user_response_model.dart';
 import 'package:fisplan_alupar/app/infra/providers/auth/user_provider.dart';
 import 'package:fisplan_alupar/app/infra/providers/local/local_user_provider.dart';
@@ -20,9 +21,10 @@ class HomeController extends GetxController with LoaderManager {
   Future fetch() async {
     setIsLoading(true);
 
-    await _getLocalUser();
-    if (user == null) {
+    if (await AppConnectivity.instance.isConnected()) {
       await _getUser();
+    } else {
+      await _getLocalUser();
     }
 
     setIsLoading(false);
