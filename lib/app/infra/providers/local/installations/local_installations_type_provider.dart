@@ -10,7 +10,7 @@ class LocalInstallationsTypeProvider {
 
   Future<ProviderResponseModel<List<InstallationTypeModel>?>> getAll() async {
     try {
-      final response = await _repository.getInstallations();
+      final response = await _repository.getInstallationTypes();
       return ProviderResponseModel(data: response);
     } catch (e) {
       return AppErrorDefaultModel('LocalInstallationsTypeProvider.getAll() $e');
@@ -21,22 +21,22 @@ class LocalInstallationsTypeProvider {
     List<InstallationTypeModel> data,
   ) async {
     try {
-      await _repository.setInstallations(data);
+      await _repository.setInstallationTypes(data);
       return ProviderResponseModel();
     } catch (e) {
       return AppErrorDefaultModel(
-        'LocalInstallationsTypeProvider.setInstallations() $e',
+        'LocalInstallationsTypeProvider.setInstallationTypes() $e',
       );
     }
   }
 
   Future<ProviderResponseModel> clearInstallations() async {
     try {
-      await _repository.clearInstallations();
+      await _repository.clearInstallationTypes();
       return ProviderResponseModel();
     } catch (e) {
       return AppErrorDefaultModel(
-        'LocalInstallationsTypeProvider.clearInstallations() $e',
+        'LocalInstallationsTypeProvider.clearInstallationTypes() $e',
       );
     }
   }
