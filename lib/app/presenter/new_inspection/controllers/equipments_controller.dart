@@ -30,7 +30,7 @@ class EquipmentsController extends GetxController with LoaderManager {
     if (await AppConnectivity.instance.isConnected()) {
       _getInstallations();
     } else {
-      await _getLocalInstallations();
+      await _getLocal();
     }
 
     setIsLoading(false);
@@ -41,13 +41,13 @@ class EquipmentsController extends GetxController with LoaderManager {
 
     if (response.isSuccess) {
       equipments = response.data ?? [];
-      _setLocalInstallations(equipments);
+      _setLocal(equipments);
     } else {
       CustomSnackbar.to.show(response.error!.content!);
     }
   }
 
-  Future _getLocalInstallations() async {
+  Future _getLocal() async {
     final response = await _localEquipmentsProvider.getAll();
 
     if (response.isSuccess) {
@@ -57,7 +57,7 @@ class EquipmentsController extends GetxController with LoaderManager {
     }
   }
 
-  Future _setLocalInstallations(List<EquipmentModel> data) async {
+  Future _setLocal(List<EquipmentModel> data) async {
     final response = await _localEquipmentsProvider.setEquipments(
       data,
     );
