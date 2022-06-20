@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:fisplan_alupar/app/infra/models/requests/auth/login_request_model.dart';
 import 'package:fisplan_alupar/app/infra/repositories/auth/login_repository.dart';
 
+import '../../../core/app_constants.dart';
 import '../../models/defaults/app_error_model.dart';
 import '../../models/defaults/provider_response_model.dart';
 
@@ -17,7 +18,7 @@ class LoginProvider {
       final response = await _repository.signIn(request);
       return ProviderResponseModel.fromMap(response.toMap());
     } on SocketException {
-      return AppErrorDefaultModel('Erro de conexão');
+      return AppErrorDefaultModel(constSocketExceptionError);
     } catch (e) {
       return AppErrorDefaultModel('AuthProvider.signIn() $e');
     }
