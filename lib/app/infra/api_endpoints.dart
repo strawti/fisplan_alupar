@@ -6,6 +6,7 @@ const apiBase = '';
 
 /// Endpoints
 const apiLogin = '$apiBase/auth/login';
+const apiMe = '$apiBase/auth/me';
 const apiLogout = '$apiBase/auth/logout';
 const apiLoginRefresh = '$apiBase/auth/login/refresh';
 const apiForgotPassword = '$apiBase/auth/password/email';
