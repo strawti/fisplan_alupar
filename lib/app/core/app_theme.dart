@@ -4,4 +4,7 @@ import 'package:flutter/material.dart';
 final appThemeLight = ThemeData(
   primaryColor: appPrimaryColor,
   splashColor: appPrimaryColor,
+  appBarTheme: const AppBarTheme(
+    color: appPrimaryColor,
+  ),
 );
