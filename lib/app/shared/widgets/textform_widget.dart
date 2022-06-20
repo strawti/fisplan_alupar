@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-
+import 'package:get/get.dart';
 
 class TextFormWidget extends StatelessWidget {
   final FocusNode? focusNode;
@@ -19,7 +18,7 @@ class TextFormWidget extends StatelessWidget {
   final String? helperText;
   final int? maxLength;
   final int maxLines;
-  final IconData? prefixIcon;
+  final Icon? prefixIcon;
   final Widget? suffixIcon;
   final bool showSuffixIcon;
   final double paddingHorizontal;
@@ -67,12 +66,16 @@ class TextFormWidget extends StatelessWidget {
         keyboardType: keyboardType,
         maxLength: maxLength ?? 200,
         autovalidateMode: AutovalidateMode.onUserInteraction,
+        cursorColor: Get.theme.primaryColor,
         decoration: InputDecoration(
-          suffixIcon: showSuffixIcon ? suffixIcon : null,
-          prefixIcon: Icon(
-            prefixIcon,
-      
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Get.theme.primaryColor,
+            ),
           ),
+          border: const OutlineInputBorder(),
+          suffixIcon: showSuffixIcon ? suffixIcon : null,
+          prefixIcon: prefixIcon,
           labelText: labelText,
           counterText: '',
           hintText: hintText,
@@ -81,10 +84,10 @@ class TextFormWidget extends StatelessWidget {
             fontSize: 17,
             fontWeight: FontWeight.w400,
           ),
-          labelStyle: const TextStyle(
+          labelStyle: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w400,
-        
+            color: Get.theme.primaryColor,
           ),
         ),
       ),
