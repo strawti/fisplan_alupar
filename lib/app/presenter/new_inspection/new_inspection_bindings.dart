@@ -1,3 +1,4 @@
+import 'package:fisplan_alupar/app/infra/providers/installations/installations_type_provider.dart';
 import 'package:fisplan_alupar/app/infra/providers/local/local_installations_type_provider.dart';
 import 'package:fisplan_alupar/app/infra/repositories/installations/installations_type_repository.dart';
 import 'package:fisplan_alupar/app/infra/repositories/local/installations/local_installations_type_repository.dart';
@@ -15,8 +16,9 @@ class NewInspectionBindings implements Bindings {
     Get.lazyPut(() => LocalInstallationsTypeRepository(GetStorage()));
 
     Get.lazyPut(() => LocalInstallationsTypeProvider(Get.find()));
+    Get.lazyPut(() => InstallationsTypeProvider(Get.find()));
 
     Get.put(NewInspectionController());
-    Get.lazyPut(() => InstallationTypeController(Get.find(), Get.find()));
+    Get.put(InstallationTypeController(Get.find(), Get.find()));
   }
 }
