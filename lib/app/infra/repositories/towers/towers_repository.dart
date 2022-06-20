@@ -10,19 +10,24 @@ class TowersRepository {
   final GetConnect _connect;
   TowersRepository(this._connect);
 
-  Future<ApiResponseModel<TowerModel>> getAllByCompanyId(
+  Future<ApiResponseModel<List<TowerModel>>> getAllByCompanyId(
     int userCompanyId,
   ) async {
     final response = await _connect.get(apiTowers);
 
     final responseModel = DefaultResponseModel.fromMap({
+      'success': response.statusCode == 200,
       'statusCode': response.statusCode,
       'data': response.body,
     });
 
     if (responseModel.success) {
       return ApiResponseModel(
-        data: TowerModel.fromMap(responseModel.data),
+        data: List<TowerModel>.from(
+          responseModel.data.map(
+            (e) => TowerModel.fromMap(e),
+          ),
+        ),
       );
     }
 

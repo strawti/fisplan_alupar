@@ -7,12 +7,12 @@ class TowerModel {
   final String name;
   final String? description;
   final String span;
-  final int spanLength;
-  final int lat;
-  final int long;
-  final int height;
+  final double spanLength;
+  final double lat;
+  final double long;
+  final double height;
   final TowerTypeModel towerType;
-  
+
   TowerModel({
     required this.id,
     required this.installationId,
@@ -29,7 +29,7 @@ class TowerModel {
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
-  
+
     result.addAll({'id': id});
     result.addAll({'installation_id': installationId});
     result.addAll({'tower_type_id': towerTypeId});
@@ -41,29 +41,30 @@ class TowerModel {
     result.addAll({'long': long});
     result.addAll({'height': height});
     result.addAll({'tower_type': towerType.toMap()});
-  
+
     return result;
   }
 
   factory TowerModel.fromMap(Map<String, dynamic> map) {
     return TowerModel(
-      id: map['id']?.toInt() ?? 0,
-      installationId: map['installation_id']?.toInt() ?? 0,
-      towerTypeId: map['tower_type_id']?.toInt() ?? 0,
+      id: map['id'],
+      installationId: map['installation_id'],
+      towerTypeId: map['tower_type_id'],
       name: map['name'] ?? '',
       description: map['description'] ?? '',
       span: map['span'] ?? '',
-      spanLength: map['span_length']?.toInt() ?? 0,
-      lat: map['lat']?.toInt() ?? 0,
-      long: map['long']?.toInt() ?? 0,
-      height: map['height']?.toInt() ?? 0,
+      spanLength: double.tryParse("${map['span_length']}") ?? 0.0,
+      lat: double.tryParse("${map['lat']}") ?? 0.0,
+      long: double.tryParse("${map['long']}") ?? 0.0,
+      height: double.tryParse("${map['height']}") ?? 0,
       towerType: TowerTypeModel.fromMap(map['tower_type']),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory TowerModel.fromJson(String source) => TowerModel.fromMap(json.decode(source));
+  factory TowerModel.fromJson(String source) =>
+      TowerModel.fromMap(json.decode(source));
 }
 
 class TowerTypeModel {
@@ -76,21 +77,22 @@ class TowerTypeModel {
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
-  
+
     result.addAll({'id': id});
     result.addAll({'name': name});
-  
+
     return result;
   }
 
   factory TowerTypeModel.fromMap(Map<String, dynamic> map) {
     return TowerTypeModel(
-      id: map['id']?.toInt() ?? 0,
+      id: map['id'],
       name: map['name'] ?? '',
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory TowerTypeModel.fromJson(String source) => TowerTypeModel.fromMap(json.decode(source));
+  factory TowerTypeModel.fromJson(String source) =>
+      TowerTypeModel.fromMap(json.decode(source));
 }

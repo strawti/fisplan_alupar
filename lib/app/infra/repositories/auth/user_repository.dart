@@ -23,9 +23,7 @@ class UserRepository {
 
     if (responseModel.success) {
       return ApiResponseModel(
-        data: UserResponseModel.fromMap(
-          responseModel.data,
-        ),
+        data: UserResponseModel.fromMap(responseModel.data),
       );
     }
 
