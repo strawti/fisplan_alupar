@@ -3,14 +3,12 @@ import 'dart:convert';
 import 'default_error_model.dart';
 
 class DefaultResponseModel {
-  final int statusCode;
   final bool success;
   final dynamic data;
   final DefaultErrorModel? error;
   final dynamic metadata;
 
   DefaultResponseModel({
-    required this.statusCode,
     required this.success,
     this.data,
     required this.error,
@@ -19,7 +17,6 @@ class DefaultResponseModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'statusCode': statusCode,
       'success': success,
       'data': data,
       'error': error?.toMap(),
@@ -28,7 +25,6 @@ class DefaultResponseModel {
 
   factory DefaultResponseModel.fromMap(Map<String, dynamic>? map) {
     return DefaultResponseModel(
-      statusCode: map?['statusCode']?.toInt() ?? 500,
       success: map?['success'] ?? false,
       data: map?['data'],
       error: map?['error'] != null
@@ -42,9 +38,4 @@ class DefaultResponseModel {
 
   factory DefaultResponseModel.fromJson(String source) =>
       DefaultResponseModel.fromMap(json.decode(source));
-
-  @override
-  String toString() {
-    return 'DefaultResponseModel(statusCode: $statusCode, success: $success, error: $error)';
-  }
 }

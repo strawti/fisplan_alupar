@@ -12,7 +12,6 @@ class ApiErrorDefaultModel<T> extends ApiResponseModel<T> {
   }) : super(
           isSuccess: false,
           error: ApiErrorModel(
-            code: response.statusCode.toString(),
             title: message,
             content: response.error?.message ?? 'Erro desconhecido... ',
           ),

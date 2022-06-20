@@ -21,8 +21,8 @@ class LoginRepository {
     );
 
     final responseModel = DefaultResponseModel.fromMap({
-      'statusCode': response.statusCode,
       'data': response.body,
+      'success': response.statusCode == 200,
       'error': {
         'message': response.statusText,
       }
