@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class UserResponseModel {
-  final String id;
+  final int id;
   final String name;
   final String email;
   final int companyId;
@@ -26,10 +26,10 @@ class UserResponseModel {
 
   factory UserResponseModel.fromMap(Map<String, dynamic> map) {
     return UserResponseModel(
-      id: map['id'] ?? '',
+      id: map['id'],
       name: map['name'] ?? '',
       email: map['email'] ?? '',
-      companyId: map['company_id']?.toInt() ?? 0,
+      companyId: map['company_id'],
     );
   }
 
