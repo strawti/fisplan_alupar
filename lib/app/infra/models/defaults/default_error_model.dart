@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 class DefaultErrorModel {
   final String? message;
@@ -36,13 +37,19 @@ class DefaultErrorModel {
       return list.map((e) => e.toString()).join('\n');
     }
 
-    return DefaultErrorModel(
+    final model = DefaultErrorModel(
       message: map?['message'] is List
           ? _getErrorMessageOfList(map!['message'])
           : map?['message'].toString(),
       timestamp: map?['timestamp'],
       path: map?['path'],
     );
+
+    if (model.message!.startsWith('SocketException')) {
+      throw const SocketException('Sem conexão com a internet');
+    }
+
+    return model;
   }
 
   String toJson() => json.encode(toMap());
