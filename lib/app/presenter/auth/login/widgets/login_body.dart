@@ -20,6 +20,7 @@ class LoginBody extends StatelessWidget {
         GetBuilder<LoginController>(
           builder: (control) {
             return TextFormWidget(
+              controller: control.emailController,
               enabled: control.isLoading == false,
               labelText: 'Email',
               textInputAction: TextInputAction.next,
@@ -32,6 +33,7 @@ class LoginBody extends StatelessWidget {
         GetBuilder<LoginController>(
           builder: (control) {
             return TextFormWidget(
+              controller: control.passwordController,
               enabled: control.isLoading == false,
               labelText: 'Senha',
               textInputAction: TextInputAction.done,
@@ -44,8 +46,9 @@ class LoginBody extends StatelessWidget {
           builder: (control) {
             return ButtonDefaultWidget(
               title: 'ENTRAR',
-              onTap: control.verify,
+              onTap: control.login,
               isLoading: control.isLoading,
+              enabled: control.isValidForm,
             );
           },
         ),
