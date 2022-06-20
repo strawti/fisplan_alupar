@@ -19,6 +19,11 @@ class LoginController extends GetxController with LoaderManager {
 
     emailController.addListener(update);
     passwordController.addListener(update);
+
+    Future.delayed(const Duration(seconds: 1)).then((value) {
+      emailController.text = 'fiscal1@alupar.com.br';
+      passwordController.text = '123456';
+    });
   }
 
   @override
@@ -34,20 +39,6 @@ class LoginController extends GetxController with LoaderManager {
 
   final passwordController = TextEditingController();
   String get password => passwordController.text.trim();
-
-  void verify() {
-    if (validateEmail(email) != null) {
-      CustomSnackbar.to.show('Informe um e-mail válido');
-      return;
-    }
-
-    if (simpleValidate(password) != null) {
-      CustomSnackbar.to.show('Informe uma senha válida');
-      return;
-    }
-
-    login();
-  }
 
   Future login() async {
     setIsLoading(true);
@@ -65,5 +56,9 @@ class LoginController extends GetxController with LoaderManager {
     }
 
     setIsLoading(false);
+  }
+
+  bool get isValidForm {
+    return validateEmail(email) == null && simpleValidate(password) == null;
   }
 }
