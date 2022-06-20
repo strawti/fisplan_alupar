@@ -3,15 +3,14 @@ import 'dart:convert';
 class EquipmentCategoryModel {
   final int id;
   final String name;
-  final String description;
-  final String createdAt;
-  final String updatedAt;
+  final String? description;
+  final int installationId;
+
   EquipmentCategoryModel({
     required this.id,
     required this.name,
     required this.description,
-    required this.createdAt,
-    required this.updatedAt,
+    required this.installationId,
   });
 
   Map<String, dynamic> toMap() {
@@ -20,8 +19,6 @@ class EquipmentCategoryModel {
     result.addAll({'id': id});
     result.addAll({'name': name});
     result.addAll({'description': description});
-    result.addAll({'created_at': createdAt});
-    result.addAll({'updated_at': updatedAt});
 
     return result;
   }
@@ -31,8 +28,7 @@ class EquipmentCategoryModel {
       id: map['id']?.toInt() ?? 0,
       name: map['name'] ?? '',
       description: map['description'] ?? '',
-      createdAt: map['created_at'] ?? '',
-      updatedAt: map['updated_at'] ?? '',
+      installationId: map['installation_id']?.toInt() ?? 0,
     );
   }
 

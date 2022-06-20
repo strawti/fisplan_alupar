@@ -6,11 +6,9 @@ class EquipmentModel {
   final int equipmentCategoryId;
   final int tensionLevelId;
   final String name;
-  final String description;
-  final String make;
-  final String model;
-  final String createdAt;
-  final String updatedAt;
+  final String? description;
+  final String? make;
+  final String? model;
 
   EquipmentModel({
     required this.id,
@@ -21,8 +19,6 @@ class EquipmentModel {
     required this.description,
     required this.make,
     required this.model,
-    required this.createdAt,
-    required this.updatedAt,
   });
 
   Map<String, dynamic> toMap() {
@@ -36,8 +32,6 @@ class EquipmentModel {
     result.addAll({'description': description});
     result.addAll({'make': make});
     result.addAll({'model': model});
-    result.addAll({'created_at': createdAt});
-    result.addAll({'updated_at': updatedAt});
 
     return result;
   }
@@ -52,8 +46,6 @@ class EquipmentModel {
       description: map['description'] ?? '',
       make: map['make'] ?? '',
       model: map['model'] ?? '',
-      createdAt: map['created_at'] ?? '',
-      updatedAt: map['updated_at'] ?? '',
     );
   }
 

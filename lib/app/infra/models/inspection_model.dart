@@ -18,8 +18,8 @@ class InspectionModel {
   final int? stepId;
   final String name;
   final String? description;
-  final int? latitude;
-  final int? longitude;
+  final double? latitude;
+  final double? longitude;
   final String? comments;
   final String date;
   final String createdAt;
