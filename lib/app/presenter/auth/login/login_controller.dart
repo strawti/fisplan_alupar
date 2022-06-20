@@ -6,6 +6,7 @@ import 'package:fisplan_alupar/app/shared/utils/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/app_token.dart';
 import '../../../shared/utils/loader_manager.dart';
 
 class LoginController extends GetxController with LoaderManager {
@@ -57,6 +58,7 @@ class LoginController extends GetxController with LoaderManager {
     ));
 
     if (response.isSuccess) {
+      await AppToken.instance.setToken(response.data);
       Get.offAllNamed(HomePage.route);
     } else {
       CustomSnackbar.to.show(response.error!.content!);
