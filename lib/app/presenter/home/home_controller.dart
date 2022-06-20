@@ -42,7 +42,8 @@ class HomeController extends GetxController with LoaderManager {
     final response = await _userProvider.getUser();
     if (response.isSuccess) {
       user = response.data;
-      await _localUserProvider.setUser(response.data!);
+
+      await _localUserProvider.setUser(user!);
     }
   }
 }
