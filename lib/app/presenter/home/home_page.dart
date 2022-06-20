@@ -12,9 +12,20 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('HomePage'),
+        title: const Text('Projetos'),
+        leading: IconButton(
+          icon: const Text('Sair'),
+          onPressed: () {
+            // TODO: DIALOG PARA CONFIRMAR SAIDA
+          },
+        ),
       ),
       body: Container(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {},
+        label: const Text('Atualizar dados'),
+      ),
     );
   }
 }
