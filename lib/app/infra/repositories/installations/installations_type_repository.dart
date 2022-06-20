@@ -10,17 +10,24 @@ class InstallationsTypeRepository {
   final GetConnect _connect;
   InstallationsTypeRepository(this._connect);
 
-  Future<ApiResponseModel<InstallationTypeModel>> getAll() async {
+  Future<ApiResponseModel<List<InstallationTypeModel>>> getAll() async {
     final response = await _connect.get(apiInstallationTypes);
 
     final responseModel = DefaultResponseModel.fromMap({
       'statusCode': response.statusCode,
       'data': response.body,
+      'error': {
+        'message': response.statusText,
+      }
     });
 
     if (responseModel.success) {
       return ApiResponseModel(
-        data: InstallationTypeModel.fromMap(responseModel.data),
+        data: List.from(
+          responseModel.data.map(
+            (e) => InstallationTypeModel.fromMap(e),
+          ),
+        ),
       );
     }
 
