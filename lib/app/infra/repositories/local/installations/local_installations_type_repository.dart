@@ -6,16 +6,16 @@ class LocalInstallationsTypeRepository {
   final GetStorage _storage;
   LocalInstallationsTypeRepository(this._storage);
 
-  Future<void> setInstallations(List<InstallationTypeModel> data) async {
+  Future<void> setInstallationTypes(List<InstallationTypeModel> data) async {
     await _storage.write(apiInstallationTypes, data.map((e) => e.toJson()));
   }
 
-  Future<List<InstallationTypeModel>> getInstallations() async {
+  Future<List<InstallationTypeModel>> getInstallationTypes() async {
     final data = await _storage.read(apiInstallationTypes);
     return data.map((e) => InstallationTypeModel.fromJson(e)).toList();
   }
 
-  Future<void> clearInstallations() async {
+  Future<void> clearInstallationTypes() async {
     await _storage.remove(apiInstallationTypes);
   }
 }
