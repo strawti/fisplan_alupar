@@ -14,6 +14,7 @@ class InstallationsRepository {
     final response = await _connect.get(apiInstallations);
 
     final responseModel = DefaultResponseModel.fromMap({
+      'success': response.statusCode == 200,
       'statusCode': response.statusCode,
       'data': response.body,
     });
