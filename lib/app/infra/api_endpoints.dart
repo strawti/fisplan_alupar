@@ -1,8 +1,8 @@
 // PRODUCTION
-//const apiBase = 'https://fisplan.alupar.com.br/api/';
+const apiBase = 'https://fisplan.alupar.com.br/api';
 
 // DEVELOPMENT
-const apiBase = '';
+//const apiBase = '';
 
 /// Endpoints
 const apiLogin = '$apiBase/auth/login';
