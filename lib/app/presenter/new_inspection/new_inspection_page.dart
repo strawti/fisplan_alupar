@@ -1,4 +1,4 @@
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/installation_type_controller.dart';
+import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/towers_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,12 +22,12 @@ class NewInspectionPage extends GetView<NewInspectionController> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          final data = Get.find<InstallationTypeController>().installationTypes;
+          final data = Get.find<TowersController>().towers;
 
           Get.toNamed(
             SelectionPage.route,
             arguments: SelectionPageArguments(
-              title: 'Tipo de Instalação',
+              title: 'Torres',
               items: data
                   .map((e) => ItemSelectionModel(
                         title: e.name,
