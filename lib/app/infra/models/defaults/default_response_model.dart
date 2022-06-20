@@ -23,14 +23,16 @@ class DefaultResponseModel {
     };
   }
 
-  factory DefaultResponseModel.fromMap(Map<String, dynamic>? map) {
+  factory DefaultResponseModel.fromMap(Map<String, dynamic> map) {
     return DefaultResponseModel(
-      success: map?['success'] ?? false,
-      data: map?['data'],
-      error: map?['error'] != null
-          ? DefaultErrorModel.fromMap(map?['error'])
+      success: map['success'] ?? false,
+      data: map['data'],
+      error: map['error'] != null
+          ? DefaultErrorModel.fromMap(
+              map['error'],
+            )
           : null,
-      metadata: map?['metadata'],
+      metadata: map['metadata'],
     );
   }
 
