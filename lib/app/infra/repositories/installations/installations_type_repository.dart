@@ -14,6 +14,7 @@ class InstallationsTypeRepository {
     final response = await _connect.get(apiInstallationTypes);
 
     final responseModel = DefaultResponseModel.fromMap({
+      'success': response.statusCode == 200,
       'statusCode': response.statusCode,
       'data': response.body,
       'error': {
@@ -23,7 +24,7 @@ class InstallationsTypeRepository {
 
     if (responseModel.success) {
       return ApiResponseModel(
-        data: List.from(
+        data: List<InstallationTypeModel>.from(
           responseModel.data.map(
             (e) => InstallationTypeModel.fromMap(e),
           ),
