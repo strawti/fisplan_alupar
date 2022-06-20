@@ -8,7 +8,7 @@ class LocalTowersRepository {
   LocalTowersRepository(this._storage);
 
   Future<void> set(List<TowerModel> data) async {
-    await _storage.write(apiTowers, data.map((e) => e.toJson()));
+    await _storage.write(apiTowers, data.map((e) => e.toJson()).toList());
   }
 
   Future<List<TowerModel>> getAll() async {
