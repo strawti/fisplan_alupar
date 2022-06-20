@@ -28,7 +28,7 @@ class EquipmentsCategoriesController extends GetxController with LoaderManager {
     setIsLoading(true);
 
     if (await AppConnectivity.instance.isConnected()) {
-      _getAll();
+      await _getAll();
     } else {
       await _getLocalAll();
     }
