@@ -23,13 +23,13 @@ class TowersController extends GetxController with LoaderManager {
     fetch();
   }
 
-  List<TowerModel> installations = [];
+  List<TowerModel> towers = [];
 
   Future<void> fetch() async {
     setIsLoading(true);
 
     if (await AppConnectivity.instance.isConnected()) {
-      _getAll();
+      await _getAll();
     } else {
       await _getLocal();
     }
@@ -43,8 +43,8 @@ class TowersController extends GetxController with LoaderManager {
     );
 
     if (response.isSuccess) {
-      installations = response.data ?? [];
-      _setLocal(installations);
+      towers = response.data ?? [];
+      _setLocal(towers);
     } else {
       CustomSnackbar.to.show(response.error!.content!);
     }
@@ -54,7 +54,7 @@ class TowersController extends GetxController with LoaderManager {
     final response = await _localTowersProvider.getAll();
 
     if (response.isSuccess) {
-      installations = response.data ?? [];
+      towers = response.data ?? [];
     } else {
       CustomSnackbar.to.show(response.error!.content!);
     }
@@ -66,7 +66,7 @@ class TowersController extends GetxController with LoaderManager {
     );
 
     if (response.isSuccess) {
-      installations = data;
+      towers = data;
     } else {
       CustomSnackbar.to.show(response.error!.content!);
     }
