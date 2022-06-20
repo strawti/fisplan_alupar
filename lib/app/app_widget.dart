@@ -1,3 +1,4 @@
+import 'package:fisplan_alupar/app/presenter/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -5,7 +6,6 @@ import 'package:get/get.dart';
 import 'app_bindings.dart';
 import 'core/app_constants.dart';
 import 'core/app_theme.dart';
-import 'presenter/auth/login/login_page.dart';
 import 'routes/app_pages.dart';
 
 class AppWidget extends StatelessWidget {
@@ -20,7 +20,7 @@ class AppWidget extends StatelessWidget {
       getPages: appPages,
       themeMode: ThemeMode.light,
       initialBinding: AppBindings(),
-      initialRoute: LoginPage.route,
+      initialRoute: SplashPage.route,
       fallbackLocale: const Locale('pt', 'BR'),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
