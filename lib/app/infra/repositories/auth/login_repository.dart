@@ -22,8 +22,10 @@ class LoginRepository {
 
     final responseModel = DefaultResponseModel.fromMap(response.body);
     if (responseModel.success) {
-      await AppToken.instance
-          .setToken(response.body['metadata']['auth']['token']);
+      await AppToken.instance.setToken(
+        response.body['metadata']['auth']['token'],
+      );
+
       return ApiResponseModel(
         data: UserResponseModel.fromMap(responseModel.data),
       );
