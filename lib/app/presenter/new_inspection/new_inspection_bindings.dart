@@ -1,5 +1,5 @@
 import 'package:fisplan_alupar/app/infra/providers/installations/installations_type_provider.dart';
-import 'package:fisplan_alupar/app/infra/providers/local/local_installations_type_provider.dart';
+import 'package:fisplan_alupar/app/infra/providers/local/installations/local_installations_type_provider.dart';
 import 'package:fisplan_alupar/app/infra/repositories/installations/installations_type_repository.dart';
 import 'package:fisplan_alupar/app/infra/repositories/local/installations/local_installations_type_repository.dart';
 import 'package:get/get.dart';
