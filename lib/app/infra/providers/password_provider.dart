@@ -12,8 +12,8 @@ class PasswordProvider {
   Future<ProviderResponseModel> recoveryPassword(
       RecoveryPasswordRequestModel requestModel) async {
     try {
-      final response = await _repository.recoveryPassword(requestModel);
-      return ProviderResponseModel.fromMap(response.toMap());
+      final _response = await _repository.recoveryPassword(requestModel);
+      return ProviderResponseModel.fromMap(_response.toMap());
     } on SocketException {
       return AppErrorDefaultModel('Erro de conexão');
     } catch (e) {
