@@ -8,8 +8,8 @@ class CustomSnackbar {
 
   static CustomSnackbar get to => CustomSnackbar._();
 
-  final _defaultDuration = const Duration(seconds: 2);
-  final _defaultMargin = const EdgeInsets.fromLTRB(10, 16, 10, 0);
+  final _defaultDuration = const Duration(seconds: 3);
+  final _defaultMargin = const EdgeInsets.fromLTRB(10, 16, 10, 20);
   final _defaultBorderRadius = 8.0;
   final _defaultSnackPosition = SnackPosition.BOTTOM;
   final _defaultMainButton = TextButton(
