@@ -1,5 +1,4 @@
 import 'package:fisplan_alupar/app/core/app_assets.dart';
-import 'package:fisplan_alupar/app/core/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,7 +27,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appPrimaryColor,
+      backgroundColor: Get.theme.primaryColor,
       body: Center(child: Image.asset(appAssetSplash)),
     );
   }
