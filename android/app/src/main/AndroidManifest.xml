@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.fisplan_alupar.fisplan_alupar">
    <application
-        android:label="fisplan_alupar"
+        android:label="Fisplan Alupar"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
