@@ -1,4 +1,6 @@
 import 'package:fisplan_alupar/app/core/app_assets.dart';
+import 'package:fisplan_alupar/app/core/app_token.dart';
+import 'package:fisplan_alupar/app/presenter/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,9 +20,12 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
 
-    // TODO: VERIFICAR O TOKEN AQUI
-    Future.delayed(const Duration(seconds: 3), () {
-      Get.offAllNamed(LoginPage.route);
+    Future.delayed(const Duration(seconds: 1)).then((value) {
+      if (AppToken.instance.hasToken()) {
+        Get.offAllNamed(HomePage.route);
+      } else {
+        Get.offAllNamed(LoginPage.route);
+      }
     });
   }
 
