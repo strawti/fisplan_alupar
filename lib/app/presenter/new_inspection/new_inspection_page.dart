@@ -1,4 +1,9 @@
+
+import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/installation_type_controller.dart';
+import 'package:fisplan_alupar/app/presenter/new_inspection/widgets/new_inspection_body.dart';
+
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/towers_controller.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,7 +23,7 @@ class NewInspectionPage extends GetView<NewInspectionController> {
       appBar: AppBar(
         title: const Text('NewInspectionPage'),
       ),
-      body: Container(),
+      body: const NewInspectionBody(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
