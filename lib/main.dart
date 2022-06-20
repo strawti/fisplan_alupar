@@ -18,14 +18,14 @@ void main() async {
       DeviceOrientation.portraitDown,
     ]);
 
-    // TODO: Precisa configurar o firebase ou o sentry
-    //await Firebase.initializeApp();
-    //await AppNotifications().init();
+    await Firebase.initializeApp();
+    await AppNotifications().init();
     await GetStorage.init();
 
-    //FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+
     runApp(const AppWidget());
   }, (Object error, StackTrace stack) {
- //   FirebaseCrashlytics.instance.recordError(error, stack);
+    FirebaseCrashlytics.instance.recordError(error, stack);
   });
 }

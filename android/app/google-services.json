@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "916655447732",
+    "project_id": "fisplan-alupar",
+    "storage_bucket": "fisplan-alupar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916655447732:android:1899050daeb91413c201e1",
+        "android_client_info": {
+          "package_name": "br.com.fisplan_alupar.fisplan_alupar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "916655447732-2kpq3dhpglqrb6t2voma5t6b3qg2jtl2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_Dks9A94HTqEeKYxU_I4oUuZpzmvUYnI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "916655447732-2kpq3dhpglqrb6t2voma5t6b3qg2jtl2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
