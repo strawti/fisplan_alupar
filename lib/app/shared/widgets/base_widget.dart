@@ -7,13 +7,19 @@ class BaseWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: LayoutBuilder(builder: (contex, constraints) {
-      return Container(
-        padding: const EdgeInsets.all(0),
-        width: constraints.maxWidth,
-        child: child,
-      );
-    }));
+    return LayoutBuilder(
+      builder: (contex, constraints) {
+        return SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: SizedBox(
+              width: constraints.maxWidth,
+              height: constraints.maxHeight,
+              child: child,
+            ),
+          ),
+        );
+      },
+    );
   }
 }
