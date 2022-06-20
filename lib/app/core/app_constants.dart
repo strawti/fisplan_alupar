@@ -1,1 +1,1 @@
-const constAppTitle = "Base Structure";
+const constSocketExceptionError = "Não foi possível se conectar com o servidor";
