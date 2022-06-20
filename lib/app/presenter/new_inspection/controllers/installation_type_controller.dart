@@ -1,5 +1,5 @@
 import 'package:fisplan_alupar/app/infra/models/installation_type_model.dart';
-import 'package:fisplan_alupar/app/infra/providers/local/local_installations_type_provider.dart';
+import 'package:fisplan_alupar/app/infra/providers/local/installations/local_installations_type_provider.dart';
 import 'package:fisplan_alupar/app/shared/utils/custom_snackbar.dart';
 import 'package:fisplan_alupar/app/shared/utils/loader_manager.dart';
 import 'package:get/get.dart';
