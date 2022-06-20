@@ -20,11 +20,16 @@ class LoginRepository {
       requestModel.toMap(),
     );
 
-    final responseModel = DefaultResponseModel.fromMap(response.body);
+    final responseModel = DefaultResponseModel.fromMap({
+      'statusCode': response.statusCode,
+      'data': response.body,
+      'error': {
+        'message': response.statusText,
+      }
+    });
+
     if (responseModel.success) {
-      await AppToken.instance.setToken(
-        response.body['metadata']['auth']['token'],
-      );
+      await AppToken.instance.setToken(responseModel.data['token']);
 
       return ApiResponseModel(
         data: UserResponseModel.fromMap(responseModel.data),
