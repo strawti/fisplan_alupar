@@ -61,8 +61,9 @@ class InspectionsController extends GetxController with LoaderManager {
     await _getLocalInspections();
 
     if (await AppConnectivity.instance.isConnected()) {
-      await _getInspections();
-      if (inspections.isEmpty) {}
+      if (inspections.isEmpty) {
+        await _getInspections();
+      }
     }
 
     inspections = inspections.where((e) {
@@ -70,6 +71,7 @@ class InspectionsController extends GetxController with LoaderManager {
     }).toList();
 
     inspectionsFiltered = inspections.toList();
+    inspectionsFiltered.sort((a, b) => a.progress.compareTo(b.progress));
 
     setIsLoading(false);
   }
