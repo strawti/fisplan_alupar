@@ -14,9 +14,8 @@ class InspectionsPage extends GetView<InspectionsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Inspeções'),
-      ),
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(title: const Text('Inspeções')),
       body: Column(
         children: [
           Padding(
@@ -42,7 +41,6 @@ class InspectionsPage extends GetView<InspectionsController> {
               },
             ),
           ),
-          const SizedBox(height: 20),
           Expanded(
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
