@@ -6,10 +6,9 @@ import '../../../models/defaults/api_error_default_model.dart';
 import '../../../models/defaults/api_response_model.dart';
 import '../../../models/defaults/default_response_model.dart';
 
-
-class CompaniesProjectsRepository {
+class CompaniesProjectsQuestionnairesRepository {
   final GetConnect _connect;
-  CompaniesProjectsRepository(this._connect);
+  CompaniesProjectsQuestionnairesRepository(this._connect);
 
   Future<ApiResponseModel<ProjectModel>> getAllByCompanyId(
     int userCompanyId,

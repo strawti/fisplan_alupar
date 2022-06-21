@@ -10,7 +10,7 @@ class CompaniesProjectsRepository {
   final GetConnect _connect;
   CompaniesProjectsRepository(this._connect);
 
-  Future<ApiResponseModel<ProjectModel>> getAllByCompanyId(
+  Future<ApiResponseModel<List<ProjectModel>>> getAllByCompanyId(
     int userCompanyId,
   ) async {
     final response = await _connect.get(
@@ -18,13 +18,21 @@ class CompaniesProjectsRepository {
     );
 
     final responseModel = DefaultResponseModel.fromMap({
+      'success': response.statusCode == 200,
       'statusCode': response.statusCode,
       'data': response.body,
+      'error': {
+        'message': response.statusText,
+      }
     });
 
     if (responseModel.success) {
       return ApiResponseModel(
-        data: ProjectModel.fromMap(responseModel.data),
+        data: List<ProjectModel>.from(
+          responseModel.data.map(
+            (e) => ProjectModel.fromMap(e),
+          ),
+        ),
       );
     }
 

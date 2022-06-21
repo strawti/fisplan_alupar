@@ -4,6 +4,7 @@ import 'package:fisplan_alupar/app/core/app_token.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/request/request.dart';
+import 'package:get_storage/get_storage.dart';
 
 class AppBindings implements Bindings {
   @override
@@ -15,6 +16,8 @@ class AppBindings implements Bindings {
       connect.httpClient.addResponseModifier(responseModifier);
       return connect;
     });
+
+    Get.lazyPut(() => GetStorage());
   }
 
   FutureOr<Request> requestModifier(Request request) async {
