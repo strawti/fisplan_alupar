@@ -1,6 +1,12 @@
-import 'package:fisplan_alupar/app/presenter/new_inspection/widgets/new_inspection_card.dart';
-import 'package:fisplan_alupar/app/shared/widgets/textform_widget.dart';
+import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/installation_type_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../../infra/models/defaults/item_selection_model.dart';
+import '../../../routes/arguments/selection_page_arguments.dart';
+import '../../../shared/widgets/textform_widget.dart';
+import '../../selection_page/selection_page.dart';
+import 'new_inspection_card.dart';
 
 class NewInspectionBody extends StatelessWidget {
   const NewInspectionBody({Key? key}) : super(key: key);
@@ -41,11 +47,30 @@ class NewInspectionBody extends StatelessWidget {
                     thickness: 1,
                   ),
                   const SizedBox(height: 10),
-                  ListTile(
-                    title: const Text('Tipo de Instalação'),
-                    trailing: const Icon(Icons.arrow_drop_down),
-                    onTap: () {},
-                  ),
+                  GetBuilder<InstallationTypeController>(builder: (controller) {
+                    return ListTile(
+                      title: const Text('Tipo de Instalação'),
+                      trailing: const Icon(Icons.arrow_drop_down),
+                      subtitle: const Text(''),
+                      onTap: () async {
+                        final data = Get.find<InstallationTypeController>()
+                            .installationTypes;
+
+                        await Get.toNamed(
+                          SelectionPage.route,
+                          arguments: SelectionPageArguments(
+                            title: 'Tipo de instalação',
+                            items: data
+                                .map((e) => ItemSelectionModel(
+                                      title: e.name,
+                                      item: e,
+                                    ))
+                                .toList(),
+                          ),
+                        );
+                      },
+                    );
+                  }),
                 ],
               ),
             ),
