@@ -10,7 +10,8 @@ class InstallationsRepository {
   final GetConnect _connect;
   InstallationsRepository(this._connect);
 
-  Future<ApiResponseModel<InstallationModel>> getAll() async {
+  Future<ApiResponseModel<List<InstallationModel>>> getAll(
+      int installationTypeId) async {
     final response = await _connect.get(apiInstallations);
 
     final responseModel = DefaultResponseModel.fromMap({
@@ -21,7 +22,11 @@ class InstallationsRepository {
 
     if (responseModel.success) {
       return ApiResponseModel(
-        data: InstallationModel.fromMap(responseModel.data),
+        data: List<InstallationModel>.from(
+          responseModel.data.map(
+            (e) => InstallationModel.fromMap(e),
+          ),
+        ).where((e) => e.installationTypeId == installationTypeId).toList(),
       );
     }
 

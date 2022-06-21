@@ -1,4 +1,4 @@
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/installation_type_controller.dart';
+import 'package:fisplan_alupar/app/presenter/new_inspection/new_inspection_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -44,13 +44,51 @@ class NewInspectionBody extends StatelessWidget {
                     thickness: 1,
                   ),
                   const SizedBox(height: 10),
-                  GetBuilder<InstallationTypeController>(
+                  GetBuilder<NewInspectionController>(
                     builder: (controller) {
                       return ListTile(
                         title: const Text('Tipo de Instalação'),
                         trailing: const Icon(Icons.arrow_drop_down),
-                        subtitle: const Text(''),
+                        subtitle: Text(
+                          controller.selectedInstallationType?.name ?? '',
+                          textScaleFactor: 1.1,
+                        ),
                         onTap: controller.getInstallationType,
+                      );
+                    },
+                  ),
+                  GetBuilder<NewInspectionController>(
+                    builder: (controller) {
+                      return Visibility(
+                        visible: controller.selectedInstallationType != null,
+                        child: ListTile(
+                          title: const Text('Instalação'),
+                          trailing: const Icon(Icons.arrow_drop_down),
+                          subtitle: Text(
+                            controller.selectedInstallation?.name ?? '',
+                            textScaleFactor: 1.1,
+                          ),
+                          onTap: controller.getInstallation,
+                        ),
+                      );
+                    },
+                  ),
+                  GetBuilder<NewInspectionController>(
+                    builder: (controller) {
+                      return Visibility(
+                        visible: controller.selectedInstallation != null &&
+                            (controller.selectedInstallationType!.id == 5 ||
+                                controller.selectedInstallationType!.id == 4 ||
+                                controller.selectedInstallationType!.id == 1),
+                        child: ListTile(
+                          title: const Text('Torre'),
+                          trailing: const Icon(Icons.arrow_drop_down),
+                          subtitle: Text(
+                            controller.selectedTower?.name ?? '',
+                            textScaleFactor: 1.1,
+                          ),
+                          onTap: controller.getTowers,
+                        ),
                       );
                     },
                   ),

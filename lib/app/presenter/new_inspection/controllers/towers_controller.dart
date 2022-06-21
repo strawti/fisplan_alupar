@@ -9,6 +9,7 @@ import '../../../shared/utils/custom_snackbar.dart';
 import '../../../shared/utils/loader_manager.dart';
 
 class TowersController extends GetxController with LoaderManager {
+  static TowersController get to => Get.find();
   final TowersProvider _towersProvider;
   final LocalTowersProvider _localTowersProvider;
 

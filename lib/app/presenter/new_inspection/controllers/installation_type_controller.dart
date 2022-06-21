@@ -1,8 +1,5 @@
-import 'package:fisplan_alupar/app/infra/models/defaults/item_selection_model.dart';
 import 'package:fisplan_alupar/app/infra/models/installation_type_model.dart';
 import 'package:fisplan_alupar/app/infra/providers/local/installations/local_installations_type_provider.dart';
-import 'package:fisplan_alupar/app/presenter/selection_page/selection_page.dart';
-import 'package:fisplan_alupar/app/routes/arguments/selection_page_arguments.dart';
 import 'package:fisplan_alupar/app/shared/utils/custom_snackbar.dart';
 import 'package:fisplan_alupar/app/shared/utils/loader_manager.dart';
 import 'package:get/get.dart';
@@ -11,6 +8,8 @@ import '../../../core/app_connectivity.dart';
 import '../../../infra/providers/installations/installations_type_provider.dart';
 
 class InstallationTypeController extends GetxController with LoaderManager {
+  static InstallationTypeController get to => Get.find();
+
   final InstallationsTypeProvider _installationsTypeProvider;
   final LocalInstallationsTypeProvider _localInstallationsTypeProvider;
 
@@ -70,34 +69,5 @@ class InstallationTypeController extends GetxController with LoaderManager {
     } else {
       CustomSnackbar.to.show(response.error!.content!);
     }
-  }
-
-  InstallationTypeModel? selectedInstallationType;
-  Future getInstallationType() async {
-    final InstallationTypeModel? result = await goToSelectionPage(
-      'Selecione o tipo de instalação',
-      installationTypes,
-    );
-
-    if (result != null) {
-      selectedInstallationType = result;
-    }
-  }
-
-  Future goToSelectionPage(String title, List data) async {
-    return await Get.toNamed(
-      SelectionPage.route,
-      arguments: SelectionPageArguments(
-        title: title,
-        items: data.map(
-          (e) {
-            return ItemSelectionModel(
-              title: e.name,
-              item: e,
-            );
-          },
-        ).toList(),
-      ),
-    );
   }
 }

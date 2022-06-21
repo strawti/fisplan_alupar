@@ -8,6 +8,8 @@ import '../../../shared/utils/custom_snackbar.dart';
 import '../../../shared/utils/loader_manager.dart';
 
 class InstallationsController extends GetxController with LoaderManager {
+  static InstallationsController get to => Get.find();
+
   final InstallationsProvider _installationsProvider;
   final LocalInstallationsProvider _localInstallationsProvider;
 
@@ -16,19 +18,13 @@ class InstallationsController extends GetxController with LoaderManager {
     this._localInstallationsProvider,
   );
 
-  @override
-  void onReady() {
-    super.onReady();
-    fetch();
-  }
-
   List<InstallationModel> installations = [];
 
-  Future<void> fetch() async {
+  Future<void> fetch(int installationTypeId) async {
     setIsLoading(true);
 
     if (await AppConnectivity.instance.isConnected()) {
-      _getInstallations();
+      await _getInstallations(installationTypeId);
     } else {
       await _getLocalInstallations();
     }
@@ -36,8 +32,8 @@ class InstallationsController extends GetxController with LoaderManager {
     setIsLoading(false);
   }
 
-  Future _getInstallations() async {
-    final response = await _installationsProvider.getAll();
+  Future _getInstallations(int installationTypeId) async {
+    final response = await _installationsProvider.getAll(installationTypeId);
 
     if (response.isSuccess) {
       installations = response.data ?? [];
