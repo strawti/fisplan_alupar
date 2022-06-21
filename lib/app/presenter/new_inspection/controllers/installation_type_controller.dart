@@ -74,32 +74,5 @@ class InstallationTypeController extends GetxController with LoaderManager {
     }
   }
 
-  InstallationTypeModel? selectedInstallationType;
-  Future getInstallationType() async {
-    final InstallationTypeModel? result = await goToSelectionPage(
-      'Selecione o tipo de instalação',
-      installationTypes,
-    );
 
-    if (result != null) {
-      selectedInstallationType = result;
-    }
-  }
-
-  Future goToSelectionPage(String title, List data) async {
-    return await Get.toNamed(
-      SelectionPage.route,
-      arguments: SelectionPageArguments(
-        title: title,
-        items: data.map(
-          (e) {
-            return ItemSelectionModel(
-              title: e.name,
-              item: e,
-            );
-          },
-        ).toList(),
-      ),
-    );
-  }
 }
