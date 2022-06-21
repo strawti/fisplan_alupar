@@ -21,7 +21,7 @@ class AnswerModel {
   factory AnswerModel.fromMap(Map<String, dynamic> map) {
     return AnswerModel(
       questionId: map['question_id']?.toInt() ?? 0,
-      answer: map['answer'] ?? '',
+      answer: "${map['answer']}",
     );
   }
 

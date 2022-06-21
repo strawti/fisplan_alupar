@@ -1,36 +1,37 @@
+import 'package:fisplan_alupar/app/presenter/inspections/widgets/inspection_widget.dart';
+import 'package:fisplan_alupar/app/presenter/new_inspection/new_inspection_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import './home_controller.dart';
+import './inspections_controller.dart';
 import '../../shared/widgets/textform_widget.dart';
-import '../new_inspection/new_inspection_page.dart';
-import 'widgets/card_project_widget.dart';
 
-class HomePage extends GetView<HomeController> {
-  const HomePage({Key? key}) : super(key: key);
+class InspectionsPage extends GetView<InspectionsController> {
+  const InspectionsPage({Key? key}) : super(key: key);
 
-  static const route = '/home';
+  static const route = '/inspections';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Projetos'),
-        leading: IconButton(
-          icon: const Text('Sair'),
-          onPressed: () async {
-            // TODO: DIALOG PARA CONFIRMAR SAIDA
-            // PARA TESTE
-
-            Get.toNamed(NewInspectionPage.route);
-          },
-        ),
+        title: const Text('Inspeções'),
       ),
       body: Column(
         children: [
           Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              controller.routeArguments.project.name,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Padding(
             padding: const EdgeInsets.all(8.0),
-            child: GetBuilder<HomeController>(
+            child: GetBuilder<InspectionsController>(
               builder: (control) {
                 return TextFormWidget(
                   controller: control.searhController,
@@ -44,16 +45,17 @@ class HomePage extends GetView<HomeController> {
           const SizedBox(height: 20),
           Expanded(
             child: SingleChildScrollView(
-              child: GetBuilder<HomeController>(
+              physics: const BouncingScrollPhysics(),
+              child: GetBuilder<InspectionsController>(
                 builder: (control) {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: List.generate(
-                      control.projectsFiltered.length,
+                      control.inspectionsFiltered.length,
                       (index) {
-                        return CardProjectWidget(
-                          project: control.projectsFiltered[index],
+                        return InspectionWidget(
+                          inspection: control.inspectionsFiltered[index],
                         );
                       },
                     ),
@@ -66,8 +68,10 @@ class HomePage extends GetView<HomeController> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
-        label: const Text('Atualizar dados'),
+        onPressed: () {
+          Get.toNamed(NewInspectionPage.route);
+        },
+        label: const Text('Nova Inspeção'),
       ),
     );
   }

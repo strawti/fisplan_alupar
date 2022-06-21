@@ -64,8 +64,8 @@ class HomeController extends GetxController with LoaderManager {
         await _getUser();
       }
 
-        await _getProjects();
       if (projects.isEmpty) {
+        await _getProjects();
       }
     }
 
