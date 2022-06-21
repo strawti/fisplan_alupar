@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:fisplan_alupar/app/infra/api_endpoints.dart';
+import 'package:fisplan_alupar/app/infra/models/inspection_model.dart';
 import 'package:get/get.dart';
 
 import '../../models/defaults/api_error_default_model.dart';
@@ -12,17 +13,25 @@ class InspectionsRepository {
   final GetConnect _connect;
   InspectionsRepository(this._connect);
 
-  Future<ApiResponseModel<EquipmentModel>> getAll() async {
+  Future<ApiResponseModel<List<InspectionModel>>> getAll() async {
     final response = await _connect.get(apiInspections);
 
     final responseModel = DefaultResponseModel.fromMap({
+      'success': response.statusCode == 200,
       'statusCode': response.statusCode,
       'data': response.body,
+      'error': {
+        "message": response.body,
+      }
     });
 
     if (responseModel.success) {
       return ApiResponseModel(
-        data: EquipmentModel.fromMap(responseModel.data),
+        data: List<InspectionModel>.from(
+          responseModel.data.map(
+            (e) => InspectionModel.fromMap(e),
+          ),
+        ),
       );
     }
 

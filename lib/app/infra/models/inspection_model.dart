@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:fisplan_alupar/app/infra/models/answer_model.dart';
 import 'package:fisplan_alupar/app/infra/models/audio_model.dart';
 import 'package:fisplan_alupar/app/infra/models/photo_model.dart';
+import 'package:flutter/material.dart';
 
 class InspectionModel {
   final int id;
@@ -14,6 +15,8 @@ class InspectionModel {
   final int installationTypeId;
   final int? equipmentCategoryId;
   final int? towerId;
+  final String equipmentName;
+  final String? towerName;
   final int? equipmentId;
   final int? stepId;
   final String name;
@@ -24,14 +27,17 @@ class InspectionModel {
   final String date;
   final String createdAt;
   final String updatedAt;
+  final String stepName;
   final List<PhotoModel>? photos;
   final List<AudioModel>? audios;
   final List<AnswerModel>? answers;
-  final int progress;
+  final double progress;
+  final String activityName;
 
   InspectionModel({
     required this.id,
     required this.userId,
+    required this.equipmentName,
     required this.activityId,
     required this.projectId,
     required this.tensionLevelId,
@@ -41,8 +47,10 @@ class InspectionModel {
     required this.towerId,
     required this.equipmentId,
     required this.stepId,
+    required this.stepName,
     required this.name,
     required this.description,
+    required this.towerName,
     required this.latitude,
     required this.longitude,
     required this.comments,
@@ -53,7 +61,22 @@ class InspectionModel {
     required this.audios,
     required this.answers,
     required this.progress,
+    required this.activityName,
   });
+
+  String get getProgress {
+    return '${progress.toStringAsFixed(0)}%';
+  }
+
+  Color get getColor {
+    if (progress == 100) {
+      return Colors.green;
+    } else if (progress == 0) {
+      return Colors.red;
+    } else {
+      return Colors.orange;
+    }
+  }
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
@@ -81,12 +104,19 @@ class InspectionModel {
     result.addAll({'audios': audios?.map((x) => x.toMap()).toList()});
     result.addAll({'answers': answers?.map((x) => x.toMap()).toList()});
     result.addAll({'progress': progress});
+    result.addAll({'tower_name': towerName});
+    result.addAll({'step_name': stepName});
+    result.addAll({'equipment_name': equipmentName});
+    result.addAll({'activity_name': activityName});
 
     return result;
   }
 
   factory InspectionModel.fromMap(Map<String, dynamic> map) {
     return InspectionModel(
+      stepName: map['step_name'],
+      towerName: map['tower_name'],
+      equipmentName: map['equipment_name'],
       id: map['id']?.toInt() ?? 0,
       userId: map['user_id']?.toInt() ?? 0,
       activityId: map['activity_id']?.toInt() ?? 0,
@@ -100,8 +130,8 @@ class InspectionModel {
       stepId: map['step_id']?.toInt() ?? 0,
       name: map['name'] ?? '',
       description: map['description'] ?? '',
-      latitude: map['latitude']?.toInt() ?? 0,
-      longitude: map['longitude']?.toInt() ?? 0,
+      latitude: double.tryParse("${map['latitude']}") ?? 0.0,
+      longitude: double.tryParse("${map['longitude']}") ?? 0.0,
       comments: map['comments'] ?? '',
       date: map['date'] ?? '',
       createdAt: map['created_at'] ?? '',
@@ -118,7 +148,8 @@ class InspectionModel {
           ? List<AnswerModel>.from(
               map['answers']?.map((x) => AnswerModel.fromMap(x)))
           : null,
-      progress: map['progress']?.toInt() ?? 0,
+      progress: double.tryParse("${map['progress']}") ?? 0.0,
+      activityName: map['activity_name'] ?? '',
     );
   }
 

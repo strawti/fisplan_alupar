@@ -13,7 +13,11 @@ class LocalTowersRepository {
 
   Future<List<TowerModel>> getAll() async {
     final data = await _storage.read(apiTowers);
-    return data.map((e) => TowerModel.fromJson(e)).toList();
+    return List<TowerModel>.from(
+      data?.map(
+        (e) => TowerModel.fromJson(e),
+      ) ?? [],
+    );
   }
 
   Future<void> clear() async {
