@@ -22,7 +22,7 @@ class SelectionPage extends StatelessWidget {
               builder: (control) {
                 return TextFormWidget(
                   controller: control.searhController,
-                  hintText: 'Pesquisar',
+                  hintText: 'Procurar',
                   textInputAction: TextInputAction.search,
                   prefixIcon: const Icon(Icons.search),
                 );

@@ -29,10 +29,12 @@ class TowersController extends GetxController with LoaderManager {
   Future<void> fetch() async {
     setIsLoading(true);
 
+    await _getLocal();
+
     if (await AppConnectivity.instance.isConnected()) {
-      await _getAll();
-    } else {
-      await _getLocal();
+      if (towers.isEmpty) {
+        await _getAll();
+      }
     }
 
     setIsLoading(false);
