@@ -13,3 +13,17 @@ final appThemeLight = ThemeData(
     centerTitle: true,
   ),
 );
+
+final appThemeDark = ThemeData(
+  brightness: Brightness.dark,
+  primaryColor: appPrimaryColor,
+  splashColor: appPrimaryColor,
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+    backgroundColor: appPrimaryColor,
+  ),
+  appBarTheme: const AppBarTheme(
+    color: appPrimaryColor,
+    elevation: 0.0,
+    centerTitle: true,
+  ),
+);
