@@ -1,4 +1,4 @@
-import 'package:fisplan_alupar/app/presenter/new_inspection/new_inspection_controller.dart';
+import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/installation_type_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -44,7 +44,7 @@ class NewInspectionBody extends StatelessWidget {
                     thickness: 1,
                   ),
                   const SizedBox(height: 10),
-                  GetBuilder<NewInspectionController>(
+                  GetBuilder<InstallationTypeController>(
                     builder: (controller) {
                       return ListTile(
                         title: const Text('Tipo de Instalação'),
