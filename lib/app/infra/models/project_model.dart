@@ -1,18 +1,18 @@
 import 'dart:convert';
 
 class ProjectModel {
-  final String id;
+  final int id;
   final int companyId;
   final String name;
   final String? description;
-  final int budget;
+  final double progress;
 
   ProjectModel({
     required this.id,
     required this.companyId,
     required this.name,
     required this.description,
-    required this.budget,
+    required this.progress,
   });
 
   Map<String, dynamic> toMap() {
@@ -22,18 +22,18 @@ class ProjectModel {
     result.addAll({'company_id': companyId});
     result.addAll({'name': name});
     result.addAll({'description': description});
-    result.addAll({'budget': budget});
+    result.addAll({'progress': progress});
 
     return result;
   }
 
   factory ProjectModel.fromMap(Map<String, dynamic> map) {
     return ProjectModel(
-      id: map['id'] ?? '',
-      companyId: map['company_id']?.toInt() ?? 0,
+      id: map['id'],
+      companyId: map['company_id'],
       name: map['name'] ?? '',
       description: map['description'] ?? '',
-      budget: map['budget']?.toInt() ?? 0,
+      progress: double.tryParse("${map['progress']}") ?? 0.0,
     );
   }
 
