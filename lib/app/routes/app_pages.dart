@@ -40,5 +40,6 @@ final List<GetPage> appPages = [
     name: InspectionsPage.route,
     page: () => const InspectionsPage(),
     binding: InspectionsBindings(),
+    transition: Transition.rightToLeft,
   ),
 ];
