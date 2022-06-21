@@ -17,6 +17,7 @@ class AppWidget extends StatelessWidget {
       title: constAppTitle,
       debugShowCheckedModeBanner: false,
       theme: appThemeLight,
+      darkTheme: appThemeDark,
       getPages: appPages,
       themeMode: ThemeMode.light,
       initialBinding: AppBindings(),
