@@ -19,17 +19,28 @@ mixin LoaderManager on GetxController {
                 color: appPrimaryColor,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const SizedBox(
-                width: 60,
-                height: 60,
-                child: CircularProgressIndicator.adaptive(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                ),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    width: 60,
+                    height: 60,
+                    child: CircularProgressIndicator.adaptive(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    'Carregando...',
+                    style: Get.textTheme.headline6?.copyWith(
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
               ),
             ),
-           
           ],
         ),
+        barrierDismissible: false,
       );
     } else {
       Get.back();
