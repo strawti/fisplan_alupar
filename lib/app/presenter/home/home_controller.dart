@@ -33,10 +33,14 @@ class HomeController extends GetxController with LoaderManager {
     searhController.addListener(() {
       projectsFiltered.clear();
 
-      for (var project in projectsFiltered) {
+      for (var project in projects) {
         if (project.name.toLowerCase().contains(searchText)) {
           projectsFiltered.add(project);
         }
+      }
+
+      if (projectsFiltered.isEmpty && searchText.isEmpty) {
+        projectsFiltered.addAll(projects);
       }
 
       update();
@@ -53,23 +57,24 @@ class HomeController extends GetxController with LoaderManager {
   final searhController = TextEditingController();
   String get searchText => searhController.text.trim().toLowerCase();
 
-  Future fetch() async {
+  Future fetch({bool online = false}) async {
     setIsLoading(true);
 
     await _getLocalUser();
     await _getLocalProjects();
 
     if (await AppConnectivity.instance.isConnected()) {
-      if (user == null) {
+      if (user == null || online) {
         await _getUser();
       }
 
-      if (projects.isEmpty) {
+      if (projects.isEmpty || online) {
         await _getProjects();
       }
     }
 
     projectsFiltered = projects.toList();
+    projectsFiltered.sort((a, b) => a.progress.compareTo(b.progress));
 
     setIsLoading(false);
   }
