@@ -30,7 +30,6 @@ class NewInspectionBindings implements Bindings {
     Get.lazyPut(() => InstallationsTypeProvider(Get.find()));
     Get.lazyPut(() => TowersProvider(Get.find()));
     Get.lazyPut(() => InstallationsTypeProvider(Get.find()));
-    
     Get.put(NewInspectionController());
     Get.put(InstallationTypeController(Get.find(), Get.find()));
     Get.put(TowersController(Get.find(), Get.find()));
