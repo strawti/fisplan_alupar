@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import './home_controller.dart';
 import '../../shared/widgets/textform_widget.dart';
-import '../new_inspection/new_inspection_page.dart';
+import '../auth/login/login_page.dart';
 import 'widgets/card_project_widget.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -13,61 +14,101 @@ class HomePage extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Projetos'),
-        leading: IconButton(
-          icon: const Text('Sair'),
-          onPressed: () async {
-            // TODO: DIALOG PARA CONFIRMAR SAIDA
-            // PARA TESTE
-
-            Get.toNamed(NewInspectionPage.route);
-          },
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: GetBuilder<HomeController>(
-              builder: (control) {
-                return TextFormWidget(
-                  controller: control.searhController,
-                  hintText: 'Procurar',
-                  textInputAction: TextInputAction.search,
-                  prefixIcon: const Icon(Icons.search),
-                );
-              },
-            ),
+    return WillPopScope(
+      onWillPop: () async {
+        final result = await Get.dialog(
+          AlertDialog(
+            title: const Text('Deseja sair do app?'),
+            //content: const Text('Você será desconectado'),
+            actions: [
+              MaterialButton(
+                child: const Text('Sim'),
+                onPressed: () {
+                  Get.back(result: true);
+                },
+              ),
+              MaterialButton(
+                onPressed: () => Get.back(result: false),
+                child: const Text('Não'),
+              ),
+            ],
           ),
-          const SizedBox(height: 20),
-          Expanded(
-            child: SingleChildScrollView(
-              child: GetBuilder<HomeController>(
-                builder: (control) {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: List.generate(
-                      control.projectsFiltered.length,
-                      (index) {
-                        return CardProjectWidget(
-                          project: control.projectsFiltered[index],
-                        );
+        );
+
+        return result == true;
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          title: const Text('Projetos'),
+          leading: IconButton(
+            icon: const Text('Sair'),
+            onPressed: () async {
+              Get.dialog(
+                AlertDialog(
+                  title: const Text('Confirmar saída?'),
+                  content: const Text('Você será desconectado'),
+                  actions: [
+                    MaterialButton(
+                      child: const Text('Sim'),
+                      onPressed: () {
+                        Get.find<GetStorage>().erase();
+                        Get.offAllNamed(LoginPage.route);
                       },
                     ),
+                    MaterialButton(
+                      onPressed: Get.back,
+                      child: const Text('Não'),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GetBuilder<HomeController>(
+                builder: (control) {
+                  return TextFormWidget(
+                    controller: control.searhController,
+                    hintText: 'Procurar',
+                    textInputAction: TextInputAction.search,
+                    prefixIcon: const Icon(Icons.search),
                   );
                 },
               ),
             ),
-          ),
-        ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
-        label: const Text('Atualizar dados'),
+            const SizedBox(height: 20),
+            Expanded(
+              child: SingleChildScrollView(
+                child: GetBuilder<HomeController>(
+                  builder: (control) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: List.generate(
+                        control.projectsFiltered.length,
+                        (index) {
+                          return CardProjectWidget(
+                            project: control.projectsFiltered[index],
+                          );
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () => controller.fetch(online: true),
+          label: const Text('Atualizar dados'),
+        ),
       ),
     );
   }
