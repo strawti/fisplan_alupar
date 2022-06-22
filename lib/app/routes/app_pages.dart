@@ -1,14 +1,5 @@
-import '../presenter/home/home_bindings.dart';
-import '../presenter/home/home_page.dart';
-import '../presenter/inspections/inspections_page.dart';
-import '../presenter/new_inspection/new_inspection_bindings.dart';
-import '../presenter/new_inspection/new_inspection_page.dart';
-import '../presenter/selection_page/selection_page.dart';
-import '../presenter/splash/splash_page.dart';
 import 'package:get/get.dart';
 
-import '../presenter/inspections/inspections_bindings.dart';
-import '../presenter/selection_page/selection_bindings.dart';
 import 'routes_imports.dart';
 
 final List<GetPage> appPages = [
