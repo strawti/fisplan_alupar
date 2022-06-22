@@ -87,7 +87,9 @@ class NewInspectionController extends GetxController {
     final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
       'Categoria do equipamento',
       equipmentsCategoryController.equipmentsCategoriesFiltered,
+
       selectedEquipmentsCategory,
+
     );
 
     if (result != null) {

@@ -6,6 +6,7 @@ import '../../../models/defaults/provider_response_model.dart';
 import '../../../models/responses/tension_level_model.dart';
 import '../../../repositories/companies/tension_levels/companies_tension_levels_repository.dart';
 
+
 class CompaniesTensionLevelProvider {
   final CompaniesTensionLevelsRepository _repository;
   CompaniesTensionLevelProvider(this._repository);
