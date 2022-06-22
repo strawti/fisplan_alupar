@@ -11,7 +11,7 @@ class CompaniesProjectsProvider {
   final CompaniesProjectsRepository _repository;
   CompaniesProjectsProvider(this._repository);
 
-  Future<ProviderResponseModel<List<ProjectModel>>> getAll(
+  Future<ProviderResponseModel<List<ProjectModel>?>> getAll(
     int userCompanyId,
   ) async {
     try {
