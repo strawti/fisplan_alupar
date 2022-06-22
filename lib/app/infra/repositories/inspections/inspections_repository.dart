@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:fisplan_alupar/app/infra/api_endpoints.dart';
-import 'package:fisplan_alupar/app/infra/models/inspection_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/inspection_model.dart';
 import 'package:get/get.dart';
 
 import '../../models/defaults/api_error_default_model.dart';
