@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../infra/models/inspection_model.dart';
+import '../../../infra/models/responses/inspection_model.dart';
 import 'inspection_title_and_content_widget.dart';
 
 class InspectionSubContentWidget extends StatelessWidget {

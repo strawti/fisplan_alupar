@@ -1,5 +1,5 @@
 import 'package:fisplan_alupar/app/infra/api_endpoints.dart';
-import 'package:fisplan_alupar/app/infra/models/tower_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/tower_model.dart';
 import 'package:get/get.dart';
 
 import '../../models/defaults/api_error_default_model.dart';
@@ -19,6 +19,9 @@ class TowersRepository {
       'success': response.statusCode == 200,
       'statusCode': response.statusCode,
       'data': response.body,
+      'error': {
+        'message': response.statusText,
+      },
     });
 
     if (responseModel.success) {

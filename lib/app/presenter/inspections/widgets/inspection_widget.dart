@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../infra/models/inspection_model.dart';
+import '../../../infra/models/responses/inspection_model.dart';
 import 'card_percent_widget.dart';
 import 'inspection_content_widget.dart';
 

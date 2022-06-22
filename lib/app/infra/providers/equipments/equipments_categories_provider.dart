@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:fisplan_alupar/app/infra/models/equipment_category_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/equipment_category_model.dart';
 import 'package:fisplan_alupar/app/infra/repositories/equipments/equipment_category_repository.dart';
 
 import '../../../core/app_constants.dart';
@@ -11,7 +11,7 @@ class EquipmentsCategoriesProvider {
   final EquipmentCategoryRepository _repository;
   EquipmentsCategoriesProvider(this._repository);
 
-  Future<ProviderResponseModel<List<EquipmentCategoryModel>>> getAll() async {
+  Future<ProviderResponseModel<List<EquipmentCategoryModel>?>> getAll() async {
     try {
       final response = await _repository.getAll();
       return ProviderResponseModel.fromMap(response.toMap());

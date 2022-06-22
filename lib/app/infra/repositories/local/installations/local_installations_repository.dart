@@ -1,7 +1,7 @@
 import 'package:fisplan_alupar/app/infra/api_endpoints.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../../../models/installation_model.dart';
+import '../../../models/responses/installation_model.dart';
 
 class LocalInstallationsRepository {
   final GetStorage _storage;

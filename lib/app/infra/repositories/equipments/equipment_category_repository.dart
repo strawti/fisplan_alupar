@@ -1,5 +1,5 @@
 import 'package:fisplan_alupar/app/infra/api_endpoints.dart';
-import 'package:fisplan_alupar/app/infra/models/equipment_category_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/equipment_category_model.dart';
 import 'package:get/get.dart';
 
 import '../../models/defaults/api_error_default_model.dart';
@@ -10,18 +10,23 @@ class EquipmentCategoryRepository {
   final GetConnect _connect;
   EquipmentCategoryRepository(this._connect);
 
-  Future<ApiResponseModel<EquipmentCategoryModel>> getAll() async {
+  Future<ApiResponseModel<List<EquipmentCategoryModel>?>> getAll() async {
     final response = await _connect.get(apiEquipmentCategories);
 
     final responseModel = DefaultResponseModel.fromMap({
       'success': response.statusCode == 200,
       'statusCode': response.statusCode,
       'data': response.body,
+      'error': {
+        'message': response.statusText,
+      }
     });
 
     if (responseModel.success) {
       return ApiResponseModel(
-        data: EquipmentCategoryModel.fromMap(responseModel.data),
+        data: List<EquipmentCategoryModel>.from(
+          responseModel.data.map((e) => EquipmentCategoryModel.fromMap(e)),
+        ),
       );
     }
 

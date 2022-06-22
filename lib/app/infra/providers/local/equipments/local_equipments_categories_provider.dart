@@ -1,6 +1,6 @@
 import '../../../models/defaults/app_error_model.dart';
 import '../../../models/defaults/provider_response_model.dart';
-import '../../../models/equipment_category_model.dart';
+import '../../../models/responses/equipment_category_model.dart';
 import '../../../repositories/local/equipments/local_equipments_categories_repository.dart';
 
 class LocalEquipmentsCategoriesProvider {
