@@ -1,3 +1,6 @@
+import 'package:fisplan_alupar/app/infra/models/responses/equipment_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/tension_level_model.dart';
+import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/equipments_controller.dart';
 import 'package:get/get.dart';
 
 import '../../infra/models/defaults/item_selection_model.dart';
@@ -30,6 +33,7 @@ class NewInspectionController extends GetxController {
   final installationsController = Get.find<InstallationsController>();
   final towersController = Get.find<TowersController>();
   final companiesController = Get.find<CompaniesController>();
+  final equipmentController = Get.find<EquipmentsController>();
 
   final equipmentsCategoryController =
       Get.find<EquipmentsCategoriesController>();
@@ -87,19 +91,18 @@ class NewInspectionController extends GetxController {
     final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
       'Categoria do equipamento',
       equipmentsCategoryController.equipmentsCategoriesFiltered,
-
       selectedEquipmentsCategory,
-
     );
 
     if (result != null) {
       selectedEquipmentsCategory = result.item;
+      selectedTensionLevel = null;
       update();
     }
   }
 
-  EquipmentCategoryModel? selectedTensionLevel;
-  Future getTensionLevel(int id) async {
+  TensionLevelModel? selectedTensionLevel;
+  Future getTensionLevel() async {
     final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
       'Nível de tensão',
       companiesController.tensionLevelsFiltered,
@@ -108,6 +111,20 @@ class NewInspectionController extends GetxController {
 
     if (result != null) {
       selectedTensionLevel = result.item;
+      update();
+    }
+  }
+
+  EquipmentModel? selectedEquipment;
+  Future getEquipments() async {
+    final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
+      'Equipamento',
+      equipmentController.equipmentsFiltered,
+      selectedEquipment,
+    );
+
+    if (result != null) {
+      selectedEquipment = result.item;
       update();
     }
   }

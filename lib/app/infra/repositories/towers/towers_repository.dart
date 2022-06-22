@@ -1,18 +1,16 @@
-import '../../api_endpoints.dart';
-import '../../models/responses/tower_model.dart';
 import 'package:get/get.dart';
 
+import '../../api_endpoints.dart';
 import '../../models/defaults/api_error_default_model.dart';
 import '../../models/defaults/api_response_model.dart';
 import '../../models/defaults/default_response_model.dart';
+import '../../models/responses/tower_model.dart';
 
 class TowersRepository {
   final GetConnect _connect;
   TowersRepository(this._connect);
 
-  Future<ApiResponseModel<List<TowerModel>>> getAllByCompanyId(
-    int userCompanyId,
-  ) async {
+  Future<ApiResponseModel<List<TowerModel>>> getAllByCompanyId() async {
     final response = await _connect.get(apiTowers);
 
     final responseModel = DefaultResponseModel.fromMap({

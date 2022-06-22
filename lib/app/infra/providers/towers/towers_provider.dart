@@ -10,11 +10,9 @@ class TowersProvider {
   final TowersRepository _repository;
   TowersProvider(this._repository);
 
-  Future<ProviderResponseModel<List<TowerModel>?>> getAll(
-    int userCompanyId,
-  ) async {
+  Future<ProviderResponseModel<List<TowerModel>?>> getAll() async {
     try {
-      final response = await _repository.getAllByCompanyId(userCompanyId);
+      final response = await _repository.getAllByCompanyId();
       return ProviderResponseModel.fromMap(response.toMap());
     } on SocketException {
       return AppErrorDefaultModel(constSocketExceptionError);
