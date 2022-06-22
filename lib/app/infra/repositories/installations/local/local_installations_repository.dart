@@ -8,7 +8,10 @@ class LocalInstallationsRepository {
   LocalInstallationsRepository(this._storage);
 
   Future<void> setInstallations(List<InstallationModel> data) async {
-    await _storage.write(apiInstallations, data.map((e) => e.toJson()));
+    await _storage.write(
+      apiInstallations,
+      data.map((e) => e.toJson()).toList(),
+    );
   }
 
   Future<List<InstallationModel>> getInstallations() async {
