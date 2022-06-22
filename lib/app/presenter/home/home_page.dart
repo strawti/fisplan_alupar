@@ -79,9 +79,15 @@ class HomePage extends GetView<HomeController> {
           ],
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () => controller.fetch(online: true),
-          label: const Text('Atualizar dados'),
+        floatingActionButton: GetBuilder<HomeController>(
+          builder: (control) {
+            return FloatingActionButton.extended(
+              onPressed: () {
+                // TODO: ESSE BOTÃO SÓ DEVE APARECER CASO TENHA INSPEÇÕES NÃO CONCLUÍDAS
+              },
+              label: const Text('Enviar Inspeções'),
+            );
+          },
         ),
       ),
     );

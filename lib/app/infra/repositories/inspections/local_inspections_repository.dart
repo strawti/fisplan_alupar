@@ -36,4 +36,29 @@ class LocalInspectionsRepository {
     final data = await _storage.read('Inspections_LastTimeUpdated');
     return DateTime.fromMillisecondsSinceEpoch(data);
   }
+
+  Future<void> setUnsynchronized(List<InspectionModel> data) async {
+    await _storage.write(
+      'inspections_unsynchronized',
+      DateTime.now().millisecondsSinceEpoch,
+    );
+    await _storage.write(
+      apiInspections,
+      data.map((e) => e.toJson()).toList(),
+    );
+  }
+
+  Future<List<InspectionModel>> getAllUnsynchronized() async {
+    final data = await _storage.read("inspections_unsynchronized");
+    return List<InspectionModel>.from(
+      data?.map(
+            (e) => InspectionModel.fromJson(e),
+          ) ??
+          [],
+    );
+  }
+
+  Future<void> clearUnsynchronized() async {
+    await _storage.remove("inspections_unsynchronized");
+  }
 }

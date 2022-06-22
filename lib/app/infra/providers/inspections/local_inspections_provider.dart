@@ -50,4 +50,40 @@ class LocalInspectionsProvider {
       );
     }
   }
+
+  Future<ProviderResponseModel> setUnsynchronized(
+    List<InspectionModel> data,
+  ) async {
+    try {
+      await _repository.setUnsynchronized(data);
+      return ProviderResponseModel();
+    } catch (e) {
+      return AppErrorDefaultModel(
+        'LocalInspectionsProvider.setUnsynchronized() $e',
+      );
+    }
+  }
+
+  Future<ProviderResponseModel<List<InspectionModel>?>>
+      getAllUnsynchronized() async {
+    try {
+      final response = await _repository.getAllUnsynchronized();
+      return ProviderResponseModel(data: response);
+    } catch (e) {
+      return AppErrorDefaultModel(
+        'LocalInspectionsProvider.getAllUnsynchronized() $e',
+      );
+    }
+  }
+
+  Future<ProviderResponseModel> clearUnsynchronized() async {
+    try {
+      await _repository.clearUnsynchronized();
+      return ProviderResponseModel();
+    } catch (e) {
+      return AppErrorDefaultModel(
+        'LocalInspectionsProvider.clearUnsynchronized() $e',
+      );
+    }
+  }
 }
