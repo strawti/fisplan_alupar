@@ -18,7 +18,7 @@ class NewInspectionController extends GetxController {
   Future getInstallationType() async {
     final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
       'Selecione o tipo de instalação',
-      instalationTypeController.installationTypes,
+      instalationTypeController.installationTypesFiltered,
     );
 
     if (result != null) {

@@ -24,26 +24,30 @@ class InstallationTypeController extends GetxController with LoaderManager {
     fetch();
   }
 
-  List<InstallationTypeModel> installationTypes = [];
+  List<InstallationTypeModel> _installationTypes = [];
+  List<InstallationTypeModel> installationTypesFiltered = [];
 
-  Future<void> fetch() async {
+  Future<void> fetch({bool online = false}) async {
     setIsLoading(true);
 
+    await _getLocalInstallations();
     if (await AppConnectivity.instance.isConnected()) {
-      _getInstallations();
-    } else {
-      await _getLocalInstallations();
+      if (_installationTypes.isEmpty || online) {
+        await _getAll();
+      }
     }
+
+    installationTypesFiltered = _installationTypes.toList();
 
     setIsLoading(false);
   }
 
-  Future _getInstallations() async {
+  Future _getAll() async {
     final response = await _installationsTypeProvider.getAll();
 
     if (response.isSuccess) {
-      installationTypes = response.data ?? [];
-      _setLocalInstallations(installationTypes);
+      _installationTypes = response.data ?? [];
+      _setLocal(_installationTypes);
     } else {
       CustomSnackbar.to.show(response.error!.content!);
     }
@@ -53,19 +57,19 @@ class InstallationTypeController extends GetxController with LoaderManager {
     final response = await _localInstallationsTypeProvider.getAll();
 
     if (response.isSuccess) {
-      installationTypes = response.data ?? [];
+      _installationTypes = response.data ?? [];
     } else {
       CustomSnackbar.to.show(response.error!.content!);
     }
   }
 
-  Future _setLocalInstallations(List<InstallationTypeModel> data) async {
+  Future _setLocal(List<InstallationTypeModel> data) async {
     final response = await _localInstallationsTypeProvider.setInstallations(
       data,
     );
 
     if (response.isSuccess) {
-      installationTypes = data;
+      _installationTypes = data;
     } else {
       CustomSnackbar.to.show(response.error!.content!);
     }
