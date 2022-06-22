@@ -33,4 +33,10 @@ final List<GetPage> appPages = [
     binding: InspectionsBindings(),
     transition: Transition.rightToLeft,
   ),
+  GetPage(
+    name: ViewInspectionPage.route,
+    page: () => const ViewInspectionPage(),
+    binding: ViewInspectionBindings(),
+    transition: Transition.downToUp,
+  ),
 ];
