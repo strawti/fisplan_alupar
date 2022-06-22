@@ -4,7 +4,7 @@ class EquipmentModel {
   final int id;
   final int installationId;
   final int equipmentCategoryId;
-  final int tensionLevelId;
+  final int? tensionLevelId;
   final String name;
   final String? description;
   final String? make;
@@ -38,10 +38,10 @@ class EquipmentModel {
 
   factory EquipmentModel.fromMap(Map<String, dynamic> map) {
     return EquipmentModel(
-      id: map['id'] ?? '',
-      installationId: map['installation_id'] ?? '',
-      equipmentCategoryId: map['equipment_category_id'] ?? '',
-      tensionLevelId: map['tension_level_id'] ?? '',
+      id: map['id'],
+      installationId: map['installation_id'],
+      equipmentCategoryId: map['equipment_category_id'],
+      tensionLevelId: map['tension_level_id'],
       name: map['name'] ?? '',
       description: map['description'] ?? '',
       make: map['make'] ?? '',
