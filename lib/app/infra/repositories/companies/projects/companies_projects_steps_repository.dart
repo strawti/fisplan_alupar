@@ -10,7 +10,7 @@ class CompaniesProjectsStepsRepository {
   final GetConnect _connect;
   CompaniesProjectsStepsRepository(this._connect);
 
-  Future<ApiResponseModel<StepModel>> getAllByCompanyId(
+  Future<ApiResponseModel<List<StepModel>>> getAllByCompanyId(
     int userCompanyId,
   ) async {
     final response = await _connect.get(
@@ -28,7 +28,11 @@ class CompaniesProjectsStepsRepository {
 
     if (responseModel.success) {
       return ApiResponseModel(
-        data: StepModel.fromMap(responseModel.data),
+        data: List<StepModel>.from(
+          responseModel.data.map(
+            (e) => StepModel.fromMap(e),
+          ),
+        ),
       );
     }
 
