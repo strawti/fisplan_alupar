@@ -1,5 +1,6 @@
+import 'dart:developer';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class AppNotifications {
@@ -26,7 +27,7 @@ class AppNotifications {
       (RemoteMessage message) async {
         RemoteNotification? notification = message.notification;
         AndroidNotification? android = message.notification?.android;
-        if (notification != null && android != null && !kIsWeb) {
+        if (notification != null && android != null) {
           localNotification?.show(
             notification.hashCode,
             notification.title,
@@ -54,11 +55,11 @@ class AppNotifications {
         }
       },
     );
-
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {});
   }
 
   Future<void> _pushBackgroundHandler(
     RemoteMessage message,
-  ) async {}
+  ) async {
+    log('_pushBackgroundHandler: ${message.toMap()}');
+  }
 }
