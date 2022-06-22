@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:fisplan_alupar/app/infra/models/equipment_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/equipment_model.dart';
 import 'package:fisplan_alupar/app/infra/repositories/equipments/equipment_repository.dart';
 
 import '../../../core/app_constants.dart';

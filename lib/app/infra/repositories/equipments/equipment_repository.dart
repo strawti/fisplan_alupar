@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../models/defaults/api_error_default_model.dart';
 import '../../models/defaults/api_response_model.dart';
 import '../../models/defaults/default_response_model.dart';
-import '../../models/equipment_model.dart';
+import '../../models/responses/equipment_model.dart';
 
 class EquipmentRepository {
   final GetConnect _connect;
