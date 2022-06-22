@@ -92,6 +92,45 @@ class NewInspectionBody extends StatelessWidget {
                       );
                     },
                   ),
+                  GetBuilder<NewInspectionController>(
+                    builder: (controller) {
+                      return Visibility(
+                        visible: controller.selectedInstallation != null &&
+                            (controller.selectedInstallationType!.id == 3 ||
+                                controller.selectedInstallationType!.id == 2),
+                        child: ListTile(
+                          title: const Text('Categoria do equipamento'),
+                          trailing: const Icon(Icons.arrow_drop_down),
+                          subtitle: Text(
+                            controller.selectedEquipmentsCategory?.name ?? '',
+                            textScaleFactor: 1.1,
+                          ),
+                          onTap: controller.getEquipmentsCategory,
+                        ),
+                      );
+                    },
+                  ),
+                  GetBuilder<NewInspectionController>(
+                    builder: (controller) {
+                      return Visibility(
+                        visible: controller.selectedEquipmentsCategory !=
+                                null &&
+                            (controller.selectedInstallationType!.id == 3 ||
+                                controller.selectedInstallationType!.id == 2),
+                        child: ListTile(
+                          title: const Text('Nível de tensão'),
+                          trailing: const Icon(Icons.arrow_drop_down),
+                          subtitle: Text(
+                            controller.selectedTensionLevel?.name ?? '',
+                            textScaleFactor: 1.1,
+                          ),
+                          onTap: () {
+                            controller.getTensionLevel(1);
+                          },
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
             ),

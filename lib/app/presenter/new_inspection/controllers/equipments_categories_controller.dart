@@ -8,6 +8,8 @@ import '../../../shared/utils/custom_snackbar.dart';
 import '../../../shared/utils/loader_manager.dart';
 
 class EquipmentsCategoriesController extends GetxController with LoaderManager {
+  static EquipmentsCategoriesController get to => Get.find();
+
   final EquipmentsCategoriesProvider _equipmentsCategoriesProvider;
   final LocalEquipmentsCategoriesProvider _localEquipmentsCategoriesProvider;
 
@@ -17,11 +19,6 @@ class EquipmentsCategoriesController extends GetxController with LoaderManager {
   );
 
   @override
-  void onReady() {
-    super.onReady();
-    fetch();
-  }
-
   List<EquipmentCategoryModel> equipmentsCategories = [];
 
   Future<void> fetch() async {

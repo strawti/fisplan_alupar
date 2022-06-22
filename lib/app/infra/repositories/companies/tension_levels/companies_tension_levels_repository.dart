@@ -10,12 +10,13 @@ class CompaniesTensionLevelsRepository {
   final GetConnect _connect;
   CompaniesTensionLevelsRepository(this._connect);
 
-  Future<ApiResponseModel<TensionLevelModel>> getAllByCompanyId(
+  Future<ApiResponseModel<List<TensionLevelModel>>> getAllTensionsByCompanyId(
     int userCompanyId,
   ) async {
     final response = await _connect.get(
       "$apiCompanies/$userCompanyId/tension-levels",
     );
+    print(response.body);
 
     final responseModel = DefaultResponseModel.fromMap({
       'statusCode': response.statusCode,
@@ -24,7 +25,11 @@ class CompaniesTensionLevelsRepository {
 
     if (responseModel.success) {
       return ApiResponseModel(
-        data: TensionLevelModel.fromMap(responseModel.data),
+        data: List<TensionLevelModel>.from(
+          responseModel.data.map(
+            (e) => TensionLevelModel.fromMap(e),
+          ),
+        ),
       );
     }
 
