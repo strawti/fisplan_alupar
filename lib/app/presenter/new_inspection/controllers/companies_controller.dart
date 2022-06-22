@@ -1,5 +1,5 @@
 import 'package:fisplan_alupar/app/core/app_connectivity.dart';
-import 'package:fisplan_alupar/app/infra/models/tension_level_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/tension_level_model.dart';
 import 'package:fisplan_alupar/app/infra/providers/companies/tension_levels/companies_tension_level_provider.dart';
 import 'package:fisplan_alupar/app/shared/utils/custom_snackbar.dart';
 import 'package:fisplan_alupar/app/shared/utils/loader_manager.dart';

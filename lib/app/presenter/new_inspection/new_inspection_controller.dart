@@ -1,16 +1,10 @@
 import 'package:fisplan_alupar/app/infra/models/defaults/item_selection_model.dart';
-
-import 'package:fisplan_alupar/app/infra/models/equipment_category_model.dart';
-import 'package:fisplan_alupar/app/infra/models/installation_model.dart';
-import 'package:fisplan_alupar/app/infra/models/installation_type_model.dart';
-import 'package:fisplan_alupar/app/infra/models/tower_model.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/companies_controller.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/equipments_categories_controller.dart';
-
+import 'package:fisplan_alupar/app/infra/models/responses/equipment_category_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/installation_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/installation_type_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/tower_model.dart';
-
+import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/companies_controller.dart';
+import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/equipments_categories_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/installation_type_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/installations_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/towers_controller.dart';
@@ -80,7 +74,7 @@ class NewInspectionController extends GetxController {
 
     final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
       'Categoria do equipamento',
-      equipmentsCategoryController.equipmentsCategories,
+      equipmentsCategoryController.equipmentsCategoriesFiltered,
     );
 
     if (result != null) {

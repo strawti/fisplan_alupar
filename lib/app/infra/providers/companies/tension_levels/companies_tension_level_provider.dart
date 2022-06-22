@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:fisplan_alupar/app/core/app_constants.dart';
 import 'package:fisplan_alupar/app/infra/models/defaults/app_error_model.dart';
 import 'package:fisplan_alupar/app/infra/models/defaults/provider_response_model.dart';
-import 'package:fisplan_alupar/app/infra/models/tension_level_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/tension_level_model.dart';
 import 'package:fisplan_alupar/app/infra/repositories/companies/tension_levels/companies_tension_levels_repository.dart';
 
 class CompaniesTensionLevelProvider {

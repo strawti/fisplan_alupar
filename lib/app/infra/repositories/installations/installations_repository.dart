@@ -13,6 +13,8 @@ class InstallationsRepository {
   Future<ApiResponseModel<List<InstallationModel>>> getAll() async {
     final response = await _connect.get(apiInstallations);
 
+    print('/*************************${response.body}');
+
     final responseModel = DefaultResponseModel.fromMap({
       'success': response.statusCode == 200,
       'statusCode': response.statusCode,
