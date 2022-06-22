@@ -1,10 +1,11 @@
-import 'package:fisplan_alupar/app/presenter/inspections/widgets/inspection_widget.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/new_inspection_page.dart';
+import 'package:fisplan_alupar/app/routes/arguments/new_inspection_page_arguments.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import './inspections_controller.dart';
 import '../../shared/widgets/textform_widget.dart';
+import '../new_inspection/new_inspection_page.dart';
+import 'inspections_controller.dart';
+import 'widgets/inspection_widget.dart';
 
 class InspectionsPage extends GetView<InspectionsController> {
   const InspectionsPage({Key? key}) : super(key: key);
@@ -67,7 +68,12 @@ class InspectionsPage extends GetView<InspectionsController> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Get.toNamed(NewInspectionPage.route);
+          Get.toNamed(
+            NewInspectionPage.route,
+            arguments: NewInspectionPageArguments(
+              controller.routeArguments.project,
+            ),
+          );
         },
         label: const Text('Nova Inspeção'),
       ),

@@ -1,8 +1,8 @@
-import 'package:fisplan_alupar/app/infra/models/responses/tower_model.dart';
+import '../../models/responses/tower_model.dart';
 
 import '../../models/defaults/app_error_model.dart';
 import '../../models/defaults/provider_response_model.dart';
-import '../../repositories/local/local_towers_repository.dart';
+import '../../repositories/towers/local_towers_repository.dart';
 
 class LocalTowersProvider {
   final LocalTowersRepository _repository;

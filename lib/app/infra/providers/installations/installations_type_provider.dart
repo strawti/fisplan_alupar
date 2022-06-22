@@ -1,11 +1,10 @@
 import 'dart:io';
 
-import 'package:fisplan_alupar/app/infra/repositories/installations/installations_type_repository.dart';
-
 import '../../../core/app_constants.dart';
 import '../../models/defaults/app_error_model.dart';
 import '../../models/defaults/provider_response_model.dart';
 import '../../models/responses/installation_type_model.dart';
+import '../../repositories/installations/installations_type_repository.dart';
 
 class InstallationsTypeProvider {
   final InstallationsTypeRepository _repository;

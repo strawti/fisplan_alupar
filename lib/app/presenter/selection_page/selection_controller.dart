@@ -1,5 +1,5 @@
-import 'package:fisplan_alupar/app/infra/models/defaults/item_selection_model.dart';
-import 'package:fisplan_alupar/app/routes/arguments/selection_page_arguments.dart';
+import '../../infra/models/defaults/item_selection_model.dart';
+import '../../routes/arguments/selection_page_arguments.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

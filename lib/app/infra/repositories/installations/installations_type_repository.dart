@@ -1,6 +1,6 @@
-import 'package:fisplan_alupar/app/infra/api_endpoints.dart';
 import 'package:get/get.dart';
 
+import '../../api_endpoints.dart';
 import '../../models/defaults/api_error_default_model.dart';
 import '../../models/defaults/api_response_model.dart';
 import '../../models/defaults/default_response_model.dart';

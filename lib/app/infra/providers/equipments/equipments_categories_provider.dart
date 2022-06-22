@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:fisplan_alupar/app/infra/models/responses/equipment_category_model.dart';
-import 'package:fisplan_alupar/app/infra/repositories/equipments/equipment_category_repository.dart';
+import '../../models/responses/equipment_category_model.dart';
+import '../../repositories/equipments/equipment_category_repository.dart';
 
 import '../../../core/app_constants.dart';
 import '../../models/defaults/app_error_model.dart';

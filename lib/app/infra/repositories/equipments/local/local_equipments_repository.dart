@@ -1,13 +1,17 @@
-import 'package:fisplan_alupar/app/infra/api_endpoints.dart';
-import 'package:fisplan_alupar/app/infra/models/responses/equipment_model.dart';
 import 'package:get_storage/get_storage.dart';
+
+import '../../../api_endpoints.dart';
+import '../../../models/responses/equipment_model.dart';
 
 class LocalEquipmentsRepository {
   final GetStorage _storage;
   LocalEquipmentsRepository(this._storage);
 
   Future<void> setEquipments(List<EquipmentModel> data) async {
-    await _storage.write(apiEquipments, data.map((e) => e.toJson()));
+    await _storage.write(
+      apiEquipments,
+      data.map((e) => e.toJson()).toList(),
+    );
   }
 
   Future<List<EquipmentModel>> getEquipments() async {

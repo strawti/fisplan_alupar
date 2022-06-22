@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import './home_controller.dart';
+import 'home_controller.dart';
 import '../../shared/widgets/textform_widget.dart';
 import '../auth/login/login_page.dart';
 import 'widgets/card_project_widget.dart';

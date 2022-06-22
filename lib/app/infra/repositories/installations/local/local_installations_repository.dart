@@ -1,6 +1,6 @@
-import 'package:fisplan_alupar/app/infra/api_endpoints.dart';
 import 'package:get_storage/get_storage.dart';
 
+import '../../../api_endpoints.dart';
 import '../../../models/responses/installation_model.dart';
 
 class LocalInstallationsRepository {
@@ -8,12 +8,17 @@ class LocalInstallationsRepository {
   LocalInstallationsRepository(this._storage);
 
   Future<void> setInstallations(List<InstallationModel> data) async {
-    await _storage.write(apiInstallations, data.map((e) => e.toJson()));
+    await _storage.write(
+      apiInstallations,
+      data.map((e) => e.toJson()).toList(),
+    );
   }
 
   Future<List<InstallationModel>> getInstallations() async {
     final data = await _storage.read(apiInstallations);
-    return data.map((e) => InstallationModel.fromJson(e)).toList();
+    return List<InstallationModel>.from(
+      data?.map((e) => InstallationModel.fromJson(e)) ?? [],
+    );
   }
 
   Future<void> clearInstallations() async {

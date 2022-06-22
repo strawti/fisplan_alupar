@@ -1,5 +1,5 @@
-import 'package:fisplan_alupar/app/presenter/selection_page/selection_controller.dart';
-import 'package:fisplan_alupar/app/shared/widgets/textform_widget.dart';
+import 'selection_controller.dart';
+import '../../shared/widgets/textform_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

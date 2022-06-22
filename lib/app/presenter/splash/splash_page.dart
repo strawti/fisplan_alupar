@@ -1,6 +1,6 @@
-import 'package:fisplan_alupar/app/core/app_assets.dart';
-import 'package:fisplan_alupar/app/core/app_token.dart';
-import 'package:fisplan_alupar/app/presenter/home/home_page.dart';
+import '../../core/app_assets.dart';
+import '../../core/app_token.dart';
+import '../home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

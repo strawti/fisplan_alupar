@@ -1,4 +1,4 @@
-import 'package:fisplan_alupar/app/presenter/splash/splash_page.dart';
+import 'presenter/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -23,6 +23,7 @@ class AppWidget extends StatelessWidget {
       initialBinding: AppBindings(),
       initialRoute: SplashPage.route,
       fallbackLocale: const Locale('pt', 'BR'),
+      defaultTransition: Transition.native,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,

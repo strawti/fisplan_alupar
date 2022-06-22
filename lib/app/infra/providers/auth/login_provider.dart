@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:fisplan_alupar/app/infra/models/requests/auth/login_request_model.dart';
-import 'package:fisplan_alupar/app/infra/repositories/auth/login_repository.dart';
+import '../../models/requests/auth/login_request_model.dart';
+import '../../repositories/auth/login_repository.dart';
 
 import '../../../core/app_constants.dart';
 import '../../models/defaults/app_error_model.dart';

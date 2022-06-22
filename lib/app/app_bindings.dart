@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:fisplan_alupar/app/core/app_token.dart';
+import 'core/app_token.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/request/request.dart';

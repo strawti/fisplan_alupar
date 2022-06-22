@@ -1,16 +1,18 @@
-import 'package:fisplan_alupar/app/core/app_connectivity.dart';
-import 'package:fisplan_alupar/app/infra/models/responses/project_model.dart';
-import 'package:fisplan_alupar/app/infra/models/responses/user_response_model.dart';
-import 'package:fisplan_alupar/app/infra/providers/auth/user_provider.dart';
-import 'package:fisplan_alupar/app/infra/providers/local/companies/projects/local_companies_projects_provider.dart';
-import 'package:fisplan_alupar/app/infra/providers/local/local_user_provider.dart';
-import 'package:fisplan_alupar/app/shared/utils/loader_manager.dart';
+import '../../core/app_connectivity.dart';
+import '../../infra/models/responses/project_model.dart';
+import '../../infra/models/responses/user_response_model.dart';
+import '../../infra/providers/user/user_provider.dart';
+import '../../infra/providers/companies/projects/local_companies_projects_provider.dart';
+import '../../infra/providers/user/local_user_provider.dart';
+import '../../shared/utils/loader_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../infra/providers/companies/projects/companies_projects_provider.dart';
 
 class HomeController extends GetxController with LoaderManager {
+  static HomeController get to => Get.find();
+
   final CompaniesProjectsProvider _companiesProjectsProvider;
   final LocalCompaniesProjectsProvider _localCompaniesProjectsProvider;
 

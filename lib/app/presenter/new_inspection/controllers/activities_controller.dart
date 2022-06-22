@@ -1,11 +1,11 @@
-import 'package:fisplan_alupar/app/infra/models/responses/activity_model.dart';
-import 'package:fisplan_alupar/app/infra/providers/activities/activities_provider.dart';
-import 'package:fisplan_alupar/app/infra/providers/local/activities/local_activities_provider.dart';
-import 'package:fisplan_alupar/app/shared/utils/loader_manager.dart';
 import 'package:get/get.dart';
 
 import '../../../core/app_connectivity.dart';
+import '../../../infra/models/responses/activity_model.dart';
+import '../../../infra/providers/activities/activities_provider.dart';
+import '../../../infra/providers/activities/local_activities_provider.dart';
 import '../../../shared/utils/custom_snackbar.dart';
+import '../../../shared/utils/loader_manager.dart';
 
 class ActivitiesController extends GetxController with LoaderManager {
   final ActivitiesProvider _activitiesProvider;

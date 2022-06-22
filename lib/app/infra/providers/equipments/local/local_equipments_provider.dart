@@ -1,8 +1,8 @@
-import 'package:fisplan_alupar/app/infra/models/responses/equipment_model.dart';
+import '../../../models/responses/equipment_model.dart';
 
 import '../../../models/defaults/app_error_model.dart';
 import '../../../models/defaults/provider_response_model.dart';
-import '../../../repositories/local/equipments/local_equipments_repository.dart';
+import '../../../repositories/equipments/local/local_equipments_repository.dart';
 
 class LocalEquipmentsProvider {
   final LocalEquipmentsRepository _repository;

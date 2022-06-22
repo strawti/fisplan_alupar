@@ -1,8 +1,8 @@
-import 'package:fisplan_alupar/app/infra/repositories/local/inspections/local_inspections_repository.dart';
+import '../../repositories/inspections/local_inspections_repository.dart';
 
-import '../../../models/defaults/app_error_model.dart';
-import '../../../models/defaults/provider_response_model.dart';
-import '../../../models/responses/inspection_model.dart';
+import '../../models/defaults/app_error_model.dart';
+import '../../models/defaults/provider_response_model.dart';
+import '../../models/responses/inspection_model.dart';
 
 class LocalInspectionsProvider {
   final LocalInspectionsRepository _repository;

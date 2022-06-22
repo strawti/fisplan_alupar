@@ -1,11 +1,11 @@
-import 'package:fisplan_alupar/app/core/app_validators.dart';
-import 'package:fisplan_alupar/app/presenter/auth/login/login_controller.dart';
-import 'package:fisplan_alupar/app/shared/widgets/button_default_widget.dart';
-import 'package:fisplan_alupar/app/shared/widgets/textform_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/app_assets.dart';
+import '../../../../core/app_validators.dart';
+import '../../../../shared/widgets/button_default_widget.dart';
+import '../../../../shared/widgets/textform_widget.dart';
+import '../login_controller.dart';
 
 class LoginBody extends StatelessWidget {
   const LoginBody({Key? key}) : super(key: key);

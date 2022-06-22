@@ -1,8 +1,8 @@
-import 'package:fisplan_alupar/app/presenter/new_inspection/new_inspection_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../shared/widgets/textform_widget.dart';
+import '../new_inspection_controller.dart';
 import 'new_inspection_card.dart';
 
 class NewInspectionBody extends StatelessWidget {
@@ -18,9 +18,12 @@ class NewInspectionBody extends StatelessWidget {
           children: [
             const Text('Você está criando uma nova inspeção para o projeto:'),
             const SizedBox(height: 10),
-            const Text(
-              'Project Name',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            Text(
+              Get.find<NewInspectionController>().arguments.project.name,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 10),
             NewInspectionCard(

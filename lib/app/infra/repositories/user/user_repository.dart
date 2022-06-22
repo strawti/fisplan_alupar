@@ -1,4 +1,4 @@
-import 'package:fisplan_alupar/app/infra/models/responses/user_response_model.dart';
+import '../../models/responses/user_response_model.dart';
 import 'package:get/get.dart';
 
 import '../../api_endpoints.dart';
