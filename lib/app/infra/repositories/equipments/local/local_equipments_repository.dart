@@ -16,7 +16,9 @@ class LocalEquipmentsRepository {
 
   Future<List<EquipmentModel>> getEquipments() async {
     final data = await _storage.read(apiEquipments);
-    return data.map((e) => EquipmentModel.fromJson(e)).toList();
+    return List<EquipmentModel>.from(
+      data?.map((e) => EquipmentModel.fromJson(e)) ?? [],
+    );
   }
 
   Future<void> clearEquipments() async {
