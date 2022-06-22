@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:fisplan_alupar/app/infra/models/responses/answer_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/audio_model.dart';
-import 'package:fisplan_alupar/app/infra/models/photo_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/photo_model.dart';
 import 'package:flutter/material.dart';
 
 class InspectionModel {
