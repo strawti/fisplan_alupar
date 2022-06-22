@@ -1,10 +1,9 @@
-import '../../../infra/models/responses/tower_model.dart';
-import '../../../infra/providers/towers/towers_provider.dart';
-import '../../home/home_controller.dart';
 import 'package:get/get.dart';
 
 import '../../../core/app_connectivity.dart';
+import '../../../infra/models/responses/tower_model.dart';
 import '../../../infra/providers/towers/local_towers_provider.dart';
+import '../../../infra/providers/towers/towers_provider.dart';
 import '../../../shared/utils/custom_snackbar.dart';
 import '../../../shared/utils/loader_manager.dart';
 
@@ -44,9 +43,7 @@ class TowersController extends GetxController with LoaderManager {
   }
 
   Future _getAll() async {
-    final response = await _towersProvider.getAll(
-      Get.find<HomeController>().user!.companyId,
-    );
+    final response = await _towersProvider.getAll();
 
     if (response.isSuccess) {
       _towers = response.data ?? [];

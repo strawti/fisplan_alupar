@@ -1,14 +1,12 @@
-
-import '../../../core/app_connectivity.dart';
-import '../../../infra/providers/companies/tension_levels/companies_tension_level_provider.dart';
-import '../../../infra/providers/companies/tension_levels/local_companies_tension_levels_provider.dart';
-import '../../home/home_controller.dart';
-import '../../../shared/utils/custom_snackbar.dart';
-import '../../../shared/utils/loader_manager.dart';
-
 import 'package:get/get.dart';
 
+import '../../../core/app_connectivity.dart';
 import '../../../infra/models/responses/tension_level_model.dart';
+import '../../../infra/providers/companies/tension_levels/companies_tension_level_provider.dart';
+import '../../../infra/providers/companies/tension_levels/local_companies_tension_levels_provider.dart';
+import '../../../shared/utils/custom_snackbar.dart';
+import '../../../shared/utils/loader_manager.dart';
+import '../../home/home_controller.dart';
 
 class CompaniesController extends GetxController with LoaderManager {
   static CompaniesController get to => Get.find();
@@ -20,6 +18,12 @@ class CompaniesController extends GetxController with LoaderManager {
     this._companiesTensionLevelProvider,
     this._localCompaniesTensionLevelsProvider,
   );
+
+  @override
+  void onReady() {
+    super.onReady();
+    fetch();
+  }
 
   Future<void> fetch({bool online = false}) async {
     setIsLoading(true);
@@ -41,7 +45,7 @@ class CompaniesController extends GetxController with LoaderManager {
 
   Future getAll() async {
     final response = await _companiesTensionLevelProvider.getAllByUserCompanyId(
-      HomeController.to.user!.companyId,
+      Get.find<HomeController>().user!.companyId.toInt(),
     );
 
     if (response.isSuccess) {

@@ -127,9 +127,25 @@ class NewInspectionBody extends StatelessWidget {
                             controller.selectedTensionLevel?.name ?? '',
                             textScaleFactor: 1.1,
                           ),
-                          onTap: () {
-                            controller.getTensionLevel(1);
-                          },
+                          onTap: controller.getTensionLevel,
+                        ),
+                      );
+                    },
+                  ),
+                  GetBuilder<NewInspectionController>(
+                    builder: (controller) {
+                      return Visibility(
+                        visible: controller.selectedTensionLevel != null &&
+                            (controller.selectedInstallationType!.id == 3 ||
+                                controller.selectedInstallationType!.id == 2),
+                        child: ListTile(
+                          title: const Text('Equipamento'),
+                          trailing: const Icon(Icons.arrow_drop_down),
+                          subtitle: Text(
+                            controller.selectedEquipment?.name ?? '',
+                            textScaleFactor: 1.1,
+                          ),
+                          onTap: controller.getEquipments,
                         ),
                       );
                     },
