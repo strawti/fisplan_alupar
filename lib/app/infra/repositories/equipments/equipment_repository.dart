@@ -10,7 +10,7 @@ class EquipmentRepository {
   final GetConnect _connect;
   EquipmentRepository(this._connect);
 
-  Future<ApiResponseModel<EquipmentModel>> getAll() async {
+  Future<ApiResponseModel<List<EquipmentModel>?>> getAll() async {
     final response = await _connect.get(apiEquipments);
 
     final responseModel = DefaultResponseModel.fromMap({
@@ -24,7 +24,9 @@ class EquipmentRepository {
 
     if (responseModel.success) {
       return ApiResponseModel(
-        data: EquipmentModel.fromMap(responseModel.data),
+        data: List<EquipmentModel>.from(
+          responseModel.data.map((e) => EquipmentModel.fromMap(e)),
+        ),
       );
     }
 
