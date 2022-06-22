@@ -11,7 +11,7 @@ class InspectionsProvider {
   final InspectionsRepository _repository;
   InspectionsProvider(this._repository);
 
-  Future<ProviderResponseModel<List<InspectionModel>>> getAll() async {
+  Future<ProviderResponseModel<List<InspectionModel>?>> getAll() async {
     try {
       final response = await _repository.getAll();
       return ProviderResponseModel.fromMap(response.toMap());
