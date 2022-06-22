@@ -11,7 +11,7 @@ class InstallationsTypeProvider {
   final InstallationsTypeRepository _repository;
   InstallationsTypeProvider(this._repository);
 
-  Future<ProviderResponseModel<List<InstallationTypeModel>>> getAll() async {
+  Future<ProviderResponseModel<List<InstallationTypeModel>?>> getAll() async {
     try {
       final response = await _repository.getAll();
       return ProviderResponseModel.fromMap(response.toMap());
