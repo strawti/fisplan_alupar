@@ -18,8 +18,12 @@ class CompaniesTensionLevelsRepository {
     );
 
     final responseModel = DefaultResponseModel.fromMap({
+      'success': response.statusCode == 200,
       'statusCode': response.statusCode,
       'data': response.body,
+      'error': {
+        'message': response.statusText,
+      },
     });
 
     if (responseModel.success) {
