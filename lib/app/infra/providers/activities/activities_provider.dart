@@ -11,7 +11,7 @@ class ActivitiesProvider {
   final ActivitiesRepository _repository;
   ActivitiesProvider(this._repository);
 
-  Future<ProviderResponseModel<List<ActivityModel>>> getAll() async {
+  Future<ProviderResponseModel<List<ActivityModel>?>> getAll() async {
     try {
       final response = await _repository.getAll();
       return ProviderResponseModel.fromMap(response.toMap());
