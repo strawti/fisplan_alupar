@@ -1,31 +1,31 @@
-import 'package:fisplan_alupar/app/infra/repositories/local/inspections/local_inspections_repository.dart';
-
 import '../../../models/defaults/app_error_model.dart';
 import '../../../models/defaults/provider_response_model.dart';
-import '../../../models/responses/inspection_model.dart';
+import '../../../models/responses/equipment_category_model.dart';
+import '../../../repositories/equipments/local/local_equipments_categories_repository.dart';
 
-class LocalInspectionsProvider {
-  final LocalInspectionsRepository _repository;
-  LocalInspectionsProvider(this._repository);
+class LocalEquipmentsCategoriesProvider {
+  final LocalEquipmentsCategoriesRepository _repository;
+  LocalEquipmentsCategoriesProvider(this._repository);
 
-  Future<ProviderResponseModel<List<InspectionModel>?>> getAll() async {
+  Future<ProviderResponseModel<List<EquipmentCategoryModel>?>> getAll() async {
     try {
       final response = await _repository.getAll();
       return ProviderResponseModel(data: response);
     } catch (e) {
-      return AppErrorDefaultModel('LocalInspectionsProvider.getAll() $e');
+      return AppErrorDefaultModel(
+          'LocalEquipmentsCategoriesProvider.getAll() $e');
     }
   }
 
   Future<ProviderResponseModel> set(
-    List<InspectionModel> data,
+    List<EquipmentCategoryModel> data,
   ) async {
     try {
       await _repository.set(data);
       return ProviderResponseModel();
     } catch (e) {
       return AppErrorDefaultModel(
-        'LocalInspectionsProvider.set() $e',
+        'LocalEquipmentsCategoriesProvider.set() $e',
       );
     }
   }
@@ -36,7 +36,7 @@ class LocalInspectionsProvider {
       return ProviderResponseModel();
     } catch (e) {
       return AppErrorDefaultModel(
-        'LocalInspectionsProvider.clear() $e',
+        'LocalEquipmentsCategoriesProvider.clear() $e',
       );
     }
   }

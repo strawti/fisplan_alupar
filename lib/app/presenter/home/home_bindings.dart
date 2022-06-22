@@ -1,13 +1,13 @@
-import 'package:fisplan_alupar/app/infra/providers/auth/user_provider.dart';
+import 'package:fisplan_alupar/app/infra/providers/user/user_provider.dart';
 import 'package:fisplan_alupar/app/infra/providers/companies/projects/companies_projects_provider.dart';
-import 'package:fisplan_alupar/app/infra/repositories/auth/user_repository.dart';
-import 'package:fisplan_alupar/app/infra/repositories/local/companies/projects/local_companies_projects_repository.dart';
-import 'package:fisplan_alupar/app/infra/repositories/local/local_user_repository.dart';
+import 'package:fisplan_alupar/app/infra/repositories/user/user_repository.dart';
+import 'package:fisplan_alupar/app/infra/repositories/companies/projects/local/local_companies_projects_repository.dart';
+import 'package:fisplan_alupar/app/infra/repositories/user/local_user_repository.dart';
 import 'package:get/get.dart';
 
 import './home_controller.dart';
-import '../../infra/providers/local/companies/projects/local_companies_projects_provider.dart';
-import '../../infra/providers/local/local_user_provider.dart';
+import '../../infra/providers/companies/projects/local_companies_projects_provider.dart';
+import '../../infra/providers/user/local_user_provider.dart';
 import '../../infra/repositories/companies/projects/companies_projects_repository.dart';
 
 class HomeBindings implements Bindings {

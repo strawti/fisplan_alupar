@@ -1,5 +1,5 @@
 import 'package:fisplan_alupar/app/infra/models/responses/inspection_model.dart';
-import 'package:fisplan_alupar/app/infra/providers/local/inspections/local_inspections_provider.dart';
+import 'package:fisplan_alupar/app/infra/providers/inspections/local_inspections_provider.dart';
 import 'package:fisplan_alupar/app/routes/arguments/inspections_page_arguments.dart';
 import 'package:fisplan_alupar/app/shared/utils/loader_manager.dart';
 import 'package:flutter/material.dart';

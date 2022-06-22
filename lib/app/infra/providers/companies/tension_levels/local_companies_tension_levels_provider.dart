@@ -1,8 +1,8 @@
 import 'package:fisplan_alupar/app/infra/models/responses/tension_level_model.dart';
 
-import '../../../../models/defaults/app_error_model.dart';
-import '../../../../models/defaults/provider_response_model.dart';
-import '../../../../repositories/local/companies/tension_levels/local_companies_tension_levels_repository.dart';
+import '../../../models/defaults/app_error_model.dart';
+import '../../../models/defaults/provider_response_model.dart';
+import '../../../repositories/companies/tension_levels/local_companies_tension_levels_repository.dart';
 
 class LocalCompaniesTensionLevelsProvider {
   final LocalCompaniesTensionLevelsRepository _repository;

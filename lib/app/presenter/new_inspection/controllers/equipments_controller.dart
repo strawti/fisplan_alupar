@@ -3,7 +3,7 @@ import 'package:fisplan_alupar/app/infra/providers/equipments/equipments_provide
 import 'package:get/get.dart';
 
 import '../../../core/app_connectivity.dart';
-import '../../../infra/providers/local/equipments/local_equipments_provider.dart';
+import '../../../infra/providers/equipments/local/local_equipments_provider.dart';
 import '../../../shared/utils/custom_snackbar.dart';
 import '../../../shared/utils/loader_manager.dart';
 

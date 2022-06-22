@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../../../core/app_connectivity.dart';
 import '../../../infra/models/responses/installation_model.dart';
 import '../../../infra/providers/installations/installations_provider.dart';
-import '../../../infra/providers/local/installations/local_installations_provider.dart';
+import '../../../infra/providers/installations/local/local_installations_provider.dart';
 import '../../../shared/utils/custom_snackbar.dart';
 import '../../../shared/utils/loader_manager.dart';
 

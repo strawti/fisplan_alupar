@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:fisplan_alupar/app/infra/models/responses/tower_model.dart';
 
-import '../../core/app_constants.dart';
-import '../models/defaults/app_error_model.dart';
-import '../models/defaults/provider_response_model.dart';
-import '../repositories/towers/towers_repository.dart';
+import '../../../core/app_constants.dart';
+import '../../models/defaults/app_error_model.dart';
+import '../../models/defaults/provider_response_model.dart';
+import '../../repositories/towers/towers_repository.dart';
 
 class TowersProvider {
   final TowersRepository _repository;
