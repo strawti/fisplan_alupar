@@ -1,4 +1,4 @@
-import 'package:fisplan_alupar/app/infra/models/project_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/project_model.dart';
 
 class InspectionsPageArguments {
   final ProjectModel project;

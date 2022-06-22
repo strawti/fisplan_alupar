@@ -1,4 +1,4 @@
-import 'package:fisplan_alupar/app/infra/models/installation_type_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/installation_type_model.dart';
 import 'package:fisplan_alupar/app/infra/repositories/local/installations/local_installations_type_repository.dart';
 
 import '../../../models/defaults/app_error_model.dart';

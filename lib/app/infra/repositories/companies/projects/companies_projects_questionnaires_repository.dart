@@ -1,5 +1,5 @@
 import 'package:fisplan_alupar/app/infra/api_endpoints.dart';
-import 'package:fisplan_alupar/app/infra/models/project_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/project_model.dart';
 import 'package:get/get.dart';
 
 import '../../../models/defaults/api_error_default_model.dart';
@@ -10,7 +10,7 @@ class CompaniesProjectsQuestionnairesRepository {
   final GetConnect _connect;
   CompaniesProjectsQuestionnairesRepository(this._connect);
 
-  Future<ApiResponseModel<ProjectModel>> getAllByCompanyId(
+  Future<ApiResponseModel<List<ProjectModel>>> getAllByCompanyId(
     int userCompanyId,
   ) async {
     final response = await _connect.get(
@@ -18,13 +18,21 @@ class CompaniesProjectsQuestionnairesRepository {
     );
 
     final responseModel = DefaultResponseModel.fromMap({
+      'success': response.statusCode == 200,
       'statusCode': response.statusCode,
       'data': response.body,
+      'error': {
+        'message': response.statusText,
+      },
     });
 
     if (responseModel.success) {
       return ApiResponseModel(
-        data: ProjectModel.fromMap(responseModel.data),
+        data: List<ProjectModel>.from(
+          responseModel.data.map(
+            (e) => ProjectModel.fromMap(e),
+          ),
+        ),
       );
     }
 

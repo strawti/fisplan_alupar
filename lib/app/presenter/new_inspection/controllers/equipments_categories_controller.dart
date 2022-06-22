@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 import '../../../core/app_connectivity.dart';
-import '../../../infra/models/equipment_category_model.dart';
+import '../../../infra/models/responses/equipment_category_model.dart';
 import '../../../infra/providers/equipments/equipments_categories_provider.dart';
 import '../../../infra/providers/local/equipments/local_equipments_categories_provider.dart';
 import '../../../shared/utils/custom_snackbar.dart';
@@ -19,16 +19,26 @@ class EquipmentsCategoriesController extends GetxController with LoaderManager {
   );
 
   @override
-  List<EquipmentCategoryModel> equipmentsCategories = [];
 
-  Future<void> fetch() async {
+  void onReady() {
+    super.onReady();
+    fetch();
+  }
+
+  List<EquipmentCategoryModel> _equipmentsCategories = [];
+  List<EquipmentCategoryModel> equipmentsCategoriesFiltered = [];
+
+  Future<void> fetch({bool online = false}) async {
     setIsLoading(true);
 
+    await _getLocalAll();
     if (await AppConnectivity.instance.isConnected()) {
-      await _getAll();
-    } else {
-      await _getLocalAll();
+      if (_equipmentsCategories.isEmpty || online) {
+        await _getAll();
+      }
     }
+
+    equipmentsCategoriesFiltered = _equipmentsCategories.toList();
 
     setIsLoading(false);
   }
@@ -37,8 +47,8 @@ class EquipmentsCategoriesController extends GetxController with LoaderManager {
     final response = await _equipmentsCategoriesProvider.getAll();
 
     if (response.isSuccess) {
-      equipmentsCategories = response.data ?? [];
-      _setLocal(equipmentsCategories);
+      _equipmentsCategories = response.data ?? [];
+      _setLocal(_equipmentsCategories);
     } else {
       CustomSnackbar.to.show(response.error!.content!);
     }
@@ -48,7 +58,7 @@ class EquipmentsCategoriesController extends GetxController with LoaderManager {
     final response = await _localEquipmentsCategoriesProvider.getAll();
 
     if (response.isSuccess) {
-      equipmentsCategories = response.data ?? [];
+      _equipmentsCategories = response.data ?? [];
     } else {
       CustomSnackbar.to.show(response.error!.content!);
     }
@@ -60,7 +70,7 @@ class EquipmentsCategoriesController extends GetxController with LoaderManager {
     );
 
     if (response.isSuccess) {
-      equipmentsCategories = data;
+      _equipmentsCategories = data;
     } else {
       CustomSnackbar.to.show(response.error!.content!);
     }

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:fisplan_alupar/app/infra/models/inspection_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/inspection_model.dart';
 import 'package:fisplan_alupar/app/infra/repositories/inspections/inspections_repository.dart';
 
 import '../../../core/app_constants.dart';
@@ -11,7 +11,7 @@ class InspectionsProvider {
   final InspectionsRepository _repository;
   InspectionsProvider(this._repository);
 
-  Future<ProviderResponseModel<List<InspectionModel>>> getAll() async {
+  Future<ProviderResponseModel<List<InspectionModel>?>> getAll() async {
     try {
       final response = await _repository.getAll();
       return ProviderResponseModel.fromMap(response.toMap());

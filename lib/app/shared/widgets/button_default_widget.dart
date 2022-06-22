@@ -21,7 +21,7 @@ class ButtonDefaultWidget extends StatelessWidget {
     this.width = double.maxFinite,
     this.marginHorizontal = 25,
     this.paddingVertical = 13,
-    this.textColor = appPrimaryColorCcontrast,
+    this.textColor = Colors.white,
     this.backgroundColor,
     this.isLoading = false,
     this.enabled = true,

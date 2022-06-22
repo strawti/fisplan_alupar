@@ -1,10 +1,16 @@
 import 'package:fisplan_alupar/app/infra/models/defaults/item_selection_model.dart';
+
 import 'package:fisplan_alupar/app/infra/models/equipment_category_model.dart';
 import 'package:fisplan_alupar/app/infra/models/installation_model.dart';
 import 'package:fisplan_alupar/app/infra/models/installation_type_model.dart';
 import 'package:fisplan_alupar/app/infra/models/tower_model.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/companies_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/equipments_categories_controller.dart';
+
+import 'package:fisplan_alupar/app/infra/models/responses/installation_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/installation_type_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/tower_model.dart';
+
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/installation_type_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/installations_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/towers_controller.dart';
@@ -25,7 +31,7 @@ class NewInspectionController extends GetxController {
   Future getInstallationType() async {
     final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
       'Selecione o tipo de instalação',
-      instalationTypeController.installationTypes,
+      instalationTypeController.installationTypesFiltered,
     );
 
     if (result != null) {
@@ -37,11 +43,13 @@ class NewInspectionController extends GetxController {
 
   InstallationModel? selectedInstallation;
   Future getInstallation() async {
-    await installationsController.fetch(selectedInstallationType!.id);
+    installationsController.filterByInstallationTypeId(
+      selectedInstallationType!.id,
+    );
 
     final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
       'Instalação',
-      installationsController.installations,
+      installationsController.installationsFiltered,
     );
 
     if (result != null) {

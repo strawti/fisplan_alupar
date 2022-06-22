@@ -1,4 +1,4 @@
-import 'package:fisplan_alupar/app/infra/models/equipment_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/equipment_model.dart';
 import 'package:fisplan_alupar/app/infra/providers/equipments/equipments_provider.dart';
 import 'package:get/get.dart';
 
@@ -22,26 +22,30 @@ class EquipmentsController extends GetxController with LoaderManager {
     fetch();
   }
 
-  List<EquipmentModel> equipments = [];
+  List<EquipmentModel> _equipments = [];
+  List<EquipmentModel> equipmentsFiltered = [];
 
-  Future<void> fetch() async {
+  Future<void> fetch({bool online = false}) async {
     setIsLoading(true);
 
+    await _getLocal();
     if (await AppConnectivity.instance.isConnected()) {
-      _getInstallations();
-    } else {
-      await _getLocal();
+      if (_equipments.isEmpty || online) {
+        await _getAll();
+      }
     }
+
+    equipmentsFiltered = _equipments.toList();
 
     setIsLoading(false);
   }
 
-  Future _getInstallations() async {
+  Future _getAll() async {
     final response = await _installationsProvider.getAll();
 
     if (response.isSuccess) {
-      equipments = response.data ?? [];
-      _setLocal(equipments);
+      _equipments = response.data ?? [];
+      _setLocal(_equipments);
     } else {
       CustomSnackbar.to.show(response.error!.content!);
     }
@@ -51,7 +55,7 @@ class EquipmentsController extends GetxController with LoaderManager {
     final response = await _localEquipmentsProvider.getAll();
 
     if (response.isSuccess) {
-      equipments = response.data ?? [];
+      _equipments = response.data ?? [];
     } else {
       CustomSnackbar.to.show(response.error!.content!);
     }
@@ -63,7 +67,7 @@ class EquipmentsController extends GetxController with LoaderManager {
     );
 
     if (response.isSuccess) {
-      equipments = data;
+      _equipments = data;
     } else {
       CustomSnackbar.to.show(response.error!.content!);
     }

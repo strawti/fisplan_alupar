@@ -1,6 +1,6 @@
 import '../../../models/defaults/app_error_model.dart';
 import '../../../models/defaults/provider_response_model.dart';
-import '../../../models/installation_model.dart';
+import '../../../models/responses/installation_model.dart';
 import '../../../repositories/local/installations/local_installations_repository.dart';
 
 class LocalInstallationsProvider {
