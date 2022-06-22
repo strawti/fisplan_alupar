@@ -10,41 +10,30 @@ const appColorSecondaryShade = Color(0xff7188b1);
 const appColorSecondaryTint = Color(0xff8da4ce);
 
 const appColorTertiary = Color(0xff00a0e3);
-const appColorTertiaryContrast = Color(0xffffffff);
 const appColorTertiaryShade = Color(0xff008dc8);
 const appColorTertiaryTint = Color(0xff1aaae6);
 
 const appColorSuccess = Color(0xff10dc60);
-const appColorSuccessContrast = Color(0xffffffff);
 const appColorSuccessShade = Color(0xff0ec254);
 const appColorSuccessTint = Color(0xff28e070);
 
 const appColorWarning = Color(0xffffce00);
-const appColorWarningContrast = Color(0xffffffff);
 const appColorWarningShade = Color(0xffe0b500);
 const appColorWarningTint = Color(0xffffd31a);
 
 const appColorDanger = Color(0xfff04141);
-const appColorDangerContrast = Color(0xffffffff);
 const appColorDangerShade = Color(0xffd33939);
 const appColorDangerTint = Color(0xfff25454);
 
 const appColorDark = Color(0xff373435);
-const appColorDarkContrast = Color(0xffffffff);
 const appColorDarkShade = Color(0xff302e2f);
 const appColorDarkTint = Color(0xff4b4849);
 
 const appColorMedium = Color(0xff6f7273);
-const appColorMediumContrast = Color(0xffffffff);
 const appColorMediumShade = Color(0xff626465);
 const appColorMediumTint = Color(0xff7d8081);
 
-const appColorLight = Color(0xfff4f5f8);
 const appColorLightContrast = Color(0xff000000);
-const appColorLightShade = Color(0xffd7d8da);
-const appColorLightTint = Color(0xfff5f6f9);
-
-const appBackgrouncColor = Color(0xffffffff);
 
 const appTextColor = Color(0xff373435);
 
