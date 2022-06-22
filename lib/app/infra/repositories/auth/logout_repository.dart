@@ -18,7 +18,14 @@ class LogoutRepository {
     );
 
     final responseModel = DefaultResponseModel.fromMap(
-      response.body,
+      {
+        'success': response.statusCode == 200,
+        'statusCode': response.statusCode,
+        'data': response.body,
+        'error': {
+          'message': response.statusText,
+        },
+      },
     );
 
     if (responseModel.success) {
