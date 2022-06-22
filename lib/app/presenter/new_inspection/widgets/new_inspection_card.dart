@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 
 class NewInspectionCard extends StatelessWidget {
-  NewInspectionCard({Key? key, required this.title, this.child, this.icon})
-      : super(key: key);
-  String title;
-  IconButton? icon;
-  Widget? child;
+  const NewInspectionCard({
+    Key? key,
+    required this.title,
+    this.child,
+    this.icon,
+  }) : super(key: key);
+
+  final String title;
+  final IconButton? icon;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +27,10 @@ class NewInspectionCard extends StatelessWidget {
                 Text(
                   title,
                   style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black54),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black54,
+                  ),
                 ),
                 icon ?? const SizedBox(),
               ],

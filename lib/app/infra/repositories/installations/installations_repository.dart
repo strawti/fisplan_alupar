@@ -1,6 +1,6 @@
-import '../../api_endpoints.dart';
 import 'package:get/get.dart';
 
+import '../../api_endpoints.dart';
 import '../../models/defaults/api_error_default_model.dart';
 import '../../models/defaults/api_response_model.dart';
 import '../../models/defaults/default_response_model.dart';
@@ -12,8 +12,6 @@ class InstallationsRepository {
 
   Future<ApiResponseModel<List<InstallationModel>>> getAll() async {
     final response = await _connect.get(apiInstallations);
-
-    print('/*************************${response.body}');
 
     final responseModel = DefaultResponseModel.fromMap({
       'success': response.statusCode == 200,

@@ -1,4 +1,3 @@
-import 'presenter/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -6,6 +5,7 @@ import 'package:get/get.dart';
 import 'app_bindings.dart';
 import 'core/app_constants.dart';
 import 'core/app_theme.dart';
+import 'presenter/splash/splash_page.dart';
 import 'routes/app_pages.dart';
 
 class AppWidget extends StatelessWidget {
@@ -37,15 +37,16 @@ class AppWidget extends StatelessWidget {
     );
   }
 
-  Widget _builder(context, widget) {
-    Widget error = const Text('...ERRO DE RENDERIZAÇÃO...');
+  // TODO: COLOCAR QUANDO FOR SUBIR A APLICAÇÃO
+  // Widget _builder(context, widget) {
+  //   Widget error = const Text('...ERRO DE RENDERIZAÇÃO...');
 
-    if (widget is Scaffold || widget is Navigator) {
-      error = Scaffold(body: Center(child: error));
-    }
+  //   if (widget is Scaffold || widget is Navigator) {
+  //     error = Scaffold(body: Center(child: error));
+  //   }
 
-    ErrorWidget.builder = (FlutterErrorDetails errorDetails) => error;
+  //   ErrorWidget.builder = (FlutterErrorDetails errorDetails) => error;
 
-    return widget;
-  }
+  //   return widget;
+  // }
 }

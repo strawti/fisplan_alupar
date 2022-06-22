@@ -214,9 +214,9 @@ class NewInspectionBody extends StatelessWidget {
                 ),
               ]),
             ),
-            NewInspectionCard(
+            const NewInspectionCard(
               title: 'Comentarios',
-              child: const Padding(
+              child: Padding(
                 padding: EdgeInsets.only(top: 20),
                 child: TextFormWidget(
                   hintText: 'Informações adicionais',
