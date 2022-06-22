@@ -1,10 +1,8 @@
-import 'widgets/new_inspection_body.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-import 'new_inspection_controller.dart';
+import 'widgets/new_inspection_body.dart';
 
-class NewInspectionPage extends GetView<NewInspectionController> {
+class NewInspectionPage extends StatelessWidget {
   const NewInspectionPage({Key? key}) : super(key: key);
 
   static const String route = '/new-inspection';
@@ -12,10 +10,8 @@ class NewInspectionPage extends GetView<NewInspectionController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('NewInspectionPage'),
-      ),
-      body: NewInspectionBody(),
+      appBar: AppBar(title: const Text("Nova Inspeção")),
+      body: const NewInspectionBody(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {},

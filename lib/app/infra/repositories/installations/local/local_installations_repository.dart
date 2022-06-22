@@ -1,6 +1,6 @@
-import '../../../api_endpoints.dart';
 import 'package:get_storage/get_storage.dart';
 
+import '../../../api_endpoints.dart';
 import '../../../models/responses/installation_model.dart';
 
 class LocalInstallationsRepository {
@@ -13,7 +13,9 @@ class LocalInstallationsRepository {
 
   Future<List<InstallationModel>> getInstallations() async {
     final data = await _storage.read(apiInstallations);
-    return data.map((e) => InstallationModel.fromJson(e)).toList();
+    return List<InstallationModel>.from(
+      data?.map((e) => InstallationModel.fromJson(e)) ?? [],
+    );
   }
 
   Future<void> clearInstallations() async {

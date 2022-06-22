@@ -1,18 +1,16 @@
-import '../../api_endpoints.dart';
-import '../../models/responses/equipment_category_model.dart';
 import 'package:get/get.dart';
 
+import '../../api_endpoints.dart';
 import '../../models/defaults/api_error_default_model.dart';
 import '../../models/defaults/api_response_model.dart';
 import '../../models/defaults/default_response_model.dart';
+import '../../models/responses/equipment_category_model.dart';
 
 class EquipmentCategoryRepository {
   final GetConnect _connect;
   EquipmentCategoryRepository(this._connect);
 
-
   Future<ApiResponseModel<List<EquipmentCategoryModel>>> getAll() async {
-
     final response = await _connect.get(apiEquipmentCategories);
 
     final responseModel = DefaultResponseModel.fromMap({
@@ -27,7 +25,6 @@ class EquipmentCategoryRepository {
     if (responseModel.success) {
       return ApiResponseModel(
         data: List<EquipmentCategoryModel>.from(
-
           responseModel.data.map(
             (e) => EquipmentCategoryModel.fromMap(e),
           ),

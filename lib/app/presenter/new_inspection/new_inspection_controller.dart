@@ -1,19 +1,31 @@
+import 'package:get/get.dart';
+
 import '../../infra/models/defaults/item_selection_model.dart';
+import '../../infra/models/responses/equipment_category_model.dart';
 import '../../infra/models/responses/installation_model.dart';
 import '../../infra/models/responses/installation_type_model.dart';
 import '../../infra/models/responses/tower_model.dart';
+import '../../routes/arguments/new_inspection_page_arguments.dart';
+import '../../routes/arguments/selection_page_arguments.dart';
+import '../selection_page/selection_page.dart';
 import 'controllers/companies_controller.dart';
 import 'controllers/equipments_categories_controller.dart';
 import 'controllers/installation_type_controller.dart';
 import 'controllers/installations_controller.dart';
 import 'controllers/towers_controller.dart';
-import '../selection_page/selection_page.dart';
-import '../../routes/arguments/selection_page_arguments.dart';
-import 'package:get/get.dart';
-
-import '../../infra/models/responses/equipment_category_model.dart';
 
 class NewInspectionController extends GetxController {
+  NewInspectionController() {
+    assert(
+      Get.arguments is NewInspectionPageArguments,
+      "Passe NewInspectionPageArguments nos argumentos da rota",
+    );
+
+    arguments = Get.arguments;
+  }
+
+  late NewInspectionPageArguments arguments;
+
   final instalationTypeController = Get.find<InstallationTypeController>();
   final installationsController = Get.find<InstallationsController>();
   final towersController = Get.find<TowersController>();
