@@ -1,7 +1,8 @@
-import '../../infra/models/defaults/item_selection_model.dart';
-import '../../routes/arguments/selection_page_arguments.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../infra/models/defaults/item_selection_model.dart';
+import '../../routes/arguments/selection_page_arguments.dart';
 
 class SelectionController extends GetxController {
   SelectionController() {
@@ -19,7 +20,7 @@ class SelectionController extends GetxController {
   void onReady() {
     super.onReady();
 
-    searhController.addListener(() {
+    searchController.addListener(() {
       itemsFiltered.clear();
 
       for (var item in routeArguments.items) {
@@ -40,11 +41,11 @@ class SelectionController extends GetxController {
   void onClose() {
     super.onClose();
 
-    searhController.dispose();
+    searchController.dispose();
   }
 
-  final searhController = TextEditingController();
-  String get searchText => searhController.text.trim().toLowerCase();
+  final searchController = TextEditingController();
+  String get searchText => searchController.text.trim().toLowerCase();
 
   List<ItemSelectionModel> itemsFiltered = [];
 }

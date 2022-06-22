@@ -32,7 +32,7 @@ class InspectionsController extends GetxController with LoaderManager {
 
     fetch();
 
-    searhController.addListener(() {
+    searchController.addListener(() {
       inspectionsFiltered.clear();
 
       for (var project in inspections) {
@@ -49,11 +49,11 @@ class InspectionsController extends GetxController with LoaderManager {
   void onClose() {
     super.onClose();
 
-    searhController.dispose();
+    searchController.dispose();
   }
 
-  final searhController = TextEditingController();
-  String get searchText => searhController.text.trim().toLowerCase();
+  final searchController = TextEditingController();
+  String get searchText => searchController.text.trim().toLowerCase();
 
   Future fetch() async {
     setIsLoading(true);

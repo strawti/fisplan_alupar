@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
+import '../../shared/widgets/search_widget.dart';
 import 'home_controller.dart';
-import '../../shared/widgets/textform_widget.dart';
-import '../auth/login/login_page.dart';
 import 'widgets/card_project_widget.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -19,7 +17,6 @@ class HomePage extends GetView<HomeController> {
         final result = await Get.dialog(
           AlertDialog(
             title: const Text('Deseja sair do app?'),
-            //content: const Text('Você será desconectado'),
             actions: [
               MaterialButton(
                 child: const Text('Sim'),
@@ -43,43 +40,17 @@ class HomePage extends GetView<HomeController> {
           title: const Text('Projetos'),
           leading: IconButton(
             icon: const Text('Sair'),
-            onPressed: () async {
-              Get.dialog(
-                AlertDialog(
-                  title: const Text('Confirmar saída?'),
-                  content: const Text('Você será desconectado'),
-                  actions: [
-                    MaterialButton(
-                      child: const Text('Sim'),
-                      onPressed: () {
-                        Get.find<GetStorage>().erase();
-                        Get.offAllNamed(LoginPage.route);
-                      },
-                    ),
-                    MaterialButton(
-                      onPressed: Get.back,
-                      child: const Text('Não'),
-                    ),
-                  ],
-                ),
-              );
+            onPressed: () {
+              Get.dialog(DisconnectUserDialogWidget(
+                confirmOnPressed: controller.disconnectUser,
+              ));
             },
           ),
         ),
         body: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: GetBuilder<HomeController>(
-                builder: (control) {
-                  return TextFormWidget(
-                    controller: control.searhController,
-                    hintText: 'Procurar',
-                    textInputAction: TextInputAction.search,
-                    prefixIcon: const Icon(Icons.search),
-                  );
-                },
-              ),
+            SearchWidget<HomeController>(
+              controller: controller.searchController,
             ),
             const SizedBox(height: 20),
             Expanded(
@@ -110,6 +81,37 @@ class HomePage extends GetView<HomeController> {
           label: const Text('Atualizar dados'),
         ),
       ),
+    );
+  }
+}
+
+class DisconnectUserDialogWidget extends StatelessWidget {
+  final void Function()? confirmOnPressed;
+
+  /// Null case Get.back is used
+  final void Function()? cancelOnPressed;
+
+  const DisconnectUserDialogWidget({
+    Key? key,
+    this.confirmOnPressed,
+    this.cancelOnPressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Confirmar saída?'),
+      content: const Text('Você será desconectado'),
+      actions: [
+        MaterialButton(
+          onPressed: confirmOnPressed,
+          child: const Text('Sim'),
+        ),
+        MaterialButton(
+          onPressed: cancelOnPressed ?? Get.back,
+          child: const Text('Não'),
+        ),
+      ],
     );
   }
 }

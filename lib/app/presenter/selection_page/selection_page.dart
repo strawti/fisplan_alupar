@@ -1,7 +1,8 @@
-import 'selection_controller.dart';
-import '../../shared/widgets/textform_widget.dart';
+import 'package:fisplan_alupar/app/shared/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'selection_controller.dart';
 
 class SelectionPage extends StatelessWidget {
   const SelectionPage({Key? key}) : super(key: key);
@@ -16,18 +17,8 @@ class SelectionPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: GetBuilder<SelectionController>(
-              builder: (control) {
-                return TextFormWidget(
-                  controller: control.searhController,
-                  hintText: 'Procurar',
-                  textInputAction: TextInputAction.search,
-                  prefixIcon: const Icon(Icons.search),
-                );
-              },
-            ),
+          SearchWidget<SelectionController>(
+            controller: Get.find<SelectionController>().searchController,
           ),
           const SizedBox(height: 20),
           Expanded(

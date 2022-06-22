@@ -1,8 +1,8 @@
 import 'package:fisplan_alupar/app/routes/arguments/new_inspection_page_arguments.dart';
+import 'package:fisplan_alupar/app/shared/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../shared/widgets/textform_widget.dart';
 import '../new_inspection/new_inspection_page.dart';
 import 'inspections_controller.dart';
 import 'widgets/inspection_widget.dart';
@@ -29,18 +29,8 @@ class InspectionsPage extends GetView<InspectionsController> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: GetBuilder<InspectionsController>(
-              builder: (control) {
-                return TextFormWidget(
-                  controller: control.searhController,
-                  hintText: 'Procurar',
-                  textInputAction: TextInputAction.search,
-                  prefixIcon: const Icon(Icons.search),
-                );
-              },
-            ),
+          SearchWidget<InspectionsController>(
+            controller: controller.searchController,
           ),
           Expanded(
             child: SingleChildScrollView(
