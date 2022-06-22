@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../shared/widgets/alert_dialog_widget.dart';
 import '../../shared/widgets/search_widget.dart';
 import 'home_controller.dart';
 import 'widgets/card_project_widget.dart';
@@ -15,20 +16,11 @@ class HomePage extends GetView<HomeController> {
     return WillPopScope(
       onWillPop: () async {
         final result = await Get.dialog(
-          AlertDialog(
-            title: const Text('Deseja sair do app?'),
-            actions: [
-              MaterialButton(
-                child: const Text('Sim'),
-                onPressed: () {
-                  Get.back(result: true);
-                },
-              ),
-              MaterialButton(
-                onPressed: () => Get.back(result: false),
-                child: const Text('Não'),
-              ),
-            ],
+          AlertDialogWidget(
+            title: 'Confirmar saída?',
+            content: 'Você será desconectado',
+            confirmOnPressed: () => Get.back(result: true),
+            cancelOnPressed: () => Get.back(result: false),
           ),
         );
 
@@ -41,7 +33,9 @@ class HomePage extends GetView<HomeController> {
           leading: IconButton(
             icon: const Text('Sair'),
             onPressed: () {
-              Get.dialog(DisconnectUserDialogWidget(
+              Get.dialog(AlertDialogWidget(
+                title: 'Confirmar saída?',
+                content: 'Você será desconectado',
                 confirmOnPressed: controller.disconnectUser,
               ));
             },
@@ -81,37 +75,6 @@ class HomePage extends GetView<HomeController> {
           label: const Text('Atualizar dados'),
         ),
       ),
-    );
-  }
-}
-
-class DisconnectUserDialogWidget extends StatelessWidget {
-  final void Function()? confirmOnPressed;
-
-  /// Null case Get.back is used
-  final void Function()? cancelOnPressed;
-
-  const DisconnectUserDialogWidget({
-    Key? key,
-    this.confirmOnPressed,
-    this.cancelOnPressed,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Confirmar saída?'),
-      content: const Text('Você será desconectado'),
-      actions: [
-        MaterialButton(
-          onPressed: confirmOnPressed,
-          child: const Text('Sim'),
-        ),
-        MaterialButton(
-          onPressed: cancelOnPressed ?? Get.back,
-          child: const Text('Não'),
-        ),
-      ],
     );
   }
 }
