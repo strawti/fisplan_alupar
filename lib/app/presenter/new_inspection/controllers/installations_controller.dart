@@ -18,6 +18,12 @@ class InstallationsController extends GetxController with LoaderManager {
     this._localInstallationsProvider,
   );
 
+  @override
+  void onReady() {
+    super.onReady();
+    fetch();
+  }
+
   List<InstallationModel> _installations = [];
   List<InstallationModel> installationsFiltered = [];
 

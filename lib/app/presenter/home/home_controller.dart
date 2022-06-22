@@ -11,6 +11,8 @@ import 'package:get/get.dart';
 import '../../infra/providers/companies/projects/companies_projects_provider.dart';
 
 class HomeController extends GetxController with LoaderManager {
+  static HomeController get to => Get.find();
+
   final CompaniesProjectsProvider _companiesProjectsProvider;
   final LocalCompaniesProjectsProvider _localCompaniesProjectsProvider;
 

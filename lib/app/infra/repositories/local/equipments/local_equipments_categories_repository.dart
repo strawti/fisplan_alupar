@@ -12,7 +12,9 @@ class LocalEquipmentsCategoriesRepository {
 
   Future<List<EquipmentCategoryModel>> getAll() async {
     final data = await _storage.read(apiEquipmentCategories);
-    return data.map((e) => EquipmentCategoryModel.fromJson(e)).toList();
+    return List<EquipmentCategoryModel>.from(
+      data?.map((e) => EquipmentCategoryModel.fromJson(e)) ?? [],
+    );
   }
 
   Future<void> clear() async => await _storage.remove(apiEquipmentCategories);

@@ -1,22 +1,17 @@
 import 'package:fisplan_alupar/app/infra/models/defaults/item_selection_model.dart';
-
-import 'package:fisplan_alupar/app/infra/models/equipment_category_model.dart';
-import 'package:fisplan_alupar/app/infra/models/installation_model.dart';
-import 'package:fisplan_alupar/app/infra/models/installation_type_model.dart';
-import 'package:fisplan_alupar/app/infra/models/tower_model.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/companies_controller.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/equipments_categories_controller.dart';
-
 import 'package:fisplan_alupar/app/infra/models/responses/installation_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/installation_type_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/tower_model.dart';
-
+import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/companies_controller.dart';
+import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/equipments_categories_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/installation_type_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/installations_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/towers_controller.dart';
 import 'package:fisplan_alupar/app/presenter/selection_page/selection_page.dart';
 import 'package:fisplan_alupar/app/routes/arguments/selection_page_arguments.dart';
 import 'package:get/get.dart';
+
+import '../../infra/models/responses/equipment_category_model.dart';
 
 class NewInspectionController extends GetxController {
   final instalationTypeController = Get.find<InstallationTypeController>();
@@ -32,6 +27,7 @@ class NewInspectionController extends GetxController {
     final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
       'Selecione o tipo de instalação',
       instalationTypeController.installationTypesFiltered,
+      selectedInstallationType,
     );
 
     if (result != null) {
@@ -50,6 +46,7 @@ class NewInspectionController extends GetxController {
     final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
       'Instalação',
       installationsController.installationsFiltered,
+      selectedInstallation,
     );
 
     if (result != null) {
@@ -61,11 +58,10 @@ class NewInspectionController extends GetxController {
 
   TowerModel? selectedTower;
   Future getTowers() async {
-    await towersController.fetch();
-
     final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
       'Torre',
-      towersController.towers,
+      towersController.towersFiltered,
+      selectedTower,
     );
 
     if (result != null) {
@@ -76,11 +72,10 @@ class NewInspectionController extends GetxController {
 
   EquipmentCategoryModel? selectedEquipmentsCategory;
   Future getEquipmentsCategory() async {
-    await equipmentsCategoryController.fetch();
-
     final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
       'Categoria do equipamento',
-      equipmentsCategoryController.equipmentsCategories,
+      equipmentsCategoryController.equipmentsCategoriesFiltered,
+      selectedEquipmentsCategory,
     );
 
     if (result != null) {
@@ -91,11 +86,10 @@ class NewInspectionController extends GetxController {
 
   EquipmentCategoryModel? selectedTensionLevel;
   Future getTensionLevel(int id) async {
-    await companiesController.fetch(id);
-
     final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
       'Nível de tensão',
-      companiesController.tensionLevels,
+      companiesController.tensionLevelsFiltered,
+      selectedTensionLevel,
     );
 
     if (result != null) {
@@ -110,7 +104,7 @@ class NewInspectionController extends GetxController {
     selectedTensionLevel = null;
   }
 
-  Future goToSelectionPage(String title, List data) async {
+  Future goToSelectionPage(String title, List data, dynamic item) async {
     return await Get.toNamed(
       SelectionPage.route,
       arguments: SelectionPageArguments(
@@ -120,6 +114,7 @@ class NewInspectionController extends GetxController {
             return ItemSelectionModel(
               title: e.name,
               item: e,
+              isChecked: item == e,
             );
           },
         ).toList(),

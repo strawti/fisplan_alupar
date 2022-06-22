@@ -24,18 +24,21 @@ class TowersController extends GetxController with LoaderManager {
     fetch();
   }
 
-  List<TowerModel> towers = [];
+  List<TowerModel> _towers = [];
+  List<TowerModel> towersFiltered = [];
 
-  Future<void> fetch() async {
+  Future<void> fetch({bool online = false}) async {
     setIsLoading(true);
 
     await _getLocal();
 
     if (await AppConnectivity.instance.isConnected()) {
-      if (towers.isEmpty) {
+      if (_towers.isEmpty || online) {
         await _getAll();
       }
     }
+
+    towersFiltered = _towers.toList();
 
     setIsLoading(false);
   }
@@ -46,8 +49,8 @@ class TowersController extends GetxController with LoaderManager {
     );
 
     if (response.isSuccess) {
-      towers = response.data ?? [];
-      _setLocal(towers);
+      _towers = response.data ?? [];
+      _setLocal(_towers);
     } else {
       CustomSnackbar.to.show(response.error!.content!);
     }
@@ -57,7 +60,7 @@ class TowersController extends GetxController with LoaderManager {
     final response = await _localTowersProvider.getAll();
 
     if (response.isSuccess) {
-      towers = response.data ?? [];
+      _towers = response.data ?? [];
     } else {
       CustomSnackbar.to.show(response.error!.content!);
     }
@@ -69,7 +72,7 @@ class TowersController extends GetxController with LoaderManager {
     );
 
     if (response.isSuccess) {
-      towers = data;
+      _towers = data;
     } else {
       CustomSnackbar.to.show(response.error!.content!);
     }
