@@ -10,7 +10,7 @@ class ActivitiesRepository {
   final GetConnect _connect;
   ActivitiesRepository(this._connect);
 
-  Future<ApiResponseModel<ActivityModel>> getAll() async {
+  Future<ApiResponseModel<List<ActivityModel>>> getAll() async {
     final response = await _connect.get(apiActivities);
 
     final responseModel = DefaultResponseModel.fromMap({
@@ -23,7 +23,11 @@ class ActivitiesRepository {
     });
 
     if (responseModel.success) {
-      return ApiResponseModel(data: ActivityModel.fromMap(responseModel.data));
+      return ApiResponseModel(
+        data: List<ActivityModel>.from(
+          responseModel.data.map((e) => ActivityModel.fromMap(e)),
+        ),
+      );
     }
 
     return ApiErrorDefaultModel(
