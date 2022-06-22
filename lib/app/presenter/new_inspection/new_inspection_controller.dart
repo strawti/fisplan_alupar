@@ -1,7 +1,16 @@
 import 'package:fisplan_alupar/app/infra/models/defaults/item_selection_model.dart';
+
+import 'package:fisplan_alupar/app/infra/models/equipment_category_model.dart';
+import 'package:fisplan_alupar/app/infra/models/installation_model.dart';
+import 'package:fisplan_alupar/app/infra/models/installation_type_model.dart';
+import 'package:fisplan_alupar/app/infra/models/tower_model.dart';
+import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/companies_controller.dart';
+import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/equipments_categories_controller.dart';
+
 import 'package:fisplan_alupar/app/infra/models/responses/installation_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/installation_type_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/tower_model.dart';
+
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/installation_type_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/installations_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/towers_controller.dart';
@@ -13,6 +22,10 @@ class NewInspectionController extends GetxController {
   final instalationTypeController = Get.find<InstallationTypeController>();
   final installationsController = Get.find<InstallationsController>();
   final towersController = Get.find<TowersController>();
+  final companiesController = Get.find<CompaniesController>();
+
+  final equipmentsCategoryController =
+      Get.find<EquipmentsCategoriesController>();
 
   InstallationTypeModel? selectedInstallationType;
   Future getInstallationType() async {
@@ -41,6 +54,7 @@ class NewInspectionController extends GetxController {
 
     if (result != null) {
       selectedInstallation = result.item;
+      clearSelectedItems();
       update();
     }
   }
@@ -58,6 +72,42 @@ class NewInspectionController extends GetxController {
       selectedTower = result.item;
       update();
     }
+  }
+
+  EquipmentCategoryModel? selectedEquipmentsCategory;
+  Future getEquipmentsCategory() async {
+    await equipmentsCategoryController.fetch();
+
+    final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
+      'Categoria do equipamento',
+      equipmentsCategoryController.equipmentsCategories,
+    );
+
+    if (result != null) {
+      selectedEquipmentsCategory = result.item;
+      update();
+    }
+  }
+
+  EquipmentCategoryModel? selectedTensionLevel;
+  Future getTensionLevel(int id) async {
+    await companiesController.fetch(id);
+
+    final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
+      'Nível de tensão',
+      companiesController.tensionLevels,
+    );
+
+    if (result != null) {
+      selectedTensionLevel = result.item;
+      update();
+    }
+  }
+
+  void clearSelectedItems() {
+    selectedTower = null;
+    selectedEquipmentsCategory = null;
+    selectedTensionLevel = null;
   }
 
   Future goToSelectionPage(String title, List data) async {
