@@ -6,16 +6,20 @@ import '../../models/defaults/api_error_default_model.dart';
 import '../../models/defaults/api_response_model.dart';
 import '../../models/defaults/default_response_model.dart';
 
-class ActivityRepository {
+class ActivitiesRepository {
   final GetConnect _connect;
-  ActivityRepository(this._connect);
+  ActivitiesRepository(this._connect);
 
   Future<ApiResponseModel<ActivityModel>> getAll() async {
     final response = await _connect.get(apiActivities);
 
     final responseModel = DefaultResponseModel.fromMap({
+      'success': response.statusCode == 200,
       'statusCode': response.statusCode,
       'data': response.body,
+      'error': {
+        'message': response.statusText,
+      }
     });
 
     if (responseModel.success) {
@@ -23,7 +27,7 @@ class ActivityRepository {
     }
 
     return ApiErrorDefaultModel(
-      message: 'Não foi possível obter as atividades',
+      message: 'Não foi possível obter os dados',
       response: responseModel,
     );
   }
