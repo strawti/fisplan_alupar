@@ -23,6 +23,7 @@ class AppWidget extends StatelessWidget {
       initialBinding: AppBindings(),
       initialRoute: SplashPage.route,
       fallbackLocale: const Locale('pt', 'BR'),
+      defaultTransition: Transition.native,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
