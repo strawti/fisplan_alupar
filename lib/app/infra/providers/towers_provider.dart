@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:fisplan_alupar/app/infra/models/tower_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/tower_model.dart';
 
 import '../../core/app_constants.dart';
 import '../models/defaults/app_error_model.dart';

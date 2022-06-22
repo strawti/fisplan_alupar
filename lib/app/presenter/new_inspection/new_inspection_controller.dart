@@ -1,7 +1,7 @@
 import 'package:fisplan_alupar/app/infra/models/defaults/item_selection_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/installation_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/installation_type_model.dart';
-import 'package:fisplan_alupar/app/infra/models/tower_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/tower_model.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/installation_type_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/installations_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/towers_controller.dart';

@@ -1,7 +1,7 @@
 import 'package:get_storage/get_storage.dart';
 
 import '../../api_endpoints.dart';
-import '../../models/tower_model.dart';
+import '../../models/responses/tower_model.dart';
 
 class LocalTowersRepository {
   final GetStorage _storage;
