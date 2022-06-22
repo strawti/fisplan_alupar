@@ -1,11 +1,12 @@
-import '../../../infra/models/responses/installation_type_model.dart';
-import '../../../infra/providers/installations/local/local_installations_type_provider.dart';
-import '../../../shared/utils/custom_snackbar.dart';
-import '../../../shared/utils/loader_manager.dart';
 import 'package:get/get.dart';
 
 import '../../../core/app_connectivity.dart';
+import '../../../infra/models/responses/installation_type_model.dart';
 import '../../../infra/providers/installations/installations_type_provider.dart';
+import '../../../infra/providers/installations/local/local_installations_type_provider.dart';
+import '../../../shared/utils/custom_snackbar.dart';
+import '../../../shared/utils/get_datetime.dart';
+import '../../../shared/utils/loader_manager.dart';
 
 class InstallationTypeController extends GetxController with LoaderManager {
   static InstallationTypeController get to => Get.find();
@@ -38,6 +39,7 @@ class InstallationTypeController extends GetxController with LoaderManager {
     }
 
     installationTypesFiltered = _installationTypes.toList();
+    _getLastTimeUpdated();
 
     setIsLoading(false);
   }
@@ -72,6 +74,15 @@ class InstallationTypeController extends GetxController with LoaderManager {
       _installationTypes = data;
     } else {
       CustomSnackbar.to.show(response.error!.content!);
+    }
+  }
+
+  String lastUpdate = "";
+  Future _getLastTimeUpdated() async {
+    final response = await _localInstallationsTypeProvider.getLastTimeUpdated();
+
+    if (response.isSuccess) {
+      lastUpdate = getDateTime(response.data!);
     }
   }
 }

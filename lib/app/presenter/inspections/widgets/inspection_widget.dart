@@ -24,7 +24,7 @@ class InspectionWidget extends StatelessWidget {
           ViewInspectionPage.route,
           arguments: ViewInspectionPageArguments(
             inspection,
-            Get.find<InspectionsController>().routeArguments.project,
+            Get.find<InspectionsController>().routeArguments!.project,
           ),
         );
       },

@@ -5,6 +5,7 @@ import '../../../infra/models/responses/activity_model.dart';
 import '../../../infra/providers/activities/activities_provider.dart';
 import '../../../infra/providers/activities/local_activities_provider.dart';
 import '../../../shared/utils/custom_snackbar.dart';
+import '../../../shared/utils/get_datetime.dart';
 import '../../../shared/utils/loader_manager.dart';
 
 class ActivitiesController extends GetxController with LoaderManager {
@@ -36,6 +37,7 @@ class ActivitiesController extends GetxController with LoaderManager {
     }
 
     activitiesFiltered = _activities.toList();
+    _getLastTimeUpdated();
 
     setIsLoading(false);
   }
@@ -79,5 +81,14 @@ class ActivitiesController extends GetxController with LoaderManager {
     }).toList();
 
     update();
+  }
+
+  String lastUpdate = "";
+  Future _getLastTimeUpdated() async {
+    final response = await _localActivitiesProvider.getLastTimeUpdated();
+
+    if (response.isSuccess) {
+      lastUpdate = getDateTime(response.data!);
+    }
   }
 }

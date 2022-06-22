@@ -1,10 +1,11 @@
-import '../../../infra/models/responses/equipment_model.dart';
-import '../../../infra/providers/equipments/equipments_provider.dart';
 import 'package:get/get.dart';
 
 import '../../../core/app_connectivity.dart';
+import '../../../infra/models/responses/equipment_model.dart';
+import '../../../infra/providers/equipments/equipments_provider.dart';
 import '../../../infra/providers/equipments/local/local_equipments_provider.dart';
 import '../../../shared/utils/custom_snackbar.dart';
+import '../../../shared/utils/get_datetime.dart';
 import '../../../shared/utils/loader_manager.dart';
 
 class EquipmentsController extends GetxController with LoaderManager {
@@ -36,6 +37,7 @@ class EquipmentsController extends GetxController with LoaderManager {
     }
 
     equipmentsFiltered = _equipments.toList();
+    _getLastTimeUpdated();
 
     setIsLoading(false);
   }
@@ -70,6 +72,15 @@ class EquipmentsController extends GetxController with LoaderManager {
       _equipments = data;
     } else {
       CustomSnackbar.to.show(response.error!.content!);
+    }
+  }
+
+  String lastUpdate = "";
+  Future _getLastTimeUpdated() async {
+    final response = await _localEquipmentsProvider.getLastTimeUpdated();
+
+    if (response.isSuccess) {
+      lastUpdate = getDateTime(response.data!);
     }
   }
 }

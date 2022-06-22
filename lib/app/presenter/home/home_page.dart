@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../shared/widgets/alert_dialog_widget.dart';
 import '../../shared/widgets/search_widget.dart';
+import '../download_data/download_data_page.dart';
 import 'home_controller.dart';
 import 'widgets/card_project_widget.dart';
 
@@ -40,6 +41,14 @@ class HomePage extends GetView<HomeController> {
               ));
             },
           ),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.download),
+              onPressed: () {
+                Get.toNamed(DownloadDataPage.route);
+              },
+            ),
+          ],
         ),
         body: Column(
           children: [

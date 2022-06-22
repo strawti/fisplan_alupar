@@ -5,6 +5,7 @@ import '../../../infra/models/responses/tower_model.dart';
 import '../../../infra/providers/towers/local_towers_provider.dart';
 import '../../../infra/providers/towers/towers_provider.dart';
 import '../../../shared/utils/custom_snackbar.dart';
+import '../../../shared/utils/get_datetime.dart';
 import '../../../shared/utils/loader_manager.dart';
 
 class TowersController extends GetxController with LoaderManager {
@@ -38,6 +39,7 @@ class TowersController extends GetxController with LoaderManager {
     }
 
     towersFiltered = _towers.toList();
+    _getLastTimeUpdated();
 
     setIsLoading(false);
   }
@@ -72,6 +74,15 @@ class TowersController extends GetxController with LoaderManager {
       _towers = data;
     } else {
       CustomSnackbar.to.show(response.error!.content!);
+    }
+  }
+
+  String lastUpdate = "";
+  Future _getLastTimeUpdated() async {
+    final response = await _localTowersProvider.getLastTimeUpdated();
+
+    if (response.isSuccess) {
+      lastUpdate = getDateTime(response.data!);
     }
   }
 }

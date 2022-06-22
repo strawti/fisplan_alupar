@@ -5,6 +5,7 @@ import '../../../infra/models/responses/equipment_category_model.dart';
 import '../../../infra/providers/equipments/equipments_categories_provider.dart';
 import '../../../infra/providers/equipments/local/local_equipments_categories_provider.dart';
 import '../../../shared/utils/custom_snackbar.dart';
+import '../../../shared/utils/get_datetime.dart';
 import '../../../shared/utils/loader_manager.dart';
 
 class EquipmentsCategoriesController extends GetxController with LoaderManager {
@@ -19,7 +20,6 @@ class EquipmentsCategoriesController extends GetxController with LoaderManager {
   );
 
   @override
-
   void onReady() {
     super.onReady();
     fetch();
@@ -39,6 +39,7 @@ class EquipmentsCategoriesController extends GetxController with LoaderManager {
     }
 
     equipmentsCategoriesFiltered = _equipmentsCategories.toList();
+    _getLastTimeUpdated();
 
     setIsLoading(false);
   }
@@ -73,6 +74,16 @@ class EquipmentsCategoriesController extends GetxController with LoaderManager {
       _equipmentsCategories = data;
     } else {
       CustomSnackbar.to.show(response.error!.content!);
+    }
+  }
+
+  String lastUpdate = "";
+  Future _getLastTimeUpdated() async {
+    final response =
+        await _localEquipmentsCategoriesProvider.getLastTimeUpdated();
+
+    if (response.isSuccess) {
+      lastUpdate = getDateTime(response.data!);
     }
   }
 }

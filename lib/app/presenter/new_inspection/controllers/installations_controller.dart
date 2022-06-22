@@ -5,6 +5,7 @@ import '../../../infra/models/responses/installation_model.dart';
 import '../../../infra/providers/installations/installations_provider.dart';
 import '../../../infra/providers/installations/local/local_installations_provider.dart';
 import '../../../shared/utils/custom_snackbar.dart';
+import '../../../shared/utils/get_datetime.dart';
 import '../../../shared/utils/loader_manager.dart';
 
 class InstallationsController extends GetxController with LoaderManager {
@@ -38,6 +39,7 @@ class InstallationsController extends GetxController with LoaderManager {
     }
 
     installationsFiltered = _installations.toList();
+    _getLastTimeUpdated();
 
     setIsLoading(false);
   }
@@ -81,5 +83,14 @@ class InstallationsController extends GetxController with LoaderManager {
     }).toList();
 
     update();
+  }
+
+  String lastUpdate = "";
+  Future _getLastTimeUpdated() async {
+    final response = await _localInstallationsProvider.getLastTimeUpdated();
+
+    if (response.isSuccess) {
+      lastUpdate = getDateTime(response.data!);
+    }
   }
 }

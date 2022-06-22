@@ -1,5 +1,7 @@
+import 'package:fisplan_alupar/app/presenter/download_data/download_data_page.dart';
 import 'package:get/get.dart';
 
+import '../presenter/download_data/download_data_bindings.dart';
 import 'routes_imports.dart';
 
 final List<GetPage> appPages = [
@@ -38,5 +40,10 @@ final List<GetPage> appPages = [
     page: () => const ViewInspectionPage(),
     binding: ViewInspectionBindings(),
     transition: Transition.downToUp,
+  ),
+  GetPage(
+    name: DownloadDataPage.route,
+    page: () => const DownloadDataPage(),
+    binding: DownloadDataBindings(),
   ),
 ];

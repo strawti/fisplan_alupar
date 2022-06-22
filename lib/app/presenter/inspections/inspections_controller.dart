@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:fisplan_alupar/app/shared/utils/get_datetime.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,15 +19,14 @@ class InspectionsController extends GetxController with LoaderManager {
     this._inspectionsProvider,
     this._localInspectionsProvider,
   ) {
-    assert(
-      Get.arguments is InspectionsPageArguments,
-      "Passe InspectionsPageArguments nos argumentos da rota",
-    );
-
-    routeArguments = Get.arguments;
+    if (Get.arguments is InspectionsPageArguments) {
+      routeArguments = Get.arguments;
+    } else {
+      log("Passe InspectionsPageArguments nos argumentos da rota");
+    }
   }
 
-  late InspectionsPageArguments routeArguments;
+  InspectionsPageArguments? routeArguments;
 
   @override
   void onReady() {
@@ -55,23 +57,26 @@ class InspectionsController extends GetxController with LoaderManager {
   final searchController = TextEditingController();
   String get searchText => searchController.text.trim().toLowerCase();
 
-  Future fetch() async {
+  Future fetch({bool online = false}) async {
     setIsLoading(true);
 
     await _getLocalInspections();
 
     if (await AppConnectivity.instance.isConnected()) {
-      if (inspections.isEmpty) {
+      if (inspections.isEmpty || online) {
         await _getInspections();
       }
     }
 
-    inspections = inspections.where((e) {
-      return e.projectId == routeArguments.project.id;
-    }).toList();
+    if (routeArguments != null) {
+      inspections = inspections.where((e) {
+        return e.projectId == routeArguments!.project.id;
+      }).toList();
+    }
 
     inspectionsFiltered = inspections.toList();
     inspectionsFiltered.sort((a, b) => a.progress.compareTo(b.progress));
+    _getLastTimeUpdated();
 
     setIsLoading(false);
   }
@@ -91,6 +96,14 @@ class InspectionsController extends GetxController with LoaderManager {
     if (response.isSuccess) {
       inspections = response.data ?? [];
       await _localInspectionsProvider.set(inspections);
+    }
+  }
+
+  String lastUpdate = "";
+  Future _getLastTimeUpdated() async {
+    final response = await _localInspectionsProvider.getLastTimeUpdated();
+    if (response.isSuccess) {
+      lastUpdate = getDateTime(response.data!);
     }
   }
 }

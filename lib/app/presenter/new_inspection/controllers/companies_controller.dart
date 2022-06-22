@@ -5,6 +5,7 @@ import '../../../infra/models/responses/tension_level_model.dart';
 import '../../../infra/providers/companies/tension_levels/companies_tension_level_provider.dart';
 import '../../../infra/providers/companies/tension_levels/local_companies_tension_levels_provider.dart';
 import '../../../shared/utils/custom_snackbar.dart';
+import '../../../shared/utils/get_datetime.dart';
 import '../../../shared/utils/loader_manager.dart';
 import '../../home/home_controller.dart';
 
@@ -36,6 +37,7 @@ class CompaniesController extends GetxController with LoaderManager {
     }
 
     tensionLevelsFiltered = _tensionLevels.toList();
+    _getLastTimeUpdated();
 
     setIsLoading(false);
   }
@@ -75,6 +77,16 @@ class CompaniesController extends GetxController with LoaderManager {
       _tensionLevels = data;
     } else {
       CustomSnackbar.to.show(response.error!.content!);
+    }
+  }
+
+  String lastUpdate = "";
+  Future _getLastTimeUpdated() async {
+    final response =
+        await _localCompaniesTensionLevelsProvider.getLastTimeUpdated();
+
+    if (response.isSuccess) {
+      lastUpdate = getDateTime(response.data!);
     }
   }
 }

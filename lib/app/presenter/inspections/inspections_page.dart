@@ -22,7 +22,7 @@ class InspectionsPage extends GetView<InspectionsController> {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Text(
-              controller.routeArguments.project.name,
+              controller.routeArguments!.project.name,
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w500,
@@ -61,7 +61,7 @@ class InspectionsPage extends GetView<InspectionsController> {
           Get.toNamed(
             NewInspectionPage.route,
             arguments: NewInspectionPageArguments(
-              controller.routeArguments.project,
+              controller.routeArguments!.project,
             ),
           );
         },
