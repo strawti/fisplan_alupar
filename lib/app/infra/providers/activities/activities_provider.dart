@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:fisplan_alupar/app/infra/models/activity_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/activity_model.dart';
 import 'package:fisplan_alupar/app/infra/models/defaults/provider_response_model.dart';
 import 'package:fisplan_alupar/app/infra/repositories/activities/activity_repository.dart';
 

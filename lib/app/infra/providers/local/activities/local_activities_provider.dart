@@ -1,4 +1,4 @@
-import 'package:fisplan_alupar/app/infra/models/activity_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/activity_model.dart';
 import 'package:fisplan_alupar/app/infra/repositories/local/activities/local_activities_repository.dart';
 
 import '../../../models/defaults/app_error_model.dart';
