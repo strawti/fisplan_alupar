@@ -11,7 +11,7 @@ class TowersProvider {
   final TowersRepository _repository;
   TowersProvider(this._repository);
 
-  Future<ProviderResponseModel<List<TowerModel>>> getAll(
+  Future<ProviderResponseModel<List<TowerModel>?>> getAll(
     int userCompanyId,
   ) async {
     try {
