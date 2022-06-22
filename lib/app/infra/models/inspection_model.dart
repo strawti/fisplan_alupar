@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:fisplan_alupar/app/infra/models/answer_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/answer_model.dart';
 import 'package:fisplan_alupar/app/infra/models/audio_model.dart';
 import 'package:fisplan_alupar/app/infra/models/photo_model.dart';
 import 'package:flutter/material.dart';
