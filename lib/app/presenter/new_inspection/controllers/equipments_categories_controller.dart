@@ -22,16 +22,20 @@ class EquipmentsCategoriesController extends GetxController with LoaderManager {
     fetch();
   }
 
-  List<EquipmentCategoryModel> equipmentsCategories = [];
+  List<EquipmentCategoryModel> _equipmentsCategories = [];
+  List<EquipmentCategoryModel> equipmentsCategoriesFiltered = [];
 
-  Future<void> fetch() async {
+  Future<void> fetch({bool online = false}) async {
     setIsLoading(true);
 
+    await _getLocalAll();
     if (await AppConnectivity.instance.isConnected()) {
-      await _getAll();
-    } else {
-      await _getLocalAll();
+      if (_equipmentsCategories.isEmpty || online) {
+        await _getAll();
+      }
     }
+
+    equipmentsCategoriesFiltered = _equipmentsCategories.toList();
 
     setIsLoading(false);
   }
@@ -40,8 +44,8 @@ class EquipmentsCategoriesController extends GetxController with LoaderManager {
     final response = await _equipmentsCategoriesProvider.getAll();
 
     if (response.isSuccess) {
-      equipmentsCategories = response.data ?? [];
-      _setLocal(equipmentsCategories);
+      _equipmentsCategories = response.data ?? [];
+      _setLocal(_equipmentsCategories);
     } else {
       CustomSnackbar.to.show(response.error!.content!);
     }
@@ -51,7 +55,7 @@ class EquipmentsCategoriesController extends GetxController with LoaderManager {
     final response = await _localEquipmentsCategoriesProvider.getAll();
 
     if (response.isSuccess) {
-      equipmentsCategories = response.data ?? [];
+      _equipmentsCategories = response.data ?? [];
     } else {
       CustomSnackbar.to.show(response.error!.content!);
     }
@@ -63,7 +67,7 @@ class EquipmentsCategoriesController extends GetxController with LoaderManager {
     );
 
     if (response.isSuccess) {
-      equipmentsCategories = data;
+      _equipmentsCategories = data;
     } else {
       CustomSnackbar.to.show(response.error!.content!);
     }
