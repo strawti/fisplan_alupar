@@ -11,7 +11,7 @@ class EquipmentsCategoriesProvider {
   final EquipmentCategoryRepository _repository;
   EquipmentsCategoriesProvider(this._repository);
 
-  Future<ProviderResponseModel<List<EquipmentCategoryModel>>> getAll() async {
+  Future<ProviderResponseModel<List<EquipmentCategoryModel>?>> getAll() async {
     try {
       final response = await _repository.getAll();
       return ProviderResponseModel.fromMap(response.toMap());
