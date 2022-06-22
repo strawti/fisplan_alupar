@@ -1,9 +1,9 @@
-import 'package:fisplan_alupar/app/presenter/inspections/widgets/inspection_widget.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/new_inspection_page.dart';
+import 'widgets/inspection_widget.dart';
+import '../new_inspection/new_inspection_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import './inspections_controller.dart';
+import 'inspections_controller.dart';
 import '../../shared/widgets/textform_widget.dart';
 
 class InspectionsPage extends GetView<InspectionsController> {

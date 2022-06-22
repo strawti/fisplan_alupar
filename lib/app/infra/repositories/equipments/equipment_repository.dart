@@ -1,4 +1,4 @@
-import 'package:fisplan_alupar/app/infra/api_endpoints.dart';
+import '../../api_endpoints.dart';
 import 'package:get/get.dart';
 
 import '../../models/defaults/api_error_default_model.dart';

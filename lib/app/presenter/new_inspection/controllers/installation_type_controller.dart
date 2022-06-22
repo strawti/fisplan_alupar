@@ -1,7 +1,7 @@
-import 'package:fisplan_alupar/app/infra/models/responses/installation_type_model.dart';
-import 'package:fisplan_alupar/app/infra/providers/installations/local/local_installations_type_provider.dart';
-import 'package:fisplan_alupar/app/shared/utils/custom_snackbar.dart';
-import 'package:fisplan_alupar/app/shared/utils/loader_manager.dart';
+import '../../../infra/models/responses/installation_type_model.dart';
+import '../../../infra/providers/installations/local/local_installations_type_provider.dart';
+import '../../../shared/utils/custom_snackbar.dart';
+import '../../../shared/utils/loader_manager.dart';
 import 'package:get/get.dart';
 
 import '../../../core/app_connectivity.dart';

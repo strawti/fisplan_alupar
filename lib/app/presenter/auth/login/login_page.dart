@@ -1,6 +1,7 @@
-import 'package:fisplan_alupar/app/presenter/auth/login/widgets/login_body.dart';
-import 'package:fisplan_alupar/app/shared/widgets/base_widget.dart';
 import 'package:flutter/material.dart';
+
+import '../../../shared/widgets/base_widget.dart';
+import 'widgets/login_body.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);

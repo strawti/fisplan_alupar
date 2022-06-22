@@ -1,8 +1,8 @@
-import 'package:fisplan_alupar/app/presenter/new_inspection/widgets/new_inspection_body.dart';
+import 'widgets/new_inspection_body.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import './new_inspection_controller.dart';
+import 'new_inspection_controller.dart';
 
 class NewInspectionPage extends GetView<NewInspectionController> {
   const NewInspectionPage({Key? key}) : super(key: key);

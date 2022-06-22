@@ -1,4 +1,4 @@
-import 'package:fisplan_alupar/app/presenter/new_inspection/new_inspection_controller.dart';
+import '../new_inspection_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

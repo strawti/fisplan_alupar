@@ -1,6 +1,6 @@
-import 'package:fisplan_alupar/app/infra/models/responses/tower_model.dart';
-import 'package:fisplan_alupar/app/infra/providers/towers/towers_provider.dart';
-import 'package:fisplan_alupar/app/presenter/home/home_controller.dart';
+import '../../../infra/models/responses/tower_model.dart';
+import '../../../infra/providers/towers/towers_provider.dart';
+import '../../home/home_controller.dart';
 import 'package:get/get.dart';
 
 import '../../../core/app_connectivity.dart';

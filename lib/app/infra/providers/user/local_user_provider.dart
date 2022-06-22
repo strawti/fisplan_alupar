@@ -1,7 +1,6 @@
-import 'package:fisplan_alupar/app/infra/models/responses/user_response_model.dart';
-
 import '../../models/defaults/app_error_model.dart';
 import '../../models/defaults/provider_response_model.dart';
+import '../../models/responses/user_response_model.dart';
 import '../../repositories/user/local_user_repository.dart';
 
 class LocalUserProvider {

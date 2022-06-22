@@ -1,5 +1,6 @@
-import 'package:fisplan_alupar/app/infra/models/responses/tension_level_model.dart';
 import 'package:get_storage/get_storage.dart';
+
+import '../../../models/responses/tension_level_model.dart';
 
 class LocalCompaniesTensionLevelsRepository {
   final GetStorage _storage;

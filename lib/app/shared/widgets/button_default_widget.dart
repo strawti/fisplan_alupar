@@ -1,7 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:fisplan_alupar/app/core/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../core/app_colors.dart';
 
 class ButtonDefaultWidget extends StatelessWidget {
   final String title;

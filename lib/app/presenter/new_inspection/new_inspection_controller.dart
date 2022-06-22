@@ -1,14 +1,14 @@
-import 'package:fisplan_alupar/app/infra/models/defaults/item_selection_model.dart';
-import 'package:fisplan_alupar/app/infra/models/responses/installation_model.dart';
-import 'package:fisplan_alupar/app/infra/models/responses/installation_type_model.dart';
-import 'package:fisplan_alupar/app/infra/models/responses/tower_model.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/companies_controller.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/equipments_categories_controller.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/installation_type_controller.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/installations_controller.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/towers_controller.dart';
-import 'package:fisplan_alupar/app/presenter/selection_page/selection_page.dart';
-import 'package:fisplan_alupar/app/routes/arguments/selection_page_arguments.dart';
+import '../../infra/models/defaults/item_selection_model.dart';
+import '../../infra/models/responses/installation_model.dart';
+import '../../infra/models/responses/installation_type_model.dart';
+import '../../infra/models/responses/tower_model.dart';
+import 'controllers/companies_controller.dart';
+import 'controllers/equipments_categories_controller.dart';
+import 'controllers/installation_type_controller.dart';
+import 'controllers/installations_controller.dart';
+import 'controllers/towers_controller.dart';
+import '../selection_page/selection_page.dart';
+import '../../routes/arguments/selection_page_arguments.dart';
 import 'package:get/get.dart';
 
 import '../../infra/models/responses/equipment_category_model.dart';

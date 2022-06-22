@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:fisplan_alupar/app/infra/models/responses/inspection_model.dart';
-import 'package:fisplan_alupar/app/infra/repositories/inspections/inspections_repository.dart';
+import '../../models/responses/inspection_model.dart';
+import '../../repositories/inspections/inspections_repository.dart';
 
 import '../../../core/app_constants.dart';
 import '../../models/defaults/app_error_model.dart';

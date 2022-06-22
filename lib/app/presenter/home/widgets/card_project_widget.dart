@@ -1,4 +1,4 @@
-import 'package:fisplan_alupar/app/routes/arguments/inspections_page_arguments.dart';
+import '../../../routes/arguments/inspections_page_arguments.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

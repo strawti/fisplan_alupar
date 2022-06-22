@@ -1,4 +1,4 @@
-import 'package:fisplan_alupar/app/core/app_colors.dart';
+import '../../core/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,8 +1,7 @@
-import 'package:fisplan_alupar/app/infra/models/responses/installation_type_model.dart';
-import 'package:fisplan_alupar/app/infra/repositories/installations/local/local_installations_type_repository.dart';
-
 import '../../../models/defaults/app_error_model.dart';
 import '../../../models/defaults/provider_response_model.dart';
+import '../../../models/responses/installation_type_model.dart';
+import '../../../repositories/installations/local/local_installations_type_repository.dart';
 
 class LocalInstallationsTypeProvider {
   final LocalInstallationsTypeRepository _repository;

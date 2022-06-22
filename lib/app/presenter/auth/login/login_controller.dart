@@ -1,13 +1,13 @@
-import 'package:fisplan_alupar/app/core/app_validators.dart';
-import 'package:fisplan_alupar/app/infra/models/requests/auth/login_request_model.dart';
-import 'package:fisplan_alupar/app/infra/providers/auth/login_provider.dart';
-import 'package:fisplan_alupar/app/presenter/home/home_page.dart';
-import 'package:fisplan_alupar/app/shared/utils/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/app_token.dart';
+import '../../../core/app_validators.dart';
+import '../../../infra/models/requests/auth/login_request_model.dart';
+import '../../../infra/providers/auth/login_provider.dart';
+import '../../../shared/utils/custom_snackbar.dart';
 import '../../../shared/utils/loader_manager.dart';
+import '../../home/home_page.dart';
 
 class LoginController extends GetxController with LoaderManager {
   final LoginProvider _loginProvider;

@@ -1,5 +1,5 @@
-import 'package:fisplan_alupar/app/infra/models/responses/activity_model.dart';
-import 'package:fisplan_alupar/app/infra/repositories/activities/local_activities_repository.dart';
+import '../../models/responses/activity_model.dart';
+import '../../repositories/activities/local_activities_repository.dart';
 
 import '../../models/defaults/app_error_model.dart';
 import '../../models/defaults/provider_response_model.dart';

@@ -1,9 +1,9 @@
-import 'package:fisplan_alupar/app/core/app_connectivity.dart';
-import 'package:fisplan_alupar/app/infra/providers/companies/tension_levels/companies_tension_level_provider.dart';
-import 'package:fisplan_alupar/app/infra/providers/companies/tension_levels/local_companies_tension_levels_provider.dart';
-import 'package:fisplan_alupar/app/presenter/home/home_controller.dart';
-import 'package:fisplan_alupar/app/shared/utils/custom_snackbar.dart';
-import 'package:fisplan_alupar/app/shared/utils/loader_manager.dart';
+import '../../../core/app_connectivity.dart';
+import '../../../infra/providers/companies/tension_levels/companies_tension_level_provider.dart';
+import '../../../infra/providers/companies/tension_levels/local_companies_tension_levels_provider.dart';
+import '../../home/home_controller.dart';
+import '../../../shared/utils/custom_snackbar.dart';
+import '../../../shared/utils/loader_manager.dart';
 import 'package:get/get.dart';
 
 import '../../../infra/models/responses/tension_level_model.dart';

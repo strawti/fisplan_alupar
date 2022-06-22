@@ -1,5 +1,5 @@
-import 'package:fisplan_alupar/app/infra/models/responses/equipment_model.dart';
-import 'package:fisplan_alupar/app/infra/providers/equipments/equipments_provider.dart';
+import '../../../infra/models/responses/equipment_model.dart';
+import '../../../infra/providers/equipments/equipments_provider.dart';
 import 'package:get/get.dart';
 
 import '../../../core/app_connectivity.dart';

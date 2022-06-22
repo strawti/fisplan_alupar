@@ -1,4 +1,4 @@
-import 'package:fisplan_alupar/app/infra/models/requests/auth/login_request_model.dart';
+import '../../models/requests/auth/login_request_model.dart';
 import 'package:get/get.dart';
 
 import '../../api_endpoints.dart';

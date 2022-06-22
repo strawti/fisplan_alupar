@@ -1,5 +1,5 @@
-import 'package:fisplan_alupar/app/infra/api_endpoints.dart';
-import 'package:fisplan_alupar/app/infra/models/responses/activity_model.dart';
+import '../../api_endpoints.dart';
+import '../../models/responses/activity_model.dart';
 import 'package:get/get.dart';
 
 import '../../models/defaults/api_error_default_model.dart';

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:fisplan_alupar/app/infra/repositories/installations/installations_repository.dart';
+import '../../repositories/installations/installations_repository.dart';
 
 import '../../../core/app_constants.dart';
 import '../../models/defaults/app_error_model.dart';
