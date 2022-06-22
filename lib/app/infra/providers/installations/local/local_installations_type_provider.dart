@@ -39,4 +39,15 @@ class LocalInstallationsTypeProvider {
       );
     }
   }
+
+  Future<ProviderResponseModel<DateTime>> getLastTimeUpdated() async {
+    try {
+      final response = await _repository.getLastTimeUpdated();
+      return ProviderResponseModel(data: response);
+    } catch (e) {
+      return AppErrorDefaultModel(
+        'LocalInstallationsTypeProvider.getLastTimeUpdated() $e',
+      );
+    }
+  }
 }

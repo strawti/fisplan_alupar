@@ -7,6 +7,10 @@ class LocalUserRepository {
   LocalUserRepository(this._storage);
 
   Future<void> setUser(UserResponseModel user) async {
+    await _storage.write(
+      'User_LastTimeUpdated',
+      DateTime.now().millisecondsSinceEpoch,
+    );
     await _storage.write('user', user.toJson());
   }
 
@@ -20,5 +24,10 @@ class LocalUserRepository {
 
   Future<void> deleteUser() async {
     await _storage.remove('user');
+  }
+
+  Future<DateTime> getLastTimeUpdated() async {
+    final lastTimeUpdated = await _storage.read('User_LastTimeUpdated');
+    return DateTime.fromMillisecondsSinceEpoch(lastTimeUpdated);
   }
 }

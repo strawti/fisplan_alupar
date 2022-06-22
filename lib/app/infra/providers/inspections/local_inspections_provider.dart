@@ -1,8 +1,7 @@
-import '../../repositories/inspections/local_inspections_repository.dart';
-
 import '../../models/defaults/app_error_model.dart';
 import '../../models/defaults/provider_response_model.dart';
 import '../../models/responses/inspection_model.dart';
+import '../../repositories/inspections/local_inspections_repository.dart';
 
 class LocalInspectionsProvider {
   final LocalInspectionsRepository _repository;
@@ -37,6 +36,17 @@ class LocalInspectionsProvider {
     } catch (e) {
       return AppErrorDefaultModel(
         'LocalInspectionsProvider.clear() $e',
+      );
+    }
+  }
+
+  Future<ProviderResponseModel<DateTime>> getLastTimeUpdated() async {
+    try {
+      final response = await _repository.getLastTimeUpdated();
+      return ProviderResponseModel(data: response);
+    } catch (e) {
+      return AppErrorDefaultModel(
+        'LocalInspectionsProvider.getLastTimeUpdated() $e',
       );
     }
   }

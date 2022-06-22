@@ -7,6 +7,10 @@ class LocalCompaniesTensionLevelsRepository {
   LocalCompaniesTensionLevelsRepository(this._storage);
 
   Future<void> set(List<TensionLevelModel> data) async {
+    await _storage.write(
+      'CompaniesTensionLevels_LastTimeUpdated',
+      DateTime.now().millisecondsSinceEpoch,
+    );
     await _storage.write("tensionLevels", data.map((e) => e.toJson()).toList());
   }
 
@@ -18,4 +22,9 @@ class LocalCompaniesTensionLevelsRepository {
   }
 
   Future<void> clear() async => await _storage.remove("tensionLevels");
+
+  Future<DateTime> getLastTimeUpdated() async {
+    final data = await _storage.read('CompaniesTensionLevels_LastTimeUpdated');
+    return DateTime.fromMillisecondsSinceEpoch(data);
+  }
 }

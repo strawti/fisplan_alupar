@@ -1,7 +1,6 @@
-import '../../models/responses/tower_model.dart';
-
 import '../../models/defaults/app_error_model.dart';
 import '../../models/defaults/provider_response_model.dart';
+import '../../models/responses/tower_model.dart';
 import '../../repositories/towers/local_towers_repository.dart';
 
 class LocalTowersProvider {
@@ -34,6 +33,17 @@ class LocalTowersProvider {
       return ProviderResponseModel();
     } catch (e) {
       return AppErrorDefaultModel('LocalTowersRepository.clear() $e');
+    }
+  }
+
+  Future<ProviderResponseModel<DateTime>> getLastTimeUpdated() async {
+    try {
+      final response = await _repository.getLastTimeUpdated();
+      return ProviderResponseModel(data: response);
+    } catch (e) {
+      return AppErrorDefaultModel(
+        'LocalTowersRepository.getLastTimeUpdated() $e',
+      );
     }
   }
 }

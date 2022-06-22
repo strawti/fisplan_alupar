@@ -9,6 +9,10 @@ class LocalEquipmentsCategoriesRepository {
 
   Future<void> set(List<EquipmentCategoryModel> data) async {
     await _storage.write(
+      'EquipmentsCategories_LastTimeUpdated',
+      DateTime.now().millisecondsSinceEpoch,
+    );
+    await _storage.write(
       apiEquipmentCategories,
       data.map((e) => e.toJson()).toList(),
     );
@@ -22,4 +26,9 @@ class LocalEquipmentsCategoriesRepository {
   }
 
   Future<void> clear() async => await _storage.remove(apiEquipmentCategories);
+
+  Future<DateTime> getLastTimeUpdated() async {
+    final data = await _storage.read('EquipmentsCategories_LastTimeUpdated');
+    return DateTime.fromMillisecondsSinceEpoch(data);
+  }
 }

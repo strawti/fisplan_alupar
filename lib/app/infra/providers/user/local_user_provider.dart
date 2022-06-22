@@ -33,4 +33,15 @@ class LocalUserProvider {
       return AppErrorDefaultModel('LocalUserProvider.deleteUser() $e');
     }
   }
+
+  Future<ProviderResponseModel<DateTime>> getLastTimeUpdated() async {
+    try {
+      final response = await _repository.getLastTimeUpdated();
+      return ProviderResponseModel(data: response);
+    } catch (e) {
+      return AppErrorDefaultModel(
+        'LocalUserProvider.getLastTimeUpdated() $e',
+      );
+    }
+  }
 }

@@ -1,7 +1,6 @@
-import '../../../models/responses/equipment_model.dart';
-
 import '../../../models/defaults/app_error_model.dart';
 import '../../../models/defaults/provider_response_model.dart';
+import '../../../models/responses/equipment_model.dart';
 import '../../../repositories/equipments/local/local_equipments_repository.dart';
 
 class LocalEquipmentsProvider {
@@ -37,6 +36,17 @@ class LocalEquipmentsProvider {
     } catch (e) {
       return AppErrorDefaultModel(
         'LocalEquipmentsProvider.clearEquipments() $e',
+      );
+    }
+  }
+
+  Future<ProviderResponseModel<DateTime?>> getLastTimeUpdated() async {
+    try {
+      final response = await _repository.getLastTimeUpdated();
+      return ProviderResponseModel(data: response);
+    } catch (e) {
+      return AppErrorDefaultModel(
+        'LocalEquipmentsProvider.getLastTimeUpdated() $e',
       );
     }
   }

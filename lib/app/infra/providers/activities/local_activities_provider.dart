@@ -1,8 +1,7 @@
-import '../../models/responses/activity_model.dart';
-import '../../repositories/activities/local_activities_repository.dart';
-
 import '../../models/defaults/app_error_model.dart';
 import '../../models/defaults/provider_response_model.dart';
+import '../../models/responses/activity_model.dart';
+import '../../repositories/activities/local_activities_repository.dart';
 
 class LocalActivitiesProvider {
   final LocalActivitiesRepository _repository;
@@ -34,6 +33,17 @@ class LocalActivitiesProvider {
       return ProviderResponseModel();
     } catch (e) {
       return AppErrorDefaultModel('LocalActivitiesProvider.clear() $e');
+    }
+  }
+
+  Future<ProviderResponseModel<DateTime>> getLastTimeUpdated() async {
+    try {
+      final response = await _repository.getLastTimeUpdated();
+      return ProviderResponseModel(data: response);
+    } catch (e) {
+      return AppErrorDefaultModel(
+        'LocalActivitiesProvider.getLastTimeUpdated() $e',
+      );
     }
   }
 }

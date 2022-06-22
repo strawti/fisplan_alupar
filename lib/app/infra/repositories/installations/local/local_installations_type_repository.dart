@@ -9,6 +9,10 @@ class LocalInstallationsTypeRepository {
 
   Future<void> set(List<InstallationTypeModel> data) async {
     await _storage.write(
+      'InstallationsType_LastTimeUpdated',
+      DateTime.now().millisecondsSinceEpoch,
+    );
+    await _storage.write(
       apiInstallationTypes,
       data.map((e) => e.toJson()).toList(),
     );
@@ -23,5 +27,10 @@ class LocalInstallationsTypeRepository {
 
   Future<void> clear() async {
     await _storage.remove(apiInstallationTypes);
+  }
+
+  Future<DateTime> getLastTimeUpdated() async {
+    final data = await _storage.read('InstallationsType_LastTimeUpdated');
+    return DateTime.fromMillisecondsSinceEpoch(data);
   }
 }

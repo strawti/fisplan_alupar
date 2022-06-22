@@ -8,6 +8,10 @@ class LocalTowersRepository {
   LocalTowersRepository(this._storage);
 
   Future<void> set(List<TowerModel> data) async {
+    await _storage.write(
+      'Towers_LastTimeUpdated',
+      DateTime.now().millisecondsSinceEpoch,
+    );
     await _storage.write(apiTowers, data.map((e) => e.toJson()).toList());
   }
 
@@ -15,12 +19,18 @@ class LocalTowersRepository {
     final data = await _storage.read(apiTowers);
     return List<TowerModel>.from(
       data?.map(
-        (e) => TowerModel.fromJson(e),
-      ) ?? [],
+            (e) => TowerModel.fromJson(e),
+          ) ??
+          [],
     );
   }
 
   Future<void> clear() async {
     await _storage.remove(apiTowers);
+  }
+
+  Future<DateTime> getLastTimeUpdated() async {
+    final data = await _storage.read('Towers_LastTimeUpdated');
+    return DateTime.fromMillisecondsSinceEpoch(data);
   }
 }
