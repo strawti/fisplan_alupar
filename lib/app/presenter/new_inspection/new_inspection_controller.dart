@@ -30,11 +30,13 @@ class NewInspectionController extends GetxController {
 
   InstallationModel? selectedInstallation;
   Future getInstallation() async {
-    await installationsController.fetch(selectedInstallationType!.id);
+    installationsController.filterByInstallationTypeId(
+      selectedInstallationType!.id,
+    );
 
     final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
       'Instalação',
-      installationsController.installations,
+      installationsController.installationsFiltered,
     );
 
     if (result != null) {

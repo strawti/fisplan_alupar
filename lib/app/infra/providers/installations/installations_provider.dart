@@ -11,11 +11,9 @@ class InstallationsProvider {
   final InstallationsRepository _repository;
   InstallationsProvider(this._repository);
 
-  Future<ProviderResponseModel<List<InstallationModel>?>> getAll(
-    int installationTypeId,
-  ) async {
+  Future<ProviderResponseModel<List<InstallationModel>?>> getAll() async {
     try {
-      final response = await _repository.getAll(installationTypeId);
+      final response = await _repository.getAll();
       return ProviderResponseModel.fromMap(response.toMap());
     } on SocketException {
       return AppErrorDefaultModel(constSocketExceptionError);

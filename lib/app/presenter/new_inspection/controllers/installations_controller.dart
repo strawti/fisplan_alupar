@@ -18,26 +18,30 @@ class InstallationsController extends GetxController with LoaderManager {
     this._localInstallationsProvider,
   );
 
-  List<InstallationModel> installations = [];
+  List<InstallationModel> _installations = [];
+  List<InstallationModel> installationsFiltered = [];
 
-  Future<void> fetch(int installationTypeId) async {
+  Future<void> fetch({bool online = false}) async {
     setIsLoading(true);
 
+    await _getLocalInstallations();
     if (await AppConnectivity.instance.isConnected()) {
-      await _getInstallations(installationTypeId);
-    } else {
-      await _getLocalInstallations();
+      if (_installations.isEmpty || online) {
+        await _getInstallations();
+      }
     }
+
+    installationsFiltered = _installations.toList();
 
     setIsLoading(false);
   }
 
-  Future _getInstallations(int installationTypeId) async {
-    final response = await _installationsProvider.getAll(installationTypeId);
+  Future _getInstallations() async {
+    final response = await _installationsProvider.getAll();
 
     if (response.isSuccess) {
-      installations = response.data ?? [];
-      _setLocalInstallations(installations);
+      _installations = response.data ?? [];
+      _setLocalInstallations(_installations);
     } else {
       CustomSnackbar.to.show(response.error!.content!);
     }
@@ -47,7 +51,7 @@ class InstallationsController extends GetxController with LoaderManager {
     final response = await _localInstallationsProvider.getAll();
 
     if (response.isSuccess) {
-      installations = response.data ?? [];
+      _installations = response.data ?? [];
     } else {
       CustomSnackbar.to.show(response.error!.content!);
     }
@@ -59,9 +63,17 @@ class InstallationsController extends GetxController with LoaderManager {
     );
 
     if (response.isSuccess) {
-      installations = data;
+      _installations = data;
     } else {
       CustomSnackbar.to.show(response.error!.content!);
     }
+  }
+
+  void filterByInstallationTypeId(int installationTypeId) {
+    installationsFiltered = _installations.where((installation) {
+      return installation.installationTypeId == installationTypeId;
+    }).toList();
+
+    update();
   }
 }
