@@ -29,6 +29,7 @@ import '../../infra/repositories/towers/local_towers_repository.dart';
 import '../../infra/repositories/towers/towers_repository.dart';
 import 'controllers/companies_controller.dart';
 import 'controllers/equipments_categories_controller.dart';
+import 'controllers/images_controller.dart';
 import 'controllers/installation_type_controller.dart';
 import 'controllers/installations_controller.dart';
 import 'controllers/towers_controller.dart';
@@ -78,6 +79,7 @@ class NewInspectionBindings implements Bindings {
     Get.lazyPut(() => CompaniesTensionLevelsRepository(Get.find()));
     Get.lazyPut(() => CompaniesTensionLevelProvider(Get.find()));
 
+    Get.lazyPut(() => ImagesController());
     Get.put(InstallationTypeController(Get.find(), Get.find()));
     Get.put(InstallationsController(Get.find(), Get.find()));
     Get.put(TowersController(Get.find(), Get.find()));
