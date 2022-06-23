@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:fisplan_alupar/app/infra/models/responses/equipment_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/tension_level_model.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/equipments_controller.dart';
+import 'package:fisplan_alupar/app/shared/utils/custom_snackbar.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 import '../../infra/models/defaults/item_selection_model.dart';
@@ -25,6 +29,38 @@ class NewInspectionController extends GetxController {
     );
 
     arguments = Get.arguments;
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+
+    _getPosition();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+
+    positionStream?.cancel();
+  }
+
+  StreamSubscription<Position>? positionStream;
+  Position? position;
+
+  Future _getPosition() async {
+    final permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.whileInUse ||
+        permission == LocationPermission.always) {
+      Geolocator.getPositionStream().listen((pos) {
+        position = pos;
+        update();
+      });
+    } else {
+      await Geolocator.requestPermission();
+      CustomSnackbar.to.show("Permissão de localização negada");
+    }
   }
 
   late NewInspectionPageArguments arguments;

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../shared/widgets/textform_widget.dart';
 import '../new_inspection_controller.dart';
+import 'location_new_inspection_widget.dart';
 import 'new_inspection_card.dart';
 
 class NewInspectionBody extends StatelessWidget {
@@ -172,48 +173,7 @@ class NewInspectionBody extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            NewInspectionCard(
-              title: 'Localização',
-              child: Column(children: [
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
-                    Text('Latitude'),
-                    SizedBox(width: 10),
-                    Text('-17.840286'),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                const Divider(
-                  color: Colors.black12,
-                  thickness: 1,
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
-                    Text('Longitude'),
-                    SizedBox(width: 10),
-                    Text('-42.069027'),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                const Divider(
-                  color: Colors.black12,
-                  thickness: 1,
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
-                    Text('Data/Hora'),
-                    SizedBox(width: 10),
-                    Text('20/06/2020 - 15:00'),
-                  ],
-                ),
-              ]),
-            ),
+            const LocationNewInspectionWidget(),
             const NewInspectionCard(
               title: 'Comentarios',
               child: Padding(

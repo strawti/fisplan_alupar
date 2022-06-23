@@ -1,4 +1,8 @@
-String getDateTime(DateTime dateTime) {
+String getDateTime(DateTime? dateTime) {
+  if (dateTime == null) {
+    return 'Não informado';
+  }
+
   final day = dateTime.day.toString().padLeft(2, '0');
   final month = dateTime.month.toString().padLeft(2, '0');
   final year = dateTime.year.toString();
