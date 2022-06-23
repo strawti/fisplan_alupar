@@ -37,6 +37,10 @@ class InspectionsPage extends GetView<InspectionsController> {
               physics: const BouncingScrollPhysics(),
               child: GetBuilder<InspectionsController>(
                 builder: (control) {
+                  if (control.isLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,

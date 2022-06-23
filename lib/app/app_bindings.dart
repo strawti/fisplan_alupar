@@ -1,23 +1,22 @@
 import 'dart:async';
 
-import 'core/app_token.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/request/request.dart';
 import 'package:get_storage/get_storage.dart';
 
+import 'core/app_token.dart';
+
 class AppBindings implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() {
-      final connect = GetConnect();
-      connect.timeout = const Duration(seconds: 30);
-      connect.httpClient.addRequestModifier(requestModifier);
-      connect.httpClient.addResponseModifier(responseModifier);
-      return connect;
-    });
+    final connect = GetConnect();
+    connect.timeout = const Duration(seconds: 30);
+    connect.httpClient.addRequestModifier(requestModifier);
+    connect.httpClient.addResponseModifier(responseModifier);
+    Get.put(connect);
 
-    Get.lazyPut(() => GetStorage());
+    Get.put(GetStorage());
   }
 
   FutureOr<Request> requestModifier(Request request) async {

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:get/get.dart';
 
 import '../../api_endpoints.dart';
@@ -12,10 +10,7 @@ class LogoutRepository {
   final GetConnect _connect;
 
   Future<ApiResponseModel> logout() async {
-    final response = await _connect.post(
-      apiLogout,
-      json.encode({}),
-    );
+    final response = await _connect.post(apiLogout, null);
 
     final responseModel = DefaultResponseModel.fromMap(
       {

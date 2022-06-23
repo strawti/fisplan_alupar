@@ -60,6 +60,10 @@ class HomePage extends GetView<HomeController> {
               child: SingleChildScrollView(
                 child: GetBuilder<HomeController>(
                   builder: (control) {
+                    if (control.isLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
