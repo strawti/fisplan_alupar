@@ -285,7 +285,7 @@ class NewInspectionBody extends StatelessWidget {
                               ),
                               trailing: IconButton(
                                 onPressed: () {
-                                  control.removeAudio(a);
+                                  control.removeAudioDialog(a);
                                 },
                                 icon: const Icon(
                                   Icons.delete,
