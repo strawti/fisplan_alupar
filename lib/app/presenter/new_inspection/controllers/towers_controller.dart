@@ -1,3 +1,4 @@
+import 'package:fisplan_alupar/app/presenter/new_inspection/new_inspection_controller.dart';
 import 'package:get/get.dart';
 
 import '../../../core/app_connectivity.dart';
@@ -38,7 +39,11 @@ class TowersController extends GetxController with LoaderManager {
       }
     }
 
-    towersFiltered = _towers.toList();
+    towersFiltered = _towers.where((e) {
+      return e.installationId ==
+          Get.find<NewInspectionController>().selectedInstallation!.id;
+    }).toList();
+
     _getLastTimeUpdated();
 
     setIsLoading(false);
