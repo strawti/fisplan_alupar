@@ -110,6 +110,8 @@ class NewInspectionController extends GetxController {
 
   TowerModel? selectedTower;
   Future getTowers() async {
+    TowersController.to.filterTowersByInstallation(selectedInstallation!.id);
+    
     final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
       'Torre',
       towersController.towersFiltered,

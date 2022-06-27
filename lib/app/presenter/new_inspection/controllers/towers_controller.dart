@@ -1,4 +1,3 @@
-import 'package:fisplan_alupar/app/presenter/new_inspection/new_inspection_controller.dart';
 import 'package:get/get.dart';
 
 import '../../../core/app_connectivity.dart';
@@ -8,6 +7,7 @@ import '../../../infra/providers/towers/towers_provider.dart';
 import '../../../shared/utils/custom_snackbar.dart';
 import '../../../shared/utils/get_datetime.dart';
 import '../../../shared/utils/loader_manager.dart';
+import '../new_inspection_controller.dart';
 
 class TowersController extends GetxController with LoaderManager {
   static TowersController get to => Get.find();
@@ -39,10 +39,7 @@ class TowersController extends GetxController with LoaderManager {
       }
     }
 
-    towersFiltered = _towers.where((e) {
-      return e.installationId ==
-          Get.find<NewInspectionController>().selectedInstallation!.id;
-    }).toList();
+    towersFiltered = _towers.toList();
 
     _getLastTimeUpdated();
 
@@ -80,6 +77,13 @@ class TowersController extends GetxController with LoaderManager {
     } else {
       CustomSnackbar.to.show(response.error!.content!);
     }
+  }
+
+  void filterTowersByInstallation(int installationId) {
+    towersFiltered = _towers.where((e) {
+      return e.installationId ==
+          Get.find<NewInspectionController>().selectedInstallation!.id;
+    }).toList();
   }
 
   String lastUpdate = "";
