@@ -8,21 +8,21 @@ class AlertDialogWidget extends StatelessWidget {
   final void Function()? cancelOnPressed;
 
   final String title;
-  final String content;
+  final String? content;
 
   const AlertDialogWidget({
     Key? key,
     this.confirmOnPressed,
     this.cancelOnPressed,
     required this.title,
-    required this.content,
+    this.content,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(title),
-      content: Text(content),
+      content: content != null ? Text(content!) : null,
       actions: [
         MaterialButton(
           onPressed: confirmOnPressed,

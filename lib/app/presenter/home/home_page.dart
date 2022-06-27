@@ -18,8 +18,8 @@ class HomePage extends GetView<HomeController> {
       onWillPop: () async {
         final result = await Get.dialog(
           AlertDialogWidget(
-            title: 'Confirmar saída?',
-            content: 'Você será desconectado',
+            title: 'Deseja sair do app?',
+        
             confirmOnPressed: () => Get.back(result: true),
             cancelOnPressed: () => Get.back(result: false),
           ),

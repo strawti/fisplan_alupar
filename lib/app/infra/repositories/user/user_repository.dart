@@ -34,7 +34,7 @@ class UserRepository {
   }
 
   Future<ApiResponseModel<UserResponseModel?>> logout() async {
-    final response = await _connect.get(apiLogout);
+    final response = await _connect.post(apiLogout, null);
 
     final responseModel = DefaultResponseModel.fromMap({
       'data': response.body,
