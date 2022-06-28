@@ -82,6 +82,24 @@ class QuestionnairesController extends GetxController with LoaderManager {
     }
   }
 
+  void filterByProjectId(int projectId) {
+    questionnairesFiltered = _questionnaires.where((e) {
+      return e.projectId == projectId;
+    }).toList();
+  }
+
+  List<Question> filterBy(
+    int equipmentCategoryId,
+    int activityId,
+    int stepId,
+  ) {
+    return questionnairesFiltered.first.questions.where((e) {
+      return e.equipmentCategoryId == equipmentCategoryId &&
+          e.activityId == activityId &&
+          e.stepId == stepId;
+    }).toList();
+  }
+
   String lastUpdate = "";
   Future _getLastTimeUpdated() async {
     final response = await _localProvider.getLastTimeUpdated();

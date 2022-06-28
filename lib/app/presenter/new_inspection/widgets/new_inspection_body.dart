@@ -1,4 +1,5 @@
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/images_controller.dart';
+import 'package:fisplan_alupar/app/presenter/new_inspection/widgets/question_widget.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/widgets/view_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -68,7 +69,7 @@ class NewInspectionBody extends StatelessWidget {
                   GetBuilder<NewInspectionController>(
                     builder: (controller) {
                       return Visibility(
-                        visible: controller.selectedInstallationType != null,
+                        visible: controller.showInstallation,
                         child: ListTile(
                           title: const Text('Instalação'),
                           trailing: const Icon(Icons.arrow_drop_down),
@@ -84,10 +85,7 @@ class NewInspectionBody extends StatelessWidget {
                   GetBuilder<NewInspectionController>(
                     builder: (controller) {
                       return Visibility(
-                        visible: controller.selectedInstallation != null &&
-                            (controller.selectedInstallationType!.id == 5 ||
-                                controller.selectedInstallationType!.id == 4 ||
-                                controller.selectedInstallationType!.id == 1),
+                        visible: controller.showTower,
                         child: ListTile(
                           title: const Text('Torre'),
                           trailing: const Icon(Icons.arrow_drop_down),
@@ -103,9 +101,7 @@ class NewInspectionBody extends StatelessWidget {
                   GetBuilder<NewInspectionController>(
                     builder: (controller) {
                       return Visibility(
-                        visible: controller.selectedInstallation != null &&
-                            (controller.selectedInstallationType!.id == 3 ||
-                                controller.selectedInstallationType!.id == 2),
+                        visible: controller.showEquipmentCategory,
                         child: ListTile(
                           title: const Text('Categoria do equipamento'),
                           trailing: const Icon(Icons.arrow_drop_down),
@@ -121,10 +117,7 @@ class NewInspectionBody extends StatelessWidget {
                   GetBuilder<NewInspectionController>(
                     builder: (controller) {
                       return Visibility(
-                        visible: controller.selectedEquipmentsCategory !=
-                                null &&
-                            (controller.selectedInstallationType!.id == 3 ||
-                                controller.selectedInstallationType!.id == 2),
+                        visible: controller.showTensionLevel,
                         child: ListTile(
                           title: const Text('Nível de tensão'),
                           trailing: const Icon(Icons.arrow_drop_down),
@@ -140,9 +133,7 @@ class NewInspectionBody extends StatelessWidget {
                   GetBuilder<NewInspectionController>(
                     builder: (controller) {
                       return Visibility(
-                        visible: controller.selectedTensionLevel != null &&
-                            (controller.selectedInstallationType!.id == 3 ||
-                                controller.selectedInstallationType!.id == 2),
+                        visible: controller.showEquipment,
                         child: ListTile(
                           title: const Text('Equipamento'),
                           trailing: const Icon(Icons.arrow_drop_down),
@@ -158,9 +149,7 @@ class NewInspectionBody extends StatelessWidget {
                   GetBuilder<NewInspectionController>(
                     builder: (controller) {
                       return Visibility(
-                        visible:
-                            controller.selectedEquipmentsCategory != null &&
-                                controller.selectedInstallationType != null,
+                        visible: controller.showStep,
                         child: ListTile(
                           title: const Text('Etapa'),
                           trailing: const Icon(Icons.arrow_drop_down),
@@ -176,7 +165,7 @@ class NewInspectionBody extends StatelessWidget {
                   GetBuilder<NewInspectionController>(
                     builder: (controller) {
                       return Visibility(
-                        visible: controller.selectedStep != null,
+                        visible: controller.showActivity,
                         child: ListTile(
                           title: const Text('Atividade'),
                           trailing: const Icon(Icons.arrow_drop_down),
@@ -191,6 +180,24 @@ class NewInspectionBody extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            const SizedBox(height: 10),
+            GetBuilder<NewInspectionController>(
+              builder: (control) {
+                return Visibility(
+                  visible: control.showQuestionnaries,
+                  child: NewInspectionCard(
+                    title: 'Perguntas',
+                    child: Column(
+                      children: control.questions.map(
+                        (question) {
+                          return QuestionWidget(question);
+                        },
+                      ).toList(),
+                    ),
+                  ),
+                );
+              },
             ),
             const SizedBox(height: 10),
             NewInspectionCard(

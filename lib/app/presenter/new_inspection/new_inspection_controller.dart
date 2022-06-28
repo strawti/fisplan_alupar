@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:fisplan_alupar/app/infra/models/responses/activity_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/questionnary_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/step_model.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/activities_controller.dart';
+import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/questionnaires_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/steps_controller.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -218,8 +220,21 @@ class NewInspectionController extends GetxController {
 
     if (result != null) {
       selectedActivity = result.item;
+      getQuestionnaries();
       update();
     }
+  }
+
+  List<Question> questions = [];
+  Future getQuestionnaries() async {
+    QuestionnairesController.to.filterByProjectId(arguments.project.id);
+    questions = QuestionnairesController.to.filterBy(
+      selectedEquipmentsCategory!.id,
+      selectedActivity!.id,
+      selectedStep!.id,
+    );
+
+    update();
   }
 
   void clearSelectedItems() {
@@ -244,5 +259,44 @@ class NewInspectionController extends GetxController {
         ).toList(),
       ),
     );
+  }
+
+  bool get showInstallation {
+    return selectedInstallationType != null;
+  }
+
+  bool get showTower {
+    return selectedInstallation != null && selectedInstallationType!.id == 5 ||
+        selectedInstallationType!.id == 4 ||
+        selectedInstallationType!.id == 1;
+  }
+
+  bool get showEquipmentCategory {
+    return selectedInstallation != null && selectedInstallationType!.id == 3 ||
+        selectedInstallationType!.id == 2;
+  }
+
+  bool get showTensionLevel {
+    return selectedEquipmentsCategory != null &&
+            selectedInstallationType!.id == 3 ||
+        selectedInstallationType!.id == 2;
+  }
+
+  bool get showEquipment {
+    return selectedTensionLevel != null && selectedInstallationType!.id == 3 ||
+        selectedInstallationType!.id == 2;
+  }
+
+  bool get showStep {
+    return selectedEquipmentsCategory != null &&
+        selectedInstallationType != null;
+  }
+
+  bool get showActivity {
+    return selectedStep != null;
+  }
+
+  bool get showQuestionnaries {
+    return selectedActivity != null;
   }
 }

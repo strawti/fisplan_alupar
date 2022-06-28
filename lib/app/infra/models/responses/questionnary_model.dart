@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:fisplan_alupar/app/infra/enums/question_types_enum.dart';
+
 class QuestionnaryModel {
   final int id;
   final int projectId;
@@ -58,8 +60,12 @@ class Question {
   final int? equipmentCategoryId;
   final int stepId;
   final int activityId;
-
   final List<AlternativeModel> alternatives;
+
+  QuestionTypesEnum get questionType {
+    return QuestionTypesEnum.values[questionTypeId - 1];
+  }
+
   Question({
     required this.id,
     required this.name,
