@@ -266,25 +266,28 @@ class NewInspectionController extends GetxController {
   }
 
   bool get showTower {
-    return selectedInstallation != null && selectedInstallationType!.id == 5 ||
-        selectedInstallationType!.id == 4 ||
-        selectedInstallationType!.id == 1;
+    return selectedInstallation != null &&
+        (selectedInstallationType!.id == 5 ||
+            selectedInstallationType!.id == 4 ||
+            selectedInstallationType!.id == 1);
   }
 
   bool get showEquipmentCategory {
-    return selectedInstallation != null && selectedInstallationType!.id == 3 ||
-        selectedInstallationType!.id == 2;
+    return selectedInstallation != null &&
+        (selectedInstallationType!.id == 3 ||
+            selectedInstallationType!.id == 2);
   }
 
   bool get showTensionLevel {
     return selectedEquipmentsCategory != null &&
-            selectedInstallationType!.id == 3 ||
-        selectedInstallationType!.id == 2;
+        (selectedInstallationType!.id == 3 ||
+            selectedInstallationType!.id == 2);
   }
 
   bool get showEquipment {
-    return selectedTensionLevel != null && selectedInstallationType!.id == 3 ||
-        selectedInstallationType!.id == 2;
+    return selectedTensionLevel != null &&
+        (selectedInstallationType!.id == 3 ||
+            selectedInstallationType!.id == 2);
   }
 
   bool get showStep {
