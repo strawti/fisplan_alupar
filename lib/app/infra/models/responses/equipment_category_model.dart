@@ -19,6 +19,7 @@ class EquipmentCategoryModel {
     result.addAll({'id': id});
     result.addAll({'name': name});
     result.addAll({'description': description});
+    result.addAll({'installation_id': installationId});
 
     return result;
   }

@@ -129,8 +129,7 @@ class NewInspectionController extends GetxController {
   EquipmentCategoryModel? selectedEquipmentsCategory;
   Future getEquipmentsCategory() async {
     equipmentsCategoryController
-        .filterCategoriesByInstallation(selectedInstallation!.id);
-
+        .filterCategoriesByInstallationId(selectedInstallation!.id);
     final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
       'Categoria do equipamento',
       equipmentsCategoryController.equipmentsCategoriesFiltered,
@@ -180,8 +179,7 @@ class NewInspectionController extends GetxController {
     selectedTensionLevel = null;
   }
 
-  Future goToSelectionPage(String title, List data, dynamic item,
-      [String? subTitle]) async {
+  Future goToSelectionPage(String title, List data, dynamic item) async {
     return await Get.toNamed(
       SelectionPage.route,
       arguments: SelectionPageArguments(

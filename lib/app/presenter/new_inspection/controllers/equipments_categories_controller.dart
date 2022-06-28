@@ -44,9 +44,9 @@ class EquipmentsCategoriesController extends GetxController with LoaderManager {
     setIsLoading(false);
   }
 
-  void filterCategoriesByInstallation(int id) {
+  void filterCategoriesByInstallationId(int installationId) {
     equipmentsCategoriesFiltered = _equipmentsCategories.where((e) {
-      return e.installationId == id;
+      return e.installationId == installationId;
     }).toList();
 
     update();
