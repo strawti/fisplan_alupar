@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../shared/widgets/textform_widget.dart';
 import '../../new_inspection/controllers/audios_controller.dart';
 import '../../new_inspection/controllers/images_controller.dart';
 import '../../new_inspection/widgets/new_inspection_card.dart';
-import '../../new_inspection/widgets/record_audio_widget.dart';
 import '../../new_inspection/widgets/view_image_widget.dart';
 import '../details_inspection_controller.dart';
 
@@ -72,77 +70,102 @@ class DetailspectionBody extends GetView<DetailsInspectionController> {
                       );
                     },
                   ),
+                  const SizedBox(height: 5),
+                  const Divider(
+                    color: Colors.black12,
+                    thickness: 1,
+                  ),
+                  const SizedBox(height: 5),
                   Visibility(
                     visible:
                         controller.arguments.inspection.description != null,
-                    child: ListTile(
-                      title: const Text('Instalação'),
-                      trailing: const Icon(Icons.arrow_drop_down),
-                      subtitle: Text(
-                        controller.arguments.inspection.installationId
-                            .toString(),
-                        textScaleFactor: 1.1,
-                      ),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: const Text('Instalação'),
+                          subtitle: Text(
+                            controller.arguments.inspection.installationId
+                                .toString(),
+                            textScaleFactor: 1.1,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        const Divider(
+                          color: Colors.black12,
+                          thickness: 1,
+                        ),
+                        const SizedBox(height: 5),
+                      ],
                     ),
                   ),
                   Visibility(
-                    visible: controller
-                                .arguments.inspection.equipmentCategoryId !=
-                            null &&
-                        (controller.arguments.inspection.equipmentCategoryId ==
-                                5 ||
-                            controller.arguments.inspection.installationId ==
-                                4 ||
-                            controller
-                                    .arguments.inspection.equipmentCategoryId ==
-                                1),
-                    child: ListTile(
-                      title: const Text('Torre'),
-                      trailing: const Icon(Icons.arrow_drop_down),
-                      subtitle: Text(
-                        controller.arguments.inspection.towerName ?? '',
-                        textScaleFactor: 1.1,
-                      ),
+                    visible: controller.arguments.inspection.towerId != null,
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: const Text('Torre'),
+                          subtitle: Text(
+                            controller.arguments.inspection.towerName ?? '',
+                            textScaleFactor: 1.1,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        const Divider(
+                          color: Colors.black12,
+                          thickness: 1,
+                        ),
+                        const SizedBox(height: 5),
+                      ],
                     ),
                   ),
                   Visibility(
-                    visible: (controller
-                                .arguments.inspection.equipmentCategoryId ==
-                            3 ||
-                        controller.arguments.inspection.installationId == 2),
-                    child: ListTile(
-                      title: const Text('Categoria do equipamento'),
-                      trailing: const Icon(Icons.arrow_drop_down),
-                      subtitle: Text(
-                        controller.arguments.inspection.equipmentName,
-                        textScaleFactor: 1.1,
-                      ),
+                    visible:
+                        controller.arguments.inspection.equipmentCategoryId !=
+                            null,
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: const Text('Categoria do equipamento'),
+                          subtitle: Text(
+                            controller.arguments.inspection.equipmentName,
+                            textScaleFactor: 1.1,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        const Divider(
+                          color: Colors.black12,
+                          thickness: 1,
+                        ),
+                        const SizedBox(height: 5),
+                      ],
                     ),
                   ),
                   Visibility(
-                    visible: (controller
-                                .arguments.inspection.equipmentCategoryId ==
-                            3 ||
-                        controller.arguments.inspection.installationId == 2),
-                    child: ListTile(
-                      title: const Text('Nível de tensão'),
-                      trailing: const Icon(Icons.arrow_drop_down),
-                      subtitle: Text(
-                        controller.arguments.inspection.towerName ?? '',
-                        textScaleFactor: 1.1,
-                      ),
+                    visible:
+                        controller.arguments.inspection.tensionLevelId != null,
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: const Text('Nível de tensão'),
+                          subtitle: Text(
+                            controller.arguments.inspection.towerName ?? '',
+                            textScaleFactor: 1.1,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        const Divider(
+                          color: Colors.black12,
+                          thickness: 1,
+                        ),
+                        const SizedBox(height: 5),
+                      ],
                     ),
                   ),
                   Visibility(
-                    visible: controller.arguments.inspection.tensionLevelId !=
-                            null &&
-                        (controller.arguments.inspection.equipmentCategoryId ==
-                                3 ||
-                            controller.arguments.inspection.installationId ==
-                                2),
+                    visible:
+                        controller.arguments.inspection.equipmentId != null,
                     child: ListTile(
                       title: const Text('Equipamento'),
-                      trailing: const Icon(Icons.arrow_drop_down),
                       subtitle: Text(
                         controller.arguments.inspection.equipmentName,
                         textScaleFactor: 1.1,
@@ -152,14 +175,9 @@ class DetailspectionBody extends GetView<DetailsInspectionController> {
                 ],
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 5),
             NewInspectionCard(
-              title: 'Foto',
-              icon: IconButton(
-                onPressed: Get.find<ImagesController>().addImages,
-                icon: const Icon(Icons.camera_alt),
-                color: Colors.black54,
-              ),
+              title: 'Fotos',
               child: GetBuilder<ImagesController>(builder: (control) {
                 return Column(
                   children: control.allImages.map(
@@ -195,17 +213,6 @@ class DetailspectionBody extends GetView<DetailsInspectionController> {
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                            TextButton(
-                              onPressed: () {
-                                control.removeImage(image);
-                              },
-                              child: const Text(
-                                'Apagar',
-                                style: TextStyle(
-                                  color: Colors.red,
-                                ),
-                              ),
-                            ),
                           ],
                         ),
                       );
@@ -217,13 +224,6 @@ class DetailspectionBody extends GetView<DetailsInspectionController> {
             const SizedBox(height: 10),
             NewInspectionCard(
               title: 'Áudios',
-              icon: IconButton(
-                onPressed: () {
-                  Get.bottomSheet(const RecordAudioWidget());
-                },
-                icon: const Icon(Icons.mic_rounded),
-                color: Colors.black54,
-              ),
               child: GetBuilder<AudiosController>(
                 builder: (control) {
                   return Column(
@@ -277,15 +277,6 @@ class DetailspectionBody extends GetView<DetailsInspectionController> {
                                   ),
                                 ],
                               ),
-                              trailing: IconButton(
-                                onPressed: () {
-                                  control.removeAudioDialog(a);
-                                },
-                                icon: const Icon(
-                                  Icons.delete,
-                                  color: Colors.red,
-                                ),
-                              ),
                             ),
                           );
                         },
@@ -297,13 +288,12 @@ class DetailspectionBody extends GetView<DetailsInspectionController> {
             ),
             const SizedBox(height: 10),
             //const LocationNewInspectionWidget(),
-            const NewInspectionCard(
+            NewInspectionCard(
               title: 'Comentarios',
               child: Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: TextFormWidget(
-                  hintText: 'Informações adicionais',
-                  maxLines: 3,
+                padding: const EdgeInsets.only(top: 20),
+                child: Text(
+                  controller.arguments.inspection.comments ?? '',
                 ),
               ),
             ),
