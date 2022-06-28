@@ -1,5 +1,6 @@
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/images_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/widgets/question_widget.dart';
+import 'package:fisplan_alupar/app/presenter/new_inspection/widgets/tower_widget.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/widgets/view_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -86,14 +87,24 @@ class NewInspectionBody extends StatelessWidget {
                     builder: (controller) {
                       return Visibility(
                         visible: controller.showTower,
-                        child: ListTile(
-                          title: const Text('Torre'),
-                          trailing: const Icon(Icons.arrow_drop_down),
-                          subtitle: Text(
-                            controller.selectedTower?.name ?? '',
-                            textScaleFactor: 1.1,
-                          ),
-                          onTap: controller.getTowers,
+                        child: Column(
+                          children: [
+                            ListTile(
+                              title: const Text('Torre'),
+                              trailing: const Icon(Icons.arrow_drop_down),
+                              subtitle: Text(
+                                controller.selectedTower?.name ?? '',
+                                textScaleFactor: 1.1,
+                              ),
+                              onTap: controller.getTowers,
+                            ),
+                            Visibility(
+                              visible: controller.selectedTower != null,
+                              child: TowerWidget(
+                                tower: controller.selectedTower!,
+                              ),
+                            ),
+                          ],
                         ),
                       );
                     },

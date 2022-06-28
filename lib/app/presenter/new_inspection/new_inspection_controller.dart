@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:fisplan_alupar/app/infra/models/responses/activity_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/answer_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/questionnary_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/step_model.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/activities_controller.dart';
@@ -29,6 +30,8 @@ import 'controllers/installations_controller.dart';
 import 'controllers/towers_controller.dart';
 
 class NewInspectionController extends GetxController {
+  static NewInspectionController get to => Get.find();
+
   NewInspectionController() {
     assert(
       Get.arguments is NewInspectionPageArguments,
@@ -92,7 +95,7 @@ class NewInspectionController extends GetxController {
 
     if (result != null) {
       selectedInstallationType = result.item;
-      selectedInstallation = null;
+      clearSelectedItems();
       update();
     }
   }
@@ -110,8 +113,8 @@ class NewInspectionController extends GetxController {
     );
 
     if (result != null) {
-      selectedInstallation = result.item;
       clearSelectedItems();
+      selectedInstallation = result.item;
       update();
     }
   }
@@ -226,6 +229,8 @@ class NewInspectionController extends GetxController {
   }
 
   List<Question> questions = [];
+  List<AnswerModel> answers = [];
+
   Future getQuestionnaries() async {
     QuestionnairesController.to.filterByProjectId(arguments.project.id);
     questions = QuestionnairesController.to.filterBy(
@@ -237,10 +242,37 @@ class NewInspectionController extends GetxController {
     update();
   }
 
+  void setAnswer(Question question, dynamic answer) {
+    answers.removeWhere((e) => e.questionId == question.id);
+
+    answers.add(
+      AnswerModel(
+        questionId: question.id,
+        answer: answer,
+      ),
+    );
+
+    update();
+  }
+
+  AnswerModel? getAnswer(Question question) {
+    final answer = answers.where((e) => e.questionId == question.id);
+
+    if (answer.isNotEmpty) {
+      return answer.first;
+    }
+
+    return null;
+  }
+
   void clearSelectedItems() {
     selectedTower = null;
     selectedEquipmentsCategory = null;
     selectedTensionLevel = null;
+    selectedActivity = null;
+    selectedEquipment = null;
+    selectedStep = null;
+    selectedInstallation = null;
   }
 
   Future goToSelectionPage(String title, List data, dynamic item) async {
@@ -291,8 +323,7 @@ class NewInspectionController extends GetxController {
   }
 
   bool get showStep {
-    return selectedEquipmentsCategory != null &&
-        selectedInstallationType != null;
+    return selectedInstallation != null && selectedInstallationType != null;
   }
 
   bool get showActivity {
