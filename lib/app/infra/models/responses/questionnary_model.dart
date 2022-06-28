@@ -106,7 +106,11 @@ class Question {
       activityId: map['activity_id']?.toInt() ?? 0,
       alternatives: List<AlternativeModel>.from(
         map['alternatives']?.map(
-          (x) => AlternativeModel.fromMap(x),
+          (x) {
+            return x is Map
+                ? AlternativeModel.fromMap(x as Map<String, dynamic>)
+                : AlternativeModel.fromJson(x);
+          },
         ),
       ),
     );

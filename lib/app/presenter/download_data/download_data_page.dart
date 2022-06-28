@@ -1,4 +1,5 @@
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/questionnaires_controller.dart';
+import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/steps_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -101,6 +102,11 @@ class DownloadDataPage extends GetView<DownloadDataController> {
               DownloadItemWidget<QuestionnairesController>(
                 control: Get.find<QuestionnairesController>(),
                 title: 'Questionários',
+              ),
+              const SizedBox(height: 2),
+              DownloadItemWidget<StepsController>(
+                control: Get.find<StepsController>(),
+                title: 'Etapas',
               ),
               const SizedBox(height: 60),
             ],
