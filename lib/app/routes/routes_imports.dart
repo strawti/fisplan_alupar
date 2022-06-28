@@ -1,6 +1,3 @@
-export 'package:fisplan_alupar/app/presenter/view_inspection/view_inspection_bindings.dart';
-export 'package:fisplan_alupar/app/presenter/view_inspection/view_inspection_page.dart';
-
 export '../../app/presenter/auth/login/login_bindings.dart';
 export '../../app/presenter/auth/login/login_page.dart';
 export '../presenter/details_inspection/details_inspection_bindings.dart';

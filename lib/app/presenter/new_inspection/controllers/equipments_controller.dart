@@ -42,6 +42,17 @@ class EquipmentsController extends GetxController with LoaderManager {
     setIsLoading(false);
   }
 
+  void filterEquipments(
+      int categoriesId, int installationId, int tensionLevelId) {
+    equipmentsFiltered = _equipments.where((e) {
+      return e.equipmentCategoryId == categoriesId &&
+          e.installationId == installationId &&
+          e.tensionLevelId == tensionLevelId;
+    }).toList();
+
+    update();
+  }
+
   Future _getAll() async {
     final response = await _installationsProvider.getAll();
 

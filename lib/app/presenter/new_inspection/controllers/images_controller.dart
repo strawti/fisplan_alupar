@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:fisplan_alupar/app/shared/widgets/alert_dialog_widget.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../shared/widgets/alert_dialog_widget.dart';
 import '../widgets/image_source_widget.dart';
 
 class ImagesController extends GetxController {

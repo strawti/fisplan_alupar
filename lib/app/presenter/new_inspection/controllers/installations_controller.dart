@@ -1,4 +1,3 @@
-import 'package:fisplan_alupar/app/presenter/new_inspection/new_inspection_controller.dart';
 import 'package:get/get.dart';
 
 import '../../../core/app_connectivity.dart';
@@ -8,6 +7,7 @@ import '../../../infra/providers/installations/local/local_installations_provide
 import '../../../shared/utils/custom_snackbar.dart';
 import '../../../shared/utils/get_datetime.dart';
 import '../../../shared/utils/loader_manager.dart';
+import '../new_inspection_controller.dart';
 
 class InstallationsController extends GetxController with LoaderManager {
   static InstallationsController get to => Get.find();

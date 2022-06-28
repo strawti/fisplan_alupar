@@ -34,12 +34,6 @@ final List<GetPage> appPages = [
     transition: Transition.rightToLeft,
   ),
   GetPage(
-    name: ViewInspectionPage.route,
-    page: () => const ViewInspectionPage(),
-    binding: ViewInspectionBindings(),
-    transition: Transition.downToUp,
-  ),
-  GetPage(
     name: DownloadDataPage.route,
     page: () => const DownloadDataPage(),
     binding: DownloadDataBindings(),

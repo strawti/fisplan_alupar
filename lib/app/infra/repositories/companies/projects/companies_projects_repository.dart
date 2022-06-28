@@ -1,10 +1,10 @@
-import '../../../api_endpoints.dart';
-import '../../../models/responses/project_model.dart';
 import 'package:get/get.dart';
 
+import '../../../api_endpoints.dart';
 import '../../../models/defaults/api_error_default_model.dart';
 import '../../../models/defaults/api_response_model.dart';
 import '../../../models/defaults/default_response_model.dart';
+import '../../../models/responses/project_model.dart';
 
 class CompaniesProjectsRepository {
   final GetConnect _connect;

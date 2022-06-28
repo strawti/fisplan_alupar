@@ -1,15 +1,15 @@
-import 'package:fisplan_alupar/app/presenter/inspections/inspections_controller.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/activities_controller.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/companies_controller.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/equipments_controller.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/installation_type_controller.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/installations_controller.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/towers_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import './download_data_controller.dart';
+import '../inspections/inspections_controller.dart';
+import '../new_inspection/controllers/activities_controller.dart';
+import '../new_inspection/controllers/companies_controller.dart';
 import '../new_inspection/controllers/equipments_categories_controller.dart';
+import '../new_inspection/controllers/equipments_controller.dart';
+import '../new_inspection/controllers/installation_type_controller.dart';
+import '../new_inspection/controllers/installations_controller.dart';
+import '../new_inspection/controllers/towers_controller.dart';
+import 'download_data_controller.dart';
 
 class DownloadDataPage extends GetView<DownloadDataController> {
   const DownloadDataPage({Key? key}) : super(key: key);

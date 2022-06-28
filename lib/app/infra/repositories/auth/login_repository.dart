@@ -1,10 +1,10 @@
-import '../../models/requests/auth/login_request_model.dart';
 import 'package:get/get.dart';
 
 import '../../api_endpoints.dart';
 import '../../models/defaults/api_error_default_model.dart';
 import '../../models/defaults/api_response_model.dart';
 import '../../models/defaults/default_response_model.dart';
+import '../../models/requests/auth/login_request_model.dart';
 
 class LoginRepository {
   LoginRepository(this._connect);

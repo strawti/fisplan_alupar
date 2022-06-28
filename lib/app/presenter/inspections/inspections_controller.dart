@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:fisplan_alupar/app/shared/utils/get_datetime.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,6 +8,7 @@ import '../../infra/models/responses/inspection_model.dart';
 import '../../infra/providers/inspections/inspections_provider.dart';
 import '../../infra/providers/inspections/local_inspections_provider.dart';
 import '../../routes/arguments/inspections_page_arguments.dart';
+import '../../shared/utils/get_datetime.dart';
 import '../../shared/utils/loader_manager.dart';
 
 class InspectionsController extends GetxController with LoaderManager {

@@ -1,9 +1,9 @@
-import 'package:fisplan_alupar/app/presenter/details_inspection/details_inspection_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../infra/models/responses/inspection_model.dart';
-import '../../../routes/arguments/view_inspection_page_arguments.dart';
+import '../../../routes/arguments/datails_inspection_page_arguments.dart';
+import '../../details_inspection/details_inspection_page.dart';
 import '../inspections_controller.dart';
 import 'card_percent_widget.dart';
 import 'inspection_content_widget.dart';
@@ -22,7 +22,7 @@ class InspectionWidget extends StatelessWidget {
       onTap: () {
         Get.toNamed(
           DetailsInspectionPage.route,
-          arguments: ViewInspectionPageArguments(
+          arguments: DetailsInspectionPageArguments(
             inspection,
             Get.find<InspectionsController>().routeArguments!.project,
           ),

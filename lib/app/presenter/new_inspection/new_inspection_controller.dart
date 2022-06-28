@@ -1,23 +1,23 @@
 import 'dart:async';
 
-import 'package:fisplan_alupar/app/infra/models/responses/equipment_model.dart';
-import 'package:fisplan_alupar/app/infra/models/responses/tension_level_model.dart';
-import 'package:fisplan_alupar/app/presenter/inspections/inspections_controller.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/equipments_controller.dart';
-import 'package:fisplan_alupar/app/shared/utils/custom_snackbar.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 import '../../infra/models/defaults/item_selection_model.dart';
 import '../../infra/models/responses/equipment_category_model.dart';
+import '../../infra/models/responses/equipment_model.dart';
 import '../../infra/models/responses/installation_model.dart';
 import '../../infra/models/responses/installation_type_model.dart';
+import '../../infra/models/responses/tension_level_model.dart';
 import '../../infra/models/responses/tower_model.dart';
 import '../../routes/arguments/new_inspection_page_arguments.dart';
 import '../../routes/arguments/selection_page_arguments.dart';
+import '../../shared/utils/custom_snackbar.dart';
+import '../inspections/inspections_controller.dart';
 import '../selection_page/selection_page.dart';
 import 'controllers/companies_controller.dart';
 import 'controllers/equipments_categories_controller.dart';
+import 'controllers/equipments_controller.dart';
 import 'controllers/installation_type_controller.dart';
 import 'controllers/installations_controller.dart';
 import 'controllers/towers_controller.dart';
@@ -160,6 +160,8 @@ class NewInspectionController extends GetxController {
 
   EquipmentModel? selectedEquipment;
   Future getEquipments() async {
+    equipmentController.filterEquipments(selectedEquipmentsCategory!.id,
+        selectedInstallation!.id, selectedTensionLevel!.id);
     final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
       'Equipamento',
       equipmentController.equipmentsFiltered,

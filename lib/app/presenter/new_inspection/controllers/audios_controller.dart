@@ -2,12 +2,13 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:fisplan_alupar/app/shared/utils/custom_snackbar.dart';
-import 'package:fisplan_alupar/app/shared/widgets/alert_dialog_widget.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
+
+import '../../../shared/utils/custom_snackbar.dart';
+import '../../../shared/widgets/alert_dialog_widget.dart';
 
 class AudiosController extends GetxController {
   @override
