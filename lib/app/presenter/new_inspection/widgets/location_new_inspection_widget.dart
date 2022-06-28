@@ -1,8 +1,8 @@
-import 'package:fisplan_alupar/app/presenter/new_inspection/new_inspection_controller.dart';
-import 'package:fisplan_alupar/app/shared/utils/get_datetime.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../shared/utils/get_datetime.dart';
+import '../new_inspection_controller.dart';
 import 'new_inspection_card.dart';
 
 class LocationNewInspectionWidget extends StatelessWidget {

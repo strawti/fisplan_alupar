@@ -1,9 +1,9 @@
-import '../../../routes/arguments/inspections_page_arguments.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/app_colors.dart';
 import '../../../infra/models/responses/project_model.dart';
+import '../../../routes/arguments/inspections_page_arguments.dart';
 import '../../inspections/inspections_page.dart';
 
 class CardProjectWidget extends StatelessWidget {

@@ -1,5 +1,3 @@
-import 'package:fisplan_alupar/app/presenter/auth/login/login_page.dart';
-import 'package:fisplan_alupar/app/shared/utils/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -11,7 +9,9 @@ import '../../infra/providers/companies/projects/companies_projects_provider.dar
 import '../../infra/providers/companies/projects/local_companies_projects_provider.dart';
 import '../../infra/providers/user/local_user_provider.dart';
 import '../../infra/providers/user/user_provider.dart';
+import '../../shared/utils/custom_snackbar.dart';
 import '../../shared/utils/loader_manager.dart';
+import '../auth/login/login_page.dart';
 
 class HomeController extends GetxController with LoaderManager {
   static HomeController get to => Get.find();

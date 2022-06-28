@@ -1,7 +1,7 @@
-import 'package:fisplan_alupar/app/shared/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../shared/widgets/search_widget.dart';
 import 'selection_controller.dart';
 
 class SelectionPage extends StatelessWidget {

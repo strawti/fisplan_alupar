@@ -1,14 +1,14 @@
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/images_controller.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/widgets/view_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../shared/widgets/textform_widget.dart';
 import '../controllers/audios_controller.dart';
+import '../controllers/images_controller.dart';
 import '../new_inspection_controller.dart';
 import 'location_new_inspection_widget.dart';
 import 'new_inspection_card.dart';
 import 'record_audio_widget.dart';
+import 'view_image_widget.dart';
 
 class NewInspectionBody extends StatelessWidget {
   const NewInspectionBody({Key? key}) : super(key: key);

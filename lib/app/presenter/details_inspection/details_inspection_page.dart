@@ -1,5 +1,6 @@
-import 'package:fisplan_alupar/app/presenter/details_inspection/widgets/details_inspection_body.dart';
 import 'package:flutter/material.dart';
+
+import 'widgets/details_inspection_body.dart';
 
 class DetailsInspectionPage extends StatelessWidget {
   const DetailsInspectionPage({Key? key}) : super(key: key);

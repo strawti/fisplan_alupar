@@ -1,11 +1,10 @@
 import 'dart:io';
 
-import '../../repositories/installations/installations_repository.dart';
-
 import '../../../core/app_constants.dart';
 import '../../models/defaults/app_error_model.dart';
 import '../../models/defaults/provider_response_model.dart';
 import '../../models/responses/installation_model.dart';
+import '../../repositories/installations/installations_repository.dart';
 
 class InstallationsProvider {
   final InstallationsRepository _repository;

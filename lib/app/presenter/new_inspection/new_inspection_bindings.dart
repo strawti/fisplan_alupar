@@ -1,15 +1,12 @@
-import 'package:fisplan_alupar/app/infra/providers/equipments/equipments_provider.dart';
-import 'package:fisplan_alupar/app/infra/providers/equipments/local/local_equipments_provider.dart';
-import 'package:fisplan_alupar/app/infra/repositories/equipments/equipment_repository.dart';
-import 'package:fisplan_alupar/app/infra/repositories/equipments/local/local_equipments_repository.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/equipments_controller.dart';
 import 'package:get/get.dart';
 
 import '../../infra/providers/companies/projects/local_companies_projects_provider.dart';
 import '../../infra/providers/companies/tension_levels/companies_tension_level_provider.dart';
 import '../../infra/providers/companies/tension_levels/local_companies_tension_levels_provider.dart';
 import '../../infra/providers/equipments/equipments_categories_provider.dart';
+import '../../infra/providers/equipments/equipments_provider.dart';
 import '../../infra/providers/equipments/local/local_equipments_categories_provider.dart';
+import '../../infra/providers/equipments/local/local_equipments_provider.dart';
 import '../../infra/providers/installations/installations_provider.dart';
 import '../../infra/providers/installations/installations_type_provider.dart';
 import '../../infra/providers/installations/local/local_installations_provider.dart';
@@ -20,7 +17,9 @@ import '../../infra/repositories/companies/projects/local/local_companies_projec
 import '../../infra/repositories/companies/tension_levels/companies_tension_levels_repository.dart';
 import '../../infra/repositories/companies/tension_levels/local_companies_tension_levels_repository.dart';
 import '../../infra/repositories/equipments/equipment_category_repository.dart';
+import '../../infra/repositories/equipments/equipment_repository.dart';
 import '../../infra/repositories/equipments/local/local_equipments_categories_repository.dart';
+import '../../infra/repositories/equipments/local/local_equipments_repository.dart';
 import '../../infra/repositories/installations/installations_repository.dart';
 import '../../infra/repositories/installations/installations_type_repository.dart';
 import '../../infra/repositories/installations/local/local_installations_repository.dart';
@@ -30,6 +29,7 @@ import '../../infra/repositories/towers/towers_repository.dart';
 import 'controllers/audios_controller.dart';
 import 'controllers/companies_controller.dart';
 import 'controllers/equipments_categories_controller.dart';
+import 'controllers/equipments_controller.dart';
 import 'controllers/images_controller.dart';
 import 'controllers/installation_type_controller.dart';
 import 'controllers/installations_controller.dart';

@@ -1,13 +1,13 @@
-import 'package:fisplan_alupar/app/presenter/details_inspection/details_inspection_controller.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/audios_controller.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/images_controller.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/widgets/new_inspection_card.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/widgets/record_audio_widget.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/widgets/view_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../shared/widgets/textform_widget.dart';
+import '../../new_inspection/controllers/audios_controller.dart';
+import '../../new_inspection/controllers/images_controller.dart';
+import '../../new_inspection/widgets/new_inspection_card.dart';
+import '../../new_inspection/widgets/record_audio_widget.dart';
+import '../../new_inspection/widgets/view_image_widget.dart';
+import '../details_inspection_controller.dart';
 
 class DetailspectionBody extends GetView<DetailsInspectionController> {
   const DetailspectionBody({Key? key}) : super(key: key);
@@ -69,7 +69,6 @@ class DetailspectionBody extends GetView<DetailsInspectionController> {
                           controller.arguments.inspection.name,
                           textScaleFactor: 1.1,
                         ),
-                        // onTap: controller.arguments.inspection.comments ?? '',
                       );
                     },
                   ),
@@ -84,7 +83,6 @@ class DetailspectionBody extends GetView<DetailsInspectionController> {
                             .toString(),
                         textScaleFactor: 1.1,
                       ),
-                      // onTap: controller.getInstallation,
                     ),
                   ),
                   Visibility(
