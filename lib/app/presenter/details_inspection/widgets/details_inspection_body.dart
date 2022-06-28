@@ -168,7 +168,7 @@ class DetailspectionBody extends GetView<DetailsInspectionController> {
                     child: Column(
                       children: [
                         ListTile(
-                          title: const Text('Etapa'),
+                          title: const Text('Atividade'),
                           subtitle: Text(
                             controller.arguments.inspection.activityName,
                             textScaleFactor: 1.1,

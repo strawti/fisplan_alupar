@@ -10,7 +10,7 @@ class DetailsInspectionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('DetailsInspectionPage'),
+        title: const Text('Detalhes da inspeção'),
       ),
       body: const DetailspectionBody(),
     );
