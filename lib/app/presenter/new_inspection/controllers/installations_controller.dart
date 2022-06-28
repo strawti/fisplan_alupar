@@ -7,7 +7,6 @@ import '../../../infra/providers/installations/local/local_installations_provide
 import '../../../shared/utils/custom_snackbar.dart';
 import '../../../shared/utils/get_datetime.dart';
 import '../../../shared/utils/loader_manager.dart';
-import '../new_inspection_controller.dart';
 
 class InstallationsController extends GetxController with LoaderManager {
   static InstallationsController get to => Get.find();
@@ -38,10 +37,7 @@ class InstallationsController extends GetxController with LoaderManager {
         await _getInstallations();
       }
     }
-    installationsFiltered = _installations.where((e) {
-      return e.installationTypeId ==
-          Get.find<NewInspectionController>().selectedInstallationType!.id;
-    }).toList();
+    installationsFiltered = _installations.toList();
 
     _getLastTimeUpdated();
 
@@ -80,6 +76,14 @@ class InstallationsController extends GetxController with LoaderManager {
       CustomSnackbar.to.show(response.error!.content!);
     }
   }
+
+  // void filterByInstallationById(int installationId) {
+  //   installationsFiltered = _installations.where((installation) {
+  //     return installation.id == installationId;
+  //   }).toList();
+
+  //   update();
+  // }
 
   void filterByInstallationTypeId(int installationTypeId, int projectId) {
     installationsFiltered = _installations.where((installation) {

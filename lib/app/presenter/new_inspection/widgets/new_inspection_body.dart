@@ -1,16 +1,16 @@
+import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/images_controller.dart';
+import 'package:fisplan_alupar/app/presenter/new_inspection/widgets/view_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../shared/widgets/textform_widget.dart';
 import '../controllers/audios_controller.dart';
-import '../controllers/images_controller.dart';
 import '../new_inspection_controller.dart';
 import 'location_new_inspection_widget.dart';
 import 'new_inspection_card.dart';
 import 'record_audio_widget.dart';
-import 'view_image_widget.dart';
 
-class NewInspectionBody extends GetView<NewInspectionController> {
+class NewInspectionBody extends StatelessWidget {
   const NewInspectionBody({Key? key}) : super(key: key);
 
   @override
@@ -24,7 +24,7 @@ class NewInspectionBody extends GetView<NewInspectionController> {
             const Text('Você está criando uma nova inspeção para o projeto:'),
             const SizedBox(height: 10),
             Text(
-              controller.arguments.project.name,
+              Get.find<NewInspectionController>().arguments.project.name,
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -52,112 +52,108 @@ class NewInspectionBody extends GetView<NewInspectionController> {
                     thickness: 1,
                   ),
                   const SizedBox(height: 10),
-                  ListTile(
-                    title: const Text('Tipo de Instalação'),
-                    trailing: const Icon(Icons.arrow_drop_down),
-                    subtitle: Text(
-                      controller.selectedInstallationType?.name ?? '',
-                      textScaleFactor: 1.1,
-                    ),
-                    onTap: controller.getInstallationType,
+                  GetBuilder<NewInspectionController>(
+                    builder: (controller) {
+                      return ListTile(
+                        title: const Text('Tipo de Instalação'),
+                        trailing: const Icon(Icons.arrow_drop_down),
+                        subtitle: Text(
+                          controller.selectedInstallationType?.name ?? '',
+                          textScaleFactor: 1.1,
+                        ),
+                        onTap: controller.getInstallationType,
+                      );
+                    },
                   ),
-                  Visibility(
-                    visible: controller.selectedInstallationType != null,
-                    child: ListTile(
-                      title: const Text('Instalação'),
-                      trailing: const Icon(Icons.arrow_drop_down),
-                      subtitle: Text(
-                        controller.selectedInstallation?.name ?? '',
-                        textScaleFactor: 1.1,
-                      ),
-                      onTap: controller.getInstallation,
-                    ),
-                  ),
-                  Visibility(
-                    visible: controller.selectedInstallation != null &&
-                        (controller.selectedInstallationType!.id == 5 ||
-                            controller.selectedInstallationType!.id == 4 ||
-                            controller.selectedInstallationType!.id == 1),
-                    child: ListTile(
-                      title: const Text('Torre'),
-                      trailing: const Icon(Icons.arrow_drop_down),
-                      subtitle: Text(
-                        controller.selectedTower?.name ?? '',
-                        textScaleFactor: 1.1,
-                      ),
-                      onTap: controller.getTowers,
-                    ),
-                  ),
-                  Visibility(
-                    visible: controller.selectedInstallation != null &&
-                        (controller.selectedInstallationType!.id == 3 ||
-                            controller.selectedInstallationType!.id == 2),
-                    child: ListTile(
-                      title: const Text('Categoria do equipamento'),
-                      trailing: const Icon(Icons.arrow_drop_down),
-                      subtitle: Text(
-                        controller.selectedEquipmentsCategory?.name ?? '',
-                        textScaleFactor: 1.1,
-                      ),
-                      onTap: controller.getEquipmentsCategory,
-                    ),
-                  ),
-                  Visibility(
-                    visible: controller.selectedEquipmentsCategory != null &&
-                        (controller.selectedInstallationType!.id == 3 ||
-                            controller.selectedInstallationType!.id == 2),
-                    child: ListTile(
-                      title: const Text('Nível de tensão'),
-                      trailing: const Icon(Icons.arrow_drop_down),
-                      subtitle: Text(
-                        controller.selectedTensionLevel?.name ?? '',
-                        textScaleFactor: 1.1,
-                      ),
-                      onTap: controller.getTensionLevel,
-                    ),
-                  ),
-                  Visibility(
-                    visible: controller.selectedTensionLevel != null &&
-                        (controller.selectedInstallationType!.id == 3 ||
-                            controller.selectedInstallationType!.id == 2),
-                    child: ListTile(
-                      title: const Text('Equipamento'),
-                      trailing: const Icon(Icons.arrow_drop_down),
-                      subtitle: Text(
-                        controller.selectedEquipment?.name ?? '',
-                        textScaleFactor: 1.1,
-                      ),
-                      onTap: controller.getEquipments,
-                    ),
-                  ),
-                  Visibility(
-                    //TODO adicionar etapa e atividade
-                    visible: true,
-                    child: Column(
-                      children: const [
-                        ListTile(
-                          title: Text('Etapa '),
+                  GetBuilder<NewInspectionController>(
+                    builder: (controller) {
+                      return Visibility(
+                        visible: controller.selectedInstallationType != null,
+                        child: ListTile(
+                          title: const Text('Instalação'),
+                          trailing: const Icon(Icons.arrow_drop_down),
                           subtitle: Text(
-                            '',
+                            controller.selectedInstallation?.name ?? '',
                             textScaleFactor: 1.1,
                           ),
+                          onTap: controller.getInstallation,
                         ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
-                  Visibility(
-                    visible: true,
-                    child: Column(
-                      children: const [
-                        ListTile(
-                          title: Text('Atividade'),
+                  GetBuilder<NewInspectionController>(
+                    builder: (controller) {
+                      return Visibility(
+                        visible: controller.selectedInstallation != null &&
+                            (controller.selectedInstallationType!.id == 5 ||
+                                controller.selectedInstallationType!.id == 4 ||
+                                controller.selectedInstallationType!.id == 1),
+                        child: ListTile(
+                          title: const Text('Torre'),
+                          trailing: const Icon(Icons.arrow_drop_down),
                           subtitle: Text(
-                            '',
+                            controller.selectedTower?.name ?? '',
                             textScaleFactor: 1.1,
                           ),
+                          onTap: controller.getTowers,
                         ),
-                      ],
-                    ),
+                      );
+                    },
+                  ),
+                  GetBuilder<NewInspectionController>(
+                    builder: (controller) {
+                      return Visibility(
+                        visible: controller.selectedInstallation != null &&
+                            (controller.selectedInstallationType!.id == 3 ||
+                                controller.selectedInstallationType!.id == 2),
+                        child: ListTile(
+                          title: const Text('Categoria do equipamento'),
+                          trailing: const Icon(Icons.arrow_drop_down),
+                          subtitle: Text(
+                            controller.selectedEquipmentsCategory?.name ?? '',
+                            textScaleFactor: 1.1,
+                          ),
+                          onTap: controller.getEquipmentsCategory,
+                        ),
+                      );
+                    },
+                  ),
+                  GetBuilder<NewInspectionController>(
+                    builder: (controller) {
+                      return Visibility(
+                        visible: controller.selectedEquipmentsCategory !=
+                                null &&
+                            (controller.selectedInstallationType!.id == 3 ||
+                                controller.selectedInstallationType!.id == 2),
+                        child: ListTile(
+                          title: const Text('Nível de tensão'),
+                          trailing: const Icon(Icons.arrow_drop_down),
+                          subtitle: Text(
+                            controller.selectedTensionLevel?.name ?? '',
+                            textScaleFactor: 1.1,
+                          ),
+                          onTap: controller.getTensionLevel,
+                        ),
+                      );
+                    },
+                  ),
+                  GetBuilder<NewInspectionController>(
+                    builder: (controller) {
+                      return Visibility(
+                        visible: controller.selectedTensionLevel != null &&
+                            (controller.selectedInstallationType!.id == 3 ||
+                                controller.selectedInstallationType!.id == 2),
+                        child: ListTile(
+                          title: const Text('Equipamento'),
+                          trailing: const Icon(Icons.arrow_drop_down),
+                          subtitle: Text(
+                            controller.selectedEquipment?.name ?? '',
+                            textScaleFactor: 1.1,
+                          ),
+                          onTap: controller.getEquipments,
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

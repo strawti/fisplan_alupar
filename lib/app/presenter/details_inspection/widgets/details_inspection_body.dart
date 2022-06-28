@@ -74,11 +74,13 @@ class DetailspectionBody extends GetView<DetailsInspectionController> {
                       children: [
                         ListTile(
                           title: const Text('Instalação'),
-                          subtitle: Text(
-                            controller.arguments.inspection.installationId
-                                .toString(),
-                            textScaleFactor: 1.1,
-                          ),
+                          subtitle: GetBuilder<DetailsInspectionController>(
+                              builder: (controll) {
+                            return Text(
+                              controll.intallationName.toString(),
+                              textScaleFactor: 1.1,
+                            );
+                          }),
                         ),
                         const DividerWidget(),
                       ],
