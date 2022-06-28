@@ -25,6 +25,12 @@ class SelectionPage extends StatelessWidget {
             child: SingleChildScrollView(
               child: GetBuilder<SelectionController>(
                 builder: (control) {
+                  if (control.itemsFiltered.isEmpty) {
+                    return const Center(
+                      child: Text('Nenhum item encontrado'),
+                    );
+                  }
+
                   return Column(
                     children: List.generate(
                       control.itemsFiltered.length,

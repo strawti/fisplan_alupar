@@ -26,26 +26,28 @@ class InspectionSubContentWidget extends StatelessWidget {
             color: Colors.grey,
           ),
           const SizedBox(width: 5),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              InspectionTitleAndContentWidget(
-                title: 'Torre: ',
-                content: inspection.towerName ?? '',
-              ),
-              InspectionTitleAndContentWidget(
-                title: 'Equipamento: ',
-                content: inspection.equipmentName,
-              ),
-              InspectionTitleAndContentWidget(
-                title: 'Etapa: ',
-                content: inspection.stepName,
-              ),
-              InspectionTitleAndContentWidget(
-                title: 'Atividade: ',
-                content: inspection.activityName,
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                InspectionTitleAndContentWidget(
+                  title: 'Torre: ',
+                  content: inspection.towerName ?? '',
+                ),
+                InspectionTitleAndContentWidget(
+                  title: 'Equipamento: ',
+                  content: inspection.equipmentName,
+                ),
+                InspectionTitleAndContentWidget(
+                  title: 'Etapa: ',
+                  content: inspection.stepName,
+                ),
+                InspectionTitleAndContentWidget(
+                  title: 'Atividade: ',
+                  content: inspection.activityName,
+                ),
+              ],
+            ),
           )
         ],
       ),

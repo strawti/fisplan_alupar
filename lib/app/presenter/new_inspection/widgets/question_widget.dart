@@ -13,8 +13,10 @@ class QuestionWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
+          Wrap(
+            alignment: WrapAlignment.start,
             children: [
               Text(
                 question.description,
@@ -46,6 +48,26 @@ class QuestionWidget extends StatelessWidget {
               onChanged: (value) {
                 NewInspectionController.to.setAnswer(question, "$value");
               },
+            ),
+          ),
+          Visibility(
+            visible: question.questionType == QuestionTypesEnum.closed,
+            child: DropdownButtonFormField(
+              items: question.alternatives.map((e) {
+                return DropdownMenuItem(
+                  value: e,
+                  child: Text("${e.description}%"),
+                );
+              }).toList(),
+              onChanged: (value) {
+                NewInspectionController.to.setAnswer(question, value);
+              },
+            ),
+          ),
+          Visibility(
+            visible: question.questionType == QuestionTypesEnum.open,
+            child: TextFormField(
+              onChanged: (value) {},
             ),
           ),
         ],

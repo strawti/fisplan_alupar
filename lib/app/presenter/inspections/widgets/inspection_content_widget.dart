@@ -13,33 +13,32 @@ class InspectionContentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 8.0,
-          horizontal: 10.0,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              inspection.name,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-              ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 8.0,
+        horizontal: 10.0,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            inspection.name,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
             ),
-            const SizedBox(height: 10),
-            InspectionSubContentWidget(inspection: inspection),
-            const SizedBox(height: 10),
-            Text(
-              inspection.description!,
-              style: const TextStyle(
-                color: Colors.grey,
-              ),
+          ),
+          const SizedBox(height: 10),
+          InspectionSubContentWidget(inspection: inspection),
+          const SizedBox(height: 10),
+          Text(
+            inspection.description!,
+            style: const TextStyle(
+              color: Colors.grey,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

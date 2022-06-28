@@ -89,12 +89,10 @@ class StepsController extends GetxController with LoaderManager {
   }
 
   void filterByEquipmentCategoryAndInstallationTypeAndProject(
-    int equipmentCategoryId,
+    int? equipmentCategoryId,
     int installationTypeId,
     int projectId,
   ) {
-
-    
     stepsFiltered = _steps.where((step) {
       return step.equipmentCategoryId == equipmentCategoryId &&
           step.installationTypeId == installationTypeId &&

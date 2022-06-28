@@ -18,18 +18,18 @@ class InspectionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Get.toNamed(
-          DetailsInspectionPage.route,
-          arguments: DetailsInspectionPageArguments(
-            inspection,
-            Get.find<InspectionsController>().routeArguments!.project,
-          ),
-        );
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GestureDetector(
+        onTap: () {
+          Get.toNamed(
+            DetailsInspectionPage.route,
+            arguments: DetailsInspectionPageArguments(
+              inspection,
+              Get.find<InspectionsController>().routeArguments!.project,
+            ),
+          );
+        },
         child: Row(
           children: [
             Container(
@@ -37,7 +37,11 @@ class InspectionWidget extends StatelessWidget {
               height: 120,
               color: inspection.getColor,
             ),
-            InspectionContentWidget(inspection: inspection),
+            Expanded(
+              child: InspectionContentWidget(
+                inspection: inspection,
+              ),
+            ),
             CardPercentWidget(
               progress: inspection.getProgress,
               color: inspection.getColor,

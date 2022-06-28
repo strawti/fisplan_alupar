@@ -194,7 +194,7 @@ class NewInspectionController extends GetxController {
   StepModel? selectedStep;
   Future getSteps() async {
     StepsController.to.filterByEquipmentCategoryAndInstallationTypeAndProject(
-      selectedEquipmentsCategory!.id,
+      selectedEquipmentsCategory?.id,
       selectedInstallationType!.id,
       arguments.project.id,
     );

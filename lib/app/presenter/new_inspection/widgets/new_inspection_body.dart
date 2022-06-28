@@ -98,12 +98,10 @@ class NewInspectionBody extends StatelessWidget {
                               ),
                               onTap: controller.getTowers,
                             ),
-                            Visibility(
-                              visible: controller.selectedTower != null,
-                              child: TowerWidget(
+                            if (controller.selectedTower != null)
+                              TowerWidget(
                                 tower: controller.selectedTower!,
                               ),
-                            ),
                           ],
                         ),
                       );
@@ -197,6 +195,7 @@ class NewInspectionBody extends StatelessWidget {
               builder: (control) {
                 return Visibility(
                   visible: control.showQuestionnaries,
+                  replacement: const SizedBox.shrink(),
                   child: NewInspectionCard(
                     title: 'Perguntas',
                     child: Column(

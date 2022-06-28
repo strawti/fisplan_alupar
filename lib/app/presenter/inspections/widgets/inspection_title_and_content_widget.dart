@@ -21,10 +21,13 @@ class InspectionTitleAndContentWidget extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
-        Text(
-          content,
-          style: const TextStyle(
-            color: Colors.grey,
+        Flexible(
+          child: Text(
+            content,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+              color: Colors.grey,
+            ),
           ),
         ),
       ],
