@@ -1,3 +1,4 @@
+import 'package:fisplan_alupar/app/shared/widgets/divider_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -58,24 +59,14 @@ class DetailspectionBody extends GetView<DetailsInspectionController> {
                     thickness: 1,
                   ),
                   const SizedBox(height: 10),
-                  GetBuilder<DetailsInspectionController>(
-                    builder: (controller) {
-                      return ListTile(
-                        title: const Text('Tipo de Instalação'),
-                        trailing: const Icon(Icons.arrow_drop_down),
-                        subtitle: Text(
-                          controller.arguments.inspection.name,
-                          textScaleFactor: 1.1,
-                        ),
-                      );
-                    },
+                  ListTile(
+                    title: const Text('Tipo de Instalação'),
+                    subtitle: Text(
+                      controller.arguments.inspection.name,
+                      textScaleFactor: 1.1,
+                    ),
                   ),
-                  const SizedBox(height: 5),
-                  const Divider(
-                    color: Colors.black12,
-                    thickness: 1,
-                  ),
-                  const SizedBox(height: 5),
+                  const DividerWidget(),
                   Visibility(
                     visible:
                         controller.arguments.inspection.description != null,
@@ -89,12 +80,7 @@ class DetailspectionBody extends GetView<DetailsInspectionController> {
                             textScaleFactor: 1.1,
                           ),
                         ),
-                        const SizedBox(height: 5),
-                        const Divider(
-                          color: Colors.black12,
-                          thickness: 1,
-                        ),
-                        const SizedBox(height: 5),
+                        const DividerWidget(),
                       ],
                     ),
                   ),
@@ -109,12 +95,7 @@ class DetailspectionBody extends GetView<DetailsInspectionController> {
                             textScaleFactor: 1.1,
                           ),
                         ),
-                        const SizedBox(height: 5),
-                        const Divider(
-                          color: Colors.black12,
-                          thickness: 1,
-                        ),
-                        const SizedBox(height: 5),
+                        const DividerWidget(),
                       ],
                     ),
                   ),
@@ -131,12 +112,7 @@ class DetailspectionBody extends GetView<DetailsInspectionController> {
                             textScaleFactor: 1.1,
                           ),
                         ),
-                        const SizedBox(height: 5),
-                        const Divider(
-                          color: Colors.black12,
-                          thickness: 1,
-                        ),
-                        const SizedBox(height: 5),
+                        const DividerWidget(),
                       ],
                     ),
                   ),
@@ -152,24 +128,54 @@ class DetailspectionBody extends GetView<DetailsInspectionController> {
                             textScaleFactor: 1.1,
                           ),
                         ),
-                        const SizedBox(height: 5),
-                        const Divider(
-                          color: Colors.black12,
-                          thickness: 1,
-                        ),
-                        const SizedBox(height: 5),
+                        const DividerWidget(),
                       ],
                     ),
                   ),
                   Visibility(
                     visible:
                         controller.arguments.inspection.equipmentId != null,
-                    child: ListTile(
-                      title: const Text('Equipamento'),
-                      subtitle: Text(
-                        controller.arguments.inspection.equipmentName,
-                        textScaleFactor: 1.1,
-                      ),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: const Text('Equipamento'),
+                          subtitle: Text(
+                            controller.arguments.inspection.equipmentName,
+                            textScaleFactor: 1.1,
+                          ),
+                        ),
+                        const DividerWidget(),
+                      ],
+                    ),
+                  ),
+                  Visibility(
+                    visible: controller.arguments.inspection.stepId != null,
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: const Text('Etapa'),
+                          subtitle: Text(
+                            controller.arguments.inspection.stepName,
+                            textScaleFactor: 1.1,
+                          ),
+                        ),
+                        const DividerWidget(),
+                      ],
+                    ),
+                  ),
+                  Visibility(
+                    visible: controller.arguments.inspection.activityId != null,
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: const Text('Etapa'),
+                          subtitle: Text(
+                            controller.arguments.inspection.activityName,
+                            textScaleFactor: 1.1,
+                          ),
+                        ),
+                        const DividerWidget(),
+                      ],
                     ),
                   ),
                 ],
