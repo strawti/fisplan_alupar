@@ -1,7 +1,7 @@
-import '../../../models/defaults/app_error_model.dart';
-import '../../../models/defaults/provider_response_model.dart';
-import '../../../models/responses/project_model.dart';
-import '../../../repositories/companies/projects/local/local_companies_projects_repository.dart';
+import '../../../../models/defaults/app_error_model.dart';
+import '../../../../models/defaults/provider_response_model.dart';
+import '../../../../models/responses/project_model.dart';
+import '../../../../repositories/companies/projects/local/local_companies_projects_repository.dart';
 
 class LocalCompaniesProjectsProvider {
   final LocalCompaniesProjectsRepository _repository;

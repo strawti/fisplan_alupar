@@ -1,16 +1,16 @@
-import '../../../api_endpoints.dart';
-import '../../../models/responses/project_model.dart';
 import 'package:get/get.dart';
 
+import '../../../api_endpoints.dart';
 import '../../../models/defaults/api_error_default_model.dart';
 import '../../../models/defaults/api_response_model.dart';
 import '../../../models/defaults/default_response_model.dart';
+import '../../../models/responses/questionnary_model.dart';
 
 class CompaniesProjectsQuestionnairesRepository {
   final GetConnect _connect;
   CompaniesProjectsQuestionnairesRepository(this._connect);
 
-  Future<ApiResponseModel<List<ProjectModel>>> getAllByCompanyId(
+  Future<ApiResponseModel<List<QuestionnaryModel>>> getAllByCompanyId(
     int userCompanyId,
   ) async {
     final response = await _connect.get(
@@ -28,9 +28,9 @@ class CompaniesProjectsQuestionnairesRepository {
 
     if (responseModel.success) {
       return ApiResponseModel(
-        data: List<ProjectModel>.from(
+        data: List<QuestionnaryModel>.from(
           responseModel.data.map(
-            (e) => ProjectModel.fromMap(e),
+            (e) => QuestionnaryModel.fromMap(e),
           ),
         ),
       );

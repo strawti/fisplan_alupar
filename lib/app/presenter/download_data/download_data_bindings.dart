@@ -1,8 +1,11 @@
+import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/questionnaires_controller.dart';
 import 'package:get/get.dart';
 
 import '../../infra/providers/activities/activities_provider.dart';
 import '../../infra/providers/activities/local_activities_provider.dart';
-import '../../infra/providers/companies/projects/local_companies_projects_provider.dart';
+import '../../infra/providers/companies/projects/companies_projects_questionnaires_provider.dart';
+import '../../infra/providers/companies/projects/local/local_companies_projects_provider.dart';
+import '../../infra/providers/companies/projects/local/local_companies_projects_questionnaires_provider.dart';
 import '../../infra/providers/companies/tension_levels/companies_tension_level_provider.dart';
 import '../../infra/providers/companies/tension_levels/local_companies_tension_levels_provider.dart';
 import '../../infra/providers/equipments/equipments_categories_provider.dart';
@@ -19,6 +22,8 @@ import '../../infra/providers/towers/local_towers_provider.dart';
 import '../../infra/providers/towers/towers_provider.dart';
 import '../../infra/repositories/activities/activity_repository.dart';
 import '../../infra/repositories/activities/local_activities_repository.dart';
+import '../../infra/repositories/companies/projects/companies_projects_questionnaires_repository.dart';
+import '../../infra/repositories/companies/projects/local/local_companies_projects_questionnaires_repository.dart';
 import '../../infra/repositories/companies/projects/local/local_companies_projects_repository.dart';
 import '../../infra/repositories/companies/tension_levels/companies_tension_levels_repository.dart';
 import '../../infra/repositories/companies/tension_levels/local_companies_tension_levels_repository.dart';
@@ -75,6 +80,14 @@ class DownloadDataBindings implements Bindings {
     Get.lazyPut(() => LocalInspectionsProvider(Get.find()));
     Get.lazyPut(() => LocalInspectionsRepository(Get.find()));
 
+    Get.lazyPut(
+      () => LocalCompaniesProjectsQustionnairesRepository(Get.find()),
+    );
+
+    Get.lazyPut(
+      () => LocalCompaniesProjectsQuestionnairesProvider(Get.find()),
+    );
+
     // Externals
     Get.lazyPut(() => InstallationsRepository(Get.find()));
     Get.lazyPut(() => InstallationsProvider(Get.find()));
@@ -100,6 +113,9 @@ class DownloadDataBindings implements Bindings {
     Get.lazyPut(() => InspectionsProvider(Get.find()));
     Get.lazyPut(() => InspectionsRepository(Get.find()));
 
+    Get.lazyPut(() => CompaniesProjectsQuestionnairesRepository(Get.find()));
+    Get.lazyPut(() => CompaniesProjectsQuestionnairesProvider(Get.find()));
+
     Get.put(InstallationTypeController(Get.find(), Get.find()));
     Get.put(InstallationsController(Get.find(), Get.find()));
     Get.put(TowersController(Get.find(), Get.find()));
@@ -108,6 +124,7 @@ class DownloadDataBindings implements Bindings {
     Get.put(CompaniesController(Get.find(), Get.find()));
     Get.put(InspectionsController(Get.find(), Get.find()));
     Get.put(ActivitiesController(Get.find(), Get.find()));
+    Get.put(QuestionnairesController(Get.find(), Get.find()));
 
     Get.put(DownloadDataController());
   }

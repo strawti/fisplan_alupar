@@ -1,6 +1,11 @@
+import 'package:fisplan_alupar/app/infra/repositories/companies/projects/companies_projects_questionnaires_repository.dart';
+import 'package:fisplan_alupar/app/infra/repositories/companies/projects/local/local_companies_projects_questionnaires_repository.dart';
+import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/questionnaires_controller.dart';
 import 'package:get/get.dart';
 
-import '../../infra/providers/companies/projects/local_companies_projects_provider.dart';
+import '../../infra/providers/companies/projects/companies_projects_questionnaires_provider.dart';
+import '../../infra/providers/companies/projects/local/local_companies_projects_provider.dart';
+import '../../infra/providers/companies/projects/local/local_companies_projects_questionnaires_provider.dart';
 import '../../infra/providers/companies/tension_levels/companies_tension_level_provider.dart';
 import '../../infra/providers/companies/tension_levels/local_companies_tension_levels_provider.dart';
 import '../../infra/providers/equipments/equipments_categories_provider.dart';
@@ -61,6 +66,14 @@ class NewInspectionBindings implements Bindings {
     Get.lazyPut(() => LocalEquipmentsProvider(Get.find()));
     Get.lazyPut(() => LocalEquipmentsRepository(Get.find()));
 
+    Get.lazyPut(
+      () => LocalCompaniesProjectsQustionnairesRepository(Get.find()),
+    );
+
+    Get.lazyPut(
+      () => LocalCompaniesProjectsQuestionnairesProvider(Get.find()),
+    );
+
     // Externals
     Get.lazyPut(() => InstallationsRepository(Get.find()));
     Get.lazyPut(() => InstallationsProvider(Get.find()));
@@ -80,6 +93,9 @@ class NewInspectionBindings implements Bindings {
     Get.lazyPut(() => CompaniesTensionLevelsRepository(Get.find()));
     Get.lazyPut(() => CompaniesTensionLevelProvider(Get.find()));
 
+    Get.lazyPut(() => CompaniesProjectsQuestionnairesRepository(Get.find()));
+    Get.lazyPut(() => CompaniesProjectsQuestionnairesProvider(Get.find()));
+
     Get.lazyPut(() => AudiosController());
     Get.lazyPut(() => ImagesController());
     Get.put(InstallationTypeController(Get.find(), Get.find()));
@@ -88,6 +104,7 @@ class NewInspectionBindings implements Bindings {
     Get.lazyPut(() => EquipmentsController(Get.find(), Get.find()));
     Get.put(EquipmentsCategoriesController(Get.find(), Get.find()));
     Get.put(CompaniesController(Get.find(), Get.find()));
+    Get.put(QuestionnairesController(Get.find(), Get.find()));
 
     Get.put(NewInspectionController());
   }
