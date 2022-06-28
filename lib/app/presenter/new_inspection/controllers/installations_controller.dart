@@ -81,9 +81,10 @@ class InstallationsController extends GetxController with LoaderManager {
     }
   }
 
-  void filterByInstallationTypeId(int installationTypeId) {
+  void filterByInstallationTypeId(int installationTypeId, int projectId) {
     installationsFiltered = _installations.where((installation) {
-      return installation.installationTypeId == installationTypeId;
+      return installation.installationTypeId == installationTypeId &&
+          installation.projectId == projectId;
     }).toList();
 
     update();

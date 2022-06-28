@@ -3,6 +3,10 @@ export 'package:fisplan_alupar/app/presenter/view_inspection/view_inspection_pag
 
 export '../../app/presenter/auth/login/login_bindings.dart';
 export '../../app/presenter/auth/login/login_page.dart';
+export '../presenter/details_inspection/details_inspection_bindings.dart';
+export '../presenter/details_inspection/details_inspection_page.dart';
+export '../presenter/download_data/download_data_bindings.dart';
+export '../presenter/download_data/download_data_page.dart';
 export '../presenter/home/home_bindings.dart';
 export '../presenter/home/home_page.dart';
 export '../presenter/inspections/inspections_bindings.dart';
