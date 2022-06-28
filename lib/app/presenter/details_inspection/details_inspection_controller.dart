@@ -1,3 +1,4 @@
+import 'package:fisplan_alupar/app/routes/arguments/datails_inspection_page_arguments.dart';
 import 'package:get/get.dart';
 
 import '../../routes/arguments/datails_inspection_page_arguments.dart';
