@@ -1,9 +1,9 @@
+import 'package:fisplan_alupar/app/presenter/details_inspection/details_inspection_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../infra/models/responses/inspection_model.dart';
 import '../../../routes/arguments/view_inspection_page_arguments.dart';
-import '../../view_inspection/view_inspection_page.dart';
 import '../inspections_controller.dart';
 import 'card_percent_widget.dart';
 import 'inspection_content_widget.dart';
@@ -21,7 +21,7 @@ class InspectionWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Get.toNamed(
-          ViewInspectionPage.route,
+          DetailsInspectionPage.route,
           arguments: ViewInspectionPageArguments(
             inspection,
             Get.find<InspectionsController>().routeArguments!.project,

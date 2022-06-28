@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:fisplan_alupar/app/infra/models/responses/equipment_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/tension_level_model.dart';
+import 'package:fisplan_alupar/app/presenter/inspections/inspections_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/equipments_controller.dart';
 import 'package:fisplan_alupar/app/shared/utils/custom_snackbar.dart';
 import 'package:geolocator/geolocator.dart';
@@ -70,6 +71,7 @@ class NewInspectionController extends GetxController {
   final towersController = Get.find<TowersController>();
   final companiesController = Get.find<CompaniesController>();
   final equipmentController = Get.find<EquipmentsController>();
+  final inspectionsController = Get.find<InspectionsController>();
 
   final equipmentsCategoryController =
       Get.find<EquipmentsCategoriesController>();
@@ -92,8 +94,8 @@ class NewInspectionController extends GetxController {
   InstallationModel? selectedInstallation;
   Future getInstallation() async {
     installationsController.filterByInstallationTypeId(
-      selectedInstallationType!.id,
-    );
+        selectedInstallationType!.id,
+        inspectionsController.routeArguments!.project.id);
 
     final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
       'Instalação',
@@ -110,8 +112,8 @@ class NewInspectionController extends GetxController {
 
   TowerModel? selectedTower;
   Future getTowers() async {
-    TowersController.to.filterTowersByInstallation(selectedInstallation!.id);
-    
+    towersController.filterTowersByInstallation(selectedInstallation!.id);
+
     final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
       'Torre',
       towersController.towersFiltered,
@@ -126,6 +128,9 @@ class NewInspectionController extends GetxController {
 
   EquipmentCategoryModel? selectedEquipmentsCategory;
   Future getEquipmentsCategory() async {
+    equipmentsCategoryController
+        .filterCategoriesByInstallation(selectedInstallation!.id);
+
     final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
       'Categoria do equipamento',
       equipmentsCategoryController.equipmentsCategoriesFiltered,
@@ -173,7 +178,8 @@ class NewInspectionController extends GetxController {
     selectedTensionLevel = null;
   }
 
-  Future goToSelectionPage(String title, List data, dynamic item) async {
+  Future goToSelectionPage(String title, List data, dynamic item,
+      [String? subTitle]) async {
     return await Get.toNamed(
       SelectionPage.route,
       arguments: SelectionPageArguments(
