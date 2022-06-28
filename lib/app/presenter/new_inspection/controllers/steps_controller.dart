@@ -87,4 +87,18 @@ class StepsController extends GetxController with LoaderManager {
       lastUpdate = getDateTime(response.data!);
     }
   }
+
+  void filterByEquipmentCategoryAndInstallationTypeAndProject(
+    int equipmentCategoryId,
+    int installationTypeId,
+    int projectId,
+  ) {
+
+    
+    stepsFiltered = _steps.where((step) {
+      return step.equipmentCategoryId == equipmentCategoryId &&
+          step.installationTypeId == installationTypeId &&
+          step.projectId == projectId;
+    }).toList();
+  }
 }

@@ -6,6 +6,7 @@ class StepModel {
   final String? description;
   final int equipmentCategoryId;
   final int projectId;
+  final int? installationTypeId;
 
   StepModel({
     required this.id,
@@ -13,6 +14,7 @@ class StepModel {
     required this.description,
     required this.equipmentCategoryId,
     required this.projectId,
+    required this.installationTypeId,
   });
 
   Map<String, dynamic> toMap() {
@@ -23,6 +25,7 @@ class StepModel {
     result.addAll({'description': description});
     result.addAll({'equipment_category_id': equipmentCategoryId});
     result.addAll({'project_id': projectId});
+    result.addAll({'installation_type_id': installationTypeId});
 
     return result;
   }
@@ -34,6 +37,7 @@ class StepModel {
       description: map['description'] ?? '',
       equipmentCategoryId: map['equipment_category_id']?.toInt() ?? 0,
       projectId: map['project_id']?.toInt() ?? 0,
+      installationTypeId: map['installation_type_id'],
     );
   }
 

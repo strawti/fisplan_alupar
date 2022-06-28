@@ -155,6 +155,40 @@ class NewInspectionBody extends StatelessWidget {
                       );
                     },
                   ),
+                  GetBuilder<NewInspectionController>(
+                    builder: (controller) {
+                      return Visibility(
+                        visible:
+                            controller.selectedEquipmentsCategory != null &&
+                                controller.selectedInstallationType != null,
+                        child: ListTile(
+                          title: const Text('Etapa'),
+                          trailing: const Icon(Icons.arrow_drop_down),
+                          subtitle: Text(
+                            controller.selectedStep?.name ?? '',
+                            textScaleFactor: 1.1,
+                          ),
+                          onTap: controller.getSteps,
+                        ),
+                      );
+                    },
+                  ),
+                  GetBuilder<NewInspectionController>(
+                    builder: (controller) {
+                      return Visibility(
+                        visible: controller.selectedStep != null,
+                        child: ListTile(
+                          title: const Text('Atividade'),
+                          trailing: const Icon(Icons.arrow_drop_down),
+                          subtitle: Text(
+                            controller.selectedActivity?.name ?? '',
+                            textScaleFactor: 1.1,
+                          ),
+                          onTap: controller.getActivities,
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
             ),

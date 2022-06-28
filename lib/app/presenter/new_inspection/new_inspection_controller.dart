@@ -1,5 +1,9 @@
 import 'dart:async';
 
+import 'package:fisplan_alupar/app/infra/models/responses/activity_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/step_model.dart';
+import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/activities_controller.dart';
+import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/steps_controller.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
@@ -145,6 +149,11 @@ class NewInspectionController extends GetxController {
 
   TensionLevelModel? selectedTensionLevel;
   Future getTensionLevel() async {
+    companiesController.filterByProjectAndEquipmentCategory(
+      arguments.project.id,
+      selectedEquipmentsCategory!.id,
+    );
+
     final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
       'Nível de tensão',
       companiesController.tensionLevelsFiltered,
@@ -159,8 +168,12 @@ class NewInspectionController extends GetxController {
 
   EquipmentModel? selectedEquipment;
   Future getEquipments() async {
-    equipmentController.filterEquipments(selectedEquipmentsCategory!.id,
-        selectedInstallation!.id, selectedTensionLevel!.id);
+    equipmentController.filterEquipments(
+      selectedEquipmentsCategory!.id,
+      selectedInstallation!.id,
+      selectedTensionLevel!.id,
+    );
+
     final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
       'Equipamento',
       equipmentController.equipmentsFiltered,
@@ -169,6 +182,42 @@ class NewInspectionController extends GetxController {
 
     if (result != null) {
       selectedEquipment = result.item;
+      update();
+    }
+  }
+
+  StepModel? selectedStep;
+  Future getSteps() async {
+    StepsController.to.filterByEquipmentCategoryAndInstallationTypeAndProject(
+      selectedEquipmentsCategory!.id,
+      selectedInstallationType!.id,
+      arguments.project.id,
+    );
+
+    final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
+      'Etapa',
+      StepsController.to.stepsFiltered,
+      selectedStep,
+    );
+
+    if (result != null) {
+      selectedStep = result.item;
+      update();
+    }
+  }
+
+  ActivityModel? selectedActivity;
+  Future getActivities() async {
+    ActivitiesController.to.filterByStep(selectedStep!.id);
+
+    final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
+      'Atividade',
+      ActivitiesController.to.activitiesFiltered,
+      selectedActivity,
+    );
+
+    if (result != null) {
+      selectedActivity = result.item;
       update();
     }
   }

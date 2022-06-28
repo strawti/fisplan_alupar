@@ -80,6 +80,20 @@ class CompaniesController extends GetxController with LoaderManager {
     }
   }
 
+  void filterByProjectAndEquipmentCategory(
+    int projectId,
+    int equipmentCategoryId,
+  ) {
+    tensionLevelsFiltered = _tensionLevels
+        .where(
+          (e) =>
+              e.projectId == projectId &&
+              e.equipmentCategoryId == equipmentCategoryId,
+        )
+        .toList();
+    update();
+  }
+
   String lastUpdate = "";
   Future _getLastTimeUpdated() async {
     final response =

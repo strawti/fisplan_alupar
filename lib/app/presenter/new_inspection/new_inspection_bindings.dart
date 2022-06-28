@@ -1,3 +1,5 @@
+import 'package:fisplan_alupar/app/infra/repositories/activities/activity_repository.dart';
+import 'package:fisplan_alupar/app/infra/repositories/activities/local_activities_repository.dart';
 import 'package:fisplan_alupar/app/infra/repositories/companies/projects/companies_projects_questionnaires_repository.dart';
 import 'package:fisplan_alupar/app/infra/repositories/companies/projects/companies_projects_steps_repository.dart';
 import 'package:fisplan_alupar/app/infra/repositories/companies/projects/local/local_companies_projects_questionnaires_repository.dart';
@@ -5,6 +7,8 @@ import 'package:fisplan_alupar/app/infra/repositories/companies/projects/local/l
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/questionnaires_controller.dart';
 import 'package:get/get.dart';
 
+import '../../infra/providers/activities/activities_provider.dart';
+import '../../infra/providers/activities/local_activities_provider.dart';
 import '../../infra/providers/companies/projects/companies_projects_questionnaires_provider.dart';
 import '../../infra/providers/companies/projects/companies_projects_steps_provider.dart';
 import '../../infra/providers/companies/projects/local/local_companies_projects_provider.dart';
@@ -35,6 +39,7 @@ import '../../infra/repositories/installations/local/local_installations_reposit
 import '../../infra/repositories/installations/local/local_installations_type_repository.dart';
 import '../../infra/repositories/towers/local_towers_repository.dart';
 import '../../infra/repositories/towers/towers_repository.dart';
+import 'controllers/activities_controller.dart';
 import 'controllers/audios_controller.dart';
 import 'controllers/companies_controller.dart';
 import 'controllers/equipments_categories_controller.dart';
@@ -70,6 +75,9 @@ class NewInspectionBindings implements Bindings {
 
     Get.lazyPut(() => LocalEquipmentsProvider(Get.find()));
     Get.lazyPut(() => LocalEquipmentsRepository(Get.find()));
+
+    Get.lazyPut(() => LocalActivitiesRepository(Get.find()));
+    Get.lazyPut(() => LocalActivitiesProvider(Get.find()));
 
     Get.lazyPut(
       () => LocalCompaniesProjectsQustionnairesRepository(Get.find()),
@@ -107,6 +115,9 @@ class NewInspectionBindings implements Bindings {
     Get.lazyPut(() => CompaniesProjectsStepsRepository(Get.find()));
     Get.lazyPut(() => CompaniesProjectsStepsProvider(Get.find()));
 
+    Get.lazyPut(() => ActivitiesRepository(Get.find()));
+    Get.lazyPut(() => ActivitiesProvider(Get.find()));
+
     Get.lazyPut(() => AudiosController());
     Get.lazyPut(() => ImagesController());
     Get.put(InstallationTypeController(Get.find(), Get.find()));
@@ -117,6 +128,7 @@ class NewInspectionBindings implements Bindings {
     Get.put(CompaniesController(Get.find(), Get.find()));
     Get.put(QuestionnairesController(Get.find(), Get.find()));
     Get.put(StepsController(Get.find(), Get.find()));
+    Get.put(ActivitiesController(Get.find(), Get.find()));
 
     Get.put(NewInspectionController());
   }

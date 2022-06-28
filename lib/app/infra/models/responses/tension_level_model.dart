@@ -3,6 +3,7 @@ import 'dart:convert';
 class TensionLevelModel {
   final int id;
   final int projectId;
+  final int? equipmentCategoryId;
   final String name;
   final String? description;
 
@@ -11,6 +12,7 @@ class TensionLevelModel {
     required this.projectId,
     required this.name,
     required this.description,
+    required this.equipmentCategoryId,
   });
 
   Map<String, dynamic> toMap() {
@@ -20,6 +22,7 @@ class TensionLevelModel {
     result.addAll({'project_id': projectId});
     result.addAll({'name': name});
     result.addAll({'description': description});
+    result.addAll({'equipment_category_id': equipmentCategoryId});
 
     return result;
   }
@@ -27,9 +30,10 @@ class TensionLevelModel {
   factory TensionLevelModel.fromMap(Map<String, dynamic> map) {
     return TensionLevelModel(
       id: map['id']?.toInt() ?? 0,
-      projectId: map['project_id']?.toInt() ?? 0,
+      projectId: map['project_id'],
       name: map['name'] ?? '',
       description: map['description'] ?? '',
+      equipmentCategoryId: map['equipment_category_id'],
     );
   }
 

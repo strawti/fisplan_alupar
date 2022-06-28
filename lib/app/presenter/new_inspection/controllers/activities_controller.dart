@@ -9,6 +9,8 @@ import '../../../shared/utils/get_datetime.dart';
 import '../../../shared/utils/loader_manager.dart';
 
 class ActivitiesController extends GetxController with LoaderManager {
+  static ActivitiesController get to => Get.find();
+
   final ActivitiesProvider _activitiesProvider;
   final LocalActivitiesProvider _localActivitiesProvider;
 
