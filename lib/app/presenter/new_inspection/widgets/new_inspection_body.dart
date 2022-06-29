@@ -1,7 +1,9 @@
+import 'package:fisplan_alupar/app/core/app_validators.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/images_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/widgets/question_widget.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/widgets/tower_widget.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/widgets/view_image_widget.dart';
+import 'package:fisplan_alupar/app/shared/widgets/button_default_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -38,12 +40,16 @@ class NewInspectionBody extends StatelessWidget {
               child: Column(
                 children: [
                   const SizedBox(height: 20),
-                  const TextFormWidget(
+                  TextFormWidget(
+                    controller: NewInspectionController.to.nameController,
                     labelText: 'Nome',
                     hintText: 'Nome da inspeção',
+                    validator: simpleValidate,
                   ),
                   const SizedBox(height: 20),
-                  const TextFormWidget(
+                  TextFormWidget(
+                    controller:
+                        NewInspectionController.to.descriptionController,
                     labelText: 'Descrição',
                     hintText: 'Informe a descrição da inspeção',
                     maxLines: 3,
@@ -364,6 +370,15 @@ class NewInspectionBody extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(height: 40),
+            GetBuilder<NewInspectionController>(
+              builder: (control) {
+                return ButtonDefaultWidget(
+                  title: "Salvar",
+                  onTap: control.verify,
+                );
+              },
+            )
           ],
         ),
       ),
