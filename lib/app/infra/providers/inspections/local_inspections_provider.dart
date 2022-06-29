@@ -1,5 +1,6 @@
 import '../../models/defaults/app_error_model.dart';
 import '../../models/defaults/provider_response_model.dart';
+import '../../models/requests/inspection_request_model.dart';
 import '../../models/responses/inspection_model.dart';
 import '../../repositories/inspections/local_inspections_repository.dart';
 
@@ -52,7 +53,7 @@ class LocalInspectionsProvider {
   }
 
   Future<ProviderResponseModel> setUnsynchronized(
-    List<InspectionModel> data,
+    List<InspectionRequestModel> data,
   ) async {
     try {
       await _repository.setUnsynchronized(data);
@@ -64,7 +65,7 @@ class LocalInspectionsProvider {
     }
   }
 
-  Future<ProviderResponseModel<List<InspectionModel>?>>
+  Future<ProviderResponseModel<List<InspectionRequestModel>?>>
       getAllUnsynchronized() async {
     try {
       final response = await _repository.getAllUnsynchronized();
