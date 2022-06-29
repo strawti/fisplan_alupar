@@ -53,12 +53,14 @@ class QuestionWidget extends StatelessWidget {
           Visibility(
             visible: question.questionType == QuestionTypesEnum.closed,
             child: DropdownButtonFormField(
-              items: question.alternatives.map((e) {
-                return DropdownMenuItem(
-                  value: e,
-                  child: Text("${e.description}%"),
-                );
-              }).toList(),
+              items: question.alternatives.length > 1
+                  ? question.alternatives.map((e) {
+                      return DropdownMenuItem(
+                        value: e,
+                        child: Text("${e.description}%"),
+                      );
+                    }).toList()
+                  : null,
               onChanged: (value) {
                 NewInspectionController.to.setAnswer(question, value);
               },
