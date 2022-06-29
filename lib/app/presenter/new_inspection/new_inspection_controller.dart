@@ -419,7 +419,7 @@ class NewInspectionController extends GetxController {
     }
 
     if (showQuestionnaries) {
-      if (questions.where((e) => e.isRequired).length == answers.length) {
+      if (questions.where((e) => e.isRequired).length < answers.length) {
         CustomSnackbar.to.show("Responda todas as perguntas obrigatórias");
         return;
       }
