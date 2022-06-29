@@ -8,6 +8,7 @@ import 'package:fisplan_alupar/app/infra/models/responses/audio_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/photo_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/questionnary_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/step_model.dart';
+import 'package:fisplan_alupar/app/infra/providers/inspections/local_inspections_provider.dart';
 import 'package:fisplan_alupar/app/presenter/home/home_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/activities_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/audios_controller.dart';
@@ -28,6 +29,7 @@ import '../../infra/models/responses/tower_model.dart';
 import '../../routes/arguments/new_inspection_page_arguments.dart';
 import '../../routes/arguments/selection_page_arguments.dart';
 import '../../shared/utils/custom_snackbar.dart';
+import '../home/home_page.dart';
 import '../inspections/inspections_controller.dart';
 import '../selection_page/selection_page.dart';
 import 'controllers/companies_controller.dart';
@@ -40,7 +42,11 @@ import 'controllers/towers_controller.dart';
 class NewInspectionController extends GetxController {
   static NewInspectionController get to => Get.find();
 
-  NewInspectionController() {
+  final LocalInspectionsProvider _localProvider;
+
+  NewInspectionController(
+    this._localProvider,
+  ) {
     assert(
       Get.arguments is NewInspectionPageArguments,
       "Passe NewInspectionPageArguments nos argumentos da rota",
@@ -483,5 +489,30 @@ class NewInspectionController extends GetxController {
       name,
       description,
     );
+
+    _getInspectionsUnsynchronized().then(
+      (inspections) async {
+        final response = await _localProvider.setUnsynchronized(
+          [...inspections, request],
+        );
+
+        if (response.isSuccess == false) {
+          CustomSnackbar.to.show(response.error!.content!);
+          return;
+        } else {
+          Get.offNamed(HomePage.route);
+          CustomSnackbar.to.show("Inspeção salva com sucesso");
+        }
+      },
+    );
+  }
+
+  Future<List<InspectionRequestModel>> _getInspectionsUnsynchronized() async {
+    final response = await _localProvider.getAllUnsynchronized();
+    if (response.isSuccess) {
+      return response.data ?? [];
+    }
+
+    return [];
   }
 }
