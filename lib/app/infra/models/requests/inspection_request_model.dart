@@ -29,6 +29,7 @@ class InspectionRequestModel {
   final bool isSendAudios;
   final bool isSendPhotos;
   final bool isSendAnswers;
+  final bool isSendInspection;
 
   InspectionRequestModel(
     this.userId,
@@ -52,6 +53,7 @@ class InspectionRequestModel {
     this.isSendAudios = false,
     this.isSendPhotos = false,
     this.isSendAnswers = false,
+    this.isSendInspection = false,
   });
 
   Map<String, dynamic> toMap() {
@@ -117,4 +119,54 @@ class InspectionRequestModel {
 
   factory InspectionRequestModel.fromJson(String source) =>
       InspectionRequestModel.fromMap(json.decode(source));
+
+  InspectionRequestModel copyWith({
+    int? userId,
+    int? activityId,
+    int? projectId,
+    int? tensionLevelId,
+    int? installationId,
+    int? installationTypeId,
+    int? equipmentCategoryId,
+    int? towerId,
+    int? equipmentId,
+    int? stepId,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    List<AudioModel>? audios,
+    List<PhotoModel>? photos,
+    List<AnswerModel>? answers,
+    double? progress,
+    String? name,
+    String? description,
+    bool? isSendAudios,
+    bool? isSendPhotos,
+    bool? isSendAnswers,
+    bool? isSendInspection,
+  }) {
+    return InspectionRequestModel(
+      userId ?? this.userId,
+      activityId ?? this.activityId,
+      projectId ?? this.projectId,
+      tensionLevelId ?? this.tensionLevelId,
+      installationId ?? this.installationId,
+      installationTypeId ?? this.installationTypeId,
+      equipmentCategoryId ?? this.equipmentCategoryId,
+      towerId ?? this.towerId,
+      equipmentId ?? this.equipmentId,
+      stepId ?? this.stepId,
+      createdAt ?? this.createdAt,
+      updatedAt ?? this.updatedAt,
+      audios ?? this.audios,
+      photos ?? this.photos,
+      answers ?? this.answers,
+      progress ?? this.progress,
+      name ?? this.name,
+      description ?? this.description,
+      isSendAudios: isSendAudios ?? this.isSendAudios,
+      isSendPhotos: isSendPhotos ?? this.isSendPhotos,
+      isSendAnswers: isSendAnswers ?? this.isSendAnswers,
+      isSendInspection: isSendInspection ?? this.isSendInspection,
+    );
+  }
 }
