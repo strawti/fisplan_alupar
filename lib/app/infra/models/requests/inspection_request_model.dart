@@ -21,7 +21,7 @@ class InspectionRequestModel {
   final List<AudioModel> audios;
   final List<PhotoModel> photos;
   final List<AnswerModel> answers;
-  final int progress;
+  final double progress;
   final String name;
   final String? description;
 
