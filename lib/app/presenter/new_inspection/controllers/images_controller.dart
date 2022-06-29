@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:get/get.dart';
@@ -48,5 +49,19 @@ class ImagesController extends GetxController {
         },
       ),
     );
+  }
+
+  Future<List<String>> getImagesInBase64() async {
+    final List<String> base64Images = [];
+    for (final image in allImages) {
+      base64Images.add(
+        await image.readAsBytes().then(
+          (bytes) {
+            return base64Encode(bytes);
+          },
+        ),
+      );
+    }
+    return base64Images;
   }
 }
