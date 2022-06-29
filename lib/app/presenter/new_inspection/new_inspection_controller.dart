@@ -1,12 +1,17 @@
 import 'dart:async';
 
+import 'package:fisplan_alupar/app/infra/models/requests/inspection_request_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/activity_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/answer_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/audio_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/photo_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/questionnary_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/step_model.dart';
+import 'package:fisplan_alupar/app/presenter/home/home_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/activities_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/questionnaires_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/steps_controller.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
@@ -45,15 +50,25 @@ class NewInspectionController extends GetxController {
   void onReady() {
     super.onReady();
 
+    nameController.addListener(update);
+    descriptionController.addListener(update);
+
     _getPosition();
   }
 
   @override
   void onClose() {
-    super.onClose();
-
+    nameController.dispose();
+    descriptionController.dispose();
     positionStream?.cancel();
+    super.onClose();
   }
+
+  final nameController = TextEditingController();
+  String get name => nameController.text.trim();
+
+  final descriptionController = TextEditingController();
+  String get description => descriptionController.text.trim();
 
   StreamSubscription<Position>? positionStream;
   Position? position;
@@ -247,6 +262,8 @@ class NewInspectionController extends GetxController {
 
     answers.add(
       AnswerModel(
+        questionnaireId:
+            QuestionnairesController.to.questionnairesFiltered.first.id,
         questionId: question.id,
         answer: answer,
       ),
@@ -312,6 +329,7 @@ class NewInspectionController extends GetxController {
 
   bool get showTensionLevel {
     return selectedEquipmentsCategory != null &&
+        selectedEquipmentsCategory != null &&
         (selectedInstallationType!.id == 3 ||
             selectedInstallationType!.id == 2);
   }
@@ -323,7 +341,9 @@ class NewInspectionController extends GetxController {
   }
 
   bool get showStep {
-    return selectedInstallation != null && selectedInstallationType != null;
+    return selectedInstallation != null &&
+        selectedInstallationType != null &&
+        selectedEquipment != null;
   }
 
   bool get showActivity {
@@ -332,5 +352,102 @@ class NewInspectionController extends GetxController {
 
   bool get showQuestionnaries {
     return selectedActivity != null;
+  }
+
+  void verify() {
+    if (name.isEmpty) {
+      CustomSnackbar.to.show("Preencha o nome");
+      return;
+    }
+
+    if (showInstallation) {
+      if (selectedInstallation == null) {
+        CustomSnackbar.to.show("Selecione uma instalação");
+        return;
+      }
+    }
+
+    if (showTower) {
+      if (selectedTower == null) {
+        CustomSnackbar.to.show("Selecione uma torre");
+        return;
+      }
+    }
+
+    if (showEquipmentCategory) {
+      if (selectedEquipmentsCategory == null) {
+        CustomSnackbar.to.show("Selecione uma categoria de equipamento");
+        return;
+      }
+    }
+
+    if (showTensionLevel) {
+      if (selectedTensionLevel == null) {
+        CustomSnackbar.to.show("Selecione um nível de tensão");
+        return;
+      }
+    }
+
+    if (showEquipment) {
+      if (selectedEquipment == null) {
+        CustomSnackbar.to.show("Selecione um equipamento");
+        return;
+      }
+    }
+
+    if (showStep) {
+      if (selectedStep == null) {
+        CustomSnackbar.to.show("Selecione uma etapa");
+        return;
+      }
+    }
+
+    if (showActivity) {
+      if (selectedActivity == null) {
+        CustomSnackbar.to.show("Selecione uma atividade");
+        return;
+      }
+    }
+
+    if (showQuestionnaries) {
+      if (questions.where((e) => e.isRequired).length == answers.length) {
+        CustomSnackbar.to.show("Responda todas as perguntas obrigatórias");
+        return;
+      }
+    }
+
+    saveInspection();
+  }
+
+  Future saveInspection() async {
+    // TODO: Precisa fazer o tratamento dos audios antes de enviar
+    List<AudioModel> audios = [];
+
+    // TODO: Precisa fazer o tratamento das imagens antes de enviar
+    List<PhotoModel> photos = [];
+
+    // TODO: progress é um calculo
+    int progress = 0;
+
+    final request = InspectionRequestModel(
+      HomeController.to.user!.id,
+      selectedActivity!.id,
+      arguments.project.id,
+      selectedTensionLevel?.id,
+      selectedInstallation!.id,
+      selectedInstallationType!.id,
+      selectedEquipmentsCategory?.id,
+      selectedTower?.id,
+      selectedEquipment?.id,
+      selectedStep!.id,
+      DateTime.now(),
+      DateTime.now(),
+      audios,
+      photos,
+      answers,
+      progress,
+      name,
+      description,
+    );
   }
 }
