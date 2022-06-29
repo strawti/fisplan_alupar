@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fisplan_alupar/app/infra/enums/question_types_enum.dart';
 import 'package:fisplan_alupar/app/infra/models/requests/inspection_request_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/activity_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/answer_model.dart';
@@ -9,6 +10,8 @@ import 'package:fisplan_alupar/app/infra/models/responses/questionnary_model.dar
 import 'package:fisplan_alupar/app/infra/models/responses/step_model.dart';
 import 'package:fisplan_alupar/app/presenter/home/home_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/activities_controller.dart';
+import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/audios_controller.dart';
+import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/images_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/questionnaires_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/steps_controller.dart';
 import 'package:flutter/cupertino.dart';
@@ -420,14 +423,45 @@ class NewInspectionController extends GetxController {
   }
 
   Future saveInspection() async {
-    // TODO: Precisa fazer o tratamento dos audios antes de enviar
     List<AudioModel> audios = [];
+    final audiosAsBase64 =
+        await Get.find<AudiosController>().getAudiosInBase64();
+    audios.addAll(audiosAsBase64.map((e) => AudioModel(path: e)));
 
-    // TODO: Precisa fazer o tratamento das imagens antes de enviar
     List<PhotoModel> photos = [];
+    final photosAsBase64 =
+        await Get.find<ImagesController>().getImagesInBase64();
+    photos.addAll(photosAsBase64.map((e) => PhotoModel(path: e)));
 
-    // TODO: progress é um calculo
-    int progress = 0;
+    double progress = 0;
+    if (answers.isNotEmpty) {
+      int questionsYESORNOCount = 0; // only this.questionTypes.YESORNO
+      int questionsDoneCount = 0; // only this.questionTypes.YESORNO
+
+      for (int i = 0; i < answers.length; i++) {
+        final question = questions.where((e) {
+          return e.id == answers[i].questionId;
+        }).first;
+
+        dynamic answer = answers[i];
+
+        if (question.questionType == QuestionTypesEnum.yesorno) {
+          if (answer == '') {
+            answer = "false";
+          }
+
+          questionsYESORNOCount += 1;
+
+          if (answer == "true") {
+            questionsDoneCount += 1;
+          }
+        }
+      }
+
+      progress = (questionsDoneCount / questionsYESORNOCount) * 100;
+    } else {
+      progress = 100;
+    }
 
     final request = InspectionRequestModel(
       HomeController.to.user!.id,
