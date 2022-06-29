@@ -1,3 +1,4 @@
+import 'package:fisplan_alupar/app/infra/models/requests/inspection_request_model.dart';
 import 'package:get_storage/get_storage.dart';
 
 import '../../api_endpoints.dart';
@@ -37,7 +38,7 @@ class LocalInspectionsRepository {
     return DateTime.fromMillisecondsSinceEpoch(data);
   }
 
-  Future<void> setUnsynchronized(List<InspectionModel> data) async {
+  Future<void> setUnsynchronized(List<InspectionRequestModel> data) async {
     await _storage.write(
       'inspections_unsynchronized',
       DateTime.now().millisecondsSinceEpoch,
@@ -48,12 +49,12 @@ class LocalInspectionsRepository {
     );
   }
 
-  Future<List<InspectionModel>> getAllUnsynchronized() async {
+  Future<List<InspectionRequestModel>> getAllUnsynchronized() async {
     final data = await _storage.read("inspections_unsynchronized");
-    return List<InspectionModel>.from(
-      data?.map(
-            (e) => InspectionModel.fromJson(e),
-          ) ??
+    return List<InspectionRequestModel>.from(
+      data?.map((e) {
+            return InspectionRequestModel.fromJson(e);
+          }) ??
           [],
     );
   }

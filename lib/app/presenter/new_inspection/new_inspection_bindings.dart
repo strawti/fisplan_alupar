@@ -1,3 +1,4 @@
+import 'package:fisplan_alupar/app/infra/providers/inspections/local_inspections_provider.dart';
 import 'package:fisplan_alupar/app/infra/repositories/activities/activity_repository.dart';
 import 'package:fisplan_alupar/app/infra/repositories/activities/local_activities_repository.dart';
 import 'package:fisplan_alupar/app/infra/repositories/companies/projects/companies_projects_questionnaires_repository.dart';
@@ -55,6 +56,9 @@ class NewInspectionBindings implements Bindings {
   @override
   void dependencies() {
     // LOCALS
+    Get.lazyPut(() => LocalInstallationsRepository(Get.find()));
+    Get.lazyPut(() => LocalInspectionsProvider(Get.find()));
+
     Get.lazyPut(() => LocalTowersRepository(Get.find()));
     Get.lazyPut(() => LocalTowersProvider(Get.find()));
 
@@ -130,6 +134,6 @@ class NewInspectionBindings implements Bindings {
     Get.put(StepsController(Get.find(), Get.find()));
     Get.put(ActivitiesController(Get.find(), Get.find()));
 
-    Get.put(NewInspectionController());
+    Get.put(NewInspectionController(Get.find()));
   }
 }
