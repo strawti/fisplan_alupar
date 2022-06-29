@@ -12,11 +12,6 @@ class NewInspectionPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text("Nova Inspeção")),
       body: const NewInspectionBody(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
-        label: const Text('Atualizar dados'),
-      ),
     );
   }
 }
