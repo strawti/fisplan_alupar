@@ -7,7 +7,7 @@ import '../responses/photo_model.dart';
 
 class InspectionRequestModel {
   final int userId;
-  final int activityId;
+  final int? activityId;
   final int projectId;
   final int? tensionLevelId;
   final int installationId;
@@ -15,7 +15,7 @@ class InspectionRequestModel {
   final int? equipmentCategoryId;
   final int? towerId;
   final int? equipmentId;
-  final int stepId;
+  final int? stepId;
   final DateTime createdAt;
   final DateTime updatedAt;
   final List<AudioModel> audios;
@@ -109,7 +109,7 @@ class InspectionRequestModel {
       List<PhotoModel>.from(map['photos']?.map((x) => PhotoModel.fromMap(x))),
       List<AnswerModel>.from(
           map['answers']?.map((x) => AnswerModel.fromMap(x))),
-      map['progress']?.toInt() ?? 0,
+      map['progress'],
       map['name'] ?? '',
       map['description'],
     );
