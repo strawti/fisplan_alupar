@@ -1,3 +1,4 @@
+import 'package:fisplan_alupar/app/infra/models/requests/inspection_request_model.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/questionnaires_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/steps_controller.dart';
 import 'package:flutter/material.dart';
@@ -58,6 +59,20 @@ class DownloadDataPage extends GetView<DownloadDataController> {
         body: SingleChildScrollView(
           child: Column(
             children: [
+              const SizedBox(height: 20),
+              GetBuilder<InspectionsController>(
+                builder: (control) {
+                  return Column(
+                    children: control.inspectionsUnsynchronized.map(
+                      (e) {
+                        return InspectionUnsynchronizedWidget(
+                          inspection: e,
+                        );
+                      },
+                    ).toList(),
+                  );
+                },
+              ),
               const SizedBox(height: 20),
               DownloadItemWidget<TowersController>(
                 control: Get.find<TowersController>(),
@@ -133,6 +148,39 @@ class DownloadDataPage extends GetView<DownloadDataController> {
             );
           },
         ),
+      ),
+    );
+  }
+}
+
+class InspectionUnsynchronizedWidget extends StatelessWidget {
+  final InspectionRequestModel inspection;
+  const InspectionUnsynchronizedWidget({
+    Key? key,
+    required this.inspection,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(
+        "Inspeção ${inspection.name} não foi sincronizada",
+      ),
+      subtitle: Column(
+        children: [
+          ListTile(
+            title: const Text('Imagens'),
+            trailing: inspection.isSendPhotos
+                ? const Icon(
+                    Icons.check_circle,
+                    color: Colors.green,
+                  )
+                : const Icon(
+                    Icons.error,
+                    color: Colors.red,
+                  ),
+          )
+        ],
       ),
     );
   }
