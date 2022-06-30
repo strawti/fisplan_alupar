@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:fisplan_alupar/app/infra/models/requests/inspection_request_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -74,6 +75,8 @@ class InspectionsController extends GetxController with LoaderManager {
       }).toList();
     }
 
+    await _getInspectionsNotSynced();
+
     inspectionsFiltered = inspections.toList();
     inspectionsFiltered.sort((a, b) => a.progress.compareTo(b.progress));
     _getLastTimeUpdated();
@@ -104,6 +107,14 @@ class InspectionsController extends GetxController with LoaderManager {
     final response = await _localInspectionsProvider.getLastTimeUpdated();
     if (response.isSuccess) {
       lastUpdate = getDateTime(response.data!);
+    }
+  }
+
+  List<InspectionRequestModel> inspectionsUnsynchronized = [];
+  Future _getInspectionsNotSynced() async {
+    final response = await _localInspectionsProvider.getAllUnsynchronized();
+    if (response.isSuccess) {
+      inspectionsUnsynchronized = response.data ?? [];
     }
   }
 }
