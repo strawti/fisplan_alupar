@@ -17,7 +17,6 @@ class DetailspectionBody extends GetView<DetailsInspectionController> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
               'Você está visualizando a inspeção ',
@@ -45,14 +44,38 @@ class DetailspectionBody extends GetView<DetailsInspectionController> {
             NewInspectionCard(
               title: 'Filtros',
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 20),
-                  const Text('Nome'),
-                  Text(controller.arguments.inspection.name),
+                  const Text(
+                    'Nome',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    controller.arguments.inspection.name,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
                   const SizedBox(height: 20),
-                  const Text('Descrição'),
-                  Text(controller.arguments.inspection.description ?? ''),
+                  const Text(
+                    'Descrição',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    controller.arguments.inspection.description ?? '',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
                   const SizedBox(height: 10),
                   const Divider(
                     color: Colors.black12,
@@ -77,7 +100,7 @@ class DetailspectionBody extends GetView<DetailsInspectionController> {
                           subtitle: GetBuilder<DetailsInspectionController>(
                               builder: (controll) {
                             return Text(
-                              controll.intallationName.toString(),
+                              controller.intallationName.toString(),
                               textScaleFactor: 1.1,
                             );
                           }),

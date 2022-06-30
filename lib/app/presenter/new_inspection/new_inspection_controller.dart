@@ -171,7 +171,6 @@ class NewInspectionController extends GetxController {
 
     if (result != null) {
       selectedEquipmentsCategory = result.item;
-      selectedTensionLevel = null;
       update();
     }
   }
@@ -231,6 +230,7 @@ class NewInspectionController extends GetxController {
 
     if (result != null) {
       selectedStep = result.item;
+      selectedActivity = null;
       update();
     }
   }
@@ -338,7 +338,6 @@ class NewInspectionController extends GetxController {
 
   bool get showTensionLevel {
     return selectedEquipmentsCategory != null &&
-        selectedEquipmentsCategory != null &&
         (selectedInstallationType!.id == 3 ||
             selectedInstallationType!.id == 2);
   }
@@ -350,12 +349,12 @@ class NewInspectionController extends GetxController {
   }
 
   bool get showStep {
-    return selectedInstallation != null &&
-        selectedInstallationType != null &&
-        selectedEquipment != null;
+    // TODO verificar condição de exibição desse campo
+    return selectedInstallation != null;
   }
 
   bool get showActivity {
+    // TODO verificar condição de exibição desse campo
     return selectedStep != null;
   }
 

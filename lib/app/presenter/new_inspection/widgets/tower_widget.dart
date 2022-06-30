@@ -1,3 +1,4 @@
+import 'package:fisplan_alupar/app/shared/widgets/divider_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../infra/models/responses/tower_model.dart';
@@ -29,7 +30,7 @@ class TowerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: 8.0,
+        vertical: 5.0,
         horizontal: 20,
       ),
       child: Column(
@@ -37,14 +38,19 @@ class TowerWidget extends StatelessWidget {
         children: List.generate(
           titles.length,
           (index) {
-            return Row(
+            return Column(
               children: [
-                Text(titles[index]),
-                Text(
-                  contents[index],
-                  textScaleFactor: 1.1,
-                  style: const TextStyle(color: Colors.grey),
+                Row(
+                  children: [
+                    Text(titles[index]),
+                    Text(
+                      contents[index],
+                      textScaleFactor: 1.1,
+                      style: const TextStyle(color: Colors.grey),
+                    ),
+                  ],
                 ),
+                const DividerWidget(),
               ],
             );
           },
