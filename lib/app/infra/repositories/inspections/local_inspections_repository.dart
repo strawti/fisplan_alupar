@@ -40,11 +40,7 @@ class LocalInspectionsRepository {
 
   Future<void> setUnsynchronized(List<InspectionRequestModel> data) async {
     await _storage.write(
-      'inspections_unsynchronized',
-      DateTime.now().millisecondsSinceEpoch,
-    );
-    await _storage.write(
-      apiInspections,
+      "inspections_unsynchronized",
       data.map((e) => e.toJson()).toList(),
     );
   }
