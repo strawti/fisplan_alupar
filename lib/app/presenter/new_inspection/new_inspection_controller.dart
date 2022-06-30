@@ -332,7 +332,6 @@ class NewInspectionController extends GetxController {
 
   bool get showTensionLevel {
     return selectedEquipmentsCategory != null &&
-        selectedEquipmentsCategory != null &&
         (selectedInstallationType!.id == 3 ||
             selectedInstallationType!.id == 2);
   }
