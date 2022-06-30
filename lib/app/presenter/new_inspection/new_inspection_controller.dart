@@ -471,7 +471,7 @@ class NewInspectionController extends GetxController {
 
     final request = InspectionRequestModel(
       HomeController.to.user!.id,
-      selectedActivity!.id,
+      selectedActivity?.id,
       arguments.project.id,
       selectedTensionLevel?.id,
       selectedInstallation!.id,
@@ -479,7 +479,7 @@ class NewInspectionController extends GetxController {
       selectedEquipmentsCategory?.id,
       selectedTower?.id,
       selectedEquipment?.id,
-      selectedStep!.id,
+      selectedStep?.id,
       DateTime.now(),
       DateTime.now(),
       audios,
@@ -496,12 +496,11 @@ class NewInspectionController extends GetxController {
           [...inspections, request],
         );
 
-        if (response.isSuccess == false) {
-          CustomSnackbar.to.show(response.error!.content!);
-          return;
-        } else {
+        if (response.isSuccess) {
           Get.offNamed(HomePage.route);
           CustomSnackbar.to.show("Inspeção salva com sucesso");
+        } else {
+          CustomSnackbar.to.show(response.error!.content!);
         }
       },
     );
