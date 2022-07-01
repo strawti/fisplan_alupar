@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:fisplan_alupar/app/infra/models/requests/inspection_request_model.dart';
+import 'package:fisplan_alupar/app/infra/models/responses/photo_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -119,7 +120,7 @@ class InspectionsController extends GetxController with LoaderManager {
   }
 
   Future syncInspections({InspectionRequestModel? inspection}) async {
-    List data = [];
+    List<InspectionRequestModel> data = [];
 
     if (inspection != null) {
       data.add(inspection);
@@ -127,6 +128,53 @@ class InspectionsController extends GetxController with LoaderManager {
       data = inspectionsUnsynchronized;
     }
 
-    for (var i = 0; i < data.length; i++) {}
+    for (var inspection in data) {
+      final responseSendInspection = await _inspectionsProvider.sendInspection(
+        inspection,
+      );
+
+      if (responseSendInspection.isSuccess) {
+        inspectionsUnsynchronized.remove(inspection);
+        inspectionsUnsynchronized.add(
+          inspection.copyWith(
+            id: responseSendInspection.data!,
+            isSendInspection: true,
+          ),
+        );
+
+        final imagesUnsync = <PhotoModel>[];
+        for (var photo in inspection.photos) {
+          final responseSendPhoto = await _inspectionsProvider.sendPhoto(
+            responseSendInspection.data!,
+            photo.path,
+          );
+
+          if (responseSendPhoto.isSuccess == false) {
+            imagesUnsync.add(photo);
+          }
+        }
+
+        if (imagesUnsync.isNotEmpty) {
+          inspectionsUnsynchronized.remove(inspection);
+          inspectionsUnsynchronized.add(
+            inspection.copyWith(
+              id: responseSendInspection.data!,
+              photos: imagesUnsync,
+              isSendInspection: true,
+            ),
+          );
+        } else {
+          inspectionsUnsynchronized.remove(inspection);
+          inspectionsUnsynchronized.add(
+            inspection.copyWith(
+              id: responseSendInspection.data!,
+              photos: imagesUnsync,
+              isSendInspection: true,
+              isSendPhotos: true,
+            ),
+          );
+        }
+      }
+    }
   }
 }
