@@ -65,8 +65,12 @@ class DownloadDataPage extends GetView<DownloadDataController> {
                   return Column(
                     children: control.inspectionsUnsynchronized.map(
                       (e) {
-                        return InspectionUnsynchronizedWidget(
-                          inspection: e,
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: InspectionUnsynchronizedWidget(
+                            inspection: e,
+                            control: control,
+                          ),
                         );
                       },
                     ).toList(),
@@ -155,19 +159,47 @@ class DownloadDataPage extends GetView<DownloadDataController> {
 
 class InspectionUnsynchronizedWidget extends StatelessWidget {
   final InspectionRequestModel inspection;
+  final InspectionsController control;
   const InspectionUnsynchronizedWidget({
     Key? key,
     required this.inspection,
+    required this.control,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(
-        "Inspeção ${inspection.name} não foi sincronizada",
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "Inspeção ${inspection.name} não foi sincronizada",
+          ),
+          if (control.isLoading == false)
+            IconButton(
+              onPressed: () async {
+                await control.syncInspections(
+                  inspection: inspection,
+                );
+              },
+              icon: const Icon(Icons.sync),
+            ),
+        ],
       ),
       subtitle: Column(
         children: [
+          ListTile(
+            title: const Text('Inspeção'),
+            trailing: inspection.isSendInspection
+                ? const Icon(
+                    Icons.check_circle,
+                    color: Colors.green,
+                  )
+                : const Icon(
+                    Icons.error,
+                    color: Colors.red,
+                  ),
+          ),
           ListTile(
             title: const Text('Imagens'),
             trailing: inspection.isSendPhotos
@@ -179,7 +211,31 @@ class InspectionUnsynchronizedWidget extends StatelessWidget {
                     Icons.error,
                     color: Colors.red,
                   ),
-          )
+          ),
+          ListTile(
+            title: const Text('Audios'),
+            trailing: inspection.isSendAudios
+                ? const Icon(
+                    Icons.check_circle,
+                    color: Colors.green,
+                  )
+                : const Icon(
+                    Icons.error,
+                    color: Colors.red,
+                  ),
+          ),
+          ListTile(
+            title: const Text('Questionários'),
+            trailing: inspection.isSendAnswers
+                ? const Icon(
+                    Icons.check_circle,
+                    color: Colors.green,
+                  )
+                : const Icon(
+                    Icons.error,
+                    color: Colors.red,
+                  ),
+          ),
         ],
       ),
     );
