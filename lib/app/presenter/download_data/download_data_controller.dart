@@ -1,3 +1,4 @@
+import 'package:fisplan_alupar/app/presenter/home/home_controller.dart';
 import 'package:get/get.dart';
 
 import '../inspections/inspections_controller.dart';
@@ -18,6 +19,7 @@ class DownloadDataController extends GetxController {
         Get.find<EquipmentsCategoriesController>().isLoading ||
         Get.find<InspectionsController>().isLoading ||
         Get.find<CompaniesController>().isLoading ||
-        Get.find<ActivitiesController>().isLoading;
+        Get.find<ActivitiesController>().isLoading ||
+        Get.find<HomeController>().isLoading;
   }
 }
