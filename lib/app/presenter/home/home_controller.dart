@@ -10,6 +10,7 @@ import '../../infra/providers/companies/projects/local/local_companies_projects_
 import '../../infra/providers/user/local_user_provider.dart';
 import '../../infra/providers/user/user_provider.dart';
 import '../../shared/utils/custom_snackbar.dart';
+import '../../shared/utils/get_datetime.dart';
 import '../../shared/utils/loader_manager.dart';
 import '../auth/login/login_page.dart';
 
@@ -81,6 +82,8 @@ class HomeController extends GetxController with LoaderManager {
     projectsFiltered = projects.toList();
     projectsFiltered.sort((a, b) => a.progress.compareTo(b.progress));
 
+    _getLastTimeUpdated();
+
     setIsLoading(false);
   }
 
@@ -111,7 +114,6 @@ class HomeController extends GetxController with LoaderManager {
 
     if (response.isSuccess) {
       projects = response.data ?? [];
-
       await _localCompaniesProjectsProvider.set(projects);
     }
   }
@@ -137,5 +139,14 @@ class HomeController extends GetxController with LoaderManager {
     }
 
     setIsLoading(false);
+  }
+
+  String lastUpdate = "";
+  Future _getLastTimeUpdated() async {
+    final response = await _localCompaniesProjectsProvider.getLastTimeUpdated();
+
+    if (response.isSuccess) {
+      lastUpdate = getDateTime(response.data!);
+    }
   }
 }
