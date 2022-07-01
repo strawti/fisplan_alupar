@@ -274,18 +274,18 @@ class InspectionUnsynchronizedWidget extends StatelessWidget {
                     color: Colors.red,
                   ),
           ),
-          ListTile(
-            title: const Text('Questionários'),
-            trailing: inspection.isSendAnswers
-                ? const Icon(
-                    Icons.check_circle,
-                    color: Colors.green,
-                  )
-                : const Icon(
-                    Icons.error,
-                    color: Colors.red,
-                  ),
-          ),
+          // ListTile(
+          //   title: const Text('Questionários'),
+          //   trailing: inspection.isSendAnswers
+          //       ? const Icon(
+          //           Icons.check_circle,
+          //           color: Colors.green,
+          //         )
+          //       : const Icon(
+          //           Icons.error,
+          //           color: Colors.red,
+          //         ),
+          // ),
         ],
       ),
     );
