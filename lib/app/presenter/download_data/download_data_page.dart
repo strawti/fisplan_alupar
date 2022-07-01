@@ -1,4 +1,5 @@
 import 'package:fisplan_alupar/app/infra/models/requests/inspection_request_model.dart';
+import 'package:fisplan_alupar/app/presenter/home/home_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/questionnaires_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/steps_controller.dart';
 import 'package:flutter/material.dart';
@@ -25,11 +26,29 @@ class DownloadDataPage extends GetView<DownloadDataController> {
       onWillPop: () async {
         if (controller.isLoading()) {
           Get.dialog(
-            const AlertDialog(
-              title: Text('Aguarde o download dos dados'),
-              content: Text(
+            AlertDialog(
+              title: const Text('Aguarde o download dos dados'),
+              content: const Text(
                 'Permaneça na tela para que o download dos dados seja concluído.',
               ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Get.back();
+                    Get.back();
+                  },
+                  child: const Text(
+                    'Sair sem concluir',
+                    style: TextStyle(
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: Get.back,
+                  child: const Text('Ok'),
+                ),
+              ],
             ),
           );
           return false;
@@ -45,9 +64,27 @@ class DownloadDataPage extends GetView<DownloadDataController> {
             onPressed: () {
               if (controller.isLoading()) {
                 Get.dialog(
-                  const AlertDialog(
-                    title: Text('Aguarde'),
-                    content: Text('Aguarde o download dos dados'),
+                  AlertDialog(
+                    title: const Text('Aguarde'),
+                    content: const Text('Aguarde o download dos dados'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Get.back();
+                          Get.back();
+                        },
+                        child: const Text(
+                          'Sair sem concluir',
+                          style: TextStyle(
+                            color: Colors.red,
+                          ),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: Get.back,
+                        child: const Text('Ok'),
+                      ),
+                    ],
                   ),
                 );
               } else {
@@ -67,9 +104,14 @@ class DownloadDataPage extends GetView<DownloadDataController> {
                       (e) {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: InspectionUnsynchronizedWidget(
-                            inspection: e,
-                            control: control,
+                          child: GetBuilder<InspectionsController>(
+                            id: e.createdAt.toString(),
+                            builder: (_) {
+                              return InspectionUnsynchronizedWidget(
+                                inspection: e,
+                                control: control,
+                              );
+                            },
                           ),
                         );
                       },
@@ -127,6 +169,11 @@ class DownloadDataPage extends GetView<DownloadDataController> {
                 control: Get.find<StepsController>(),
                 title: 'Etapas',
               ),
+              const SizedBox(height: 2),
+              DownloadItemWidget<HomeController>(
+                control: Get.find<HomeController>(),
+                title: 'Projetos',
+              ),
               const SizedBox(height: 60),
             ],
           ),
@@ -146,6 +193,7 @@ class DownloadDataPage extends GetView<DownloadDataController> {
                   Get.find<InspectionsController>().fetch(online: true);
                   Get.find<CompaniesController>().fetch(online: true);
                   Get.find<ActivitiesController>().fetch(online: true);
+                  Get.find<HomeController>().fetch(online: true);
                 }
               },
               label: const Text('Sincronizar tudo'),
@@ -172,8 +220,10 @@ class InspectionUnsynchronizedWidget extends StatelessWidget {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            "Inspeção ${inspection.name} não foi sincronizada",
+          Expanded(
+            child: Text(
+              "Inspeção ${inspection.name} não foi sincronizada",
+            ),
           ),
           if (control.isLoading == false)
             IconButton(
