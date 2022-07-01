@@ -6,6 +6,7 @@ import 'package:fisplan_alupar/app/infra/models/responses/audio_model.dart';
 import '../responses/photo_model.dart';
 
 class InspectionRequestModel {
+  final int? id;
   final int userId;
   final int? activityId;
   final int projectId;
@@ -50,6 +51,7 @@ class InspectionRequestModel {
     this.progress,
     this.name,
     this.description, {
+    this.id,
     this.isSendAudios = false,
     this.isSendPhotos = false,
     this.isSendAnswers = false,
@@ -58,6 +60,9 @@ class InspectionRequestModel {
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
+
+    /// Usado apenas para o insert no banco de dados
+    result.addAll({'id': id});
 
     result.addAll({'user_id': userId});
     result.addAll({'activity_id': activityId});
@@ -121,6 +126,7 @@ class InspectionRequestModel {
       InspectionRequestModel.fromMap(json.decode(source));
 
   InspectionRequestModel copyWith({
+    int? id,
     int? userId,
     int? activityId,
     int? projectId,
@@ -145,6 +151,7 @@ class InspectionRequestModel {
     bool? isSendInspection,
   }) {
     return InspectionRequestModel(
+      id: id,
       userId ?? this.userId,
       activityId ?? this.activityId,
       projectId ?? this.projectId,
