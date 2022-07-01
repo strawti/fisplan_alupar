@@ -142,39 +142,43 @@ class InspectionsController extends GetxController with LoaderManager {
           ),
         );
 
-        final imagesUnsync = <PhotoModel>[];
-        for (var photo in inspection.photos) {
-          final responseSendPhoto = await _inspectionsProvider.sendPhoto(
-            responseSendInspection.data!,
-            photo.path,
-          );
-
-          if (responseSendPhoto.isSuccess == false) {
-            imagesUnsync.add(photo);
-          }
-        }
-
-        if (imagesUnsync.isNotEmpty) {
-          inspectionsUnsynchronized.remove(inspection);
-          inspectionsUnsynchronized.add(
-            inspection.copyWith(
-              id: responseSendInspection.data!,
-              photos: imagesUnsync,
-              isSendInspection: true,
-            ),
-          );
-        } else {
-          inspectionsUnsynchronized.remove(inspection);
-          inspectionsUnsynchronized.add(
-            inspection.copyWith(
-              id: responseSendInspection.data!,
-              photos: imagesUnsync,
-              isSendInspection: true,
-              isSendPhotos: true,
-            ),
-          );
-        }
+        await sendPhotos(responseSendInspection.data, inspection);
       }
+    }
+  }
+
+  Future sendPhotos(int inspectionId, InspectionRequestModel inspection) async {
+    final imagesUnsync = <PhotoModel>[];
+    for (var photo in inspection.photos) {
+      final responseSendPhoto = await _inspectionsProvider.sendPhoto(
+        inspectionId,
+        photo.path,
+      );
+
+      if (responseSendPhoto.isSuccess == false) {
+        imagesUnsync.add(photo);
+      }
+    }
+
+    if (imagesUnsync.isNotEmpty) {
+      inspectionsUnsynchronized.remove(inspection);
+      inspectionsUnsynchronized.add(
+        inspection.copyWith(
+          id: inspectionId,
+          photos: imagesUnsync,
+          isSendInspection: true,
+        ),
+      );
+    } else {
+      inspectionsUnsynchronized.remove(inspection);
+      inspectionsUnsynchronized.add(
+        inspection.copyWith(
+          id: inspectionId,
+          photos: imagesUnsync,
+          isSendInspection: true,
+          isSendPhotos: true,
+        ),
+      );
     }
   }
 }
