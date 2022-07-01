@@ -129,6 +129,9 @@ class InspectionsController extends GetxController with LoaderManager {
     }
 
     for (var inspection in data) {
+      isLoading = true;
+      update([inspection.createdAt.toString()]);
+
       final responseSendInspection = await _inspectionsProvider.sendInspection(
         inspection,
       );
@@ -144,6 +147,9 @@ class InspectionsController extends GetxController with LoaderManager {
 
         await sendPhotos(responseSendInspection.data, inspection);
       }
+
+      isLoading = false;
+      update([inspection.createdAt.toString()]);
     }
   }
 

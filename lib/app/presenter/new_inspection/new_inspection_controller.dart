@@ -85,16 +85,15 @@ class NewInspectionController extends GetxController {
   Future _getPosition() async {
     final permission = await Geolocator.checkPermission();
 
-    if (permission == LocationPermission.whileInUse ||
-        permission == LocationPermission.always) {
-      Geolocator.getPositionStream().listen((pos) {
-        position = pos;
-        update();
-      });
-    } else {
+    if (permission != LocationPermission.whileInUse ||
+        permission != LocationPermission.always) {
       await Geolocator.requestPermission();
-      CustomSnackbar.to.show("Permissão de localização negada");
     }
+
+    Geolocator.getPositionStream().listen((pos) {
+      position = pos;
+      update();
+    });
   }
 
   late NewInspectionPageArguments arguments;
@@ -479,8 +478,8 @@ class NewInspectionController extends GetxController {
       selectedTower?.id,
       selectedEquipment?.id,
       selectedStep?.id,
-      DateTime.now(),
-      DateTime.now(),
+      DateTime.now().toString(),
+      DateTime.now().toString(),
       audios,
       photos,
       answers,
