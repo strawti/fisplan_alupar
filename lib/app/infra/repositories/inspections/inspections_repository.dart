@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fisplan_alupar/app/infra/models/requests/inspection_request_model.dart';
 import 'package:get/get.dart';
 
 import '../../api_endpoints.dart';
@@ -48,6 +49,33 @@ class InspectionsRepository {
     final response = await _connect.post(
       "$apiInspections/$inspectionId/photos",
       json.encode({'photo': photoInBase64}),
+    );
+
+    final responseModel = DefaultResponseModel.fromMap({
+      'success': response.statusCode == 200,
+      'statusCode': response.statusCode,
+      'data': response.body,
+      'error': {
+        "message": response.body,
+      }
+    });
+
+    if (responseModel.success) {
+      return ApiResponseModel(data: responseModel.data);
+    }
+
+    return ApiErrorDefaultModel(
+      message: 'Não foi possível obter dados',
+      response: responseModel,
+    );
+  }
+
+  Future<ApiResponseModel> sendInspection(
+    InspectionRequestModel inspection,
+  ) async {
+    final response = await _connect.post(
+      apiInspectionsSyncSingle,
+      inspection.toMap(),
     );
 
     final responseModel = DefaultResponseModel.fromMap({
