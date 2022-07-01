@@ -117,4 +117,16 @@ class InspectionsController extends GetxController with LoaderManager {
       inspectionsUnsynchronized = response.data ?? [];
     }
   }
+
+  Future syncInspections({InspectionRequestModel? inspection}) async {
+    List data = [];
+
+    if (inspection != null) {
+      data.add(inspection);
+    } else {
+      data = inspectionsUnsynchronized;
+    }
+
+    for (var i = 0; i < data.length; i++) {}
+  }
 }
