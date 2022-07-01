@@ -17,8 +17,8 @@ class InspectionRequestModel {
   final int? towerId;
   final int? equipmentId;
   final int? stepId;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final String createdAt;
+  final String updatedAt;
   final List<AudioModel> audios;
   final List<PhotoModel> photos;
   final List<AnswerModel> answers;
@@ -67,31 +67,25 @@ class InspectionRequestModel {
     result.addAll({'user_id': userId});
     result.addAll({'activity_id': activityId});
     result.addAll({'project_id': projectId});
-    if (tensionLevelId != null) {
-      result.addAll({'tension_level_id': tensionLevelId});
-    }
+    result.addAll({'tension_level_id': tensionLevelId});
+
     result.addAll({'installation_id': installationId});
     result.addAll({'installation_type_id': installationTypeId});
-    if (equipmentCategoryId != null) {
-      result.addAll({'equipment_category_id': equipmentCategoryId});
-    }
-    if (towerId != null) {
-      result.addAll({'tower_id': towerId});
-    }
-    if (equipmentId != null) {
-      result.addAll({'equipment_id': equipmentId});
-    }
+    result.addAll({'equipment_category_id': equipmentCategoryId});
+
+    result.addAll({'tower_id': towerId});
+
+    result.addAll({'equipment_id': equipmentId});
+
     result.addAll({'step_id': stepId});
-    result.addAll({'created_at': createdAt.millisecondsSinceEpoch});
-    result.addAll({'updated_at': updatedAt.millisecondsSinceEpoch});
+    result.addAll({'created_at': createdAt.toString()});
+    result.addAll({'updated_at': updatedAt.toString()});
     result.addAll({'audios': audios.map((x) => x.toMap()).toList()});
     result.addAll({'photos': photos.map((x) => x.toMap()).toList()});
     result.addAll({'answers': answers.map((x) => x.toMap()).toList()});
     result.addAll({'progress': progress});
     result.addAll({'name': name});
-    if (description != null) {
-      result.addAll({'description': description});
-    }
+    result.addAll({'description': description});
 
     return result;
   }
@@ -108,8 +102,8 @@ class InspectionRequestModel {
       map['tower_id']?.toInt(),
       map['equipment_id']?.toInt(),
       map['step_id']?.toInt() ?? 0,
-      DateTime.fromMillisecondsSinceEpoch(map['created_at']),
-      DateTime.fromMillisecondsSinceEpoch(map['updated_at']),
+      map['created_at'],
+      map['updated_at'],
       List<AudioModel>.from(map['audios']?.map((x) => AudioModel.fromMap(x))),
       List<PhotoModel>.from(map['photos']?.map((x) => PhotoModel.fromMap(x))),
       List<AnswerModel>.from(
@@ -137,8 +131,8 @@ class InspectionRequestModel {
     int? towerId,
     int? equipmentId,
     int? stepId,
-    DateTime? createdAt,
-    DateTime? updatedAt,
+    String? createdAt,
+    String? updatedAt,
     List<AudioModel>? audios,
     List<PhotoModel>? photos,
     List<AnswerModel>? answers,
