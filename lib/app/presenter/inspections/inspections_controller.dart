@@ -125,7 +125,7 @@ class InspectionsController extends GetxController with LoaderManager {
     if (inspection != null) {
       data.add(inspection);
     } else {
-      data = inspectionsUnsynchronized;
+      data = inspectionsUnsynchronized.toList();
     }
 
     for (var inspection in data) {
