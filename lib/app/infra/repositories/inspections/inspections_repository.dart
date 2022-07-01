@@ -7,7 +7,6 @@ import '../../api_endpoints.dart';
 import '../../models/defaults/api_error_default_model.dart';
 import '../../models/defaults/api_response_model.dart';
 import '../../models/defaults/default_response_model.dart';
-import '../../models/responses/equipment_model.dart';
 import '../../models/responses/inspection_model.dart';
 
 class InspectionsRepository {
@@ -70,7 +69,7 @@ class InspectionsRepository {
     );
   }
 
-  Future<ApiResponseModel> sendInspection(
+  Future<ApiResponseModel<int?>> sendInspection(
     InspectionRequestModel inspection,
   ) async {
     final response = await _connect.post(
@@ -88,13 +87,11 @@ class InspectionsRepository {
     });
 
     if (responseModel.success) {
-      return ApiResponseModel(
-        data: EquipmentModel.fromMap(responseModel.data),
-      );
+      return ApiResponseModel(data: responseModel.data["id"]);
     }
 
     return ApiErrorDefaultModel(
-      message: 'Não foi possível obter dados',
+      message: 'Não foi possível enviar dados',
       response: responseModel,
     );
   }
