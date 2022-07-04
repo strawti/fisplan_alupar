@@ -74,7 +74,7 @@ class InspectionsRepository {
   ) async {
     final response = await _connect.post(
       apiInspectionsSyncSingle,
-      inspection.toMap(),
+      json.encode({"inspection": inspection.toMap()}),
     );
 
     final responseModel = DefaultResponseModel.fromMap({

@@ -39,9 +39,7 @@ class DownloadDataPage extends GetView<DownloadDataController> {
                   },
                   child: const Text(
                     'Sair sem concluir',
-                    style: TextStyle(
-                      color: Colors.red,
-                    ),
+                    style: TextStyle(color: Colors.red),
                   ),
                 ),
                 TextButton(
@@ -75,9 +73,7 @@ class DownloadDataPage extends GetView<DownloadDataController> {
                         },
                         child: const Text(
                           'Sair sem concluir',
-                          style: TextStyle(
-                            color: Colors.red,
-                          ),
+                          style: TextStyle(color: Colors.red),
                         ),
                       ),
                       TextButton(
@@ -96,29 +92,6 @@ class DownloadDataPage extends GetView<DownloadDataController> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(height: 20),
-              GetBuilder<InspectionsController>(
-                builder: (control) {
-                  return Column(
-                    children: control.inspectionsUnsynchronized.map(
-                      (e) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GetBuilder<InspectionsController>(
-                            id: e.createdAt.toString(),
-                            builder: (_) {
-                              return InspectionUnsynchronizedWidget(
-                                inspection: e,
-                                control: control,
-                              );
-                            },
-                          ),
-                        );
-                      },
-                    ).toList(),
-                  );
-                },
-              ),
               const SizedBox(height: 20),
               DownloadItemWidget<TowersController>(
                 control: Get.find<TowersController>(),
@@ -174,6 +147,29 @@ class DownloadDataPage extends GetView<DownloadDataController> {
                 control: Get.find<HomeController>(),
                 title: 'Projetos',
               ),
+              const SizedBox(height: 20),
+              GetBuilder<InspectionsController>(
+                builder: (control) {
+                  return Column(
+                    children: control.inspectionsUnsynchronized.map(
+                      (e) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GetBuilder<InspectionsController>(
+                            id: e.createdAt.toString(),
+                            builder: (_) {
+                              return InspectionUnsynchronizedWidget(
+                                inspection: e,
+                                control: control,
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    ).toList(),
+                  );
+                },
+              ),
               const SizedBox(height: 60),
             ],
           ),
@@ -184,13 +180,15 @@ class DownloadDataPage extends GetView<DownloadDataController> {
             return FloatingActionButton.extended(
               onPressed: () {
                 if (control.isLoading() == false) {
+                  Get.find<InspectionsController>().syncInspections();
+                  Get.find<InspectionsController>().fetch(online: true);
                   Get.find<TowersController>().fetch(online: true);
                   Get.find<InstallationTypeController>().fetch(online: true);
                   Get.find<InstallationsController>().fetch(online: true);
                   Get.find<EquipmentsController>().fetch(online: true);
-                  Get.find<EquipmentsCategoriesController>()
-                      .fetch(online: true);
-                  Get.find<InspectionsController>().fetch(online: true);
+                  Get.find<EquipmentsCategoriesController>().fetch(
+                    online: true,
+                  );
                   Get.find<CompaniesController>().fetch(online: true);
                   Get.find<ActivitiesController>().fetch(online: true);
                   Get.find<HomeController>().fetch(online: true);
@@ -221,16 +219,12 @@ class InspectionUnsynchronizedWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
-            child: Text(
-              "Inspeção ${inspection.name} não foi sincronizada",
-            ),
+            child: Text("Inspeção ${inspection.name} não foi sincronizada"),
           ),
           if (control.isLoading == false)
             IconButton(
               onPressed: () async {
-                await control.syncInspections(
-                  inspection: inspection,
-                );
+                await control.syncInspections(inspection: inspection);
               },
               icon: const Icon(Icons.sync),
             ),

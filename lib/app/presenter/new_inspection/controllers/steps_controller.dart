@@ -94,9 +94,14 @@ class StepsController extends GetxController with LoaderManager {
     int projectId,
   ) {
     stepsFiltered = _steps.where((step) {
-      return step.equipmentCategoryId == equipmentCategoryId &&
-          step.installationTypeId == installationTypeId &&
+      return step.installationTypeId == installationTypeId &&
           step.projectId == projectId;
     }).toList();
+
+    if (equipmentCategoryId != null) {
+      stepsFiltered = _steps.where((step) {
+        return step.equipmentCategoryId == equipmentCategoryId;
+      }).toList();
+    }
   }
 }

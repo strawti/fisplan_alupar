@@ -21,9 +21,9 @@ class DetailsInspectionController extends GetxController {
   void onReady() {
     super.onReady();
     Get.find<InstallationsController>().filterByInstallationTypeId(
-        arguments.inspection.installationId, arguments.project.id);
-    _intallation =
-        Get.find<InstallationsController>().installationsFiltered.first;
+      arguments.inspection.installationId,
+      arguments.project.id,
+    );
   }
 
   InstallationModel? _intallation;

@@ -29,6 +29,7 @@ import '../../infra/models/responses/tower_model.dart';
 import '../../routes/arguments/new_inspection_page_arguments.dart';
 import '../../routes/arguments/selection_page_arguments.dart';
 import '../../shared/utils/custom_snackbar.dart';
+import '../../shared/utils/get_datetime.dart';
 import '../home/home_page.dart';
 import '../inspections/inspections_controller.dart';
 import '../selection_page/selection_page.dart';
@@ -62,7 +63,12 @@ class NewInspectionController extends GetxController {
     nameController.addListener(update);
     descriptionController.addListener(update);
 
+    nameController.text = "Fiscalização - ${getDateTime(DateTime.now())}";
+
     _getPosition();
+
+    // PREENCHER CAMPOS
+    // routeArguments.inspectionRequest
   }
 
   @override
@@ -468,6 +474,7 @@ class NewInspectionController extends GetxController {
     }
 
     final request = InspectionRequestModel(
+      DateTime.now().toString(),
       HomeController.to.user!.id,
       selectedActivity?.id,
       arguments.project.id,
@@ -496,6 +503,7 @@ class NewInspectionController extends GetxController {
 
         if (response.isSuccess) {
           Get.offNamed(HomePage.route);
+          Get.find<InspectionsController>().fetch();
           CustomSnackbar.to.show("Inspeção salva com sucesso");
         } else {
           CustomSnackbar.to.show(response.error!.content!);

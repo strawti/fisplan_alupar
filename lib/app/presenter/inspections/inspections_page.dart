@@ -51,7 +51,35 @@ class InspectionsPage extends GetView<InspectionsController> {
                           inspection: control.inspectionsFiltered[index],
                         );
                       },
-                    ),
+                    )..insertAll(
+                        0,
+                        List.generate(
+                          control.inspectionsUnsynchronized.length,
+                          (index) {
+                            final inspUnsy =
+                                control.inspectionsUnsynchronized[index];
+                            return ListTile(
+                              title: Text(inspUnsy.name),
+                              subtitle: const Text("Não foi sincronizado!"),
+                              trailing: const Icon(
+                                Icons.error,
+                                color: Colors.red,
+                              ),
+                              onTap: () {
+                                Get.toNamed(
+                                  NewInspectionPage.route,
+                                  arguments: NewInspectionPageArguments(
+                                    Get.find<InspectionsController>()
+                                        .routeArguments!
+                                        .project,
+                                    inspectionRequest: inspUnsy,
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ),
                   );
                 },
               ),

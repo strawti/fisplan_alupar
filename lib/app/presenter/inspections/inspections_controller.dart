@@ -130,26 +130,45 @@ class InspectionsController extends GetxController with LoaderManager {
 
     for (var inspection in data) {
       isLoading = true;
-      update([inspection.createdAt.toString()]);
+      update();
 
-      final responseSendInspection = await _inspectionsProvider.sendInspection(
-        inspection,
-      );
-
-      if (responseSendInspection.isSuccess) {
-        inspectionsUnsynchronized.remove(inspection);
-        inspectionsUnsynchronized.add(
-          inspection.copyWith(
-            id: responseSendInspection.data!,
-            isSendInspection: true,
-          ),
+      if (inspection.isSendInspection == false) {
+        final responseSendInspection =
+            await _inspectionsProvider.sendInspection(
+          inspection,
         );
 
-        await sendPhotos(responseSendInspection.data, inspection);
+        if (responseSendInspection.isSuccess) {
+          inspectionsUnsynchronized.remove(inspection);
+          inspection = inspection.copyWith(
+            id: responseSendInspection.data!,
+            isSendInspection: true,
+          );
+
+          inspectionsUnsynchronized.add(inspection);
+          await _setLocalInspections();
+
+          if (inspection.isSendPhotos == false) {
+            await sendPhotos(responseSendInspection.data, inspection);
+          }
+
+          if (inspection.isSendAudios == false) {
+            await sendAudios(inspection);
+          }
+        }
+      } else {
+        if (inspection.isSendPhotos == false) {
+          await sendPhotos(inspection.id!, inspection);
+        }
+
+        if (inspection.isSendAudios == false) {
+          await sendAudios(inspection);
+        }
       }
 
       isLoading = false;
-      update([inspection.createdAt.toString()]);
+
+      update();
     }
   }
 
@@ -168,23 +187,30 @@ class InspectionsController extends GetxController with LoaderManager {
 
     if (imagesUnsync.isNotEmpty) {
       inspectionsUnsynchronized.remove(inspection);
-      inspectionsUnsynchronized.add(
-        inspection.copyWith(
-          id: inspectionId,
-          photos: imagesUnsync,
-          isSendInspection: true,
-        ),
+      inspection = inspection.copyWith(
+        id: inspectionId,
+        photos: imagesUnsync,
+        isSendPhotos: false,
       );
+      inspectionsUnsynchronized.add(inspection);
     } else {
       inspectionsUnsynchronized.remove(inspection);
-      inspectionsUnsynchronized.add(
-        inspection.copyWith(
-          id: inspectionId,
-          photos: imagesUnsync,
-          isSendInspection: true,
-          isSendPhotos: true,
-        ),
+      inspection = inspection.copyWith(
+        id: inspectionId,
+        photos: imagesUnsync,
+        isSendPhotos: true,
       );
+      inspectionsUnsynchronized.add(inspection);
     }
+
+    await _setLocalInspections();
+  }
+
+  Future sendAudios(InspectionRequestModel inspection) async {}
+
+  Future _setLocalInspections() async {
+    await _localInspectionsProvider.setUnsynchronized(
+      inspectionsUnsynchronized,
+    );
   }
 }
