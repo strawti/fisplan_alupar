@@ -19,6 +19,7 @@ class InspectionRequestModel {
   final int? stepId;
   final String createdAt;
   final String updatedAt;
+  final String date;
   final List<AudioModel> audios;
   final List<PhotoModel> photos;
   final List<AnswerModel> answers;
@@ -33,6 +34,7 @@ class InspectionRequestModel {
   final bool isSendInspection;
 
   InspectionRequestModel(
+    this.date,
     this.userId,
     this.activityId,
     this.projectId,
@@ -86,22 +88,24 @@ class InspectionRequestModel {
     result.addAll({'progress': progress});
     result.addAll({'name': name});
     result.addAll({'description': description});
+    result.addAll({'date': date});
 
     return result;
   }
 
   factory InspectionRequestModel.fromMap(Map<String, dynamic> map) {
     return InspectionRequestModel(
-      map['user_id']?.toInt() ?? 0,
-      map['activity_id']?.toInt() ?? 0,
-      map['project_id']?.toInt() ?? 0,
-      map['tension_level_id']?.toInt(),
-      map['installation_id']?.toInt() ?? 0,
-      map['installation_type_id']?.toInt() ?? 0,
-      map['equipment_category_id']?.toInt(),
-      map['tower_id']?.toInt(),
-      map['equipment_id']?.toInt(),
-      map['step_id']?.toInt() ?? 0,
+      map['date'],
+      map['user_id'],
+      map['activity_id'],
+      map['project_id'],
+      map['tension_level_id'],
+      map['installation_id'],
+      map['installation_type_id'],
+      map['equipment_category_id'],
+      map['tower_id'],
+      map['equipment_id'],
+      map['step_id'],
       map['created_at'],
       map['updated_at'],
       List<AudioModel>.from(map['audios']?.map((x) => AudioModel.fromMap(x))),
@@ -133,6 +137,7 @@ class InspectionRequestModel {
     int? stepId,
     String? createdAt,
     String? updatedAt,
+    String? date,
     List<AudioModel>? audios,
     List<PhotoModel>? photos,
     List<AnswerModel>? answers,
@@ -145,6 +150,7 @@ class InspectionRequestModel {
     bool? isSendInspection,
   }) {
     return InspectionRequestModel(
+      date ?? this.date,
       id: id,
       userId ?? this.userId,
       activityId ?? this.activityId,
