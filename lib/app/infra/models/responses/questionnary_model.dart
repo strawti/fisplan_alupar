@@ -31,8 +31,8 @@ class QuestionnaryModel {
 
   factory QuestionnaryModel.fromMap(Map<String, dynamic> map) {
     return QuestionnaryModel(
-      id: map['id']?.toInt() ?? 0,
-      projectId: map['project_id']?.toInt() ?? 0,
+      id: map['id'],
+      projectId: map['project_id'],
       name: map['name'] ?? '',
       description: map['description'],
       questions: List<Question>.from(
@@ -100,16 +100,16 @@ class Question {
 
   factory Question.fromMap(Map<String, dynamic> map) {
     return Question(
-      id: map['id']?.toInt() ?? 0,
+      id: map['id'],
       name: map['name'],
       description: map['description'] ?? '',
       isActive: map['is_active'] ?? false,
       isRequired: map['is_required'] ?? false,
-      questionnaireId: map['questionnaire_id']?.toInt() ?? 0,
-      questionTypeId: map['question_type_id']?.toInt() ?? 0,
+      questionnaireId: map['questionnaire_id'],
+      questionTypeId: map['question_type_id'],
       equipmentCategoryId: map['equipment_category_id'],
-      stepId: map['step_id']?.toInt() ?? 0,
-      activityId: map['activity_id']?.toInt() ?? 0,
+      stepId: map['step_id'],
+      activityId: map['activity_id'],
       alternatives: List<AlternativeModel>.from(
         map['alternatives']?.map(
           (x) {
@@ -150,9 +150,9 @@ class AlternativeModel {
 
   factory AlternativeModel.fromMap(Map<String, dynamic> map) {
     return AlternativeModel(
-      id: map['id']?.toInt() ?? 0,
+      id: map['id'],
       description: map['description'] ?? '',
-      questionId: map['question_id']?.toInt() ?? 0,
+      questionId: map['question_id'],
     );
   }
 

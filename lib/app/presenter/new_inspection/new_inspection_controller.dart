@@ -96,7 +96,9 @@ class NewInspectionController extends GetxController with LoaderManager {
     await Future.delayed(const Duration(seconds: 2));
     Get.back();
 
-    nameController.text = inspection.name;
+    if (arguments.isItDuplication == false) {
+      nameController.text = inspection.name;
+    }
 
     descriptionController.text = inspection.description ?? '';
 
@@ -142,17 +144,17 @@ class NewInspectionController extends GetxController with LoaderManager {
       return e.id == inspection.tensionLevelId;
     });
 
-    getQuestionnaries();
+    getQuestionnaries().whenComplete(() {
+      for (var q in questions) {
+        final answer = inspection.answers.where((e) {
+          return q.id == e.questionId;
+        });
 
-    for (var q in questions) {
-      final answer = inspection.answers.where((e) {
-        return q.id == e.questionId && q.questionnaireId == e.questionnaireId;
-      });
-
-      if (answer.isNotEmpty) {
-        setAnswer(q, answer.first);
+        if (answer.isNotEmpty) {
+          setAnswer(q, answer.first);
+        }
       }
-    }
+    });
 
     // Fotos
     Get.find<ImagesController>().setImagesInBase64(inspection.photos.map((e) {
@@ -524,7 +526,7 @@ class NewInspectionController extends GetxController with LoaderManager {
   }
 
   void saveOrUpdateInspection() {
-    if (arguments.inspectionRequest == null) {
+    if (arguments.inspectionRequest == null || arguments.isItDuplication) {
       saveInspection();
     } else {
       updateInspection();
@@ -574,7 +576,7 @@ class NewInspectionController extends GetxController with LoaderManager {
 
     final request = InspectionRequestModel(
       id: null,
-      date: DateTime.now().toString(),
+      date: position!.timestamp.toString(),
       userId: HomeController.to.user!.id,
       activityId: selectedActivity?.id,
       projectId: arguments.project.id,
@@ -658,7 +660,7 @@ class NewInspectionController extends GetxController with LoaderManager {
 
     final request = InspectionRequestModel(
       id: arguments.inspectionRequest!.id,
-      date: arguments.inspectionRequest!.date,
+      date: position!.timestamp.toString(),
       userId: arguments.inspectionRequest!.userId,
       activityId: selectedActivity?.id,
       projectId: arguments.project.id,

@@ -321,7 +321,7 @@ class DetailspectionBody extends GetView<DetailsInspectionController> {
             const SizedBox(height: 10),
             //const LocationNewInspectionWidget(),
             const NewInspectionCard(
-              title: 'Comentarios',
+              title: 'Comentários',
               child: Padding(
                 padding: EdgeInsets.only(top: 20),
                 child: TextFormWidget(

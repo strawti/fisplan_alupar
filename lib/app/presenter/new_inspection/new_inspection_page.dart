@@ -13,7 +13,9 @@ class NewInspectionPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: NewInspectionController.to.arguments.inspectionRequest != null
-            ? const Text("Edição de Inspeção")
+            ? NewInspectionController.to.arguments.isItDuplication
+                ? const Text("Duplicação de Inspeção")
+                : const Text("Edição de Inspeção")
             : const Text("Nova Inspeção"),
       ),
       body: const NewInspectionBody(),

@@ -1,3 +1,6 @@
+import 'package:fisplan_alupar/app/infra/models/requests/inspection_request_model.dart';
+import 'package:fisplan_alupar/app/presenter/new_inspection/new_inspection_page.dart';
+import 'package:fisplan_alupar/app/routes/arguments/new_inspection_page_arguments.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -42,9 +45,52 @@ class InspectionWidget extends StatelessWidget {
                 inspection: inspection,
               ),
             ),
-            CardPercentWidget(
-              progress: inspection.getProgress,
-              color: inspection.getColor,
+            Column(
+              children: [
+                CardPercentWidget(
+                  progress: inspection.getProgress,
+                  color: inspection.getColor,
+                ),
+                IconButton(
+                  onPressed: () {
+                    Get.toNamed(
+                      NewInspectionPage.route,
+                      arguments: NewInspectionPageArguments(
+                        Get.find<InspectionsController>()
+                            .routeArguments!
+                            .project,
+                        isItDuplication: true,
+                        inspectionRequest: InspectionRequestModel(
+                          id: inspection.id,
+                          userId: inspection.userId,
+                          activityId: inspection.activityId,
+                          projectId: inspection.projectId,
+                          tensionLevelId: inspection.tensionLevelId,
+                          installationId: inspection.installationId,
+                          installationTypeId: inspection.installationTypeId,
+                          equipmentCategoryId: inspection.equipmentCategoryId,
+                          towerId: inspection.towerId,
+                          equipmentId: inspection.equipmentId,
+                          stepId: inspection.stepId,
+                          createdAt: inspection.createdAt,
+                          updatedAt: inspection.updatedAt,
+                          date: inspection.date,
+                          audios: inspection.audios ?? [],
+                          photos: inspection.photos ?? [],
+                          answers: inspection.answers ?? [],
+                          progress: inspection.progress,
+                          name: inspection.name,
+                          description: inspection.description,
+                          comments: inspection.comments,
+                          longitude: inspection.longitude!,
+                          latitude: inspection.latitude!,
+                        ),
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.copy),
+                ),
+              ],
             ),
           ],
         ),

@@ -25,7 +25,33 @@ class NewInspectionBody extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Você está criando uma nova inspeção para o projeto:'),
+            Visibility(
+              visible: NewInspectionController.to.arguments.isItDuplication,
+              replacement: const Text(
+                'Você está criando uma nova inspeção para o projeto:',
+              ),
+              child: Column(
+                children: [
+                  const Text(
+                    'Você está duplicando a inspeção ',
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                    NewInspectionController
+                        .to.arguments.inspectionRequest!.name,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const Text(
+                    ' para o projeto:',
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
             const SizedBox(height: 10),
             Text(
               Get.find<NewInspectionController>().arguments.project.name,
@@ -362,7 +388,7 @@ class NewInspectionBody extends StatelessWidget {
             const SizedBox(height: 10),
             const LocationNewInspectionWidget(),
             const NewInspectionCard(
-              title: 'Comentarios',
+              title: 'Comentários',
               child: Padding(
                 padding: EdgeInsets.only(top: 20),
                 child: TextFormWidget(
@@ -375,7 +401,10 @@ class NewInspectionBody extends StatelessWidget {
             GetBuilder<NewInspectionController>(
               builder: (control) {
                 return ButtonDefaultWidget(
-                  title: "Salvar",
+                  title: control.arguments.inspectionRequest != null &&
+                          control.arguments.isItDuplication == false
+                      ? "Salvar Alteração"
+                      : "Salvar",
                   onTap: control.verify,
                 );
               },
