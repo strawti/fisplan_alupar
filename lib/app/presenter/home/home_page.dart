@@ -19,7 +19,6 @@ class HomePage extends GetView<HomeController> {
         final result = await Get.dialog(
           AlertDialogWidget(
             title: 'Deseja sair do app?',
-        
             confirmOnPressed: () => Get.back(result: true),
             cancelOnPressed: () => Get.back(result: false),
           ),
@@ -81,17 +80,6 @@ class HomePage extends GetView<HomeController> {
               ),
             ),
           ],
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: GetBuilder<HomeController>(
-          builder: (control) {
-            return FloatingActionButton.extended(
-              onPressed: () {
-                // TODO: ESSE BOTÃO SÓ DEVE APARECER CASO TENHA INSPEÇÕES NÃO CONCLUÍDAS
-              },
-              label: const Text('Enviar Inspeções'),
-            );
-          },
         ),
       ),
     );
