@@ -63,6 +63,7 @@ class InspectionsController extends GetxController with LoaderManager {
     setIsLoading(true);
 
     await _getLocalInspections();
+    await _setLocalInspections();
 
     if (await AppConnectivity.instance.isConnected()) {
       if (inspections.isEmpty || online) {
@@ -149,7 +150,7 @@ class InspectionsController extends GetxController with LoaderManager {
           await _setLocalInspections();
 
           if (inspection.isSendPhotos == false) {
-            await sendPhotos(responseSendInspection.data, inspection);
+            await sendPhotos(inspection);
           }
 
           if (inspection.isSendAudios == false) {
@@ -158,7 +159,7 @@ class InspectionsController extends GetxController with LoaderManager {
         }
       } else {
         if (inspection.isSendPhotos == false) {
-          await sendPhotos(inspection.id!, inspection);
+          await sendPhotos(inspection);
         }
 
         if (inspection.isSendAudios == false) {
@@ -166,17 +167,30 @@ class InspectionsController extends GetxController with LoaderManager {
         }
       }
 
+      if (inspection.isSendInspection) {
+        if (inspection.isSendPhotos) {
+          if (inspection.isSendAudios) {
+            inspectionsUnsynchronized.removeWhere((e) {
+              return e.id == inspection.id;
+            });
+            await _setLocalInspections();
+          }
+        }
+      }
+
       isLoading = false;
 
       update();
     }
+
+    await _getInspectionsNotSynced();
   }
 
-  Future sendPhotos(int inspectionId, InspectionRequestModel inspection) async {
+  Future sendPhotos(InspectionRequestModel inspection) async {
     final imagesUnsync = <PhotoModel>[];
     for (var photo in inspection.photos) {
       final responseSendPhoto = await _inspectionsProvider.sendPhoto(
-        inspectionId,
+        inspection.id!,
         photo.path,
       );
 
@@ -188,7 +202,7 @@ class InspectionsController extends GetxController with LoaderManager {
     if (imagesUnsync.isNotEmpty) {
       inspectionsUnsynchronized.remove(inspection);
       inspection = inspection.copyWith(
-        id: inspectionId,
+        id: inspection.id,
         photos: imagesUnsync,
         isSendPhotos: false,
       );
@@ -196,7 +210,7 @@ class InspectionsController extends GetxController with LoaderManager {
     } else {
       inspectionsUnsynchronized.remove(inspection);
       inspection = inspection.copyWith(
-        id: inspectionId,
+        id: inspection.id,
         photos: imagesUnsync,
         isSendPhotos: true,
       );
@@ -206,7 +220,16 @@ class InspectionsController extends GetxController with LoaderManager {
     await _setLocalInspections();
   }
 
-  Future sendAudios(InspectionRequestModel inspection) async {}
+  Future sendAudios(InspectionRequestModel inspection) async {
+    inspectionsUnsynchronized.remove(inspection);
+    inspection = inspection.copyWith(
+      id: inspection.id,
+      audios: [],
+      isSendAudios: true,
+    );
+    inspectionsUnsynchronized.add(inspection);
+    await _setLocalInspections();
+  }
 
   Future _setLocalInspections() async {
     await _localInspectionsProvider.setUnsynchronized(

@@ -84,6 +84,9 @@ class QuestionWidget extends StatelessWidget {
     });
 
     if (value.isNotEmpty) {
+      if (value.first.answer is String) {
+        return value.first.answer == 'true';
+      }
       return value.first.answer.answer == "true";
     }
     return null;

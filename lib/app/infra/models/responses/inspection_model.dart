@@ -1,9 +1,10 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+
 import 'answer_model.dart';
 import 'audio_model.dart';
 import 'photo_model.dart';
-import 'package:flutter/material.dart';
 
 class InspectionModel {
   final int id;
@@ -117,21 +118,21 @@ class InspectionModel {
       stepName: map['step_name'],
       towerName: map['tower_name'],
       equipmentName: map['equipment_name'],
-      id: map['id']?.toInt() ?? 0,
-      userId: map['user_id']?.toInt() ?? 0,
-      activityId: map['activity_id']?.toInt() ?? 0,
-      projectId: map['project_id']?.toInt() ?? 0,
-      tensionLevelId: map['tension_level_id']?.toInt() ?? 0,
-      installationId: map['installation_id']?.toInt() ?? 0,
-      installationTypeId: map['installation_type_id']?.toInt() ?? 0,
-      equipmentCategoryId: map['equipment_category_id']?.toInt() ?? 0,
-      towerId: map['tower_id']?.toInt() ?? 0,
-      equipmentId: map['equipment_id']?.toInt() ?? 0,
-      stepId: map['step_id']?.toInt() ?? 0,
+      id: map['id'],
+      userId: map['user_id'],
+      activityId: map['activity_id'],
+      projectId: map['project_id'],
+      tensionLevelId: map['tension_level_id'],
+      installationId: map['installation_id'],
+      installationTypeId: map['installation_type_id'],
+      equipmentCategoryId: map['equipment_category_id'],
+      towerId: map['tower_id'],
+      equipmentId: map['equipment_id'],
+      stepId: map['step_id'],
       name: map['name'] ?? '',
       description: map['description'] ?? '',
-      latitude: double.tryParse("${map['latitude']}") ?? 0.0,
-      longitude: double.tryParse("${map['longitude']}") ?? 0.0,
+      latitude: double.tryParse("${map['latitude']}"),
+      longitude: double.tryParse("${map['longitude']}"),
       comments: map['comments'] ?? '',
       date: map['date'] ?? '',
       createdAt: map['created_at'] ?? '',
@@ -148,8 +149,8 @@ class InspectionModel {
           ? List<AnswerModel>.from(
               map['answers']?.map((x) => AnswerModel.fromMap(x)))
           : null,
-      progress: double.tryParse("${map['progress']}") ?? 0.0,
-      activityName: map['activity_name'] ?? '',
+      progress: double.tryParse("${map['progress']}") ?? 0,
+      activityName: map['activity_name'],
     );
   }
 

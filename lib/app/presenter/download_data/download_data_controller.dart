@@ -18,7 +18,7 @@ class DownloadDataController extends GetxController {
         Get.find<EquipmentsController>().isLoading ||
         Get.find<EquipmentsCategoriesController>().isLoading ||
         Get.find<InspectionsController>().isLoading ||
-        Get.find<CompaniesController>().isLoading ||
+        Get.find<CompaniesTensionLevelController>().isLoading ||
         Get.find<ActivitiesController>().isLoading ||
         Get.find<HomeController>().isLoading;
   }

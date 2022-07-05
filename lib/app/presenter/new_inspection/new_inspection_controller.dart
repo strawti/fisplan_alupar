@@ -155,10 +155,14 @@ class NewInspectionController extends GetxController with LoaderManager {
     }
 
     // Fotos
+    Get.find<ImagesController>().setImagesInBase64(inspection.photos.map((e) {
+      return e.path;
+    }).toList());
 
     // Audios
-
-    // Position
+    Get.find<AudiosController>().setAudiosInBase64(inspection.audios.map((e) {
+      return e.path;
+    }).toList());
 
     commentsController.text = inspection.comments ?? '';
   }
@@ -194,7 +198,7 @@ class NewInspectionController extends GetxController with LoaderManager {
   final instalationTypeController = Get.find<InstallationTypeController>();
   final installationsController = Get.find<InstallationsController>();
   final towersController = Get.find<TowersController>();
-  final companiesController = Get.find<CompaniesController>();
+  final companiesController = Get.find<CompaniesTensionLevelController>();
   final equipmentController = Get.find<EquipmentsController>();
   final inspectionsController = Get.find<InspectionsController>();
 
@@ -350,7 +354,7 @@ class NewInspectionController extends GetxController with LoaderManager {
   Future getQuestionnaries() async {
     QuestionnairesController.to.filterByProjectId(arguments.project.id);
     questions = QuestionnairesController.to.filterBy(
-      selectedEquipmentsCategory!.id,
+      selectedEquipmentsCategory?.id,
       selectedActivity!.id,
       selectedStep!.id,
     );
@@ -441,8 +445,8 @@ class NewInspectionController extends GetxController with LoaderManager {
   }
 
   bool get showStep {
-    // TODO verificar condição de exibição desse campo
-    return selectedInstallation != null;
+    return selectedInstallation != null && selectedEquipmentsCategory != null ||
+        selectedTower != null;
   }
 
   bool get showActivity {
@@ -548,7 +552,7 @@ class NewInspectionController extends GetxController with LoaderManager {
           return e.id == answers[i].questionId;
         }).first;
 
-        dynamic answer = answers[i];
+        dynamic answer = answers[i].answer;
 
         if (question.questionType == QuestionTypesEnum.yesorno) {
           if (answer == '') {
@@ -632,7 +636,7 @@ class NewInspectionController extends GetxController with LoaderManager {
           return e.id == answers[i].questionId;
         }).first;
 
-        dynamic answer = answers[i];
+        dynamic answer = answers[i].answer;
 
         if (question.questionType == QuestionTypesEnum.yesorno) {
           if (answer == '') {
@@ -680,12 +684,17 @@ class NewInspectionController extends GetxController with LoaderManager {
 
     _getInspectionsUnsynchronized().then(
       (inspections) async {
-        inspections.removeWhere((e) {
+        final data = inspections;
+        data.removeWhere((e) {
           return e.toMap() == arguments.inspectionRequest!.toMap();
         });
 
+        data.removeWhere(
+          (e) => e.createdAt == arguments.inspectionRequest!.createdAt,
+        );
+
         final response = await _localProvider.setUnsynchronized(
-          [...inspections, request],
+          [...data, request],
         );
 
         if (response.isSuccess) {

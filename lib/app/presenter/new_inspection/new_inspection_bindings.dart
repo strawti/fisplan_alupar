@@ -129,7 +129,7 @@ class NewInspectionBindings implements Bindings {
     Get.put(TowersController(Get.find(), Get.find()));
     Get.lazyPut(() => EquipmentsController(Get.find(), Get.find()));
     Get.put(EquipmentsCategoriesController(Get.find(), Get.find()));
-    Get.put(CompaniesController(Get.find(), Get.find()));
+    Get.put(CompaniesTensionLevelController(Get.find(), Get.find()));
     Get.put(QuestionnairesController(Get.find(), Get.find()));
     Get.put(StepsController(Get.find(), Get.find()));
     Get.put(ActivitiesController(Get.find(), Get.find()));

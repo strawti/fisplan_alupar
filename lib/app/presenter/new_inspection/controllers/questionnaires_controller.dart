@@ -89,15 +89,21 @@ class QuestionnairesController extends GetxController with LoaderManager {
   }
 
   List<Question> filterBy(
-    int equipmentCategoryId,
+    int? equipmentCategoryId,
     int activityId,
     int stepId,
   ) {
-    return questionnairesFiltered.first.questions.where((e) {
-      return e.equipmentCategoryId == equipmentCategoryId &&
-          e.activityId == activityId &&
-          e.stepId == stepId;
+    var data = questionnairesFiltered.first.questions.where((e) {
+      return e.activityId == activityId && e.stepId == stepId;
     }).toList();
+
+    if (equipmentCategoryId != null) {
+      data = data.where((e) {
+        return e.equipmentCategoryId == equipmentCategoryId;
+      }).toList();
+    }
+
+    return data;
   }
 
   String lastUpdate = "";

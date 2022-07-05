@@ -94,6 +94,24 @@ class AudiosController extends GetxController {
     return data;
   }
 
+  Future setAudiosInBase64(List<String> audios) async {
+    for (var audio in audios) {
+      final tempDir = await getTemporaryDirectory();
+      File file = await File(
+        '${tempDir.path}/${DateTime.now().toString()}.mp4',
+      ).create();
+
+      await file.writeAsBytes(List<int>.from(base64Decode(audio)));
+
+      final player = AudioPlayer();
+      await player.setFilePath(file.path);
+
+      audioPlayers.add(AudioTile(file.path, player));
+    }
+
+    update();
+  }
+
   Future playAudio(AudioTile audio) async {
     audio.isPlaying = true;
     update();

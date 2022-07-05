@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../../shared/widgets/alert_dialog_widget.dart';
 import '../widgets/image_source_widget.dart';
@@ -63,5 +64,18 @@ class ImagesController extends GetxController {
       );
     }
     return base64Images;
+  }
+
+  Future setImagesInBase64(List<String> images) async {
+    for (final img in images) {
+      final tempDir = await getTemporaryDirectory();
+      File image = await File(
+        '${tempDir.path}/${DateTime.now().toString()}.jpg',
+      ).create();
+
+      await image.writeAsBytes(List<int>.from(base64Decode(img)));
+      allImages.add(image);
+    }
+    update();
   }
 }

@@ -4,8 +4,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/app_token.dart';
+
 class ViewImageWidget extends StatelessWidget {
-  final File image;
+  final dynamic image;
 
   const ViewImageWidget({
     Key? key,
@@ -22,18 +24,34 @@ class ViewImageWidget extends StatelessWidget {
           SizedBox(
             width: context.width,
             height: context.height,
-            child: Image.file(
-              image,
-              fit: BoxFit.fill,
-            ),
+            child: image is File
+                ? Image.file(
+                    image,
+                    fit: BoxFit.fill,
+                  )
+                : Image.network(
+                    image,
+                    fit: BoxFit.fill,
+                    headers: {
+                      'Authorization': 'Bearer ${AppToken.instance.token}',
+                    },
+                  ),
           ),
           BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
             child: Center(
               child: Hero(
-                tag: image.path,
+                tag: image is File ? image.path : image,
                 child: InteractiveViewer(
-                  child: Image.file(image),
+                  child: image is File
+                      ? Image.file(image)
+                      : Image.network(
+                          image,
+                          headers: {
+                            'Authorization':
+                                'Bearer ${AppToken.instance.token}',
+                          },
+                        ),
                 ),
               ),
             ),

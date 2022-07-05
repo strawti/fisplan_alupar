@@ -33,7 +33,6 @@ class InspectionRequestModel {
   // For Internal
   final bool isSendAudios;
   final bool isSendPhotos;
-  final bool isSendAnswers;
   final bool isSendInspection;
 
   InspectionRequestModel({
@@ -62,7 +61,6 @@ class InspectionRequestModel {
     required this.latitude,
     this.isSendAudios = false,
     this.isSendPhotos = false,
-    this.isSendAnswers = false,
     this.isSendInspection = false,
   });
 
@@ -96,6 +94,12 @@ class InspectionRequestModel {
     result.addAll({'description': description});
     result.addAll({'date': date});
     result.addAll({'comments': comments});
+    result.addAll({'latitude': latitude});
+    result.addAll({'longitude': longitude});
+
+    result.addAll({'isSendAudios': isSendAudios});
+    result.addAll({'isSendPhotos': isSendPhotos});
+    result.addAll({'isSendInspection': isSendInspection});
 
     return result;
   }
@@ -115,23 +119,31 @@ class InspectionRequestModel {
       stepId: map['step_id'],
       createdAt: map['created_at'],
       updatedAt: map['updated_at'],
-      audios: List<AudioModel>.from(
-          map['audios']?.map((x) => AudioModel.fromMap(x))),
-      photos: List<PhotoModel>.from(
-          map['photos']?.map((x) => PhotoModel.fromMap(x))),
-      answers: List<AnswerModel>.from(
-          map['answers']?.map((x) => AnswerModel.fromMap(x))),
       progress: map['progress'],
       name: map['name'] ?? '',
       description: map['description'],
       comments: map['comments'],
-      isSendAnswers: map['isSendAnswers'] ?? false,
       isSendAudios: map['isSendAudios'] ?? false,
       isSendInspection: map['isSendInspection'] ?? false,
       isSendPhotos: map['isSendPhotos'] ?? false,
       id: map['id'],
       latitude: map['latitude'],
       longitude: map['longitude'],
+      audios: List<AudioModel>.from(
+        map['audios']?.map(
+          (x) => AudioModel.fromMap(x),
+        ),
+      ),
+      photos: List<PhotoModel>.from(
+        map['photos']?.map(
+          (x) => PhotoModel.fromMap(x),
+        ),
+      ),
+      answers: List<AnswerModel>.from(
+        map['answers']?.map(
+          (x) => AnswerModel.fromMap(x),
+        ),
+      ),
     );
   }
 
@@ -163,7 +175,6 @@ class InspectionRequestModel {
     String? description,
     bool? isSendAudios,
     bool? isSendPhotos,
-    bool? isSendAnswers,
     bool? isSendInspection,
     String? comments,
     double? latitude,
@@ -193,7 +204,6 @@ class InspectionRequestModel {
       comments: comments ?? this.comments,
       isSendAudios: isSendAudios ?? this.isSendAudios,
       isSendPhotos: isSendPhotos ?? this.isSendPhotos,
-      isSendAnswers: isSendAnswers ?? this.isSendAnswers,
       isSendInspection: isSendInspection ?? this.isSendInspection,
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,

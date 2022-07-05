@@ -9,13 +9,14 @@ import '../../../shared/utils/get_datetime.dart';
 import '../../../shared/utils/loader_manager.dart';
 import '../../home/home_controller.dart';
 
-class CompaniesController extends GetxController with LoaderManager {
-  static CompaniesController get to => Get.find();
+class CompaniesTensionLevelController extends GetxController
+    with LoaderManager {
+  static CompaniesTensionLevelController get to => Get.find();
 
   final CompaniesTensionLevelProvider _companiesTensionLevelProvider;
   final LocalCompaniesTensionLevelsProvider
       _localCompaniesTensionLevelsProvider;
-  CompaniesController(
+  CompaniesTensionLevelController(
     this._companiesTensionLevelProvider,
     this._localCompaniesTensionLevelsProvider,
   );

@@ -132,7 +132,7 @@ class DownloadDataBindings implements Bindings {
     Get.put(TowersController(Get.find(), Get.find()));
     Get.put(EquipmentsController(Get.find(), Get.find()));
     Get.put(EquipmentsCategoriesController(Get.find(), Get.find()));
-    Get.put(CompaniesController(Get.find(), Get.find()));
+    Get.put(CompaniesTensionLevelController(Get.find(), Get.find()));
     Get.put(InspectionsController(Get.find(), Get.find()));
     Get.put(ActivitiesController(Get.find(), Get.find()));
     Get.put(QuestionnairesController(Get.find(), Get.find()));

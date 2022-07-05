@@ -12,12 +12,9 @@ class NewInspectionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Visibility(
-          visible:
-              NewInspectionController.to.arguments.inspectionRequest != null,
-          replacement: const Text("Edição de Inspeção"),
-          child: const Text("Nova Inspeção"),
-        ),
+        title: NewInspectionController.to.arguments.inspectionRequest != null
+            ? const Text("Edição de Inspeção")
+            : const Text("Nova Inspeção"),
       ),
       body: const NewInspectionBody(),
     );

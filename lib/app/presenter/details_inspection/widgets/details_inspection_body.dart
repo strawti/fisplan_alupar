@@ -1,10 +1,12 @@
-import 'package:fisplan_alupar/app/shared/widgets/divider_widget.dart';
+import 'package:fisplan_alupar/app/core/app_token.dart';
+import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/audios_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../new_inspection/controllers/audios_controller.dart';
-import '../../new_inspection/controllers/images_controller.dart';
+import '../../../core/app_validators.dart';
+import '../../../shared/widgets/textform_widget.dart';
 import '../../new_inspection/widgets/new_inspection_card.dart';
+import '../../new_inspection/widgets/tower_widget.dart';
 import '../../new_inspection/widgets/view_image_widget.dart';
 import '../details_inspection_controller.dart';
 
@@ -17,12 +19,14 @@ class DetailspectionBody extends GetView<DetailsInspectionController> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
               'Você está visualizando a inspeção ',
             ),
             Text(
               controller.arguments.inspection.name,
+              textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
@@ -32,7 +36,6 @@ class DetailspectionBody extends GetView<DetailsInspectionController> {
             const Text(
               ' do projeto:',
             ),
-
             Text(
               controller.arguments.project.name,
               style: const TextStyle(
@@ -44,37 +47,22 @@ class DetailspectionBody extends GetView<DetailsInspectionController> {
             NewInspectionCard(
               title: 'Filtros',
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 20),
-                  const Text(
-                    'Nome',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    controller.arguments.inspection.name,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontStyle: FontStyle.italic,
-                    ),
+                  TextFormWidget(
+                    enabled: false,
+                    controller: controller.nameController,
+                    labelText: 'Nome',
+                    hintText: 'Nome da inspeção',
+                    validator: simpleValidate,
                   ),
                   const SizedBox(height: 20),
-                  const Text(
-                    'Descrição',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    controller.arguments.inspection.description ?? '',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontStyle: FontStyle.italic,
-                    ),
+                  TextFormWidget(
+                    enabled: false,
+                    controller: controller.descriptionController,
+                    labelText: 'Descrição',
+                    hintText: 'Informe a descrição da inspeção',
+                    maxLines: 3,
                   ),
                   const SizedBox(height: 10),
                   const Divider(
@@ -82,136 +70,152 @@ class DetailspectionBody extends GetView<DetailsInspectionController> {
                     thickness: 1,
                   ),
                   const SizedBox(height: 10),
-                  ListTile(
-                    title: const Text('Tipo de Instalação'),
-                    subtitle: Text(
-                      controller.arguments.inspection.name,
-                      textScaleFactor: 1.1,
-                    ),
-                  ),
-                  const DividerWidget(),
-                  Visibility(
-                    visible:
-                        controller.arguments.inspection.description != null,
-                    child: Column(
-                      children: [
-                        ListTile(
-                          title: const Text('Instalação'),
-                          subtitle: GetBuilder<DetailsInspectionController>(
-                              builder: (controll) {
-                            return Text(
-                              controller.intallationName.toString(),
-                              textScaleFactor: 1.1,
-                            );
-                          }),
+                  GetBuilder<DetailsInspectionController>(
+                    builder: (controller) {
+                      return ListTile(
+                        title: const Text('Tipo de Instalação'),
+                        subtitle: Text(
+                          controller.selectedInstallationType?.name ?? '',
+                          textScaleFactor: 1.1,
                         ),
-                        const DividerWidget(),
-                      ],
-                    ),
+                      );
+                    },
                   ),
-                  Visibility(
-                    visible: controller.arguments.inspection.towerId != null,
-                    child: Column(
-                      children: [
-                        ListTile(
-                          title: const Text('Torre'),
+                  GetBuilder<DetailsInspectionController>(
+                    builder: (controller) {
+                      return Visibility(
+                        visible: controller.showInstallation,
+                        child: ListTile(
+                          title: const Text('Instalação'),
                           subtitle: Text(
-                            controller.arguments.inspection.towerName ?? '',
+                            controller.selectedInstallation?.name ?? '',
                             textScaleFactor: 1.1,
                           ),
                         ),
-                        const DividerWidget(),
-                      ],
-                    ),
+                      );
+                    },
                   ),
-                  Visibility(
-                    visible:
-                        controller.arguments.inspection.equipmentCategoryId !=
-                            null,
-                    child: Column(
-                      children: [
-                        ListTile(
+                  GetBuilder<DetailsInspectionController>(
+                    builder: (controller) {
+                      return Visibility(
+                        visible: controller.showTower,
+                        child: Column(
+                          children: [
+                            ListTile(
+                              title: const Text('Torre'),
+                              subtitle: Text(
+                                controller.selectedTower?.name ?? '',
+                                textScaleFactor: 1.1,
+                              ),
+                            ),
+                            if (controller.selectedTower != null)
+                              TowerWidget(
+                                tower: controller.selectedTower!,
+                              ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                  GetBuilder<DetailsInspectionController>(
+                    builder: (controller) {
+                      return Visibility(
+                        visible: controller.showEquipmentCategory,
+                        child: ListTile(
                           title: const Text('Categoria do equipamento'),
                           subtitle: Text(
-                            controller.arguments.inspection.equipmentName,
+                            controller.selectedEquipmentsCategory?.name ?? '',
                             textScaleFactor: 1.1,
                           ),
                         ),
-                        const DividerWidget(),
-                      ],
-                    ),
+                      );
+                    },
                   ),
-                  Visibility(
-                    visible:
-                        controller.arguments.inspection.tensionLevelId != null,
-                    child: Column(
-                      children: [
-                        ListTile(
+                  GetBuilder<DetailsInspectionController>(
+                    builder: (controller) {
+                      return Visibility(
+                        visible: controller.showTensionLevel,
+                        child: ListTile(
                           title: const Text('Nível de tensão'),
                           subtitle: Text(
-                            controller.arguments.inspection.towerName ?? '',
+                            controller.selectedTensionLevel?.name ?? '',
                             textScaleFactor: 1.1,
                           ),
                         ),
-                        const DividerWidget(),
-                      ],
-                    ),
+                      );
+                    },
                   ),
-                  Visibility(
-                    visible:
-                        controller.arguments.inspection.equipmentId != null,
-                    child: Column(
-                      children: [
-                        ListTile(
+                  GetBuilder<DetailsInspectionController>(
+                    builder: (controller) {
+                      return Visibility(
+                        visible: controller.showEquipment,
+                        child: ListTile(
                           title: const Text('Equipamento'),
                           subtitle: Text(
-                            controller.arguments.inspection.equipmentName,
+                            controller.selectedEquipment?.name ?? '',
                             textScaleFactor: 1.1,
                           ),
                         ),
-                        const DividerWidget(),
-                      ],
-                    ),
+                      );
+                    },
                   ),
-                  Visibility(
-                    visible: controller.arguments.inspection.stepId != null,
-                    child: Column(
-                      children: [
-                        ListTile(
+                  GetBuilder<DetailsInspectionController>(
+                    builder: (controller) {
+                      return Visibility(
+                        visible: controller.showStep,
+                        child: ListTile(
                           title: const Text('Etapa'),
                           subtitle: Text(
-                            controller.arguments.inspection.stepName,
+                            controller.selectedStep?.name ?? '',
                             textScaleFactor: 1.1,
                           ),
                         ),
-                        const DividerWidget(),
-                      ],
-                    ),
+                      );
+                    },
                   ),
-                  Visibility(
-                    visible: controller.arguments.inspection.activityId != null,
-                    child: Column(
-                      children: [
-                        ListTile(
+                  GetBuilder<DetailsInspectionController>(
+                    builder: (controller) {
+                      return Visibility(
+                        visible: controller.showActivity,
+                        child: ListTile(
                           title: const Text('Atividade'),
                           subtitle: Text(
-                            controller.arguments.inspection.activityName,
+                            controller.selectedActivity?.name ?? '',
                             textScaleFactor: 1.1,
                           ),
                         ),
-                        const DividerWidget(),
-                      ],
-                    ),
+                      );
+                    },
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 5),
+            const SizedBox(height: 10),
+            // GetBuilder<DetailsInspectionController>(
+            //   builder: (control) {
+            //     return Visibility(
+            //       visible: control.showQuestionnaries,
+            //       replacement: const SizedBox.shrink(),
+            //       child: NewInspectionCard(
+            //         title: 'Perguntas',
+            //         child: Column(
+            //           children: control.questions.map(
+            //             (question) {
+            //               return QuestionWidget(question);
+            //             },
+            //           ).toList(),
+            //         ),
+            //       ),
+            //     );
+            //   },
+            // ),
+            const SizedBox(height: 10),
             NewInspectionCard(
-              title: 'Fotos',
-              child: GetBuilder<ImagesController>(builder: (control) {
+              title: 'Foto',
+              child:
+                  GetBuilder<DetailsInspectionController>(builder: (control) {
                 return Column(
-                  children: control.allImages.map(
+                  children: control.inspection.photos!.map(
                     (image) {
                       return Padding(
                         padding: const EdgeInsets.all(5.0),
@@ -222,28 +226,25 @@ class DetailspectionBody extends GetView<DetailsInspectionController> {
                               onTap: () {
                                 Get.to(
                                   () => ViewImageWidget(
-                                    image: image,
+                                    image: image.path,
                                   ),
                                 );
                               },
                               child: Hero(
                                 tag: image.path,
-                                child: Image.file(
-                                  image,
+                                child: Image.network(
+                                  image.path,
                                   fit: BoxFit.cover,
                                   height: 60,
                                   width: 60,
+                                  headers: {
+                                    'Authorization':
+                                        'Bearer ${AppToken.instance.token}',
+                                  },
                                 ),
                               ),
                             ),
                             const SizedBox(width: 10),
-                            Expanded(
-                              child: Text(
-                                image.path.split('/').last,
-                                textScaleFactor: 0.9,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
                           ],
                         ),
                       );
@@ -319,15 +320,18 @@ class DetailspectionBody extends GetView<DetailsInspectionController> {
             ),
             const SizedBox(height: 10),
             //const LocationNewInspectionWidget(),
-            NewInspectionCard(
+            const NewInspectionCard(
               title: 'Comentarios',
               child: Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Text(
-                  controller.arguments.inspection.comments ?? '',
+                padding: EdgeInsets.only(top: 20),
+                child: TextFormWidget(
+                  enabled: false,
+                  hintText: 'Informações adicionais',
+                  maxLines: 3,
                 ),
               ),
             ),
+            const SizedBox(height: 40),
           ],
         ),
       ),

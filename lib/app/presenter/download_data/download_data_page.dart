@@ -123,8 +123,8 @@ class DownloadDataPage extends GetView<DownloadDataController> {
                 title: 'Inspeções',
               ),
               const SizedBox(height: 2),
-              DownloadItemWidget<CompaniesController>(
-                control: Get.find<CompaniesController>(),
+              DownloadItemWidget<CompaniesTensionLevelController>(
+                control: Get.find<CompaniesTensionLevelController>(),
                 title: 'Empresas',
               ),
               const SizedBox(height: 2),
@@ -189,7 +189,8 @@ class DownloadDataPage extends GetView<DownloadDataController> {
                   Get.find<EquipmentsCategoriesController>().fetch(
                     online: true,
                   );
-                  Get.find<CompaniesController>().fetch(online: true);
+                  Get.find<CompaniesTensionLevelController>()
+                      .fetch(online: true);
                   Get.find<ActivitiesController>().fetch(online: true);
                   Get.find<HomeController>().fetch(online: true);
                 }

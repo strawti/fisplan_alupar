@@ -29,6 +29,7 @@ class NewInspectionBody extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               Get.find<NewInspectionController>().arguments.project.name,
+              textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
