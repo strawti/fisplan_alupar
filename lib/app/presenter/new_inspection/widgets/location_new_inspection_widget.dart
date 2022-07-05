@@ -22,6 +22,7 @@ class LocationNewInspectionWidget extends StatelessWidget {
             const Text('Latitude'),
             const SizedBox(width: 10),
             GetBuilder<NewInspectionController>(
+              id: "position",
               builder: (control) {
                 if (control.position == null) {
                   return const Text('Não informado');
@@ -44,6 +45,7 @@ class LocationNewInspectionWidget extends StatelessWidget {
             const Text('Longitude'),
             const SizedBox(width: 10),
             GetBuilder<NewInspectionController>(
+              id: "position",
               builder: (control) {
                 if (control.position == null) {
                   return const Text('Não informado');
@@ -66,6 +68,7 @@ class LocationNewInspectionWidget extends StatelessWidget {
             const Text('Data/Hora'),
             const SizedBox(width: 10),
             GetBuilder<NewInspectionController>(
+              id: "position",
               builder: (control) {
                 if (control.position == null) {
                   return const Text('Não informado');

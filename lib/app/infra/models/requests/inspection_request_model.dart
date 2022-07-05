@@ -26,6 +26,9 @@ class InspectionRequestModel {
   final double progress;
   final String name;
   final String? description;
+  final String? comments;
+  final double longitude;
+  final double latitude;
 
   // For Internal
   final bool isSendAudios;
@@ -33,27 +36,30 @@ class InspectionRequestModel {
   final bool isSendAnswers;
   final bool isSendInspection;
 
-  InspectionRequestModel(
-    this.date,
-    this.userId,
-    this.activityId,
-    this.projectId,
-    this.tensionLevelId,
-    this.installationId,
-    this.installationTypeId,
-    this.equipmentCategoryId,
-    this.towerId,
-    this.equipmentId,
-    this.stepId,
-    this.createdAt,
-    this.updatedAt,
-    this.audios,
-    this.photos,
-    this.answers,
-    this.progress,
-    this.name,
-    this.description, {
-    this.id,
+  InspectionRequestModel({
+    required this.id,
+    required this.userId,
+    required this.activityId,
+    required this.projectId,
+    required this.tensionLevelId,
+    required this.installationId,
+    required this.installationTypeId,
+    required this.equipmentCategoryId,
+    required this.towerId,
+    required this.equipmentId,
+    required this.stepId,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.date,
+    required this.audios,
+    required this.photos,
+    required this.answers,
+    required this.progress,
+    required this.name,
+    required this.description,
+    required this.comments,
+    required this.longitude,
+    required this.latitude,
     this.isSendAudios = false,
     this.isSendPhotos = false,
     this.isSendAnswers = false,
@@ -89,32 +95,43 @@ class InspectionRequestModel {
     result.addAll({'name': name});
     result.addAll({'description': description});
     result.addAll({'date': date});
+    result.addAll({'comments': comments});
 
     return result;
   }
 
   factory InspectionRequestModel.fromMap(Map<String, dynamic> map) {
     return InspectionRequestModel(
-      map['date'],
-      map['user_id'],
-      map['activity_id'],
-      map['project_id'],
-      map['tension_level_id'],
-      map['installation_id'],
-      map['installation_type_id'],
-      map['equipment_category_id'],
-      map['tower_id'],
-      map['equipment_id'],
-      map['step_id'],
-      map['created_at'],
-      map['updated_at'],
-      List<AudioModel>.from(map['audios']?.map((x) => AudioModel.fromMap(x))),
-      List<PhotoModel>.from(map['photos']?.map((x) => PhotoModel.fromMap(x))),
-      List<AnswerModel>.from(
+      date: map['date'],
+      userId: map['user_id'],
+      activityId: map['activity_id'],
+      projectId: map['project_id'],
+      tensionLevelId: map['tension_level_id'],
+      installationId: map['installation_id'],
+      installationTypeId: map['installation_type_id'],
+      equipmentCategoryId: map['equipment_category_id'],
+      towerId: map['tower_id'],
+      equipmentId: map['equipment_id'],
+      stepId: map['step_id'],
+      createdAt: map['created_at'],
+      updatedAt: map['updated_at'],
+      audios: List<AudioModel>.from(
+          map['audios']?.map((x) => AudioModel.fromMap(x))),
+      photos: List<PhotoModel>.from(
+          map['photos']?.map((x) => PhotoModel.fromMap(x))),
+      answers: List<AnswerModel>.from(
           map['answers']?.map((x) => AnswerModel.fromMap(x))),
-      map['progress'],
-      map['name'] ?? '',
-      map['description'],
+      progress: map['progress'],
+      name: map['name'] ?? '',
+      description: map['description'],
+      comments: map['comments'],
+      isSendAnswers: map['isSendAnswers'] ?? false,
+      isSendAudios: map['isSendAudios'] ?? false,
+      isSendInspection: map['isSendInspection'] ?? false,
+      isSendPhotos: map['isSendPhotos'] ?? false,
+      id: map['id'],
+      latitude: map['latitude'],
+      longitude: map['longitude'],
     );
   }
 
@@ -148,32 +165,38 @@ class InspectionRequestModel {
     bool? isSendPhotos,
     bool? isSendAnswers,
     bool? isSendInspection,
+    String? comments,
+    double? latitude,
+    double? longitude,
   }) {
     return InspectionRequestModel(
-      date ?? this.date,
+      date: date ?? this.date,
       id: id,
-      userId ?? this.userId,
-      activityId ?? this.activityId,
-      projectId ?? this.projectId,
-      tensionLevelId ?? this.tensionLevelId,
-      installationId ?? this.installationId,
-      installationTypeId ?? this.installationTypeId,
-      equipmentCategoryId ?? this.equipmentCategoryId,
-      towerId ?? this.towerId,
-      equipmentId ?? this.equipmentId,
-      stepId ?? this.stepId,
-      createdAt ?? this.createdAt,
-      updatedAt ?? this.updatedAt,
-      audios ?? this.audios,
-      photos ?? this.photos,
-      answers ?? this.answers,
-      progress ?? this.progress,
-      name ?? this.name,
-      description ?? this.description,
+      userId: userId ?? this.userId,
+      activityId: activityId ?? this.activityId,
+      projectId: projectId ?? this.projectId,
+      tensionLevelId: tensionLevelId ?? this.tensionLevelId,
+      installationId: installationId ?? this.installationId,
+      installationTypeId: installationTypeId ?? this.installationTypeId,
+      equipmentCategoryId: equipmentCategoryId ?? this.equipmentCategoryId,
+      towerId: towerId ?? this.towerId,
+      equipmentId: equipmentId ?? this.equipmentId,
+      stepId: stepId ?? this.stepId,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      audios: audios ?? this.audios,
+      photos: photos ?? this.photos,
+      answers: answers ?? this.answers,
+      progress: progress ?? this.progress,
+      name: name ?? this.name,
+      description: description ?? this.description,
+      comments: comments ?? this.comments,
       isSendAudios: isSendAudios ?? this.isSendAudios,
       isSendPhotos: isSendPhotos ?? this.isSendPhotos,
       isSendAnswers: isSendAnswers ?? this.isSendAnswers,
       isSendInspection: isSendInspection ?? this.isSendInspection,
+      latitude: latitude ?? this.latitude,
+      longitude: longitude ?? this.longitude,
     );
   }
 }

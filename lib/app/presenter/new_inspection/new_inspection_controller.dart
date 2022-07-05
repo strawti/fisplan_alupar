@@ -15,6 +15,7 @@ import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/audios_c
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/images_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/questionnaires_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/steps_controller.dart';
+import 'package:fisplan_alupar/app/shared/utils/loader_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -40,7 +41,7 @@ import 'controllers/installation_type_controller.dart';
 import 'controllers/installations_controller.dart';
 import 'controllers/towers_controller.dart';
 
-class NewInspectionController extends GetxController {
+class NewInspectionController extends GetxController with LoaderManager {
   static NewInspectionController get to => Get.find();
 
   final LocalInspectionsProvider _localProvider;
@@ -62,13 +63,13 @@ class NewInspectionController extends GetxController {
 
     nameController.addListener(update);
     descriptionController.addListener(update);
+    commentsController.addListener(update);
 
     nameController.text = "Fiscalização - ${getDateTime(DateTime.now())}";
 
     _getPosition();
 
-    // PREENCHER CAMPOS
-    // routeArguments.inspectionRequest
+    _fillTheFields();
   }
 
   @override
@@ -76,7 +77,90 @@ class NewInspectionController extends GetxController {
     nameController.dispose();
     descriptionController.dispose();
     positionStream?.cancel();
+    commentsController.dispose();
     super.onClose();
+  }
+
+  Future _fillTheFields() async {
+    final inspection = arguments.inspectionRequest;
+
+    if (inspection == null) {
+      return;
+    }
+
+    Get.defaultDialog(
+      title: "Aguarde",
+      middleText: 'Obtendo dados...',
+      barrierDismissible: false,
+    );
+    await Future.delayed(const Duration(seconds: 2));
+    Get.back();
+
+    nameController.text = inspection.name;
+
+    descriptionController.text = inspection.description ?? '';
+
+    selectedInstallation =
+        installationsController.installationsFiltered.firstWhereOrNull((e) {
+      return e.id == inspection.installationId;
+    });
+
+    selectedInstallationType = instalationTypeController
+        .installationTypesFiltered
+        .firstWhereOrNull((e) {
+      return e.id == inspection.installationTypeId;
+    });
+
+    selectedTower = towersController.towersFiltered.firstWhereOrNull(
+      (e) => e.id == inspection.towerId,
+    );
+
+    selectedActivity =
+        ActivitiesController.to.activitiesFiltered.firstWhereOrNull(
+      (e) {
+        return e.id == inspection.activityId;
+      },
+    );
+
+    selectedEquipment =
+        equipmentController.equipmentsFiltered.firstWhereOrNull((e) {
+      return e.id == inspection.equipmentId;
+    });
+
+    selectedEquipmentsCategory = equipmentsCategoryController
+        .equipmentsCategoriesFiltered
+        .firstWhereOrNull((e) {
+      return e.id == inspection.equipmentCategoryId;
+    });
+
+    selectedStep = StepsController.to.stepsFiltered.firstWhereOrNull((e) {
+      return e.id == inspection.stepId;
+    });
+
+    selectedTensionLevel =
+        companiesController.tensionLevelsFiltered.firstWhereOrNull((e) {
+      return e.id == inspection.tensionLevelId;
+    });
+
+    getQuestionnaries();
+
+    for (var q in questions) {
+      final answer = inspection.answers.where((e) {
+        return q.id == e.questionId && q.questionnaireId == e.questionnaireId;
+      });
+
+      if (answer.isNotEmpty) {
+        setAnswer(q, answer.first);
+      }
+    }
+
+    // Fotos
+
+    // Audios
+
+    // Position
+
+    commentsController.text = inspection.comments ?? '';
   }
 
   final nameController = TextEditingController();
@@ -84,6 +168,9 @@ class NewInspectionController extends GetxController {
 
   final descriptionController = TextEditingController();
   String get description => descriptionController.text.trim();
+
+  final commentsController = TextEditingController();
+  String get comments => commentsController.text.trim();
 
   StreamSubscription<Position>? positionStream;
   Position? position;
@@ -98,7 +185,7 @@ class NewInspectionController extends GetxController {
 
     Geolocator.getPositionStream().listen((pos) {
       position = pos;
-      update();
+      update(['position']);
     });
   }
 
@@ -429,7 +516,15 @@ class NewInspectionController extends GetxController {
       }
     }
 
-    saveInspection();
+    saveOrUpdateInspection();
+  }
+
+  void saveOrUpdateInspection() {
+    if (arguments.inspectionRequest == null) {
+      saveInspection();
+    } else {
+      updateInspection();
+    }
   }
 
   Future saveInspection() async {
@@ -474,25 +569,29 @@ class NewInspectionController extends GetxController {
     }
 
     final request = InspectionRequestModel(
-      DateTime.now().toString(),
-      HomeController.to.user!.id,
-      selectedActivity?.id,
-      arguments.project.id,
-      selectedTensionLevel?.id,
-      selectedInstallation!.id,
-      selectedInstallationType!.id,
-      selectedEquipmentsCategory?.id,
-      selectedTower?.id,
-      selectedEquipment?.id,
-      selectedStep?.id,
-      DateTime.now().toString(),
-      DateTime.now().toString(),
-      audios,
-      photos,
-      answers,
-      progress,
-      name,
-      description,
+      id: null,
+      date: DateTime.now().toString(),
+      userId: HomeController.to.user!.id,
+      activityId: selectedActivity?.id,
+      projectId: arguments.project.id,
+      tensionLevelId: selectedTensionLevel?.id,
+      installationId: selectedInstallation!.id,
+      installationTypeId: selectedInstallationType!.id,
+      equipmentCategoryId: selectedEquipmentsCategory?.id,
+      towerId: selectedTower?.id,
+      equipmentId: selectedEquipment?.id,
+      stepId: selectedStep?.id,
+      createdAt: DateTime.now().toString(),
+      updatedAt: DateTime.now().toString(),
+      audios: audios,
+      photos: photos,
+      answers: answers,
+      progress: progress,
+      name: name,
+      description: description,
+      comments: comments,
+      latitude: position!.latitude,
+      longitude: position!.longitude,
     );
 
     _getInspectionsUnsynchronized().then(
@@ -505,6 +604,94 @@ class NewInspectionController extends GetxController {
           Get.offNamed(HomePage.route);
           Get.find<InspectionsController>().fetch();
           CustomSnackbar.to.show("Inspeção salva com sucesso");
+        } else {
+          CustomSnackbar.to.show(response.error!.content!);
+        }
+      },
+    );
+  }
+
+  Future updateInspection() async {
+    List<AudioModel> audios = [];
+    final audiosAsBase64 =
+        await Get.find<AudiosController>().getAudiosInBase64();
+    audios.addAll(audiosAsBase64.map((e) => AudioModel(path: e)));
+
+    List<PhotoModel> photos = [];
+    final photosAsBase64 =
+        await Get.find<ImagesController>().getImagesInBase64();
+    photos.addAll(photosAsBase64.map((e) => PhotoModel(path: e)));
+
+    double progress = 0;
+    if (answers.isNotEmpty) {
+      int questionsYESORNOCount = 0; // only this.questionTypes.YESORNO
+      int questionsDoneCount = 0; // only this.questionTypes.YESORNO
+
+      for (int i = 0; i < answers.length; i++) {
+        final question = questions.where((e) {
+          return e.id == answers[i].questionId;
+        }).first;
+
+        dynamic answer = answers[i];
+
+        if (question.questionType == QuestionTypesEnum.yesorno) {
+          if (answer == '') {
+            answer = "false";
+          }
+
+          questionsYESORNOCount += 1;
+
+          if (answer == "true") {
+            questionsDoneCount += 1;
+          }
+        }
+      }
+
+      progress = (questionsDoneCount / questionsYESORNOCount) * 100;
+    } else {
+      progress = 100;
+    }
+
+    final request = InspectionRequestModel(
+      id: arguments.inspectionRequest!.id,
+      date: arguments.inspectionRequest!.date,
+      userId: arguments.inspectionRequest!.userId,
+      activityId: selectedActivity?.id,
+      projectId: arguments.project.id,
+      tensionLevelId: selectedTensionLevel?.id,
+      installationId: selectedInstallation!.id,
+      installationTypeId: selectedInstallationType!.id,
+      equipmentCategoryId: selectedEquipmentsCategory?.id,
+      towerId: selectedTower?.id,
+      equipmentId: selectedEquipment?.id,
+      stepId: selectedStep?.id,
+      createdAt: arguments.inspectionRequest!.createdAt,
+      updatedAt: DateTime.now().toString(),
+      audios: audios,
+      photos: photos,
+      answers: answers,
+      progress: progress,
+      name: name,
+      description: description,
+      comments: comments,
+      latitude: position!.latitude,
+      longitude: position!.longitude,
+    );
+
+    _getInspectionsUnsynchronized().then(
+      (inspections) async {
+        inspections.removeWhere((e) {
+          return e.toMap() == arguments.inspectionRequest!.toMap();
+        });
+
+        final response = await _localProvider.setUnsynchronized(
+          [...inspections, request],
+        );
+
+        if (response.isSuccess) {
+          Get.offNamed(HomePage.route);
+          Get.find<InspectionsController>().fetch();
+          CustomSnackbar.to.show("Inspeção atualizada com sucesso");
         } else {
           CustomSnackbar.to.show(response.error!.content!);
         }

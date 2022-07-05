@@ -41,6 +41,7 @@ class QuestionWidget extends StatelessWidget {
           Visibility(
             visible: question.questionType == QuestionTypesEnum.yesorno,
             child: DropdownButtonFormField(
+              value: _getValueYesOrNo(question),
               items: const [
                 DropdownMenuItem(value: true, child: Text("Sim")),
                 DropdownMenuItem(value: false, child: Text("Não"))
@@ -75,5 +76,16 @@ class QuestionWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  bool? _getValueYesOrNo(Question question) {
+    final value = NewInspectionController.to.answers.where((e) {
+      return e.questionId == question.id;
+    });
+
+    if (value.isNotEmpty) {
+      return value.first.answer.answer == "true";
+    }
+    return null;
   }
 }
