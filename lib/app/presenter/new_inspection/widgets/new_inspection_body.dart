@@ -1,18 +1,16 @@
-import 'package:fisplan_alupar/app/core/app_validators.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/images_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/widgets/question_widget.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/widgets/tower_widget.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/widgets/view_image_widget.dart';
 import 'package:fisplan_alupar/app/shared/widgets/button_default_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../shared/widgets/textform_widget.dart';
-import '../controllers/audios_controller.dart';
 import '../new_inspection_controller.dart';
+import 'audios_widget.dart';
+import 'filters_widget.dart';
 import 'location_new_inspection_widget.dart';
 import 'new_inspection_card.dart';
-import 'record_audio_widget.dart';
+import 'photos_widget.dart';
+import 'title_widget.dart';
 
 class NewInspectionBody extends StatelessWidget {
   const NewInspectionBody({Key? key}) : super(key: key);
@@ -20,6 +18,7 @@ class NewInspectionBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      controller: Get.find<NewInspectionController>().scrollController,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
         child: Column(

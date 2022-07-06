@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fisplan_alupar/app/core/app_colors.dart';
 import 'package:fisplan_alupar/app/infra/enums/question_types_enum.dart';
 import 'package:fisplan_alupar/app/infra/models/requests/inspection_request_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/activity_model.dart';
@@ -16,7 +17,7 @@ import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/images_c
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/questionnaires_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/steps_controller.dart';
 import 'package:fisplan_alupar/app/shared/utils/loader_manager.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
@@ -80,6 +81,8 @@ class NewInspectionController extends GetxController with LoaderManager {
     commentsController.dispose();
     super.onClose();
   }
+
+  final scrollController = ScrollController();
 
   Future _fillTheFields() async {
     final inspection = arguments.inspectionRequest;
@@ -447,7 +450,10 @@ class NewInspectionController extends GetxController with LoaderManager {
   }
 
   bool get showStep {
-    return selectedInstallation != null && selectedEquipmentsCategory != null ||
+    return selectedInstallation != null &&
+            selectedEquipmentsCategory != null &&
+            selectedEquipment != null &&
+            selectedTensionLevel != null ||
         selectedTower != null;
   }
 
@@ -607,9 +613,33 @@ class NewInspectionController extends GetxController with LoaderManager {
         );
 
         if (response.isSuccess) {
-          Get.offNamed(HomePage.route);
+          await Get.defaultDialog(
+            title: 'Duplicar?',
+            middleText: 'Deseja criar uma nova inspeção a partir dessa?',
+            textConfirm: 'SIM',
+            textCancel: 'Não',
+            buttonColor: appPrimaryColor,
+            confirmTextColor: Colors.white,
+            onConfirm: () {
+              Get.back();
+              CustomSnackbar.to.show(
+                "Inspeção salva e duplicada com sucesso",
+              );
+              scrollController.animateTo(
+                0,
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.linear,
+              );
+              nameController.text =
+                  "Fiscalização - ${getDateTime(DateTime.now())}";
+            },
+            onCancel: () {
+              Get.back();
+              Get.offNamed(HomePage.route);
+              CustomSnackbar.to.show("Inspeção salva com sucesso");
+            },
+          );
           Get.find<InspectionsController>().fetch();
-          CustomSnackbar.to.show("Inspeção salva com sucesso");
         } else {
           CustomSnackbar.to.show(response.error!.content!);
         }
