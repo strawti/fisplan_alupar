@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class AnswerModel {
-  final int questionnaireId;
+  final int? questionnaireId;
   final int questionId;
 
   /// String | int

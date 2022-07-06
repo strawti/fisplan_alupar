@@ -5,6 +5,7 @@ import 'package:fisplan_alupar/app/infra/models/responses/photo_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../core/app_colors.dart';
 import '../../core/app_connectivity.dart';
 import '../../infra/models/responses/inspection_model.dart';
 import '../../infra/providers/inspections/inspections_provider.dart';
@@ -82,7 +83,7 @@ class InspectionsController extends GetxController with LoaderManager {
     await _getInspectionsNotSynced();
 
     inspectionsFiltered = inspections.toList();
-    inspectionsFiltered.sort((a, b) => a.progress.compareTo(b.progress));
+    inspectionsFiltered.sort((a, b) => b.name.compareTo(a.name));
     _getLastTimeUpdated();
 
     setIsLoading(false);
@@ -152,20 +153,20 @@ class InspectionsController extends GetxController with LoaderManager {
           await _setLocalInspections();
 
           if (inspection.isSendPhotos == false) {
-            await sendPhotos(inspection);
+            inspection = await sendPhotos(inspection);
           }
 
           if (inspection.isSendAudios == false) {
-            await sendAudios(inspection);
+            inspection = await sendAudios(inspection);
           }
         }
       } else {
         if (inspection.isSendPhotos == false) {
-          await sendPhotos(inspection);
+          inspection = await sendPhotos(inspection);
         }
 
         if (inspection.isSendAudios == false) {
-          await sendAudios(inspection);
+          inspection = await sendAudios(inspection);
         }
       }
 
@@ -175,6 +176,8 @@ class InspectionsController extends GetxController with LoaderManager {
             inspectionsUnsynchronized.removeWhere((e) {
               return e.id == inspection.id;
             });
+            // Confirm upgrade data
+            inspectionsUnsynchronized.remove(inspection);
             await _setLocalInspections();
           }
         }
@@ -186,9 +189,21 @@ class InspectionsController extends GetxController with LoaderManager {
     }
 
     await _getInspectionsNotSynced();
+
+    await Get.defaultDialog(
+      title: 'Atualizar dados?',
+      middleText: 'Deseja atualizar inspenções?',
+      textConfirm: 'SIM',
+      textCancel: 'Não',
+      buttonColor: appPrimaryColor,
+      confirmTextColor: Colors.white,
+      onConfirm: () => fetch(online: true),
+    );
   }
 
-  Future sendPhotos(InspectionRequestModel inspection) async {
+  Future<InspectionRequestModel> sendPhotos(
+    InspectionRequestModel inspection,
+  ) async {
     final imagesUnsync = <PhotoModel>[];
     for (var photo in inspection.photos) {
       final responseSendPhoto = await _inspectionsProvider.sendPhoto(
@@ -220,17 +235,23 @@ class InspectionsController extends GetxController with LoaderManager {
     }
 
     await _setLocalInspections();
+
+    return inspection;
   }
 
-  Future sendAudios(InspectionRequestModel inspection) async {
+  Future<InspectionRequestModel> sendAudios(
+    InspectionRequestModel inspection,
+  ) async {
     inspectionsUnsynchronized.remove(inspection);
-    inspection = inspection.copyWith(
+
+    inspectionsUnsynchronized.add(inspection.copyWith(
       id: inspection.id,
       audios: [],
       isSendAudios: true,
-    );
-    inspectionsUnsynchronized.add(inspection);
+    ));
     await _setLocalInspections();
+
+    return inspection;
   }
 
   Future _setLocalInspections() async {
