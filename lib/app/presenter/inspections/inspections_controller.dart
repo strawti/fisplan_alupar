@@ -63,7 +63,9 @@ class InspectionsController extends GetxController with LoaderManager {
     setIsLoading(true);
 
     await _getLocalInspections();
-    await _setLocalInspections();
+
+    // Caso queira remover as inspeções
+    //await _setLocalInspections();
 
     if (await AppConnectivity.instance.isConnected()) {
       if (inspections.isEmpty || online) {
