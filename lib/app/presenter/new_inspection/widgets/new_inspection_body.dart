@@ -25,33 +25,7 @@ class NewInspectionBody extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Visibility(
-              visible: NewInspectionController.to.arguments.isItDuplication,
-              replacement: const Text(
-                'Você está criando uma nova inspeção para o projeto:',
-              ),
-              child: Column(
-                children: [
-                  const Text(
-                    'Você está duplicando a inspeção ',
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    NewInspectionController
-                        .to.arguments.inspectionRequest!.name,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const Text(
-                    ' para o projeto:',
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
+            const TitleWidget(),
             const SizedBox(height: 10),
             Text(
               Get.find<NewInspectionController>().arguments.project.name,
