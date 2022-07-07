@@ -16,7 +16,7 @@ class AudiosDetailsInspectionWidget extends StatelessWidget {
       child: GetBuilder<AudiosController>(
         builder: (control) {
           return Column(
-            children: control.audiosOfWeb.map(
+            children: control.audioPlayers.map(
               (a) {
                 return StreamBuilder<Duration?>(
                   stream: a.player.positionStream,

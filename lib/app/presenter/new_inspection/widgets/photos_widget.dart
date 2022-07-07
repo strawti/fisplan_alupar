@@ -19,59 +19,65 @@ class PhotosWidget extends StatelessWidget {
         icon: const Icon(Icons.camera_alt),
         color: Colors.black54,
       ),
-      child: GetBuilder<ImagesController>(builder: (control) {
-        return Column(
-          children: control.allImages.map(
-            (image) {
-              return Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Get.to(
-                          () => ViewImageWidget(
-                            image: image,
+      child: GetBuilder<ImagesController>(
+        builder: (control) {
+          if (control.isLoading) {
+            return const Text('Buscando...');
+          }
+
+          return Column(
+            children: control.allImages.map(
+              (image) {
+                return Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(
+                            () => ViewImageWidget(
+                              image: image,
+                            ),
+                          );
+                        },
+                        child: Hero(
+                          tag: image.path,
+                          child: Image.file(
+                            image,
+                            fit: BoxFit.cover,
+                            height: 60,
+                            width: 60,
                           ),
-                        );
-                      },
-                      child: Hero(
-                        tag: image.path,
-                        child: Image.file(
-                          image,
-                          fit: BoxFit.cover,
-                          height: 60,
-                          width: 60,
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Text(
-                        image.path.split('/').last,
-                        textScaleFactor: 0.9,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        control.removeImage(image);
-                      },
-                      child: const Text(
-                        'Apagar',
-                        style: TextStyle(
-                          color: Colors.red,
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Text(
+                          image.path.split('/').last,
+                          textScaleFactor: 0.9,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ).toList(),
-        );
-      }),
+                      TextButton(
+                        onPressed: () {
+                          control.removeImage(image);
+                        },
+                        child: const Text(
+                          'Apagar',
+                          style: TextStyle(
+                            color: Colors.red,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ).toList(),
+          );
+        },
+      ),
     );
   }
 }

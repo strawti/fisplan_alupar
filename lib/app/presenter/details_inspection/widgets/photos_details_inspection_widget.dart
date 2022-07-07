@@ -40,6 +40,18 @@ class PhotosDetailsInspectionWidget extends StatelessWidget {
                         headers: {
                           'Authorization': 'Bearer ${AppToken.instance.token}',
                         },
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress?.cumulativeBytesLoaded ==
+                              loadingProgress?.expectedTotalBytes) {
+                            return child;
+                          }
+
+                          return CircularProgressIndicator(
+                            value: double.parse(
+                              "${loadingProgress?.cumulativeBytesLoaded ?? 0.0}",
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ),

@@ -35,6 +35,9 @@ class ViewImageWidget extends StatelessWidget {
                     headers: {
                       'Authorization': 'Bearer ${AppToken.instance.token}',
                     },
+                    loadingBuilder: (context, child, loadingProgress) {
+                      return const CircularProgressIndicator();
+                    },
                   ),
           ),
           BackdropFilter(
@@ -50,6 +53,9 @@ class ViewImageWidget extends StatelessWidget {
                           headers: {
                             'Authorization':
                                 'Bearer ${AppToken.instance.token}',
+                          },
+                          loadingBuilder: (context, child, loadingProgress) {
+                            return const CircularProgressIndicator();
                           },
                         ),
                 ),

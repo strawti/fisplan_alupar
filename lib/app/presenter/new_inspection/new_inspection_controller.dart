@@ -165,14 +165,26 @@ class NewInspectionController extends GetxController with LoaderManager {
     });
 
     // Fotos
-    Get.find<ImagesController>().setImagesInBase64(inspection.photos.map((e) {
-      return e.path;
-    }).toList());
+    if (arguments.isItDuplication == false) {
+      Get.find<ImagesController>().setImagesInBase64(inspection.photos.map((e) {
+        return e.path;
+      }).toList());
+    } else if (arguments.isItDuplication) {
+      Get.find<ImagesController>().setImagesOfWeb(inspection.photos.map((e) {
+        return e.path;
+      }).toList());
+    }
 
     // Audios
-    Get.find<AudiosController>().setAudiosInBase64(inspection.audios.map((e) {
-      return e.path;
-    }).toList());
+    if (arguments.isItDuplication == false) {
+      Get.find<AudiosController>().setAudiosInBase64(inspection.audios.map((e) {
+        return e.path;
+      }).toList());
+    } else if (arguments.isItDuplication) {
+      Get.find<AudiosController>().setAudiosOfWeb(inspection.audios.map((e) {
+        return e.path;
+      }).toList());
+    }
 
     commentsController.text = inspection.comments ?? '';
   }

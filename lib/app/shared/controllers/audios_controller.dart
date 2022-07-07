@@ -19,8 +19,7 @@ class AudiosController extends GetxController {
     audioPlayers.map((e) => e.player.dispose());
     audioPlayers.map((e) async => await removeAudio(e));
 
-    audiosOfWeb.map((e) => e.player.dispose());
-    audiosOfWeb.map((e) async => await removeAudio(e));
+  
 
     super.onClose();
   }
@@ -153,7 +152,6 @@ class AudiosController extends GetxController {
     );
   }
 
-  List<AudioTile> audiosOfWeb = [];
   Future setAudiosOfWeb(List<String> audios) async {
     for (var audio in audios) {
       final player = AudioPlayer();
@@ -169,18 +167,10 @@ class AudiosController extends GetxController {
         preload: true,
       );
 
-      audiosOfWeb.add(AudioTile(audio, player));
+      audioPlayers.add(AudioTile(audio, player));
     }
 
     update();
-  }
-
-  Future startAudioOfWeb(AudioTile audio) async {
-    await audio.player.play();
-  }
-
-  Future stopAudioOfWeb(AudioTile audio) async {
-    await audio.player.stop();
   }
 }
 
