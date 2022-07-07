@@ -1,15 +1,14 @@
-import '../../infra/models/responses/inspection_model.dart';
-import '../../shared/controllers/companies_controller.dart';
-import '../../shared/controllers/installations_controller.dart';
-import '../../routes/arguments/datails_inspection_page_arguments.dart';
-import '../../shared/utils/custom_dialog.dart';
+import 'package:fisplan_alupar/app/shared/controllers/audios_controller.dart';
+import 'package:fisplan_alupar/app/shared/utils/get_datetime.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 import '../../infra/models/responses/activity_model.dart';
 import '../../infra/models/responses/answer_model.dart';
 import '../../infra/models/responses/equipment_category_model.dart';
 import '../../infra/models/responses/equipment_model.dart';
+import '../../infra/models/responses/inspection_model.dart';
 import '../../infra/models/responses/installation_model.dart';
 import '../../infra/models/responses/installation_type_model.dart';
 import '../../infra/models/responses/questionnary_model.dart';
@@ -17,14 +16,17 @@ import '../../infra/models/responses/step_model.dart';
 import '../../infra/models/responses/tension_level_model.dart';
 import '../../infra/models/responses/tower_model.dart';
 import '../../routes/arguments/datails_inspection_page_arguments.dart';
-import '../inspections/inspections_controller.dart';
 import '../../shared/controllers/activities_controller.dart';
+import '../../shared/controllers/companies_controller.dart';
 import '../../shared/controllers/equipments_categories_controller.dart';
 import '../../shared/controllers/equipments_controller.dart';
 import '../../shared/controllers/installation_type_controller.dart';
+import '../../shared/controllers/installations_controller.dart';
 import '../../shared/controllers/questionnaires_controller.dart';
 import '../../shared/controllers/steps_controller.dart';
 import '../../shared/controllers/towers_controller.dart';
+import '../../shared/utils/custom_dialog.dart';
+import '../inspections/inspections_controller.dart';
 
 class DetailsInspectionController extends GetxController {
   DetailsInspectionController() {
@@ -58,6 +60,8 @@ class DetailsInspectionController extends GetxController {
     commentsController.dispose();
     super.onClose();
   }
+
+  Position? position;
 
   Future _fillTheFields() async {
     final inspection = arguments.inspection;
@@ -115,11 +119,11 @@ class DetailsInspectionController extends GetxController {
       return e.id == inspection.tensionLevelId;
     });
 
-    getQuestionnaries();
+    await getQuestionnaries();
 
     for (var q in questions) {
       final answer = inspection.answers!.where((e) {
-        return q.id == e.questionId && q.questionnaireId == e.questionnaireId;
+        return q.id == e.questionId;
       });
 
       if (answer.isNotEmpty) {
@@ -128,6 +132,23 @@ class DetailsInspectionController extends GetxController {
     }
 
     commentsController.text = inspection.comments ?? '';
+    position = Position(
+      longitude: inspection.longitude!,
+      latitude: inspection.latitude!,
+      timestamp: formatStringForDateTime(inspection.date),
+      accuracy: 0.0,
+      altitude: 0.0,
+      heading: 0.0,
+      speed: 0,
+      speedAccuracy: 0,
+    );
+    update(['position']);
+
+    await Get.find<AudiosController>().setAudiosOfWeb(
+      inspection.audios!.map((e) => e.path).toList(),
+    );
+
+    update();
   }
 
   final nameController = TextEditingController();
@@ -174,14 +195,9 @@ class DetailsInspectionController extends GetxController {
   void setAnswer(Question question, dynamic answer) {
     answers.removeWhere((e) => e.questionId == question.id);
 
-    answers.add(
-      AnswerModel(
-        questionnaireId:
-            QuestionnairesController.to.questionnairesFiltered.first.id,
-        questionId: question.id,
-        answer: answer,
-      ),
-    );
+    if (answer is AnswerModel) {
+      answers.add(answer);
+    }
 
     update();
   }
