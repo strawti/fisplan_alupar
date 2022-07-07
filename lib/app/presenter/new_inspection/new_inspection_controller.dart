@@ -79,6 +79,7 @@ class NewInspectionController extends GetxController with LoaderManager {
     descriptionController.dispose();
     positionStream?.cancel();
     commentsController.dispose();
+    HomeController.to.getInspectionsUnsynch();
     super.onClose();
   }
 
@@ -147,7 +148,7 @@ class NewInspectionController extends GetxController with LoaderManager {
     });
 
     getQuestionnaries().whenComplete(() {
-      for (var q in questions) {
+      for (Question q in questions) {
         final answer = inspection.answers.where((e) {
           return q.id == e.questionId;
         });
@@ -374,8 +375,7 @@ class NewInspectionController extends GetxController with LoaderManager {
     } else {
       answers.add(
         AnswerModel(
-          questionnaireId:
-              QuestionnairesController.to.questionnairesFiltered.first.id,
+          questionnaireId: question.questionnaireId,
           questionId: question.id,
           answer: answer,
         ),
