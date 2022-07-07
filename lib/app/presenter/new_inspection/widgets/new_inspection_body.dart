@@ -60,7 +60,7 @@ class NewInspectionBody extends StatelessWidget {
             const SizedBox(height: 10),
             const AudiosWidget(),
             const SizedBox(height: 10),
-            LocationInspectionWidget(
+            LocationInspectionWidget<NewInspectionController>(
               control: Get.find<NewInspectionController>(),
             ),
             const NewInspectionCard(
