@@ -1,10 +1,9 @@
 import 'dart:io';
 
-import '../../models/requests/inspection_request_model.dart';
-
 import '../../../core/app_constants.dart';
 import '../../models/defaults/app_error_model.dart';
 import '../../models/defaults/provider_response_model.dart';
+import '../../models/requests/inspection_request_model.dart';
 import '../../models/responses/inspection_model.dart';
 import '../../repositories/inspections/inspections_repository.dart';
 
