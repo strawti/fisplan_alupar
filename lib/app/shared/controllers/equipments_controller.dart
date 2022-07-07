@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
 
-import '../core/app_connectivity.dart';
-import '../infra/models/responses/equipment_model.dart';
-import '../infra/providers/equipments/equipments_provider.dart';
-import '../infra/providers/equipments/local/local_equipments_provider.dart';
-import 'utils/custom_snackbar.dart';
-import 'utils/get_datetime.dart';
-import 'utils/loader_manager.dart';
+import '../../core/app_connectivity.dart';
+import '../../infra/models/responses/equipment_model.dart';
+import '../../infra/providers/equipments/equipments_provider.dart';
+import '../../infra/providers/equipments/local/local_equipments_provider.dart';
+import '../utils/custom_snackbar.dart';
+import '../utils/get_datetime.dart';
+import '../utils/loader_manager.dart';
 
 class EquipmentsController extends GetxController with LoaderManager {
   final EquipmentsProvider _installationsProvider;

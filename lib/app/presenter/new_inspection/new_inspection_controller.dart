@@ -35,7 +35,7 @@ import '../../shared/controllers/equipments_categories_controller.dart';
 import '../../shared/controllers/installation_type_controller.dart';
 import '../../shared/controllers/installations_controller.dart';
 import '../../shared/controllers/towers_controller.dart';
-import '../../shared/equipments_controller.dart';
+import '../../shared/controllers/equipments_controller.dart';
 import '../../shared/utils/custom_snackbar.dart';
 import '../../shared/utils/get_datetime.dart';
 import '../home/home_page.dart';

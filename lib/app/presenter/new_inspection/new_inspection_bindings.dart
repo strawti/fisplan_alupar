@@ -44,7 +44,7 @@ import '../../shared/controllers/activities_controller.dart';
 import '../../shared/controllers/audios_controller.dart';
 import '../../shared/controllers/companies_controller.dart';
 import '../../shared/controllers/equipments_categories_controller.dart';
-import '../../shared/equipments_controller.dart';
+import '../../shared/controllers/equipments_controller.dart';
 import '../../shared/controllers/images_controller.dart';
 import '../../shared/controllers/installation_type_controller.dart';
 import '../../shared/controllers/installations_controller.dart';

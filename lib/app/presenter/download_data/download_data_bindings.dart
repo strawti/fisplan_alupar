@@ -50,7 +50,7 @@ import '../../shared/controllers/installations_controller.dart';
 import '../../shared/controllers/questionnaires_controller.dart';
 import '../../shared/controllers/steps_controller.dart';
 import '../../shared/controllers/towers_controller.dart';
-import '../../shared/equipments_controller.dart';
+import '../../shared/controllers/equipments_controller.dart';
 import '../inspections/inspections_controller.dart';
 import 'download_data_controller.dart';
 

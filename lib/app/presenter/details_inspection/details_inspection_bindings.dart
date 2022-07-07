@@ -48,7 +48,7 @@ import '../../shared/controllers/equipments_categories_controller.dart';
 import '../../shared/controllers/questionnaires_controller.dart';
 import '../../shared/controllers/steps_controller.dart';
 import '../../shared/controllers/towers_controller.dart';
-import '../../shared/equipments_controller.dart';
+import '../../shared/controllers/equipments_controller.dart';
 import 'details_inspection_controller.dart';
 
 class DetailsInspectionBindings implements Bindings {
