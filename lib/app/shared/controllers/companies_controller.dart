@@ -101,7 +101,7 @@ class CompaniesTensionLevelController extends GetxController
         await _localCompaniesTensionLevelsProvider.getLastTimeUpdated();
 
     if (response.isSuccess) {
-      lastUpdate = getDateTime(response.data!);
+      lastUpdate = formatDateTimeForString(response.data!);
     }
   }
 }

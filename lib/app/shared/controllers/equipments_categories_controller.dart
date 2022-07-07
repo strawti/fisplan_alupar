@@ -91,7 +91,7 @@ class EquipmentsCategoriesController extends GetxController with LoaderManager {
         await _localEquipmentsCategoriesProvider.getLastTimeUpdated();
 
     if (response.isSuccess) {
-      lastUpdate = getDateTime(response.data!);
+      lastUpdate = formatDateTimeForString(response.data!);
     }
   }
 }

@@ -90,7 +90,7 @@ class ActivitiesController extends GetxController with LoaderManager {
     final response = await _localActivitiesProvider.getLastTimeUpdated();
 
     if (response.isSuccess) {
-      lastUpdate = getDateTime(response.data!);
+      lastUpdate = formatDateTimeForString(response.data!);
     }
   }
 }
