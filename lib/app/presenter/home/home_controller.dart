@@ -99,6 +99,7 @@ class HomeController extends GetxController with LoaderManager {
         onConfirm: () {
           Get.toNamed(DownloadDataPage.route);
         },
+        onCancel: Get.back,
       );
       GetStorage().write('isTheFirstTime', false);
     }
@@ -177,5 +178,6 @@ class HomeController extends GetxController with LoaderManager {
     if (response.isSuccess) {
       hasInspectionsUnsynch = response.data?.isNotEmpty ?? false;
     }
+    update();
   }
 }
