@@ -111,7 +111,7 @@ class QuestionnairesController extends GetxController with LoaderManager {
     final response = await _localProvider.getLastTimeUpdated();
 
     if (response.isSuccess) {
-      lastUpdate = getDateTime(response.data!);
+      lastUpdate = formatDateTimeForString(response.data!);
     }
   }
 }
