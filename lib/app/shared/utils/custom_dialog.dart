@@ -20,7 +20,7 @@ class CustomDialog {
       cancelTextColor: Colors.red,
       buttonColor: appPrimaryColor,
       confirmTextColor: Colors.white,
-      onCancel: onCancel ?? Get.back,
+      onCancel: onCancel,
       onConfirm: onConfirm,
     );
   }
