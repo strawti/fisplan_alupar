@@ -13,6 +13,15 @@ class AnswerModel {
     required this.answer,
   });
 
+  String get getAnswer {
+    if (answer == "true") {
+      return "Sim";
+    } else if (answer == "false") {
+      return "Não";
+    }
+    return answer;
+  }
+
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
@@ -35,4 +44,16 @@ class AnswerModel {
 
   factory AnswerModel.fromJson(String source) =>
       AnswerModel.fromMap(json.decode(source));
+
+  AnswerModel copyWith({
+    int? questionnaireId,
+    int? questionId,
+    dynamic answer,
+  }) {
+    return AnswerModel(
+      questionnaireId: questionnaireId ?? this.questionnaireId,
+      questionId: questionId ?? this.questionId,
+      answer: answer ?? this.answer,
+    );
+  }
 }
