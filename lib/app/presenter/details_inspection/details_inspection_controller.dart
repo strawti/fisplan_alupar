@@ -247,7 +247,6 @@ class DetailsInspectionController extends GetxController {
   }
 
   bool get showActivity {
-    // TODO verificar condição de exibição desse campo
     return selectedStep != null;
   }
 
