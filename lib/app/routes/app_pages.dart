@@ -21,6 +21,7 @@ final List<GetPage> appPages = [
     name: SelectionPage.route,
     page: () => const SelectionPage(),
     binding: SelectionBindings(),
+    transition: Transition.rightToLeft,
   ),
   GetPage(
     name: NewInspectionPage.route,
