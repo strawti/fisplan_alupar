@@ -1,5 +1,5 @@
-import 'package:fisplan_alupar/app/infra/models/responses/step_model.dart';
-import 'package:fisplan_alupar/app/presenter/home/home_controller.dart';
+import '../../infra/models/responses/step_model.dart';
+import '../../presenter/home/home_controller.dart';
 import 'package:get/get.dart';
 
 import '../../core/app_connectivity.dart';

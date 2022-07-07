@@ -1,8 +1,8 @@
-import 'package:fisplan_alupar/app/infra/models/responses/questionnary_model.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/new_inspection_controller.dart';
 import 'package:flutter/material.dart';
 
 import '../../../infra/enums/question_types_enum.dart';
+import '../../../infra/models/responses/questionnary_model.dart';
+import '../new_inspection_controller.dart';
 
 class QuestionWidget extends StatelessWidget {
   final Question question;

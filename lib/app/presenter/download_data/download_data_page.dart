@@ -1,7 +1,7 @@
-import 'package:fisplan_alupar/app/infra/models/requests/inspection_request_model.dart';
-import 'package:fisplan_alupar/app/presenter/home/home_controller.dart';
-import 'package:fisplan_alupar/app/shared/controllers/questionnaires_controller.dart';
-import 'package:fisplan_alupar/app/shared/controllers/steps_controller.dart';
+import '../../infra/models/requests/inspection_request_model.dart';
+import '../home/home_controller.dart';
+import '../../shared/controllers/questionnaires_controller.dart';
+import '../../shared/controllers/steps_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

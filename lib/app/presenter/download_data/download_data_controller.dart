@@ -1,4 +1,4 @@
-import 'package:fisplan_alupar/app/presenter/home/home_controller.dart';
+import '../home/home_controller.dart';
 import 'package:get/get.dart';
 
 import '../inspections/inspections_controller.dart';

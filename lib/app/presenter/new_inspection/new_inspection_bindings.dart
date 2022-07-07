@@ -1,11 +1,11 @@
-import 'package:fisplan_alupar/app/infra/providers/inspections/local_inspections_provider.dart';
-import 'package:fisplan_alupar/app/infra/repositories/activities/activity_repository.dart';
-import 'package:fisplan_alupar/app/infra/repositories/activities/local_activities_repository.dart';
-import 'package:fisplan_alupar/app/infra/repositories/companies/projects/companies_projects_questionnaires_repository.dart';
-import 'package:fisplan_alupar/app/infra/repositories/companies/projects/companies_projects_steps_repository.dart';
-import 'package:fisplan_alupar/app/infra/repositories/companies/projects/local/local_companies_projects_questionnaires_repository.dart';
-import 'package:fisplan_alupar/app/infra/repositories/companies/projects/local/local_companies_projects_steps_repository.dart';
-import 'package:fisplan_alupar/app/shared/controllers/questionnaires_controller.dart';
+import '../../infra/providers/inspections/local_inspections_provider.dart';
+import '../../infra/repositories/activities/activity_repository.dart';
+import '../../infra/repositories/activities/local_activities_repository.dart';
+import '../../infra/repositories/companies/projects/companies_projects_questionnaires_repository.dart';
+import '../../infra/repositories/companies/projects/companies_projects_steps_repository.dart';
+import '../../infra/repositories/companies/projects/local/local_companies_projects_questionnaires_repository.dart';
+import '../../infra/repositories/companies/projects/local/local_companies_projects_steps_repository.dart';
+import '../../shared/controllers/questionnaires_controller.dart';
 import 'package:get/get.dart';
 
 import '../../infra/providers/activities/activities_provider.dart';

@@ -1,4 +1,4 @@
-import 'package:fisplan_alupar/app/infra/models/requests/inspection_request_model.dart';
+import '../../models/requests/inspection_request_model.dart';
 import 'package:get_storage/get_storage.dart';
 
 import '../../api_endpoints.dart';

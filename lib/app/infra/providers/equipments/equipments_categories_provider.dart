@@ -1,11 +1,10 @@
 import 'dart:io';
 
-import '../../models/responses/equipment_category_model.dart';
-import '../../repositories/equipments/equipment_category_repository.dart';
-
 import '../../../core/app_constants.dart';
 import '../../models/defaults/app_error_model.dart';
 import '../../models/defaults/provider_response_model.dart';
+import '../../models/responses/equipment_category_model.dart';
+import '../../repositories/equipments/equipment_category_repository.dart';
 
 class EquipmentsCategoriesProvider {
   final EquipmentCategoryRepository _repository;

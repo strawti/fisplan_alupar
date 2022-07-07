@@ -1,7 +1,7 @@
-import 'package:fisplan_alupar/app/core/app_token.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/app_token.dart';
 import '../../../core/app_validators.dart';
 import '../../../shared/controllers/audios_controller.dart';
 import '../../../shared/widgets/textform_widget.dart';

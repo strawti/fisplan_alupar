@@ -1,10 +1,10 @@
-import '../../core/app_assets.dart';
-import '../../core/app_token.dart';
-import '../home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../core/app_assets.dart';
+import '../../core/app_token.dart';
 import '../auth/login/login_page.dart';
+import '../home/home_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);

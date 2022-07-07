@@ -1,6 +1,6 @@
-import 'package:fisplan_alupar/app/infra/models/requests/inspection_request_model.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/new_inspection_page.dart';
-import 'package:fisplan_alupar/app/routes/arguments/new_inspection_page_arguments.dart';
+import '../../../infra/models/requests/inspection_request_model.dart';
+import '../../new_inspection/new_inspection_page.dart';
+import '../../../routes/arguments/new_inspection_page_arguments.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

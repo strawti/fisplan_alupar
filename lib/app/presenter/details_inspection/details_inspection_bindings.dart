@@ -1,11 +1,11 @@
-import 'package:fisplan_alupar/app/infra/providers/companies/projects/companies_projects_questionnaires_provider.dart';
-import 'package:fisplan_alupar/app/infra/providers/installations/installations_provider.dart';
-import 'package:fisplan_alupar/app/infra/providers/installations/local/local_installations_provider.dart';
-import 'package:fisplan_alupar/app/infra/repositories/companies/projects/companies_projects_questionnaires_repository.dart';
-import 'package:fisplan_alupar/app/infra/repositories/installations/installations_repository.dart';
-import 'package:fisplan_alupar/app/infra/repositories/installations/local/local_installations_repository.dart';
-import 'package:fisplan_alupar/app/shared/controllers/installation_type_controller.dart';
-import 'package:fisplan_alupar/app/shared/controllers/installations_controller.dart';
+import '../../infra/providers/companies/projects/companies_projects_questionnaires_provider.dart';
+import '../../infra/providers/installations/installations_provider.dart';
+import '../../infra/providers/installations/local/local_installations_provider.dart';
+import '../../infra/repositories/companies/projects/companies_projects_questionnaires_repository.dart';
+import '../../infra/repositories/installations/installations_repository.dart';
+import '../../infra/repositories/installations/local/local_installations_repository.dart';
+import '../../shared/controllers/installation_type_controller.dart';
+import '../../shared/controllers/installations_controller.dart';
 import 'package:get/get.dart';
 
 import '../../infra/providers/activities/activities_provider.dart';

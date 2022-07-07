@@ -1,8 +1,8 @@
-import 'package:fisplan_alupar/app/infra/models/responses/inspection_model.dart';
-import 'package:fisplan_alupar/app/shared/controllers/companies_controller.dart';
-import 'package:fisplan_alupar/app/shared/controllers/installations_controller.dart';
-import 'package:fisplan_alupar/app/routes/arguments/datails_inspection_page_arguments.dart';
-import 'package:fisplan_alupar/app/shared/utils/custom_dialog.dart';
+import '../../infra/models/responses/inspection_model.dart';
+import '../../shared/controllers/companies_controller.dart';
+import '../../shared/controllers/installations_controller.dart';
+import '../../routes/arguments/datails_inspection_page_arguments.dart';
+import '../../shared/utils/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

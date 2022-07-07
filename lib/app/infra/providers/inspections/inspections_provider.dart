@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:fisplan_alupar/app/infra/models/requests/inspection_request_model.dart';
+import '../../models/requests/inspection_request_model.dart';
 
 import '../../../core/app_constants.dart';
 import '../../models/defaults/app_error_model.dart';

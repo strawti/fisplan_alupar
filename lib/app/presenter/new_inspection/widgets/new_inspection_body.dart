@@ -1,5 +1,5 @@
-import 'package:fisplan_alupar/app/presenter/new_inspection/widgets/question_widget.dart';
-import 'package:fisplan_alupar/app/shared/widgets/button_default_widget.dart';
+import 'question_widget.dart';
+import '../../../shared/widgets/button_default_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

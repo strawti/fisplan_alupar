@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:fisplan_alupar/app/infra/models/responses/step_model.dart';
+import '../../../models/responses/step_model.dart';
 
 import '../../../../core/app_constants.dart';
 import '../../../models/defaults/app_error_model.dart';

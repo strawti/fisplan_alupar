@@ -1,4 +1,4 @@
-import 'package:fisplan_alupar/app/shared/widgets/divider_widget.dart';
+import '../../../shared/widgets/divider_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../infra/models/responses/tower_model.dart';

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:fisplan_alupar/app/infra/enums/question_types_enum.dart';
+import '../../enums/question_types_enum.dart';
 
 class QuestionnaryModel {
   final int id;

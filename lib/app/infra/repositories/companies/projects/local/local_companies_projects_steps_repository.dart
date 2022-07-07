@@ -1,5 +1,6 @@
-import 'package:fisplan_alupar/app/infra/models/responses/step_model.dart';
 import 'package:get_storage/get_storage.dart';
+
+import '../../../../models/responses/step_model.dart';
 
 class LocalCompaniesProjectsStepsRepository {
   final GetStorage _storage;

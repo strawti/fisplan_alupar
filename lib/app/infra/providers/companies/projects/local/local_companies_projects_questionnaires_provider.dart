@@ -1,8 +1,7 @@
-import 'package:fisplan_alupar/app/infra/repositories/companies/projects/local/local_companies_projects_questionnaires_repository.dart';
-
 import '../../../../models/defaults/app_error_model.dart';
 import '../../../../models/defaults/provider_response_model.dart';
 import '../../../../models/responses/questionnary_model.dart';
+import '../../../../repositories/companies/projects/local/local_companies_projects_questionnaires_repository.dart';
 
 class LocalCompaniesProjectsQuestionnairesProvider {
   final LocalCompaniesProjectsQustionnairesRepository _repository;

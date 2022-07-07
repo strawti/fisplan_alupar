@@ -1,15 +1,15 @@
+import 'package:get/get.dart';
+
 import '../../infra/providers/inspections/inspections_provider.dart';
+import '../../infra/providers/inspections/local_inspections_provider.dart';
+import '../../infra/providers/towers/local_towers_provider.dart';
 import '../../infra/providers/towers/towers_provider.dart';
 import '../../infra/repositories/inspections/inspections_repository.dart';
 import '../../infra/repositories/inspections/local_inspections_repository.dart';
 import '../../infra/repositories/towers/local_towers_repository.dart';
 import '../../infra/repositories/towers/towers_repository.dart';
-import 'package:get/get.dart';
-
-import 'inspections_controller.dart';
-import '../../infra/providers/inspections/local_inspections_provider.dart';
-import '../../infra/providers/towers/local_towers_provider.dart';
 import '../../shared/controllers/towers_controller.dart';
+import 'inspections_controller.dart';
 
 class InspectionsBindings implements Bindings {
   @override

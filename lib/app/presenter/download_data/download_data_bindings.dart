@@ -1,4 +1,3 @@
-import 'package:fisplan_alupar/app/shared/controllers/questionnaires_controller.dart';
 import 'package:get/get.dart';
 
 import '../../infra/providers/activities/activities_provider.dart';
@@ -43,15 +42,16 @@ import '../../infra/repositories/installations/local/local_installations_reposit
 import '../../infra/repositories/installations/local/local_installations_type_repository.dart';
 import '../../infra/repositories/towers/local_towers_repository.dart';
 import '../../infra/repositories/towers/towers_repository.dart';
-import '../inspections/inspections_controller.dart';
 import '../../shared/controllers/activities_controller.dart';
 import '../../shared/controllers/companies_controller.dart';
 import '../../shared/controllers/equipments_categories_controller.dart';
-import '../../shared/equipments_controller.dart';
 import '../../shared/controllers/installation_type_controller.dart';
 import '../../shared/controllers/installations_controller.dart';
+import '../../shared/controllers/questionnaires_controller.dart';
 import '../../shared/controllers/steps_controller.dart';
 import '../../shared/controllers/towers_controller.dart';
+import '../../shared/equipments_controller.dart';
+import '../inspections/inspections_controller.dart';
 import 'download_data_controller.dart';
 
 class DownloadDataBindings implements Bindings {

@@ -4,10 +4,10 @@ import '../../core/app_connectivity.dart';
 import '../../infra/models/responses/tension_level_model.dart';
 import '../../infra/providers/companies/tension_levels/companies_tension_level_provider.dart';
 import '../../infra/providers/companies/tension_levels/local_companies_tension_levels_provider.dart';
+import '../../presenter/home/home_controller.dart';
 import '../utils/custom_snackbar.dart';
 import '../utils/get_datetime.dart';
 import '../utils/loader_manager.dart';
-import '../../presenter/home/home_controller.dart';
 
 class CompaniesTensionLevelController extends GetxController
     with LoaderManager {

@@ -1,10 +1,10 @@
-import 'package:fisplan_alupar/app/infra/models/responses/questionnary_model.dart';
-import 'package:fisplan_alupar/app/infra/providers/companies/projects/companies_projects_questionnaires_provider.dart';
-import 'package:fisplan_alupar/app/infra/providers/companies/projects/local/local_companies_projects_questionnaires_provider.dart';
-import 'package:fisplan_alupar/app/presenter/home/home_controller.dart';
 import 'package:get/get.dart';
 
 import '../../core/app_connectivity.dart';
+import '../../infra/models/responses/questionnary_model.dart';
+import '../../infra/providers/companies/projects/companies_projects_questionnaires_provider.dart';
+import '../../infra/providers/companies/projects/local/local_companies_projects_questionnaires_provider.dart';
+import '../../presenter/home/home_controller.dart';
 import '../utils/custom_snackbar.dart';
 import '../utils/get_datetime.dart';
 import '../utils/loader_manager.dart';

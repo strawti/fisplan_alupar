@@ -1,8 +1,7 @@
 import 'dart:convert';
 
-import 'package:fisplan_alupar/app/infra/models/responses/answer_model.dart';
-import 'package:fisplan_alupar/app/infra/models/responses/audio_model.dart';
-
+import '../responses/answer_model.dart';
+import '../responses/audio_model.dart';
 import '../responses/photo_model.dart';
 
 class InspectionRequestModel {

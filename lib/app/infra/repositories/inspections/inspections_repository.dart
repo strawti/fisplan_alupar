@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:fisplan_alupar/app/infra/models/requests/inspection_request_model.dart';
 import 'package:get/get.dart';
 
 import '../../api_endpoints.dart';
 import '../../models/defaults/api_error_default_model.dart';
 import '../../models/defaults/api_response_model.dart';
 import '../../models/defaults/default_response_model.dart';
+import '../../models/requests/inspection_request_model.dart';
 import '../../models/responses/inspection_model.dart';
 
 class InspectionsRepository {
