@@ -1,7 +1,7 @@
-import '../../../shared/widgets/divider_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../infra/models/responses/tower_model.dart';
+import '../../../shared/widgets/divider_widget.dart';
 
 class TowerWidget extends StatelessWidget {
   final TowerModel tower;
@@ -10,21 +10,25 @@ class TowerWidget extends StatelessWidget {
     required this.tower,
   }) : super(key: key);
 
-  List<String> get titles => [
-        "Latitude: ",
-        "Longitude: ",
-        "Altura: ",
-        "Vão: ",
-        "Comprimento do Vão: ",
-      ];
+  List<String> get titles {
+    return [
+      "Latitude: ",
+      "Longitude: ",
+      "Altura: ",
+      "Vão: ",
+      "Comprimento do Vão: ",
+    ];
+  }
 
-  List<String> get contents => [
-        "${tower.lat}",
-        "${tower.long}",
-        "${tower.height}",
-        (tower.span),
-        "${tower.spanLength} metros",
-      ];
+  List<String> get contents {
+    return [
+      "${tower.lat}",
+      "${tower.long}",
+      "${tower.height}",
+      (tower.span),
+      "${tower.spanLength} metros",
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,27 +38,47 @@ class TowerWidget extends StatelessWidget {
         horizontal: 20,
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: List.generate(
-          titles.length,
-          (index) {
-            return Column(
-              children: [
-                Row(
-                  children: [
-                    Text(titles[index]),
-                    Text(
-                      contents[index],
-                      textScaleFactor: 1.1,
-                      style: const TextStyle(color: Colors.grey),
-                    ),
-                  ],
-                ),
-                const DividerWidget(),
-              ],
-            );
-          },
-        ),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Text(
+              tower.name,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10.0,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: List.generate(
+                titles.length,
+                (index) {
+                  return Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text(titles[index]),
+                          Text(
+                            contents[index],
+                            textScaleFactor: 1.1,
+                            style: const TextStyle(color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                      const DividerWidget(),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -34,6 +34,8 @@ class SelectionController extends GetxController {
 
     itemsFiltered = routeArguments.items.toList();
     itemsFiltered.sort((a, b) => a.isChecked ? -1 : 1);
+
+    selectedItems = itemsFiltered.where((e) => e.isChecked).toList();
     update();
   }
 
@@ -48,4 +50,25 @@ class SelectionController extends GetxController {
   String get searchText => searchController.text.trim().toLowerCase();
 
   List<ItemSelectionModel> itemsFiltered = [];
+  List<ItemSelectionModel> selectedItems = [];
+  void setSelectedItems(ItemSelectionModel item) {
+    if (item.isChecked) {
+      selectedItems.remove(item);
+    } else {
+      selectedItems.add(item);
+    }
+
+    item.isChecked = !item.isChecked;
+    update();
+  }
+
+  void selectItem(ItemSelectionModel item) {
+    if (routeArguments.isMultipleSelection) {
+      selectedItems.clear();
+      setSelectedItems(item);
+      Get.back(result: selectedItems);
+    } else {
+      Get.back(result: item);
+    }
+  }
 }

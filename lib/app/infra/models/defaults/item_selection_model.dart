@@ -1,8 +1,8 @@
 class ItemSelectionModel<T> {
   final T item;
-  final bool isChecked;
+  bool isChecked;
   final String title;
-  
+
   ItemSelectionModel({
     required this.item,
     this.isChecked = false,

@@ -74,18 +74,23 @@ class FiltersWidget extends StatelessWidget {
                 child: Column(
                   children: [
                     ListTile(
-                      title: const Text('Torre'),
+                      title: const Text('Torres'),
                       trailing: const Icon(Icons.arrow_drop_down),
                       subtitle: Text(
-                        controller.selectedTower?.name ?? '',
+                        controller.nameSelectedTowers,
                         textScaleFactor: 1.1,
                       ),
                       onTap: controller.getTowers,
                     ),
-                    if (controller.selectedTower != null)
-                      TowerWidget(
-                        tower: controller.selectedTower!,
-                      ),
+                    if (controller.selectedTowers != null)
+                      ...List.generate(
+                        controller.selectedTowers!.length,
+                        (index) {
+                          return TowerWidget(
+                            tower: controller.selectedTowers![index],
+                          );
+                        },
+                      )
                   ],
                 ),
               );

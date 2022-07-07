@@ -12,10 +12,20 @@ class SelectionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(Get.find<SelectionController>().routeArguments.title),
       ),
       body: const BodySelectionPage(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Get.back(
+            result: Get.find<SelectionController>().selectedItems,
+          );
+        },
+        label: const Text('Pronto'),
+      ),
     );
   }
 }

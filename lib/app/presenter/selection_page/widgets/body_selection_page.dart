@@ -34,13 +34,13 @@ class BodySelectionPage extends StatelessWidget {
                       final item = control.itemsFiltered[index];
                       return ListTile(
                         title: Text(item.title),
-                        onTap: () => Get.back(result: item),
+                        onTap: () => control.selectItem(item),
                         leading: Checkbox(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
                           value: item.isChecked,
-                          onChanged: (value) => Get.back(result: item),
+                          onChanged: (value) => control.selectItem(item),
                         ),
                       );
                     },

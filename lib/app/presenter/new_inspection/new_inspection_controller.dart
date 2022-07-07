@@ -117,9 +117,13 @@ class NewInspectionController extends GetxController with LoaderManager {
       return e.id == inspection.installationTypeId;
     });
 
-    selectedTower = towersController.towersFiltered.firstWhereOrNull(
+    final selectedTower = towersController.towersFiltered.firstWhereOrNull(
       (e) => e.id == inspection.towerId,
     );
+
+    if (selectedTower != null) {
+      selectedTowers = [selectedTower];
+    }
 
     selectedActivity =
         ActivitiesController.to.activitiesFiltered.firstWhereOrNull(
@@ -245,18 +249,37 @@ class NewInspectionController extends GetxController with LoaderManager {
     }
   }
 
-  TowerModel? selectedTower;
+  List<TowerModel>? selectedTowers = [];
+  String get nameSelectedTowers {
+    return selectedTowers?.map((t) => t.name).join(', ') ?? '';
+  }
+
   Future getTowers() async {
     towersController.filterTowersByInstallation(selectedInstallation!.id);
 
-    final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
-      'Torre',
-      towersController.towersFiltered,
-      selectedTower,
+    final result = await Get.toNamed(
+      SelectionPage.route,
+      arguments: SelectionPageArguments(
+        title: 'Torres',
+        isMultipleSelection: true,
+        items: towersController.towersFiltered.map(
+          (tower) {
+            return ItemSelectionModel<TowerModel>(
+              title: tower.name,
+              item: tower,
+              isChecked: selectedTowers?.where((e) {
+                    return e.id == tower.id;
+                  }).isNotEmpty ??
+                  false,
+            );
+          },
+        ).toList(),
+      ),
     );
 
     if (result != null) {
-      selectedTower = result.item;
+      selectedTowers = List<TowerModel>.from(result.map((e) => e.item));
+
       update();
     }
   }
@@ -399,7 +422,7 @@ class NewInspectionController extends GetxController with LoaderManager {
   }
 
   void clearSelectedItems() {
-    selectedTower = null;
+    selectedTowers = null;
     selectedEquipmentsCategory = null;
     selectedTensionLevel = null;
     selectedActivity = null;
@@ -456,11 +479,11 @@ class NewInspectionController extends GetxController with LoaderManager {
   }
 
   bool get showStep {
-    return selectedInstallation != null &&
-            selectedEquipmentsCategory != null &&
-            selectedEquipment != null &&
-            selectedTensionLevel != null ||
-        selectedTower != null;
+    return selectedInstallationType != null &&
+        selectedInstallation != null &&
+        selectedEquipmentsCategory != null &&
+        selectedEquipment != null &&
+        (selectedTensionLevel != null || selectedTowers != null);
   }
 
   bool get showActivity {
@@ -486,7 +509,7 @@ class NewInspectionController extends GetxController with LoaderManager {
     }
 
     if (showTower) {
-      if (selectedTower == null) {
+      if (selectedTowers == null) {
         CustomSnackbar.to.show("Selecione uma torre");
         return;
       }
@@ -596,7 +619,7 @@ class NewInspectionController extends GetxController with LoaderManager {
       installationId: selectedInstallation!.id,
       installationTypeId: selectedInstallationType!.id,
       equipmentCategoryId: selectedEquipmentsCategory?.id,
-      towerId: selectedTower?.id,
+      towerId: selectedTowers?.first.id,
       equipmentId: selectedEquipment?.id,
       stepId: selectedStep?.id,
       createdAt: DateTime.now().toString(),
@@ -703,7 +726,7 @@ class NewInspectionController extends GetxController with LoaderManager {
       installationId: selectedInstallation!.id,
       installationTypeId: selectedInstallationType!.id,
       equipmentCategoryId: selectedEquipmentsCategory?.id,
-      towerId: selectedTower?.id,
+      towerId: selectedTowers?.first.id,
       equipmentId: selectedEquipment?.id,
       stepId: selectedStep?.id,
       createdAt: arguments.inspectionRequest!.createdAt,
