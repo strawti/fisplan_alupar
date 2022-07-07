@@ -91,7 +91,7 @@ class InstallationsController extends GetxController with LoaderManager {
     final response = await _localInstallationsProvider.getLastTimeUpdated();
 
     if (response.isSuccess) {
-      lastUpdate = getDateTime(response.data!);
+      lastUpdate = formatDateTimeForString(response.data!);
     }
   }
 }
