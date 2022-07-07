@@ -91,7 +91,7 @@ class TowersController extends GetxController with LoaderManager {
     final response = await _localTowersProvider.getLastTimeUpdated();
 
     if (response.isSuccess) {
-      lastUpdate = getDateTime(response.data!);
+      lastUpdate = formatDateTimeForString(response.data!);
     }
   }
 }
