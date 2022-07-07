@@ -2,6 +2,7 @@ import 'package:fisplan_alupar/app/infra/models/responses/inspection_model.dart'
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/companies_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/installations_controller.dart';
 import 'package:fisplan_alupar/app/routes/arguments/datails_inspection_page_arguments.dart';
+import 'package:fisplan_alupar/app/shared/utils/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -61,10 +62,9 @@ class DetailsInspectionController extends GetxController {
   Future _fillTheFields() async {
     final inspection = arguments.inspection;
 
-    Get.defaultDialog(
-      title: "Aguarde",
+    CustomDialog().show(
+      title: 'Aguarde',
       middleText: 'Obtendo dados...',
-      barrierDismissible: false,
     );
     await Future.delayed(const Duration(seconds: 2));
     Get.back();

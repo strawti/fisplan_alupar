@@ -22,6 +22,8 @@ void main() async {
     await AppNotifications().init();
     await GetStorage.init();
 
+    await GetStorage().writeIfNull('isTheFirstTime', true);
+
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
     runApp(const AppWidget());

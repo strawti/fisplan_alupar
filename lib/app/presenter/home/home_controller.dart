@@ -1,3 +1,5 @@
+import 'package:fisplan_alupar/app/presenter/download_data/download_data_page.dart';
+import 'package:fisplan_alupar/app/shared/utils/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -7,6 +9,7 @@ import '../../infra/models/responses/project_model.dart';
 import '../../infra/models/responses/user_response_model.dart';
 import '../../infra/providers/companies/projects/companies_projects_provider.dart';
 import '../../infra/providers/companies/projects/local/local_companies_projects_provider.dart';
+import '../../infra/providers/inspections/local_inspections_provider.dart';
 import '../../infra/providers/user/local_user_provider.dart';
 import '../../infra/providers/user/user_provider.dart';
 import '../../shared/utils/custom_snackbar.dart';
@@ -19,6 +22,7 @@ class HomeController extends GetxController with LoaderManager {
 
   final CompaniesProjectsProvider _companiesProjectsProvider;
   final LocalCompaniesProjectsProvider _localCompaniesProjectsProvider;
+  final LocalInspectionsProvider _localInspectionsProvider;
 
   final LocalUserProvider _localUserProvider;
   final UserProvider _userProvider;
@@ -28,6 +32,7 @@ class HomeController extends GetxController with LoaderManager {
     this._userProvider,
     this._companiesProjectsProvider,
     this._localCompaniesProjectsProvider,
+    this._localInspectionsProvider,
   );
 
   @override
@@ -83,6 +88,22 @@ class HomeController extends GetxController with LoaderManager {
     projectsFiltered.sort((a, b) => a.progress.compareTo(b.progress));
 
     _getLastTimeUpdated();
+
+    if (GetStorage().read('isTheFirstTime')) {
+      CustomDialog().show(
+        textConfirm: 'Sim',
+        textCancel: 'Não',
+        title: 'Bem-vindo(a)!',
+        middleText: 'Precisamos baixar alguns dados para que o aplicativo'
+            ' funcione corretamente, vamos fazer isso agora ?',
+        onConfirm: () {
+          Get.toNamed(DownloadDataPage.route);
+        },
+      );
+      GetStorage().write('isTheFirstTime', false);
+    }
+
+    getInspectionsUnsynch();
 
     setIsLoading(false);
   }
@@ -147,6 +168,14 @@ class HomeController extends GetxController with LoaderManager {
 
     if (response.isSuccess) {
       lastUpdate = getDateTime(response.data!);
+    }
+  }
+
+  bool hasInspectionsUnsynch = false;
+  Future getInspectionsUnsynch() async {
+    final response = await _localInspectionsProvider.getAllUnsynchronized();
+    if (response.isSuccess) {
+      hasInspectionsUnsynch = response.data?.isNotEmpty ?? false;
     }
   }
 }

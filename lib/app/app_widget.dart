@@ -33,6 +33,7 @@ class AppWidget extends StatelessWidget {
         Locale('en', 'US'),
         Locale('pt', 'BR'),
       ],
+
       // builder: _builder,
     );
   }
@@ -49,4 +50,5 @@ class AppWidget extends StatelessWidget {
 
   //   return widget;
   // }
+
 }

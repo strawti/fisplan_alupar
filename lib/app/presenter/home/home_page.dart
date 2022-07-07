@@ -42,7 +42,33 @@ class HomePage extends GetView<HomeController> {
           ),
           actions: [
             IconButton(
-              icon: const Icon(Icons.download),
+              icon: Stack(
+                alignment: AlignmentDirectional.topEnd,
+                children: [
+                  const Icon(Icons.download),
+                  GetBuilder<HomeController>(
+                    didChangeDependencies: (state) {
+                      HomeController.to.getInspectionsUnsynch();
+                    },
+                    builder: (control) {
+                      return Visibility(
+                        visible: control.hasInspectionsUnsynch,
+                        replacement: const SizedBox.shrink(),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: const ColoredBox(
+                            color: Colors.orange,
+                            child: SizedBox(
+                              width: 10,
+                              height: 10,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  )
+                ],
+              ),
               onPressed: () {
                 Get.toNamed(DownloadDataPage.route);
               },

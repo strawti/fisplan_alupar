@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:fisplan_alupar/app/core/app_colors.dart';
 import 'package:fisplan_alupar/app/infra/enums/question_types_enum.dart';
 import 'package:fisplan_alupar/app/infra/models/requests/inspection_request_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/activity_model.dart';
@@ -16,6 +15,7 @@ import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/audios_c
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/images_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/questionnaires_controller.dart';
 import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/steps_controller.dart';
+import 'package:fisplan_alupar/app/shared/utils/custom_dialog.dart';
 import 'package:fisplan_alupar/app/shared/utils/loader_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -91,10 +91,9 @@ class NewInspectionController extends GetxController with LoaderManager {
       return;
     }
 
-    Get.defaultDialog(
+    CustomDialog().show(
       title: "Aguarde",
       middleText: 'Obtendo dados...',
-      barrierDismissible: false,
     );
     await Future.delayed(const Duration(seconds: 2));
     Get.back();
@@ -370,14 +369,18 @@ class NewInspectionController extends GetxController with LoaderManager {
   void setAnswer(Question question, dynamic answer) {
     answers.removeWhere((e) => e.questionId == question.id);
 
-    answers.add(
-      AnswerModel(
-        questionnaireId:
-            QuestionnairesController.to.questionnairesFiltered.first.id,
-        questionId: question.id,
-        answer: answer,
-      ),
-    );
+    if (answer is AnswerModel) {
+      answers.add(answer);
+    } else {
+      answers.add(
+        AnswerModel(
+          questionnaireId:
+              QuestionnairesController.to.questionnairesFiltered.first.id,
+          questionId: question.id,
+          answer: answer,
+        ),
+      );
+    }
 
     update();
   }
@@ -613,13 +616,11 @@ class NewInspectionController extends GetxController with LoaderManager {
         );
 
         if (response.isSuccess) {
-          await Get.defaultDialog(
+          await CustomDialog().show(
+            textConfirm: 'Sim',
+            textCancel: 'Não',
             title: 'Duplicar?',
             middleText: 'Deseja criar uma nova inspeção a partir dessa?',
-            textConfirm: 'SIM',
-            textCancel: 'Não',
-            buttonColor: appPrimaryColor,
-            confirmTextColor: Colors.white,
             onConfirm: () {
               Get.back();
               CustomSnackbar.to.show(
@@ -639,6 +640,7 @@ class NewInspectionController extends GetxController with LoaderManager {
               CustomSnackbar.to.show("Inspeção salva com sucesso");
             },
           );
+
           Get.find<InspectionsController>().fetch();
         } else {
           CustomSnackbar.to.show(response.error!.content!);
@@ -732,6 +734,7 @@ class NewInspectionController extends GetxController with LoaderManager {
         if (response.isSuccess) {
           Get.offNamed(HomePage.route);
           Get.find<InspectionsController>().fetch();
+
           CustomSnackbar.to.show("Inspeção atualizada com sucesso");
         } else {
           CustomSnackbar.to.show(response.error!.content!);

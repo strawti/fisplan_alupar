@@ -2,10 +2,10 @@ import 'dart:developer';
 
 import 'package:fisplan_alupar/app/infra/models/requests/inspection_request_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/photo_model.dart';
+import 'package:fisplan_alupar/app/shared/utils/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../core/app_colors.dart';
 import '../../core/app_connectivity.dart';
 import '../../infra/models/responses/inspection_model.dart';
 import '../../infra/providers/inspections/inspections_provider.dart';
@@ -190,14 +190,15 @@ class InspectionsController extends GetxController with LoaderManager {
 
     await _getInspectionsNotSynced();
 
-    await Get.defaultDialog(
+    await CustomDialog().show(
+      textConfirm: 'Sim',
+      textCancel: 'Não',
       title: 'Atualizar dados?',
       middleText: 'Deseja atualizar inspenções?',
-      textConfirm: 'SIM',
-      textCancel: 'Não',
-      buttonColor: appPrimaryColor,
-      confirmTextColor: Colors.white,
-      onConfirm: () => fetch(online: true),
+      onConfirm: () {
+        Get.back();
+        fetch(online: true);
+      },
     );
   }
 
