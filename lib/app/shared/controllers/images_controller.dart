@@ -6,22 +6,24 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../widgets/alert_dialog_widget.dart';
 import '../../presenter/new_inspection/widgets/image_source_widget.dart';
+import '../widgets/alert_dialog_widget.dart';
 
 class ImagesController extends GetxController {
   List<File> allImages = [];
   Future addImages() async {
-    final ImagePicker picker = ImagePicker();
+    final picker = ImagePicker();
 
     final ImageSource? imageSource = await Get.bottomSheet(
       const SelectImageSourceWidget(),
     );
 
+    if (imageSource == null) {
+      return;
+    }
+
     XFile? image;
-    image = await picker.pickImage(
-      source: imageSource!,
-    );
+    image = await picker.pickImage(source: imageSource);
 
     if (image != null) {
       if (['jpg', 'png', 'jpeg'].contains(image.name.split('.').last)) {
