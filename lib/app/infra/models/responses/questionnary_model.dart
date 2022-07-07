@@ -126,6 +126,34 @@ class Question {
 
   factory Question.fromJson(String source) =>
       Question.fromMap(json.decode(source));
+
+  Question copyWith({
+    int? id,
+    String? name,
+    String? description,
+    bool? isActive,
+    bool? isRequired,
+    int? questionnaireId,
+    int? questionTypeId,
+    int? equipmentCategoryId,
+    int? stepId,
+    int? activityId,
+    List<AlternativeModel>? alternatives,
+  }) {
+    return Question(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      description: description ?? this.description,
+      isActive: isActive ?? this.isActive,
+      isRequired: isRequired ?? this.isRequired,
+      questionnaireId: questionnaireId ?? this.questionnaireId,
+      questionTypeId: questionTypeId ?? this.questionTypeId,
+      equipmentCategoryId: equipmentCategoryId ?? this.equipmentCategoryId,
+      stepId: stepId ?? this.stepId,
+      activityId: activityId ?? this.activityId,
+      alternatives: alternatives ?? this.alternatives,
+    );
+  }
 }
 
 class AlternativeModel {
