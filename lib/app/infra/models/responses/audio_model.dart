@@ -8,9 +8,7 @@ class AudioModel {
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
-  
     result.addAll({'path': path});
-  
     return result;
   }
 
@@ -22,5 +20,6 @@ class AudioModel {
 
   String toJson() => json.encode(toMap());
 
-  factory AudioModel.fromJson(String source) => AudioModel.fromMap(json.decode(source));
+  factory AudioModel.fromJson(String source) =>
+      AudioModel.fromMap(json.decode(source));
 }
