@@ -7,10 +7,9 @@ import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 
+import '../../core/app_token.dart';
 import '../utils/custom_snackbar.dart';
 import '../widgets/alert_dialog_widget.dart';
-
-
 
 class AudiosController extends GetxController {
   @override
@@ -19,6 +18,9 @@ class AudiosController extends GetxController {
     _timer?.cancel();
     audioPlayers.map((e) => e.player.dispose());
     audioPlayers.map((e) async => await removeAudio(e));
+
+    audiosOfWeb.map((e) => e.player.dispose());
+    audiosOfWeb.map((e) async => await removeAudio(e));
 
     super.onClose();
   }
@@ -103,7 +105,11 @@ class AudiosController extends GetxController {
         '${tempDir.path}/${DateTime.now().toString()}.mp4',
       ).create();
 
-      await file.writeAsBytes(List<int>.from(base64Decode(audio)));
+      await file.writeAsBytes(
+        List<int>.from(
+          base64Decode(audio.replaceAll('data:audio/mp4;base64,', '')),
+        ),
+      );
 
       final player = AudioPlayer();
       await player.setFilePath(file.path);
@@ -145,6 +151,36 @@ class AudiosController extends GetxController {
         },
       ),
     );
+  }
+
+  List<AudioTile> audiosOfWeb = [];
+  Future setAudiosOfWeb(List<String> audios) async {
+    for (var audio in audios) {
+      final player = AudioPlayer();
+
+      player.setAudioSource(
+        AudioSource.uri(
+          Uri.parse(audio.replaceAll('data:audio/mp4;base64,', '')),
+          headers: {
+            'Authorization': 'Bearer ${AppToken.instance.token}',
+          },
+        ),
+        initialPosition: Duration.zero,
+        preload: true,
+      );
+
+      audiosOfWeb.add(AudioTile(audio, player));
+    }
+
+    update();
+  }
+
+  Future startAudioOfWeb(AudioTile audio) async {
+    await audio.player.play();
+  }
+
+  Future stopAudioOfWeb(AudioTile audio) async {
+    await audio.player.stop();
   }
 }
 
