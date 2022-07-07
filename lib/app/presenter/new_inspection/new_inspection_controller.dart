@@ -1,43 +1,43 @@
 import 'dart:async';
 
-import '../../infra/enums/question_types_enum.dart';
-import '../../infra/models/requests/inspection_request_model.dart';
-import '../../infra/models/responses/activity_model.dart';
-import '../../infra/models/responses/answer_model.dart';
-import '../../infra/models/responses/audio_model.dart';
-import '../../infra/models/responses/photo_model.dart';
-import '../../infra/models/responses/questionnary_model.dart';
-import '../../infra/models/responses/step_model.dart';
-import '../../infra/providers/inspections/local_inspections_provider.dart';
-import '../home/home_controller.dart';
-import '../../shared/controllers/activities_controller.dart';
-import '../../shared/controllers/images_controller.dart';
-import '../../shared/controllers/questionnaires_controller.dart';
-import '../../shared/controllers/steps_controller.dart';
-import '../../shared/utils/custom_dialog.dart';
-import '../../shared/utils/loader_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
+import '../../infra/enums/question_types_enum.dart';
 import '../../infra/models/defaults/item_selection_model.dart';
+import '../../infra/models/requests/inspection_request_model.dart';
+import '../../infra/models/responses/activity_model.dart';
+import '../../infra/models/responses/answer_model.dart';
+import '../../infra/models/responses/audio_model.dart';
 import '../../infra/models/responses/equipment_category_model.dart';
 import '../../infra/models/responses/equipment_model.dart';
 import '../../infra/models/responses/installation_model.dart';
 import '../../infra/models/responses/installation_type_model.dart';
+import '../../infra/models/responses/photo_model.dart';
+import '../../infra/models/responses/questionnary_model.dart';
+import '../../infra/models/responses/step_model.dart';
 import '../../infra/models/responses/tension_level_model.dart';
 import '../../infra/models/responses/tower_model.dart';
+import '../../infra/providers/inspections/local_inspections_provider.dart';
 import '../../routes/arguments/new_inspection_page_arguments.dart';
 import '../../routes/arguments/selection_page_arguments.dart';
+import '../../shared/controllers/activities_controller.dart';
 import '../../shared/controllers/audios_controller.dart';
 import '../../shared/controllers/companies_controller.dart';
 import '../../shared/controllers/equipments_categories_controller.dart';
+import '../../shared/controllers/equipments_controller.dart';
+import '../../shared/controllers/images_controller.dart';
 import '../../shared/controllers/installation_type_controller.dart';
 import '../../shared/controllers/installations_controller.dart';
+import '../../shared/controllers/questionnaires_controller.dart';
+import '../../shared/controllers/steps_controller.dart';
 import '../../shared/controllers/towers_controller.dart';
-import '../../shared/controllers/equipments_controller.dart';
+import '../../shared/utils/custom_dialog.dart';
 import '../../shared/utils/custom_snackbar.dart';
 import '../../shared/utils/get_datetime.dart';
+import '../../shared/utils/loader_manager.dart';
+import '../home/home_controller.dart';
 import '../home/home_page.dart';
 import '../inspections/inspections_controller.dart';
 import '../selection_page/selection_page.dart';
@@ -66,7 +66,8 @@ class NewInspectionController extends GetxController with LoaderManager {
     descriptionController.addListener(update);
     commentsController.addListener(update);
 
-    nameController.text = "Fiscalização - ${getDateTime(DateTime.now())}";
+    nameController.text =
+        "Fiscalização - ${formatDateTimeForString(DateTime.now())}";
 
     _getPosition();
 
@@ -371,7 +372,9 @@ class NewInspectionController extends GetxController with LoaderManager {
     answers.removeWhere((e) => e.questionId == question.id);
 
     if (answer is AnswerModel) {
-      answers.add(answer);
+      answers.add(answer.copyWith(
+        questionnaireId: question.questionnaireId,
+      ));
     } else {
       answers.add(
         AnswerModel(
@@ -632,7 +635,7 @@ class NewInspectionController extends GetxController with LoaderManager {
                 curve: Curves.linear,
               );
               nameController.text =
-                  "Fiscalização - ${getDateTime(DateTime.now())}";
+                  "Fiscalização - ${formatDateTimeForString(DateTime.now())}";
             },
             onCancel: () {
               Get.back();

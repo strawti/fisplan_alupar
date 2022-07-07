@@ -1,18 +1,18 @@
-import '../../infra/models/requests/inspection_request_model.dart';
-import '../home/home_controller.dart';
-import '../../shared/controllers/questionnaires_controller.dart';
-import '../../shared/controllers/steps_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../inspections/inspections_controller.dart';
+import '../../infra/models/requests/inspection_request_model.dart';
 import '../../shared/controllers/activities_controller.dart';
 import '../../shared/controllers/companies_controller.dart';
 import '../../shared/controllers/equipments_categories_controller.dart';
 import '../../shared/controllers/equipments_controller.dart';
 import '../../shared/controllers/installation_type_controller.dart';
 import '../../shared/controllers/installations_controller.dart';
+import '../../shared/controllers/questionnaires_controller.dart';
+import '../../shared/controllers/steps_controller.dart';
 import '../../shared/controllers/towers_controller.dart';
+import '../home/home_controller.dart';
+import '../inspections/inspections_controller.dart';
 import 'download_data_controller.dart';
 
 class DownloadDataPage extends GetView<DownloadDataController> {
@@ -245,42 +245,19 @@ class InspectionUnsynchronizedWidget extends StatelessWidget {
                     color: Colors.red,
                   ),
           ),
-          ListTile(
-            title: const Text('Imagens'),
-            trailing: inspection.isSendPhotos
-                ? const Icon(
-                    Icons.check_circle,
-                    color: Colors.green,
-                  )
-                : const Icon(
-                    Icons.error,
-                    color: Colors.red,
-                  ),
-          ),
-          ListTile(
-            title: const Text('Audios'),
-            trailing: inspection.isSendAudios
-                ? const Icon(
-                    Icons.check_circle,
-                    color: Colors.green,
-                  )
-                : const Icon(
-                    Icons.error,
-                    color: Colors.red,
-                  ),
-          ),
-          // ListTile(
-          //   title: const Text('Questionários'),
-          //   trailing: inspection.isSendAnswers
-          //       ? const Icon(
-          //           Icons.check_circle,
-          //           color: Colors.green,
-          //         )
-          //       : const Icon(
-          //           Icons.error,
-          //           color: Colors.red,
-          //         ),
-          // ),
+          if (inspection.photos.isNotEmpty)
+            ListTile(
+              title: const Text('Imagens'),
+              trailing: inspection.isSendPhotos
+                  ? const Icon(
+                      Icons.check_circle,
+                      color: Colors.green,
+                    )
+                  : const Icon(
+                      Icons.error,
+                      color: Colors.red,
+                    ),
+            ),
         ],
       ),
     );

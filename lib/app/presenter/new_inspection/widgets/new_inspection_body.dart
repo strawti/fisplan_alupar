@@ -1,15 +1,15 @@
-import 'question_widget.dart';
-import '../../../shared/widgets/button_default_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../shared/widgets/button_default_widget.dart';
+import '../../../shared/widgets/location_inspection_widget.dart';
 import '../../../shared/widgets/textform_widget.dart';
 import '../new_inspection_controller.dart';
 import 'audios_widget.dart';
 import 'filters_widget.dart';
-import 'location_new_inspection_widget.dart';
 import 'new_inspection_card.dart';
 import 'photos_widget.dart';
+import 'question_widget.dart';
 import 'title_widget.dart';
 
 class NewInspectionBody extends StatelessWidget {
@@ -60,7 +60,9 @@ class NewInspectionBody extends StatelessWidget {
             const SizedBox(height: 10),
             const AudiosWidget(),
             const SizedBox(height: 10),
-            const LocationNewInspectionWidget(),
+            LocationInspectionWidget(
+              control: Get.find<NewInspectionController>(),
+            ),
             const NewInspectionCard(
               title: 'Comentários',
               child: Padding(

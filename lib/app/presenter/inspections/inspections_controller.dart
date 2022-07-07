@@ -13,7 +13,6 @@ import '../../routes/arguments/inspections_page_arguments.dart';
 import '../../shared/utils/custom_dialog.dart';
 import '../../shared/utils/get_datetime.dart';
 import '../../shared/utils/loader_manager.dart';
-import '../home/home_controller.dart';
 
 class InspectionsController extends GetxController with LoaderManager {
   final LocalInspectionsProvider _localInspectionsProvider;
@@ -52,8 +51,7 @@ class InspectionsController extends GetxController with LoaderManager {
   }
 
   @override
-  void onClose() async {
-    await HomeController.to.getInspectionsUnsynch();
+  void onClose() {
     super.onClose();
 
     searchController.dispose();
@@ -68,7 +66,7 @@ class InspectionsController extends GetxController with LoaderManager {
     await _getLocalInspections();
 
     // Caso queira remover as inspeções
-    //await _setLocalInspections();
+    // await _setLocalInspections();
 
     if (await AppConnectivity.instance.isConnected()) {
       if (inspections.isEmpty || online) {
@@ -85,7 +83,7 @@ class InspectionsController extends GetxController with LoaderManager {
     await _getInspectionsNotSynced();
 
     inspectionsFiltered = inspections.toList();
-    inspectionsFiltered.sort((a, b) => b.name.compareTo(a.name));
+    //inspectionsFiltered.sort((a, b) => b.name.compareTo(a.name));
     _getLastTimeUpdated();
 
     setIsLoading(false);
@@ -113,7 +111,7 @@ class InspectionsController extends GetxController with LoaderManager {
   Future _getLastTimeUpdated() async {
     final response = await _localInspectionsProvider.getLastTimeUpdated();
     if (response.isSuccess) {
-      lastUpdate = getDateTime(response.data!);
+      lastUpdate = formatDateTimeForString(response.data!);
     }
   }
 
@@ -158,31 +156,29 @@ class InspectionsController extends GetxController with LoaderManager {
             inspection = await sendPhotos(inspection);
           }
 
-          if (inspection.isSendAudios == false) {
-            inspection = await sendAudios(inspection);
-          }
+          // if (inspection.isSendAudios == false) {
+          //   inspection = await sendAudios(inspection);
+          // }
         }
       } else {
         if (inspection.isSendPhotos == false) {
           inspection = await sendPhotos(inspection);
         }
 
-        if (inspection.isSendAudios == false) {
-          inspection = await sendAudios(inspection);
-        }
+        // if (inspection.isSendAudios == false) {
+        //   inspection = await sendAudios(inspection);
+        // }
       }
 
       if (inspection.isSendInspection) {
         if (inspection.isSendPhotos) {
-          if (inspection.isSendAudios) {
-            inspectionsUnsynchronized.removeWhere((e) {
-              return e.createdAt == inspection.createdAt;
-            });
-            // Confirm upgrade data
-            inspectionsUnsynchronized.remove(inspection);
+          inspectionsUnsynchronized.removeWhere((e) {
+            return e.createdAt == inspection.createdAt;
+          });
+          // Confirm upgrade data
+          inspectionsUnsynchronized.remove(inspection);
 
-            await _setLocalInspections();
-          }
+          await _setLocalInspections();
         }
       }
 
@@ -245,20 +241,23 @@ class InspectionsController extends GetxController with LoaderManager {
     return inspection;
   }
 
-  Future<InspectionRequestModel> sendAudios(
-    InspectionRequestModel inspection,
-  ) async {
-    inspectionsUnsynchronized.remove(inspection);
-    inspection = inspection.copyWith(
-      id: inspection.id,
-      audios: [],
-      isSendAudios: true,
-    );
-    inspectionsUnsynchronized.add(inspection);
+  // Future<InspectionRequestModel> sendAudios(
+  //   InspectionRequestModel inspection,
+  // ) async {
+  //   inspectionsUnsynchronized.remove(inspection);
 
-    await _setLocalInspections();
-    return inspection;
-  }
+  //   //final response = await _inspectionsProvider.sendPhoto(inspectionId, photoInBase64)
+
+  //   inspection = inspection.copyWith(
+  //     id: inspection.id,
+  //     audios: [],
+  //     isSendAudios: true,
+  //   );
+  //   inspectionsUnsynchronized.add(inspection);
+
+  //   await _setLocalInspections();
+  //   return inspection;
+  // }
 
   Future _setLocalInspections() async {
     await _localInspectionsProvider.setUnsynchronized(

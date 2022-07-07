@@ -168,7 +168,7 @@ class HomeController extends GetxController with LoaderManager {
     final response = await _localCompaniesProjectsProvider.getLastTimeUpdated();
 
     if (response.isSuccess) {
-      lastUpdate = getDateTime(response.data!);
+      lastUpdate = formatDateTimeForString(response.data!);
     }
   }
 
