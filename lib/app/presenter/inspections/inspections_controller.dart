@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:fisplan_alupar/app/infra/models/requests/inspection_request_model.dart';
 import 'package:fisplan_alupar/app/infra/models/responses/photo_model.dart';
+import 'package:fisplan_alupar/app/presenter/home/home_controller.dart';
 import 'package:fisplan_alupar/app/shared/utils/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -51,7 +52,8 @@ class InspectionsController extends GetxController with LoaderManager {
   }
 
   @override
-  void onClose() {
+  void onClose() async {
+    await HomeController.to.getInspectionsUnsynch();
     super.onClose();
 
     searchController.dispose();
@@ -174,10 +176,11 @@ class InspectionsController extends GetxController with LoaderManager {
         if (inspection.isSendPhotos) {
           if (inspection.isSendAudios) {
             inspectionsUnsynchronized.removeWhere((e) {
-              return e.id == inspection.id;
+              return e.createdAt == inspection.createdAt;
             });
             // Confirm upgrade data
             inspectionsUnsynchronized.remove(inspection);
+
             await _setLocalInspections();
           }
         }
@@ -190,16 +193,19 @@ class InspectionsController extends GetxController with LoaderManager {
 
     await _getInspectionsNotSynced();
 
-    await CustomDialog().show(
-      textConfirm: 'Sim',
-      textCancel: 'Não',
-      title: 'Atualizar dados?',
-      middleText: 'Deseja atualizar inspenções?',
-      onConfirm: () {
-        Get.back();
-        fetch(online: true);
-      },
-    );
+    if (inspectionsUnsynchronized.isEmpty) {
+      await CustomDialog().show(
+        textConfirm: 'Sim',
+        textCancel: 'Não',
+        title: 'Tudo certo!',
+        middleText: 'Deseja as inspenções?',
+        onConfirm: () {
+          Get.back();
+          fetch(online: true);
+        },
+        onCancel: Get.back,
+      );
+    }
   }
 
   Future<InspectionRequestModel> sendPhotos(
@@ -217,8 +223,8 @@ class InspectionsController extends GetxController with LoaderManager {
       }
     }
 
+    inspectionsUnsynchronized.remove(inspection);
     if (imagesUnsync.isNotEmpty) {
-      inspectionsUnsynchronized.remove(inspection);
       inspection = inspection.copyWith(
         id: inspection.id,
         photos: imagesUnsync,
@@ -226,7 +232,6 @@ class InspectionsController extends GetxController with LoaderManager {
       );
       inspectionsUnsynchronized.add(inspection);
     } else {
-      inspectionsUnsynchronized.remove(inspection);
       inspection = inspection.copyWith(
         id: inspection.id,
         photos: imagesUnsync,
@@ -244,14 +249,14 @@ class InspectionsController extends GetxController with LoaderManager {
     InspectionRequestModel inspection,
   ) async {
     inspectionsUnsynchronized.remove(inspection);
-
-    inspectionsUnsynchronized.add(inspection.copyWith(
+    inspection = inspection.copyWith(
       id: inspection.id,
       audios: [],
       isSendAudios: true,
-    ));
-    await _setLocalInspections();
+    );
+    inspectionsUnsynchronized.add(inspection);
 
+    await _setLocalInspections();
     return inspection;
   }
 
