@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
 
-import '../../../core/app_connectivity.dart';
-import '../../../infra/models/responses/equipment_category_model.dart';
-import '../../../infra/providers/equipments/equipments_categories_provider.dart';
-import '../../../infra/providers/equipments/local/local_equipments_categories_provider.dart';
-import '../../../shared/utils/custom_snackbar.dart';
-import '../../../shared/utils/get_datetime.dart';
-import '../../../shared/utils/loader_manager.dart';
+import '../../core/app_connectivity.dart';
+import '../../infra/models/responses/equipment_category_model.dart';
+import '../../infra/providers/equipments/equipments_categories_provider.dart';
+import '../../infra/providers/equipments/local/local_equipments_categories_provider.dart';
+import '../utils/custom_snackbar.dart';
+import '../utils/get_datetime.dart';
+import '../utils/loader_manager.dart';
 
 class EquipmentsCategoriesController extends GetxController with LoaderManager {
   static EquipmentsCategoriesController get to => Get.find();

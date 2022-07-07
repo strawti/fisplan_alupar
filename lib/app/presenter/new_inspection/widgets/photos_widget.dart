@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../controllers/images_controller.dart';
+import '../../../shared/controllers/images_controller.dart';
 import 'new_inspection_card.dart';
 import 'view_image_widget.dart';
 

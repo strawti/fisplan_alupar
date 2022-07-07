@@ -2,12 +2,12 @@ import 'package:fisplan_alupar/app/infra/models/responses/step_model.dart';
 import 'package:fisplan_alupar/app/presenter/home/home_controller.dart';
 import 'package:get/get.dart';
 
-import '../../../core/app_connectivity.dart';
-import '../../../infra/providers/companies/projects/companies_projects_steps_provider.dart';
-import '../../../infra/providers/companies/projects/local/local_companies_projects_steps_provider.dart';
-import '../../../shared/utils/custom_snackbar.dart';
-import '../../../shared/utils/get_datetime.dart';
-import '../../../shared/utils/loader_manager.dart';
+import '../../core/app_connectivity.dart';
+import '../../infra/providers/companies/projects/companies_projects_steps_provider.dart';
+import '../../infra/providers/companies/projects/local/local_companies_projects_steps_provider.dart';
+import '../utils/custom_snackbar.dart';
+import '../utils/get_datetime.dart';
+import '../utils/loader_manager.dart';
 
 class StepsController extends GetxController with LoaderManager {
   static StepsController get to => Get.find();

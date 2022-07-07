@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'inspections_controller.dart';
 import '../../infra/providers/inspections/local_inspections_provider.dart';
 import '../../infra/providers/towers/local_towers_provider.dart';
-import '../new_inspection/controllers/towers_controller.dart';
+import '../../shared/controllers/towers_controller.dart';
 
 class InspectionsBindings implements Bindings {
   @override

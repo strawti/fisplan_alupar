@@ -5,7 +5,7 @@ import 'package:fisplan_alupar/app/infra/repositories/companies/projects/compani
 import 'package:fisplan_alupar/app/infra/repositories/companies/projects/companies_projects_steps_repository.dart';
 import 'package:fisplan_alupar/app/infra/repositories/companies/projects/local/local_companies_projects_questionnaires_repository.dart';
 import 'package:fisplan_alupar/app/infra/repositories/companies/projects/local/local_companies_projects_steps_repository.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/questionnaires_controller.dart';
+import 'package:fisplan_alupar/app/shared/controllers/questionnaires_controller.dart';
 import 'package:get/get.dart';
 
 import '../../infra/providers/activities/activities_provider.dart';
@@ -40,16 +40,16 @@ import '../../infra/repositories/installations/local/local_installations_reposit
 import '../../infra/repositories/installations/local/local_installations_type_repository.dart';
 import '../../infra/repositories/towers/local_towers_repository.dart';
 import '../../infra/repositories/towers/towers_repository.dart';
-import 'controllers/activities_controller.dart';
-import 'controllers/audios_controller.dart';
-import 'controllers/companies_controller.dart';
-import 'controllers/equipments_categories_controller.dart';
-import 'controllers/equipments_controller.dart';
-import 'controllers/images_controller.dart';
-import 'controllers/installation_type_controller.dart';
-import 'controllers/installations_controller.dart';
-import 'controllers/steps_controller.dart';
-import 'controllers/towers_controller.dart';
+import '../../shared/controllers/activities_controller.dart';
+import '../../shared/controllers/audios_controller.dart';
+import '../../shared/controllers/companies_controller.dart';
+import '../../shared/controllers/equipments_categories_controller.dart';
+import '../../shared/equipments_controller.dart';
+import '../../shared/controllers/images_controller.dart';
+import '../../shared/controllers/installation_type_controller.dart';
+import '../../shared/controllers/installations_controller.dart';
+import '../../shared/controllers/steps_controller.dart';
+import '../../shared/controllers/towers_controller.dart';
 import 'new_inspection_controller.dart';
 
 class NewInspectionBindings implements Bindings {

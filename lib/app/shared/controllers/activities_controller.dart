@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
 
-import '../../../core/app_connectivity.dart';
-import '../../../infra/models/responses/activity_model.dart';
-import '../../../infra/providers/activities/activities_provider.dart';
-import '../../../infra/providers/activities/local_activities_provider.dart';
-import '../../../shared/utils/custom_snackbar.dart';
-import '../../../shared/utils/get_datetime.dart';
-import '../../../shared/utils/loader_manager.dart';
+import '../../core/app_connectivity.dart';
+import '../../infra/models/responses/activity_model.dart';
+import '../../infra/providers/activities/activities_provider.dart';
+import '../../infra/providers/activities/local_activities_provider.dart';
+import '../utils/custom_snackbar.dart';
+import '../utils/get_datetime.dart';
+import '../utils/loader_manager.dart';
 
 class ActivitiesController extends GetxController with LoaderManager {
   static ActivitiesController get to => Get.find();

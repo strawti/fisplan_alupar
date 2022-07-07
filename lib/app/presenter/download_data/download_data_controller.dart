@@ -2,13 +2,13 @@ import 'package:fisplan_alupar/app/presenter/home/home_controller.dart';
 import 'package:get/get.dart';
 
 import '../inspections/inspections_controller.dart';
-import '../new_inspection/controllers/activities_controller.dart';
-import '../new_inspection/controllers/companies_controller.dart';
-import '../new_inspection/controllers/equipments_categories_controller.dart';
-import '../new_inspection/controllers/equipments_controller.dart';
-import '../new_inspection/controllers/installation_type_controller.dart';
-import '../new_inspection/controllers/installations_controller.dart';
-import '../new_inspection/controllers/towers_controller.dart';
+import '../../shared/controllers/activities_controller.dart';
+import '../../shared/controllers/companies_controller.dart';
+import '../../shared/controllers/equipments_categories_controller.dart';
+import '../../shared/equipments_controller.dart';
+import '../../shared/controllers/installation_type_controller.dart';
+import '../../shared/controllers/installations_controller.dart';
+import '../../shared/controllers/towers_controller.dart';
 
 class DownloadDataController extends GetxController {
   bool isLoading() {

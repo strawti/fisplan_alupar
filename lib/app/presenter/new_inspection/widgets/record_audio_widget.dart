@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../controllers/audios_controller.dart';
+import '../../../shared/controllers/audios_controller.dart';
 
 class RecordAudioWidget extends StatelessWidget {
   const RecordAudioWidget({Key? key}) : super(key: key);

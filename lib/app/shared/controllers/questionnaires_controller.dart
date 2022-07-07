@@ -4,10 +4,10 @@ import 'package:fisplan_alupar/app/infra/providers/companies/projects/local/loca
 import 'package:fisplan_alupar/app/presenter/home/home_controller.dart';
 import 'package:get/get.dart';
 
-import '../../../core/app_connectivity.dart';
-import '../../../shared/utils/custom_snackbar.dart';
-import '../../../shared/utils/get_datetime.dart';
-import '../../../shared/utils/loader_manager.dart';
+import '../../core/app_connectivity.dart';
+import '../utils/custom_snackbar.dart';
+import '../utils/get_datetime.dart';
+import '../utils/loader_manager.dart';
 
 class QuestionnairesController extends GetxController with LoaderManager {
   static QuestionnairesController get to => Get.find();

@@ -1,6 +1,6 @@
 import 'package:fisplan_alupar/app/infra/models/responses/inspection_model.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/companies_controller.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/installations_controller.dart';
+import 'package:fisplan_alupar/app/shared/controllers/companies_controller.dart';
+import 'package:fisplan_alupar/app/shared/controllers/installations_controller.dart';
 import 'package:fisplan_alupar/app/routes/arguments/datails_inspection_page_arguments.dart';
 import 'package:fisplan_alupar/app/shared/utils/custom_dialog.dart';
 import 'package:flutter/material.dart';
@@ -18,13 +18,13 @@ import '../../infra/models/responses/tension_level_model.dart';
 import '../../infra/models/responses/tower_model.dart';
 import '../../routes/arguments/datails_inspection_page_arguments.dart';
 import '../inspections/inspections_controller.dart';
-import '../new_inspection/controllers/activities_controller.dart';
-import '../new_inspection/controllers/equipments_categories_controller.dart';
-import '../new_inspection/controllers/equipments_controller.dart';
-import '../new_inspection/controllers/installation_type_controller.dart';
-import '../new_inspection/controllers/questionnaires_controller.dart';
-import '../new_inspection/controllers/steps_controller.dart';
-import '../new_inspection/controllers/towers_controller.dart';
+import '../../shared/controllers/activities_controller.dart';
+import '../../shared/controllers/equipments_categories_controller.dart';
+import '../../shared/equipments_controller.dart';
+import '../../shared/controllers/installation_type_controller.dart';
+import '../../shared/controllers/questionnaires_controller.dart';
+import '../../shared/controllers/steps_controller.dart';
+import '../../shared/controllers/towers_controller.dart';
 
 class DetailsInspectionController extends GetxController {
   DetailsInspectionController() {

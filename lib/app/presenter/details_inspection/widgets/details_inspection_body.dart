@@ -1,9 +1,9 @@
 import 'package:fisplan_alupar/app/core/app_token.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/audios_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/app_validators.dart';
+import '../../../shared/controllers/audios_controller.dart';
 import '../../../shared/widgets/textform_widget.dart';
 import '../../new_inspection/widgets/new_inspection_card.dart';
 import '../../new_inspection/widgets/tower_widget.dart';

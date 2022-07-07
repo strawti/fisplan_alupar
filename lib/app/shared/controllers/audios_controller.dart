@@ -7,8 +7,10 @@ import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 
-import '../../../shared/utils/custom_snackbar.dart';
-import '../../../shared/widgets/alert_dialog_widget.dart';
+import '../utils/custom_snackbar.dart';
+import '../widgets/alert_dialog_widget.dart';
+
+
 
 class AudiosController extends GetxController {
   @override

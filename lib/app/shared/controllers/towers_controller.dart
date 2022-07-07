@@ -1,13 +1,13 @@
 import 'package:get/get.dart';
 
-import '../../../core/app_connectivity.dart';
-import '../../../infra/models/responses/tower_model.dart';
-import '../../../infra/providers/towers/local_towers_provider.dart';
-import '../../../infra/providers/towers/towers_provider.dart';
-import '../../../shared/utils/custom_snackbar.dart';
-import '../../../shared/utils/get_datetime.dart';
-import '../../../shared/utils/loader_manager.dart';
-import '../new_inspection_controller.dart';
+import '../../core/app_connectivity.dart';
+import '../../infra/models/responses/tower_model.dart';
+import '../../infra/providers/towers/local_towers_provider.dart';
+import '../../infra/providers/towers/towers_provider.dart';
+import '../utils/custom_snackbar.dart';
+import '../utils/get_datetime.dart';
+import '../utils/loader_manager.dart';
+import '../../presenter/new_inspection/new_inspection_controller.dart';
 
 class TowersController extends GetxController with LoaderManager {
   static TowersController get to => Get.find();

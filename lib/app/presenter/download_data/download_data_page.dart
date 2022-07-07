@@ -1,18 +1,18 @@
 import 'package:fisplan_alupar/app/infra/models/requests/inspection_request_model.dart';
 import 'package:fisplan_alupar/app/presenter/home/home_controller.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/questionnaires_controller.dart';
-import 'package:fisplan_alupar/app/presenter/new_inspection/controllers/steps_controller.dart';
+import 'package:fisplan_alupar/app/shared/controllers/questionnaires_controller.dart';
+import 'package:fisplan_alupar/app/shared/controllers/steps_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../inspections/inspections_controller.dart';
-import '../new_inspection/controllers/activities_controller.dart';
-import '../new_inspection/controllers/companies_controller.dart';
-import '../new_inspection/controllers/equipments_categories_controller.dart';
-import '../new_inspection/controllers/equipments_controller.dart';
-import '../new_inspection/controllers/installation_type_controller.dart';
-import '../new_inspection/controllers/installations_controller.dart';
-import '../new_inspection/controllers/towers_controller.dart';
+import '../../shared/controllers/activities_controller.dart';
+import '../../shared/controllers/companies_controller.dart';
+import '../../shared/controllers/equipments_categories_controller.dart';
+import '../../shared/equipments_controller.dart';
+import '../../shared/controllers/installation_type_controller.dart';
+import '../../shared/controllers/installations_controller.dart';
+import '../../shared/controllers/towers_controller.dart';
 import 'download_data_controller.dart';
 
 class DownloadDataPage extends GetView<DownloadDataController> {
