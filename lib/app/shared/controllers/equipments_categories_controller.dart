@@ -9,8 +9,6 @@ import '../utils/get_datetime.dart';
 import '../utils/loader_manager.dart';
 
 class EquipmentsCategoriesController extends GetxController with LoaderManager {
-  static EquipmentsCategoriesController get to => Get.find();
-
   final EquipmentsCategoriesProvider _equipmentsCategoriesProvider;
   final LocalEquipmentsCategoriesProvider _localEquipmentsCategoriesProvider;
 
@@ -33,7 +31,8 @@ class EquipmentsCategoriesController extends GetxController with LoaderManager {
 
     await _getLocalAll();
     if (await AppConnectivity.instance.isConnected()) {
-      if (_equipmentsCategories.isEmpty || online) {
+      final isWifi = await AppConnectivity.instance.isWifi();
+      if (_equipmentsCategories.isEmpty || online || isWifi) {
         await _getAll();
       }
     }

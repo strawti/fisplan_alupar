@@ -19,8 +19,6 @@ class AudiosController extends GetxController {
     audioPlayers.map((e) => e.player.dispose());
     audioPlayers.map((e) async => await removeAudio(e));
 
-  
-
     super.onClose();
   }
 

@@ -33,7 +33,8 @@ class ActivitiesController extends GetxController with LoaderManager {
 
     await _getLocalAll();
     if (await AppConnectivity.instance.isConnected()) {
-      if (_activities.isEmpty || online) {
+      final isWifi = await AppConnectivity.instance.isWifi();
+      if (_activities.isEmpty || online || isWifi) {
         await _getAll();
       }
     }

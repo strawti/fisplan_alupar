@@ -75,11 +75,13 @@ class HomeController extends GetxController with LoaderManager {
     await _getLocalProjects();
 
     if (await AppConnectivity.instance.isConnected()) {
-      if (user == null || online) {
+      final isWifi = await AppConnectivity.instance.isWifi();
+
+      if (user == null || online || isWifi) {
         await _getUser();
       }
 
-      if (projects.isEmpty || online) {
+      if (projects.isEmpty || online || isWifi) {
         await _getProjects();
       }
     }

@@ -10,4 +10,9 @@ class AppConnectivity {
     final result = await _connectivity.checkConnectivity();
     return result != ConnectivityResult.none;
   }
+
+  Future<bool> isWifi() async {
+    final result = await _connectivity.checkConnectivity();
+    return result != ConnectivityResult.wifi;
+  }
 }

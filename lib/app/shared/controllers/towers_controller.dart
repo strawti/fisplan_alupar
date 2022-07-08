@@ -10,7 +10,6 @@ import '../utils/get_datetime.dart';
 import '../utils/loader_manager.dart';
 
 class TowersController extends GetxController with LoaderManager {
-  static TowersController get to => Get.find();
   final TowersProvider _towersProvider;
   final LocalTowersProvider _localTowersProvider;
 
@@ -34,7 +33,8 @@ class TowersController extends GetxController with LoaderManager {
     await _getLocal();
 
     if (await AppConnectivity.instance.isConnected()) {
-      if (_towers.isEmpty || online) {
+      final isWifi = await AppConnectivity.instance.isWifi();
+      if (_towers.isEmpty || online || isWifi) {
         await _getAll();
       }
     }

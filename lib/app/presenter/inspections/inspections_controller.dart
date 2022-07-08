@@ -69,7 +69,9 @@ class InspectionsController extends GetxController with LoaderManager {
     // await _setLocalInspections();
 
     if (await AppConnectivity.instance.isConnected()) {
-      if (inspections.isEmpty || online) {
+      final isWifi = await AppConnectivity.instance.isWifi();
+
+      if (inspections.isEmpty || online || isWifi) {
         await _getInspections();
       }
     }

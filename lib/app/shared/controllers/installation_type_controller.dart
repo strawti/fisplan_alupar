@@ -9,8 +9,6 @@ import '../utils/get_datetime.dart';
 import '../utils/loader_manager.dart';
 
 class InstallationTypeController extends GetxController with LoaderManager {
-  static InstallationTypeController get to => Get.find();
-
   final InstallationsTypeProvider _installationsTypeProvider;
   final LocalInstallationsTypeProvider _localInstallationsTypeProvider;
 
@@ -33,7 +31,8 @@ class InstallationTypeController extends GetxController with LoaderManager {
 
     await _getLocalInstallations();
     if (await AppConnectivity.instance.isConnected()) {
-      if (_installationTypes.isEmpty || online) {
+      final isWifi = await AppConnectivity.instance.isWifi();
+      if (_installationTypes.isEmpty || online || isWifi) {
         await _getAll();
       }
     }

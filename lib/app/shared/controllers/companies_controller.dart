@@ -11,11 +11,10 @@ import '../utils/loader_manager.dart';
 
 class CompaniesTensionLevelController extends GetxController
     with LoaderManager {
-  static CompaniesTensionLevelController get to => Get.find();
-
   final CompaniesTensionLevelProvider _companiesTensionLevelProvider;
   final LocalCompaniesTensionLevelsProvider
       _localCompaniesTensionLevelsProvider;
+
   CompaniesTensionLevelController(
     this._companiesTensionLevelProvider,
     this._localCompaniesTensionLevelsProvider,
@@ -32,7 +31,8 @@ class CompaniesTensionLevelController extends GetxController
 
     await _getLocalAll();
     if (await AppConnectivity.instance.isConnected()) {
-      if (_tensionLevels.isEmpty || online) {
+      final isWifi = await AppConnectivity.instance.isWifi();
+      if (_tensionLevels.isEmpty || online || isWifi) {
         await getAll();
       }
     }
