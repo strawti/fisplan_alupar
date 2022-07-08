@@ -1,7 +1,7 @@
+import 'package:fisplan_alupar/app/shared/utils/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../infra/models/requests/inspection_request_model.dart';
 import '../../shared/controllers/activities_controller.dart';
 import '../../shared/controllers/companies_controller.dart';
 import '../../shared/controllers/equipments_categories_controller.dart';
@@ -14,41 +14,36 @@ import '../../shared/controllers/towers_controller.dart';
 import '../home/home_controller.dart';
 import '../inspections/inspections_controller.dart';
 import 'download_data_controller.dart';
+import 'widgets/download_item_widget.dart';
+import 'widgets/inspection_unsynchronized_widget.dart';
 
 class DownloadDataPage extends GetView<DownloadDataController> {
   const DownloadDataPage({Key? key}) : super(key: key);
 
   static const route = '/download-data';
 
+  void _showExitDialog() {
+    CustomDialog().show(
+      title: 'Aguarde o download dos dados',
+      middleText:
+          'Permaneça na tela para que o download dos dados seja concluído.',
+      textConfirm: 'Ok',
+      textCancel: 'Cancelar e Sair',
+      onConfirm: Get.back,
+      onCancel: () {
+        Get.back();
+        Get.back();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
         if (controller.isLoading()) {
-          Get.dialog(
-            AlertDialog(
-              title: const Text('Aguarde o download dos dados'),
-              content: const Text(
-                'Permaneça na tela para que o download dos dados seja concluído.',
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Get.back();
-                    Get.back();
-                  },
-                  child: const Text(
-                    'Sair sem concluir',
-                    style: TextStyle(color: Colors.red),
-                  ),
-                ),
-                TextButton(
-                  onPressed: Get.back,
-                  child: const Text('Ok'),
-                ),
-              ],
-            ),
-          );
+          _showExitDialog();
+
           return false;
         }
 
@@ -61,28 +56,7 @@ class DownloadDataPage extends GetView<DownloadDataController> {
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
               if (controller.isLoading()) {
-                Get.dialog(
-                  AlertDialog(
-                    title: const Text('Aguarde'),
-                    content: const Text('Aguarde o download dos dados'),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Get.back();
-                          Get.back();
-                        },
-                        child: const Text(
-                          'Sair sem concluir',
-                          style: TextStyle(color: Colors.red),
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: Get.back,
-                        child: const Text('Ok'),
-                      ),
-                    ],
-                  ),
-                );
+                _showExitDialog();
               } else {
                 Get.back();
               }
@@ -200,100 +174,6 @@ class DownloadDataPage extends GetView<DownloadDataController> {
           },
         ),
       ),
-    );
-  }
-}
-
-class InspectionUnsynchronizedWidget extends StatelessWidget {
-  final InspectionRequestModel inspection;
-  final InspectionsController control;
-  const InspectionUnsynchronizedWidget({
-    Key? key,
-    required this.inspection,
-    required this.control,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Text("Inspeção ${inspection.name} não foi sincronizada"),
-          ),
-          if (control.isLoading == false)
-            IconButton(
-              onPressed: () async {
-                await control.syncInspections(inspection: inspection);
-              },
-              icon: const Icon(Icons.sync),
-            ),
-        ],
-      ),
-      subtitle: Column(
-        children: [
-          ListTile(
-            title: const Text('Inspeção'),
-            trailing: inspection.isSendInspection
-                ? const Icon(
-                    Icons.check_circle,
-                    color: Colors.green,
-                  )
-                : const Icon(
-                    Icons.error,
-                    color: Colors.red,
-                  ),
-          ),
-          if (inspection.photos.isNotEmpty)
-            ListTile(
-              title: const Text('Imagens'),
-              trailing: inspection.isSendPhotos
-                  ? const Icon(
-                      Icons.check_circle,
-                      color: Colors.green,
-                    )
-                  : const Icon(
-                      Icons.error,
-                      color: Colors.red,
-                    ),
-            ),
-        ],
-      ),
-    );
-  }
-}
-
-class DownloadItemWidget<T extends GetxController> extends StatelessWidget {
-  final dynamic control;
-  final String title;
-  const DownloadItemWidget({
-    Key? key,
-    required this.control,
-    required this.title,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GetBuilder<T>(
-      builder: (_) {
-        return ListTile(
-          isThreeLine: true,
-          leading: control.isLoading ? const CircularProgressIndicator() : null,
-          title: Text(title),
-          subtitle: Text(
-            "Última atualização: ${control.lastUpdate}",
-          ),
-          trailing: control.isLoading
-              ? null
-              : IconButton(
-                  onPressed: () async {
-                    await control.fetch(online: true);
-                  },
-                  icon: const Icon(Icons.sync),
-                ),
-        );
-      },
     );
   }
 }
