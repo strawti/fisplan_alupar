@@ -2,12 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:fisplan_alupar/app/shared/utils/download_images.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 
-import '../../core/app_token.dart';
 import '../utils/custom_snackbar.dart';
 import '../widgets/alert_dialog_widget.dart';
 
@@ -63,7 +63,7 @@ class AudiosController extends GetxController {
 
     final key = DateTime.now().millisecondsSinceEpoch.toString();
 
-    return '${directory.path}/audio-$key-${audioPlayers.length}.mp4';
+    return '${directory.path}/audio-$key-${audioPlayers.length}.flac';
   }
 
   Future stopRecording() async {
@@ -99,12 +99,12 @@ class AudiosController extends GetxController {
     for (var audio in audios) {
       final tempDir = await getTemporaryDirectory();
       File file = await File(
-        '${tempDir.path}/${DateTime.now().toString()}.mp4',
+        '${tempDir.path}/${DateTime.now().toString()}.flac',
       ).create();
 
       await file.writeAsBytes(
         List<int>.from(
-          base64Decode(audio.replaceAll('data:audio/mp4;base64,', '')),
+          base64Decode(audio.replaceAll('data:audio/flac;base64,', '')),
         ),
       );
 
@@ -151,21 +151,16 @@ class AudiosController extends GetxController {
   }
 
   Future setAudiosOfWeb(List<String> audios) async {
-    for (var audio in audios) {
+    final files = await downloadFiles(
+      audios.map((e) => e.replaceAll('data:audio/flac;base64,', '')).toList(),
+      'flac',
+    );
+
+    for (var audio in files) {
       final player = AudioPlayer();
+      await player.setFilePath(audio.path);
 
-      player.setAudioSource(
-        AudioSource.uri(
-          Uri.parse(audio.replaceAll('data:audio/mp4;base64,', '')),
-          headers: {
-            'Authorization': 'Bearer ${AppToken.instance.token}',
-          },
-        ),
-        initialPosition: Duration.zero,
-        preload: true,
-      );
-
-      audioPlayers.add(AudioTile(audio, player));
+      audioPlayers.add(AudioTile(audio.path, player));
     }
 
     update();

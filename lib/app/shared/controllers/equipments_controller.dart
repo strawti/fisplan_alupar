@@ -33,8 +33,7 @@ class EquipmentsController extends GetxController with LoaderManager {
     equipmentsFiltered = _equipments.toList();
 
     if (await AppConnectivity.instance.isConnected()) {
-      final isWifi = await AppConnectivity.instance.isWifi();
-      if (_equipments.isEmpty || online || isWifi) {
+      if (_equipments.isEmpty || online) {
         await _getAll();
       }
     }

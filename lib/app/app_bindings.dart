@@ -11,7 +11,7 @@ class AppBindings implements Bindings {
   @override
   void dependencies() {
     final connect = GetConnect();
-    connect.timeout = const Duration(seconds: 30);
+    connect.timeout = const Duration(seconds: 60);
     connect.httpClient.addRequestModifier(requestModifier);
     connect.httpClient.addResponseModifier(responseModifier);
     Get.put(connect);

@@ -1,6 +1,3 @@
-import 'audios_details_inspection_widget.dart';
-import 'filters_details_inspection_widget.dart';
-import 'question_details_inspection_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,7 +5,10 @@ import '../../../shared/widgets/location_inspection_widget.dart';
 import '../../../shared/widgets/textform_widget.dart';
 import '../../new_inspection/widgets/new_inspection_card.dart';
 import '../details_inspection_controller.dart';
+import 'audios_details_inspection_widget.dart';
+import 'filters_details_inspection_widget.dart';
 import 'photos_details_inspection_widget.dart';
+import 'question_details_inspection_widget.dart';
 
 class DetailspectionBody extends GetView<DetailsInspectionController> {
   const DetailspectionBody({Key? key}) : super(key: key);

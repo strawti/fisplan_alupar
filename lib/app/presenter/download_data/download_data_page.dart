@@ -1,4 +1,3 @@
-import '../../shared/utils/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,6 +10,7 @@ import '../../shared/controllers/installations_controller.dart';
 import '../../shared/controllers/questionnaires_controller.dart';
 import '../../shared/controllers/steps_controller.dart';
 import '../../shared/controllers/towers_controller.dart';
+import '../../shared/utils/custom_dialog.dart';
 import '../home/home_controller.dart';
 import '../inspections/inspections_controller.dart';
 import 'download_data_controller.dart';
@@ -23,7 +23,7 @@ class DownloadDataPage extends GetView<DownloadDataController> {
   static const route = '/download-data';
 
   void _showExitDialog() {
-    CustomDialog().show(
+    CustomDialog().showDialog(
       title: 'Aguarde o download dos dados',
       middleText:
           'Permaneça na tela para que o download dos dados seja concluído.',
@@ -152,23 +152,7 @@ class DownloadDataPage extends GetView<DownloadDataController> {
         floatingActionButton: GetBuilder<DownloadDataController>(
           builder: (control) {
             return FloatingActionButton.extended(
-              onPressed: () {
-                if (control.isLoading() == false) {
-                  Get.find<InspectionsController>().syncInspections();
-                  Get.find<InspectionsController>().fetch(online: true);
-                  Get.find<TowersController>().fetch(online: true);
-                  Get.find<InstallationTypeController>().fetch(online: true);
-                  Get.find<InstallationsController>().fetch(online: true);
-                  Get.find<EquipmentsController>().fetch(online: true);
-                  Get.find<EquipmentsCategoriesController>().fetch(
-                    online: true,
-                  );
-                  Get.find<CompaniesTensionLevelController>()
-                      .fetch(online: true);
-                  Get.find<ActivitiesController>().fetch(online: true);
-                  Get.find<HomeController>().fetch(online: true);
-                }
-              },
+              onPressed: control.syncAll,
               label: const Text('Sincronizar tudo'),
             );
           },

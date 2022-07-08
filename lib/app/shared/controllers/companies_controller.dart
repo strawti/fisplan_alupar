@@ -33,8 +33,7 @@ class CompaniesTensionLevelController extends GetxController
     tensionLevelsFiltered = _tensionLevels.toList();
 
     if (await AppConnectivity.instance.isConnected()) {
-      final isWifi = await AppConnectivity.instance.isWifi();
-      if (_tensionLevels.isEmpty || online || isWifi) {
+      if (_tensionLevels.isEmpty || online) {
         await getAll();
       }
     }

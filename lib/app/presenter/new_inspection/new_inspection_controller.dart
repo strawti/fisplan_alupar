@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:developer';
 
+import 'package:fisplan_alupar/app/shared/utils/ternary_clean.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -93,9 +95,14 @@ class NewInspectionController extends GetxController with LoaderManager {
       return;
     }
 
-    CustomDialog().show(
+    CustomDialog().showDialog(
       title: "Aguarde",
-      middleText: 'Obtendo dados...',
+      middleText: TernaryClean(
+        condition: arguments.isItDuplication,
+        caseTrue:
+            'Obtendo dados...\nImagens e Áudios só serão copiados se houver conexão com a internet.',
+        caseFalse: 'Obtendo dados...',
+      ),
     );
     await Future.delayed(const Duration(seconds: 2));
     Get.back();
@@ -209,10 +216,17 @@ class NewInspectionController extends GetxController with LoaderManager {
       await Geolocator.requestPermission();
     }
 
-    Geolocator.getPositionStream().listen((pos) {
-      position = pos;
-      update(['position']);
-    });
+    positionStream = Geolocator.getPositionStream().listen(
+      (pos) {
+        try {
+          position = pos;
+          update(['position']);
+        } catch (e) {
+          log('Problemas na localização');
+        }
+      },
+      cancelOnError: false,
+    );
   }
 
   late NewInspectionPageArguments arguments;
@@ -261,7 +275,7 @@ class NewInspectionController extends GetxController with LoaderManager {
     }
   }
 
-  List<TowerModel>? selectedTowers = [];
+  List<TowerModel>? selectedTowers;
   String get nameSelectedTowers {
     return selectedTowers?.map((t) => t.name).join(', ') ?? '';
   }
@@ -569,6 +583,18 @@ class NewInspectionController extends GetxController with LoaderManager {
       }
     }
 
+    if (position == null) {
+      CustomSnackbar.to.show("Precisamos da sua localização para continuar!");
+
+      _getPosition();
+      return;
+    }
+
+    if (Get.find<ImagesController>().isLoading) {
+      CustomSnackbar.to.show("As imagens ainda não foram baixadas!");
+      return;
+    }
+
     saveOrUpdateInspection();
   }
 
@@ -654,7 +680,7 @@ class NewInspectionController extends GetxController with LoaderManager {
         );
 
         if (response.isSuccess) {
-          await CustomDialog().show(
+          await CustomDialog().showDialog(
             textConfirm: 'Sim',
             textCancel: 'Não',
             title: 'Duplicar?',

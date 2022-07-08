@@ -6,11 +6,11 @@ import 'package:path_provider/path_provider.dart';
 
 import '../../core/app_token.dart';
 
-Future<List<File>> downloadImages(List<String> images) async {
-  List<File> allImages = [];
+Future<List<File>> downloadFiles(List<String> paths, String extension) async {
+  List<File> files = [];
 
   final responses = await Future.wait(
-    images.map(
+    paths.map(
       (e) => get(
         Uri.parse(e),
         headers: {
@@ -24,15 +24,15 @@ Future<List<File>> downloadImages(List<String> images) async {
     try {
       final tempDir = await getTemporaryDirectory();
       File image = await File(
-        '${tempDir.path}/${DateTime.now().toString()}.jpg',
+        '${tempDir.path}/${DateTime.now().toString()}.$extension',
       ).create();
 
       await image.writeAsBytes(res.bodyBytes);
-      allImages.add(image);
+      files.add(image);
     } catch (e) {
       log('ERRO IMAGE: $e');
     }
   }
 
-  return allImages;
+  return files;
 }

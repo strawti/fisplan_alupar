@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../core/app_colors.dart';
 
 class CustomDialog {
-  Future<dynamic> show({
+  Future<dynamic> showDialog({
     required String title,
     String middleText = '',
     String? textConfirm,
@@ -22,6 +22,7 @@ class CustomDialog {
       buttonColor: appPrimaryColor,
       confirmTextColor: Colors.white,
       onCancel: onCancel,
+      contentPadding: const EdgeInsets.all(8),
       onConfirm: onConfirm,
     );
   }

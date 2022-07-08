@@ -24,7 +24,7 @@ class InspectionUnsynchronizedWidget extends StatelessWidget {
           if (control.isLoading == false)
             IconButton(
               onPressed: () async {
-                await control.syncInspections(inspection: inspection);
+                await control.syncInspections(singleInspection: inspection);
               },
               icon: const Icon(Icons.sync),
             ),

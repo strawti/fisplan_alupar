@@ -17,6 +17,21 @@ class DownloadDataController extends GetxController {
     super.onClose();
   }
 
+  // @override
+  // void onReady() async {
+  //   super.onReady();
+
+  //   AppConnectivity.instance.isWifi().then((isWifi) {
+  //     if (isWifi) {
+  //       Get.defaultDialog(
+  //         title: 'Você está conectado via Wifi',
+  //         middleText: 'Aproveite para sincronizar os dados!',
+  //         barrierDismissible: true,
+  //       );
+  //     }
+  //   });
+  // }
+
   bool isLoading() {
     return Get.find<TowersController>().isLoading ||
         Get.find<InstallationTypeController>().isLoading ||
@@ -27,5 +42,24 @@ class DownloadDataController extends GetxController {
         Get.find<CompaniesTensionLevelController>().isLoading ||
         Get.find<ActivitiesController>().isLoading ||
         Get.find<HomeController>().isLoading;
+  }
+
+  void syncAll() {
+    if (isLoading() == false) {
+      Future.sync(() async {
+        await Get.find<InspectionsController>().syncInspections();
+        Future.wait([
+          Get.find<InspectionsController>().fetch(online: true),
+          Get.find<TowersController>().fetch(online: true),
+          Get.find<InstallationTypeController>().fetch(online: true),
+          Get.find<InstallationsController>().fetch(online: true),
+          Get.find<EquipmentsController>().fetch(online: true),
+          Get.find<EquipmentsCategoriesController>().fetch(online: true),
+          Get.find<CompaniesTensionLevelController>().fetch(online: true),
+          Get.find<ActivitiesController>().fetch(online: true),
+          Get.find<HomeController>().fetch(online: true),
+        ]);
+      });
+    }
   }
 }

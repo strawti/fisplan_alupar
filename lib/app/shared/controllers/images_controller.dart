@@ -37,6 +37,7 @@ class ImagesController extends GetxController with LoaderManager {
       if (['jpg', 'png', 'jpeg'].contains(image.name.split('.').last)) {
         final finalImage = await ImageCropper().cropImage(
           sourcePath: image.path,
+          compressQuality: 80,
         );
 
         if (finalImage != null) {
@@ -92,7 +93,7 @@ class ImagesController extends GetxController with LoaderManager {
   Future setImagesOfWeb(List<String> images) async {
     setIsLoading(true);
 
-    allImages = await downloadImages(images);
+    allImages = await downloadFiles(images, 'jpg');
 
     setIsLoading(false);
   }

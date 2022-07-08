@@ -77,13 +77,11 @@ class HomeController extends GetxController with LoaderManager {
     projectsFiltered = projects.toList();
 
     if (await AppConnectivity.instance.isConnected()) {
-      final isWifi = await AppConnectivity.instance.isWifi();
-
-      if (user == null || online || isWifi) {
+      if (user == null || online) {
         await _getUser();
       }
 
-      if (projects.isEmpty || online || isWifi) {
+      if (projects.isEmpty || online) {
         await _getProjects();
       }
     }
@@ -92,13 +90,14 @@ class HomeController extends GetxController with LoaderManager {
     projectsFiltered.sort((a, b) => a.progress.compareTo(b.progress));
 
     if (GetStorage().read('isTheFirstTime')) {
-      CustomDialog().show(
+      CustomDialog().showDialog(
         textConfirm: 'Sim',
         textCancel: 'Não',
         title: 'Bem-vindo(a)!',
         middleText: 'Precisamos baixar alguns dados para que o aplicativo'
             ' funcione corretamente, vamos fazer isso agora ?',
         onConfirm: () {
+          Get.back();
           Get.toNamed(DownloadDataPage.route);
         },
         onCancel: Get.back,

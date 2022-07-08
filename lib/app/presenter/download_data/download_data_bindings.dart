@@ -45,12 +45,12 @@ import '../../infra/repositories/towers/towers_repository.dart';
 import '../../shared/controllers/activities_controller.dart';
 import '../../shared/controllers/companies_controller.dart';
 import '../../shared/controllers/equipments_categories_controller.dart';
+import '../../shared/controllers/equipments_controller.dart';
 import '../../shared/controllers/installation_type_controller.dart';
 import '../../shared/controllers/installations_controller.dart';
 import '../../shared/controllers/questionnaires_controller.dart';
 import '../../shared/controllers/steps_controller.dart';
 import '../../shared/controllers/towers_controller.dart';
-import '../../shared/controllers/equipments_controller.dart';
 import '../inspections/inspections_controller.dart';
 import 'download_data_controller.dart';
 

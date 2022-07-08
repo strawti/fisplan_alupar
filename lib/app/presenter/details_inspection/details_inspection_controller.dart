@@ -1,5 +1,3 @@
-import '../../shared/controllers/audios_controller.dart';
-import '../../shared/utils/get_datetime.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -17,6 +15,7 @@ import '../../infra/models/responses/tension_level_model.dart';
 import '../../infra/models/responses/tower_model.dart';
 import '../../routes/arguments/datails_inspection_page_arguments.dart';
 import '../../shared/controllers/activities_controller.dart';
+import '../../shared/controllers/audios_controller.dart';
 import '../../shared/controllers/companies_controller.dart';
 import '../../shared/controllers/equipments_categories_controller.dart';
 import '../../shared/controllers/equipments_controller.dart';
@@ -26,6 +25,7 @@ import '../../shared/controllers/questionnaires_controller.dart';
 import '../../shared/controllers/steps_controller.dart';
 import '../../shared/controllers/towers_controller.dart';
 import '../../shared/utils/custom_dialog.dart';
+import '../../shared/utils/get_datetime.dart';
 import '../inspections/inspections_controller.dart';
 
 class DetailsInspectionController extends GetxController {
@@ -66,7 +66,7 @@ class DetailsInspectionController extends GetxController {
   Future _fillTheFields() async {
     final inspection = arguments.inspection;
 
-    CustomDialog().show(
+    CustomDialog().showDialog(
       title: 'Aguarde',
       middleText: 'Obtendo dados...',
     );
