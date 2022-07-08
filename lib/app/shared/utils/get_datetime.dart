@@ -20,9 +20,9 @@ DateTime formatStringForDateTime(String value) {
   int month = int.parse(valueAsList[1]);
   int day = int.parse(valueAsList[2]);
 
-  int hours = int.parse(valueAsList[2]);
-  int minutes = int.parse(valueAsList[3]);
-  int seconds = int.parse(valueAsList[4]);
+  int hours = int.parse(valueAsList[3]);
+  int minutes = int.parse(valueAsList[4]);
+  int seconds = int.parse(valueAsList[5]);
 
   return DateTime(year, month, day, hours, minutes, seconds);
 }
