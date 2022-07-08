@@ -46,12 +46,12 @@ class InspectionsRepository {
     String photoInBase64,
   ) async {
     final response = await _connect.post(
-      "$apiInspections/$inspectionId/photos",
+      "$apiInspections/$inspectionId/photo",
       json.encode({'photo': photoInBase64}),
     );
 
     final responseModel = DefaultResponseModel.fromMap({
-      'success': response.statusCode == 200,
+      'success': response.statusCode == 204,
       'statusCode': response.statusCode,
       'data': response.body,
       'error': {
