@@ -36,11 +36,11 @@ class InstallationTypeController extends GetxController with LoaderManager {
       final isWifi = await AppConnectivity.instance.isWifi();
       if (_installationTypes.isEmpty || online || isWifi) {
         await _getAll();
-        _getLastTimeUpdated();
       }
     }
 
     installationTypesFiltered = _installationTypes.toList();
+    _getLastTimeUpdated();
 
     setIsLoading(false);
   }

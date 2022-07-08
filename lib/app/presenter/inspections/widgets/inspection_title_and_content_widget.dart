@@ -25,9 +25,7 @@ class InspectionTitleAndContentWidget extends StatelessWidget {
           child: Text(
             content,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              color: Colors.grey,
-            ),
+            style: const TextStyle(color: Colors.grey),
           ),
         ),
       ],

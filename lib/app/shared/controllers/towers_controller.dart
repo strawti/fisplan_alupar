@@ -37,11 +37,11 @@ class TowersController extends GetxController with LoaderManager {
       final isWifi = await AppConnectivity.instance.isWifi();
       if (_towers.isEmpty || online || isWifi) {
         await _getAll();
-        _getLastTimeUpdated();
       }
     }
 
     towersFiltered = _towers.toList();
+    _getLastTimeUpdated();
 
     setIsLoading(false);
   }

@@ -1,6 +1,6 @@
-import 'package:fisplan_alupar/app/presenter/details_inspection/widgets/audios_details_inspection_widget.dart';
-import 'package:fisplan_alupar/app/presenter/details_inspection/widgets/filters_details_inspection_widget.dart';
-import 'package:fisplan_alupar/app/presenter/details_inspection/widgets/question_details_inspection_widget.dart';
+import 'audios_details_inspection_widget.dart';
+import 'filters_details_inspection_widget.dart';
+import 'question_details_inspection_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

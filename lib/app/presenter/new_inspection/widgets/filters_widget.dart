@@ -33,10 +33,7 @@ class FiltersWidget extends StatelessWidget {
             maxLines: 3,
           ),
           const SizedBox(height: 10),
-          const Divider(
-            color: Colors.black12,
-            thickness: 1,
-          ),
+          const Divider(color: Colors.black12, thickness: 1),
           const SizedBox(height: 10),
           GetBuilder<NewInspectionController>(
             builder: (controller) {

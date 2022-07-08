@@ -35,11 +35,7 @@ class PhotosWidget extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Get.to(
-                            () => ViewImageWidget(
-                              image: image,
-                            ),
-                          );
+                          Get.to(() => ViewImageWidget(image: image));
                         },
                         child: Hero(
                           tag: image.path,
@@ -60,9 +56,7 @@ class PhotosWidget extends StatelessWidget {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {
-                          control.removeImage(image);
-                        },
+                        onPressed: () => control.removeImage(image),
                         child: const Text(
                           'Apagar',
                           style: TextStyle(

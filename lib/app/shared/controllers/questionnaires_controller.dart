@@ -39,11 +39,11 @@ class QuestionnairesController extends GetxController with LoaderManager {
       final isWifi = await AppConnectivity.instance.isWifi();
       if (_questionnaires.isEmpty || online || isWifi) {
         await _getAll();
-        _getLastTimeUpdated();
       }
     }
 
     questionnairesFiltered = _questionnaires.toList();
+    _getLastTimeUpdated();
 
     setIsLoading(false);
   }

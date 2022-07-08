@@ -38,11 +38,11 @@ class ActivitiesController extends GetxController with LoaderManager {
       final isWifi = await AppConnectivity.instance.isWifi();
       if (_activities.isEmpty || online || isWifi) {
         await _getAll();
-        _getLastTimeUpdated();
       }
     }
 
     activitiesFiltered = _activities.toList();
+    _getLastTimeUpdated();
 
     setIsLoading(false);
   }

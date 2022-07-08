@@ -1,4 +1,4 @@
-import 'package:fisplan_alupar/app/shared/utils/custom_dialog.dart';
+import '../../shared/utils/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -75,7 +75,6 @@ class InspectionsController extends GetxController with LoaderManager {
 
       if (inspections.isEmpty || online || isWifi) {
         await _getInspections();
-        _getLastTimeUpdated();
       }
     }
 
@@ -87,6 +86,8 @@ class InspectionsController extends GetxController with LoaderManager {
 
     inspectionsFiltered = inspections.toList();
     //inspectionsFiltered.sort((a, b) => b.name.compareTo(a.name));
+
+    _getLastTimeUpdated();
 
     setIsLoading(false);
   }

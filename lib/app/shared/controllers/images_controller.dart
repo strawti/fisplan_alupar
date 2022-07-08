@@ -1,16 +1,14 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 
-import 'package:fisplan_alupar/app/shared/utils/loader_manager.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../../core/app_token.dart';
 import '../../presenter/new_inspection/widgets/image_source_widget.dart';
+import '../utils/download_images.dart';
+import '../utils/loader_manager.dart';
 import '../widgets/alert_dialog_widget.dart';
 
 class ImagesController extends GetxController with LoaderManager {
@@ -94,31 +92,7 @@ class ImagesController extends GetxController with LoaderManager {
   Future setImagesOfWeb(List<String> images) async {
     setIsLoading(true);
 
-    final responses = await Future.wait(
-      images.map(
-        (e) => http.get(
-          Uri.parse(e),
-          headers: {
-            'Authorization': 'Bearer ${AppToken.instance.token}',
-          },
-        ),
-      ),
-    );
-
-    for (var res in responses) {
-      try {
-        final tempDir = await getTemporaryDirectory();
-        File image = await File(
-          '${tempDir.path}/${DateTime.now().toString()}.jpg',
-        ).create();
-
-        await image.writeAsBytes(res.bodyBytes);
-        allImages.add(image);
-        update();
-      } catch (e) {
-        log('ERRO IMAGE: $e');
-      }
-    }
+    allImages = await downloadImages(images);
 
     setIsLoading(false);
   }

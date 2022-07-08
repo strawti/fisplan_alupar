@@ -25,17 +25,8 @@ class SelectImageSourceWidget extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: const [
-                Icon(
-                  Icons.photo_library,
-                  color: Colors.white,
-                  size: 30,
-                ),
-                Text(
-                  'Galeria',
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
+                Icon(Icons.photo_library, color: Colors.white, size: 30),
+                Text('Galeria', style: TextStyle(color: Colors.white)),
               ],
             ),
           ),
@@ -44,17 +35,8 @@ class SelectImageSourceWidget extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: const [
-                Icon(
-                  Icons.camera_alt,
-                  color: Colors.white,
-                  size: 30,
-                ),
-                Text(
-                  'Câmera',
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
+                Icon(Icons.camera_alt, color: Colors.white, size: 30),
+                Text('Câmera', style: TextStyle(color: Colors.white)),
               ],
             ),
           ),

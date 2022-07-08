@@ -1,6 +1,6 @@
-import 'new_inspection_controller.dart';
 import 'package:flutter/material.dart';
 
+import 'new_inspection_controller.dart';
 import 'widgets/new_inspection_body.dart';
 
 class NewInspectionPage extends StatelessWidget {

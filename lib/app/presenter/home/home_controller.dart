@@ -85,7 +85,6 @@ class HomeController extends GetxController with LoaderManager {
 
       if (projects.isEmpty || online || isWifi) {
         await _getProjects();
-        _getLastTimeUpdated();
       }
     }
 
@@ -108,6 +107,7 @@ class HomeController extends GetxController with LoaderManager {
     }
 
     getInspectionsUnsynch();
+    _getLastTimeUpdated();
 
     setIsLoading(false);
   }

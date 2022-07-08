@@ -20,10 +20,9 @@ class InspectionSubContentWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(
-            width: 3,
-            height: 65,
+          const ColoredBox(
             color: Colors.grey,
+            child: SizedBox(width: 3, height: 65),
           ),
           const SizedBox(width: 5),
           Expanded(

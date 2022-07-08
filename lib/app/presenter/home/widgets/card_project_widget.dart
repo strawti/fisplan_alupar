@@ -20,9 +20,7 @@ class CardProjectWidget extends StatelessWidget {
       onTap: () {
         Get.toNamed(
           InspectionsPage.route,
-          arguments: InspectionsPageArguments(
-            project,
-          ),
+          arguments: InspectionsPageArguments(project),
         );
       },
       child: SizedBox(

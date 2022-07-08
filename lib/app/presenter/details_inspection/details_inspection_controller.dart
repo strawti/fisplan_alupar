@@ -1,5 +1,5 @@
-import 'package:fisplan_alupar/app/shared/controllers/audios_controller.dart';
-import 'package:fisplan_alupar/app/shared/utils/get_datetime.dart';
+import '../../shared/controllers/audios_controller.dart';
+import '../../shared/utils/get_datetime.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';

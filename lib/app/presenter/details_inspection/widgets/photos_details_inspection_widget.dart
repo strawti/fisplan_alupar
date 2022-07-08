@@ -24,11 +24,7 @@ class PhotosDetailsInspectionWidget extends StatelessWidget {
                   padding: const EdgeInsets.all(5.0),
                   child: GestureDetector(
                     onTap: () {
-                      Get.to(
-                        () => ViewImageWidget(
-                          image: image.path,
-                        ),
-                      );
+                      Get.to(() => ViewImageWidget(image: image.path));
                     },
                     child: Hero(
                       tag: image.path,

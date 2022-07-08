@@ -27,6 +27,7 @@ final List<GetPage> appPages = [
     name: NewInspectionPage.route,
     page: () => const NewInspectionPage(),
     binding: NewInspectionBindings(),
+    transition: Transition.downToUp,
   ),
   GetPage(
     name: InspectionsPage.route,

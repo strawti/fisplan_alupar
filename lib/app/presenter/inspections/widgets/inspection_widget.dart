@@ -37,15 +37,12 @@ class InspectionWidget extends StatelessWidget {
           },
           child: Row(
             children: [
-              Container(
-                width: 8,
-                height: 120,
+              ColoredBox(
                 color: inspection.getColor,
+                child: const SizedBox(width: 8, height: 120),
               ),
               Expanded(
-                child: InspectionContentWidget(
-                  inspection: inspection,
-                ),
+                child: InspectionContentWidget(inspection: inspection),
               ),
               Column(
                 children: [
