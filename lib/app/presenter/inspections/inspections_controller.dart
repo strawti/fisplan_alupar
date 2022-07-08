@@ -189,7 +189,7 @@ class InspectionsController extends GetxController with LoaderManager {
         textConfirm: 'Sim',
         textCancel: 'Não',
         title: 'Tudo certo!',
-        middleText: 'Deseja as inspenções?',
+        middleText: 'Deseja sincronizar as inspenções?',
         onConfirm: () {
           Get.back();
           fetch(online: true);
