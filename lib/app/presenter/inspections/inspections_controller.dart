@@ -155,19 +155,11 @@ class InspectionsController extends GetxController with LoaderManager {
           if (inspection.isSendPhotos == false) {
             inspection = await sendPhotos(inspection);
           }
-
-          // if (inspection.isSendAudios == false) {
-          //   inspection = await sendAudios(inspection);
-          // }
         }
       } else {
         if (inspection.isSendPhotos == false) {
           inspection = await sendPhotos(inspection);
         }
-
-        // if (inspection.isSendAudios == false) {
-        //   inspection = await sendAudios(inspection);
-        // }
       }
 
       if (inspection.isSendInspection) {
@@ -240,24 +232,6 @@ class InspectionsController extends GetxController with LoaderManager {
 
     return inspection;
   }
-
-  // Future<InspectionRequestModel> sendAudios(
-  //   InspectionRequestModel inspection,
-  // ) async {
-  //   inspectionsUnsynchronized.remove(inspection);
-
-  //   //final response = await _inspectionsProvider.sendPhoto(inspectionId, photoInBase64)
-
-  //   inspection = inspection.copyWith(
-  //     id: inspection.id,
-  //     audios: [],
-  //     isSendAudios: true,
-  //   );
-  //   inspectionsUnsynchronized.add(inspection);
-
-  //   await _setLocalInspections();
-  //   return inspection;
-  // }
 
   Future _setLocalInspections() async {
     await _localInspectionsProvider.setUnsynchronized(
