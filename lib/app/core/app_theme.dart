@@ -21,10 +21,12 @@ final appThemeDark = ThemeData(
   splashColor: appPrimaryColor,
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: appPrimaryColor,
+    foregroundColor: Colors.white,
   ),
   appBarTheme: const AppBarTheme(
     color: appPrimaryColor,
     elevation: 0.0,
     centerTitle: true,
   ),
+  cardColor: Colors.black12,
 );

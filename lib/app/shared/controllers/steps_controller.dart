@@ -30,17 +30,17 @@ class StepsController extends GetxController with LoaderManager {
     setIsLoading(true);
 
     await _getLocal();
+    stepsFiltered = _steps.toList();
 
     if (await AppConnectivity.instance.isConnected()) {
       final isWifi = await AppConnectivity.instance.isWifi();
       if (_steps.isEmpty || online || isWifi) {
         await _getAll();
+        _getLastTimeUpdated();
       }
     }
 
     stepsFiltered = _steps.toList();
-
-    _getLastTimeUpdated();
 
     setIsLoading(false);
   }

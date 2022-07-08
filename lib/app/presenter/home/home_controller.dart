@@ -74,6 +74,8 @@ class HomeController extends GetxController with LoaderManager {
     await _getLocalUser();
     await _getLocalProjects();
 
+    projectsFiltered = projects.toList();
+
     if (await AppConnectivity.instance.isConnected()) {
       final isWifi = await AppConnectivity.instance.isWifi();
 
@@ -83,13 +85,12 @@ class HomeController extends GetxController with LoaderManager {
 
       if (projects.isEmpty || online || isWifi) {
         await _getProjects();
+        _getLastTimeUpdated();
       }
     }
 
     projectsFiltered = projects.toList();
     projectsFiltered.sort((a, b) => a.progress.compareTo(b.progress));
-
-    _getLastTimeUpdated();
 
     if (GetStorage().read('isTheFirstTime')) {
       CustomDialog().show(

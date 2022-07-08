@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class NewInspectionCard extends StatelessWidget {
   const NewInspectionCard({
@@ -26,10 +27,10 @@ class NewInspectionCard extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black54,
+                    color: Get.theme.textTheme.headline1!.color,
                   ),
                 ),
                 icon ?? const SizedBox(),

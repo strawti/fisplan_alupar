@@ -30,15 +30,17 @@ class EquipmentsCategoriesController extends GetxController with LoaderManager {
     setIsLoading(true);
 
     await _getLocalAll();
+    equipmentsCategoriesFiltered = _equipmentsCategories.toList();
+
     if (await AppConnectivity.instance.isConnected()) {
       final isWifi = await AppConnectivity.instance.isWifi();
       if (_equipmentsCategories.isEmpty || online || isWifi) {
         await _getAll();
+        _getLastTimeUpdated();
       }
     }
 
     equipmentsCategoriesFiltered = _equipmentsCategories.toList();
-    _getLastTimeUpdated();
 
     setIsLoading(false);
   }

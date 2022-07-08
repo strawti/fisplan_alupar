@@ -99,24 +99,24 @@ class DetailsInspectionController extends GetxController {
       },
     );
 
-    selectedEquipment =
-        equipmentController.equipmentsFiltered.firstWhereOrNull((e) {
-      return e.id == inspection.equipmentId;
-    });
-
     selectedEquipmentsCategory = equipmentsCategoryController
         .equipmentsCategoriesFiltered
         .firstWhereOrNull((e) {
       return e.id == inspection.equipmentCategoryId;
     });
 
-    selectedStep = StepsController.to.stepsFiltered.firstWhereOrNull((e) {
-      return e.id == inspection.stepId;
+    selectedEquipment =
+        equipmentController.equipmentsFiltered.firstWhereOrNull((e) {
+      return e.id == inspection.equipmentId;
     });
 
     selectedTensionLevel =
         companiesController.tensionLevelsFiltered.firstWhereOrNull((e) {
       return e.id == inspection.tensionLevelId;
+    });
+
+    selectedStep = StepsController.to.stepsFiltered.firstWhereOrNull((e) {
+      return e.id == inspection.stepId;
     });
 
     await getQuestionnaries();
@@ -242,7 +242,11 @@ class DetailsInspectionController extends GetxController {
   }
 
   bool get showStep {
-    return selectedInstallation != null && selectedEquipmentsCategory != null ||
+    return selectedInstallationType != null &&
+            selectedInstallation != null &&
+            selectedEquipmentsCategory != null &&
+            selectedEquipment != null &&
+            selectedTensionLevel != null ||
         selectedTower != null;
   }
 

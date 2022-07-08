@@ -30,15 +30,17 @@ class CompaniesTensionLevelController extends GetxController
     setIsLoading(true);
 
     await _getLocalAll();
+    tensionLevelsFiltered = _tensionLevels.toList();
+
     if (await AppConnectivity.instance.isConnected()) {
       final isWifi = await AppConnectivity.instance.isWifi();
       if (_tensionLevels.isEmpty || online || isWifi) {
         await getAll();
+        _getLastTimeUpdated();
       }
     }
 
     tensionLevelsFiltered = _tensionLevels.toList();
-    _getLastTimeUpdated();
 
     setIsLoading(false);
   }
