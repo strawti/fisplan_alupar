@@ -492,10 +492,11 @@ class NewInspectionController extends GetxController with LoaderManager {
 
   bool get showStep {
     return selectedInstallationType != null &&
-        selectedInstallation != null &&
-        selectedEquipmentsCategory != null &&
-        selectedEquipment != null &&
-        (selectedTensionLevel != null || selectedTowers != null);
+            selectedInstallation != null &&
+            selectedEquipmentsCategory != null &&
+            selectedEquipment != null &&
+            selectedTensionLevel != null ||
+        selectedTowers != null;
   }
 
   bool get showActivity {
