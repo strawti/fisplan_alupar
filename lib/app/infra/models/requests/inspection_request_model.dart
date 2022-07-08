@@ -30,7 +30,6 @@ class InspectionRequestModel {
   final double latitude;
 
   // For Internal
-  final bool isSendAudios;
   final bool isSendPhotos;
   final bool isSendInspection;
 
@@ -58,7 +57,6 @@ class InspectionRequestModel {
     required this.comments,
     required this.longitude,
     required this.latitude,
-    this.isSendAudios = false,
     this.isSendPhotos = false,
     this.isSendInspection = false,
   });
@@ -96,7 +94,6 @@ class InspectionRequestModel {
     result.addAll({'latitude': latitude});
     result.addAll({'longitude': longitude});
 
-    result.addAll({'isSendAudios': isSendAudios});
     result.addAll({'isSendPhotos': isSendPhotos});
     result.addAll({'isSendInspection': isSendInspection});
 
@@ -122,7 +119,6 @@ class InspectionRequestModel {
       name: map['name'] ?? '',
       description: map['description'],
       comments: map['comments'],
-      isSendAudios: map['isSendAudios'] ?? false,
       isSendInspection: map['isSendInspection'] ?? false,
       isSendPhotos: map['isSendPhotos'] ?? false,
       id: map['id'],
@@ -201,7 +197,6 @@ class InspectionRequestModel {
       name: name ?? this.name,
       description: description ?? this.description,
       comments: comments ?? this.comments,
-      isSendAudios: isSendAudios ?? this.isSendAudios,
       isSendPhotos: isSendPhotos ?? this.isSendPhotos,
       isSendInspection: isSendInspection ?? this.isSendInspection,
       latitude: latitude ?? this.latitude,
