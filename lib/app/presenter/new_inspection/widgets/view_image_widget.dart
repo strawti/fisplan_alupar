@@ -36,6 +36,10 @@ class ViewImageWidget extends StatelessWidget {
                       'Authorization': 'Bearer ${AppToken.instance.token}',
                     },
                     loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress?.cumulativeBytesLoaded ==
+                          loadingProgress?.expectedTotalBytes) {
+                        return child;
+                      }
                       return const CircularProgressIndicator();
                     },
                   ),
@@ -55,6 +59,10 @@ class ViewImageWidget extends StatelessWidget {
                                 'Bearer ${AppToken.instance.token}',
                           },
                           loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress?.cumulativeBytesLoaded ==
+                                loadingProgress?.expectedTotalBytes) {
+                              return child;
+                            }
                             return const CircularProgressIndicator();
                           },
                         ),
