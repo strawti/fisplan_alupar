@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../shared/widgets/location_inspection_widget.dart';
-import '../../../shared/widgets/textform_widget.dart';
 import '../../new_inspection/widgets/new_inspection_card.dart';
 import '../details_inspection_controller.dart';
 import 'audios_details_inspection_widget.dart';
@@ -55,14 +54,14 @@ class DetailspectionBody extends GetView<DetailsInspectionController> {
             LocationInspectionWidget<DetailsInspectionController>(
               control: controller,
             ),
-            const NewInspectionCard(
+            NewInspectionCard(
               title: 'Comentários',
               child: Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: TextFormWidget(
-                  enabled: false,
-                  hintText: 'Informações adicionais',
-                  maxLines: 3,
+                padding: const EdgeInsets.only(top: 20),
+                child: GetBuilder<DetailsInspectionController>(
+                  builder: (controller) {
+                    return Text(controller.comments);
+                  },
                 ),
               ),
             ),

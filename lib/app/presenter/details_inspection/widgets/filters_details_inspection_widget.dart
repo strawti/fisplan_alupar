@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/app_validators.dart';
-import '../../../shared/widgets/textform_widget.dart';
 import '../../new_inspection/widgets/new_inspection_card.dart';
 import '../../new_inspection/widgets/tower_widget.dart';
 import '../details_inspection_controller.dart';
@@ -17,22 +15,29 @@ class FiltersDetailsInspectionWidget extends StatelessWidget {
       child: Column(
         children: [
           const SizedBox(height: 20),
-          TextFormWidget(
-            enabled: false,
-            controller: Get.find<DetailsInspectionController>().nameController,
-            labelText: 'Nome',
-            hintText: 'Nome da inspeção',
-            validator: simpleValidate,
+          GetBuilder<DetailsInspectionController>(
+            builder: (controller) {
+              return ListTile(
+                title: const Text('Nome'),
+                subtitle: Text(
+                  controller.name,
+                  textScaleFactor: 1.1,
+                ),
+              );
+            },
+          ),
+          GetBuilder<DetailsInspectionController>(
+            builder: (controller) {
+              return ListTile(
+                title: const Text('Descrição'),
+                subtitle: Text(
+                  controller.description,
+                  textScaleFactor: 1.1,
+                ),
+              );
+            },
           ),
           const SizedBox(height: 20),
-          TextFormWidget(
-            enabled: false,
-            controller:
-                Get.find<DetailsInspectionController>().descriptionController,
-            labelText: 'Descrição',
-            hintText: 'Informe a descrição da inspeção',
-            maxLines: 3,
-          ),
           const SizedBox(height: 10),
           const Divider(
             color: Colors.black12,
