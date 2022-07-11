@@ -429,7 +429,7 @@ class NewInspectionController extends GetxController with LoaderManager {
         AnswerModel(
           questionnaireId: question.questionnaireId,
           questionId: question.id,
-          answer: answer,
+          answer: answer is AlternativeModel ? answer.id : answer,
         ),
       );
     }

@@ -83,6 +83,10 @@ class QuestionWidget extends StatelessWidget {
       return e.questionId == question.id;
     });
 
+    if (question.questionType != QuestionTypesEnum.yesorno) {
+      return null;
+    }
+
     if (value.isNotEmpty) {
       if (value.first.answer is String) {
         return value.first.answer == 'true';
