@@ -93,6 +93,8 @@ class DetailsInspectionController extends GetxController {
       return e.id == inspection.installationId;
     });
 
+    update();
+
     selectedInstallationType = instalationTypeController
         .installationTypesFiltered
         .firstWhereOrNull((e) {
@@ -110,6 +112,8 @@ class DetailsInspectionController extends GetxController {
       },
     );
 
+    update();
+
     selectedEquipmentsCategory = equipmentsCategoryController
         .equipmentsCategoriesFiltered
         .firstWhereOrNull((e) {
@@ -126,6 +130,8 @@ class DetailsInspectionController extends GetxController {
       return e.id == inspection.tensionLevelId;
     });
 
+    update();
+
     selectedStep = StepsController.to.stepsFiltered.firstWhereOrNull((e) {
       return e.id == inspection.stepId;
     });
@@ -133,6 +139,8 @@ class DetailsInspectionController extends GetxController {
     await Get.find<AudiosController>().setAudiosOfWeb(
       inspection.audios!.map((e) => e.path).toList(),
     );
+
+    update();
 
     await getQuestionnaries();
 
@@ -202,8 +210,7 @@ class DetailsInspectionController extends GetxController {
 
     if (answer is AnswerModel) {
       answers.add(answer);
-    } else {
-      // Só deve cair aqui se a answer for uma alternativa
+    } else if (answer is AlternativeModel) {
       answers.add(AnswerModel(
         questionId: question.id,
         answer: answer.description,
