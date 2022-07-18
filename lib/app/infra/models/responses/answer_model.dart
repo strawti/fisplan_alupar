@@ -19,7 +19,7 @@ class AnswerModel {
     } else if (answer == "false") {
       return "Não";
     }
-    return answer;
+    return "$answer";
   }
 
   Map<String, dynamic> toMap() {

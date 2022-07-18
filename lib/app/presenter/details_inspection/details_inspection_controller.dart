@@ -1,3 +1,4 @@
+import 'package:fisplan_alupar/app/infra/enums/question_types_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -141,7 +142,14 @@ class DetailsInspectionController extends GetxController {
       });
 
       if (answer.isNotEmpty) {
-        setAnswer(q, answer.first);
+        if (q.questionType == QuestionTypesEnum.closed) {
+          final res = int.parse(answer.first.answer);
+          setAnswer(q, q.alternatives.firstWhere((e) {
+            return e.id == res;
+          }));
+        } else {
+          setAnswer(q, answer.first);
+        }
       }
     }
 
@@ -194,6 +202,13 @@ class DetailsInspectionController extends GetxController {
 
     if (answer is AnswerModel) {
       answers.add(answer);
+    } else {
+      // Só deve cair aqui se a answer for uma alternativa
+      answers.add(AnswerModel(
+        questionId: question.id,
+        answer: answer.description,
+        questionnaireId: question.questionnaireId,
+      ));
     }
 
     update();

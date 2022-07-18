@@ -403,6 +403,8 @@ class NewInspectionController extends GetxController with LoaderManager {
     }
   }
 
+  String openAnswer = '';
+
   List<Question> questions = [];
   List<AnswerModel> answers = [];
 

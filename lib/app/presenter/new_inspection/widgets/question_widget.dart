@@ -58,8 +58,7 @@ class QuestionWidget extends StatelessWidget {
                   ? question.alternatives.map((e) {
                       return DropdownMenuItem(
                         value: e,
-                        child: Text(
-                            "${e.description}${e.description.contains('%') ? "" : "%"}"),
+                        child: Text(e.description),
                       );
                     }).toList()
                   : null,
@@ -74,7 +73,12 @@ class QuestionWidget extends StatelessWidget {
           Visibility(
             visible: question.questionType == QuestionTypesEnum.open,
             child: TextFormField(
-              onChanged: (value) {},
+              onChanged: (value) {
+                NewInspectionController.to.setAnswer(
+                  question,
+                  value,
+                );
+              },
             ),
           ),
         ],
