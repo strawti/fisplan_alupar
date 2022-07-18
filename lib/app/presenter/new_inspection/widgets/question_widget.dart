@@ -58,12 +58,16 @@ class QuestionWidget extends StatelessWidget {
                   ? question.alternatives.map((e) {
                       return DropdownMenuItem(
                         value: e,
-                        child: Text("${e.description}%"),
+                        child: Text(
+                            "${e.description}${e.description.contains('%') ? "" : "%"}"),
                       );
                     }).toList()
                   : null,
               onChanged: (value) {
-                NewInspectionController.to.setAnswer(question, value);
+                NewInspectionController.to.setAnswer(
+                  question,
+                  value,
+                );
               },
             ),
           ),

@@ -24,7 +24,6 @@ import '../../shared/controllers/installations_controller.dart';
 import '../../shared/controllers/questionnaires_controller.dart';
 import '../../shared/controllers/steps_controller.dart';
 import '../../shared/controllers/towers_controller.dart';
-import '../../shared/utils/custom_dialog.dart';
 import '../../shared/utils/get_datetime.dart';
 import '../inspections/inspections_controller.dart';
 
@@ -66,17 +65,28 @@ class DetailsInspectionController extends GetxController {
   Future _fillTheFields() async {
     final inspection = arguments.inspection;
 
-    CustomDialog().showDialog(
-      title: 'Aguarde',
-      middleText: 'Obtendo dados...',
-    );
-    await Future.delayed(const Duration(seconds: 2));
-    Get.back();
+    // CustomDialog().showDialog(
+    //   title: 'Aguarde',
+    //   middleText: 'Obtendo dados...',
+    // );
+    // Get.back();
 
     nameController.text = inspection.name;
-
     descriptionController.text = inspection.description ?? '';
+    commentsController.text = inspection.comments ?? '';
+    position = Position(
+      longitude: inspection.longitude!,
+      latitude: inspection.latitude!,
+      timestamp: formatStringForDateTime(inspection.date),
+      accuracy: 0.0,
+      altitude: 0.0,
+      heading: 0.0,
+      speed: 0,
+      speedAccuracy: 0,
+    );
+    update(['position']);
 
+    await Future.delayed(const Duration(seconds: 1));
     selectedInstallation =
         installationsController.installationsFiltered.firstWhereOrNull((e) {
       return e.id == inspection.installationId;
@@ -119,6 +129,10 @@ class DetailsInspectionController extends GetxController {
       return e.id == inspection.stepId;
     });
 
+    await Get.find<AudiosController>().setAudiosOfWeb(
+      inspection.audios!.map((e) => e.path).toList(),
+    );
+
     await getQuestionnaries();
 
     for (var q in questions) {
@@ -130,23 +144,6 @@ class DetailsInspectionController extends GetxController {
         setAnswer(q, answer.first);
       }
     }
-
-    commentsController.text = inspection.comments ?? '';
-    position = Position(
-      longitude: inspection.longitude!,
-      latitude: inspection.latitude!,
-      timestamp: formatStringForDateTime(inspection.date),
-      accuracy: 0.0,
-      altitude: 0.0,
-      heading: 0.0,
-      speed: 0,
-      speedAccuracy: 0,
-    );
-    update(['position']);
-
-    await Get.find<AudiosController>().setAudiosOfWeb(
-      inspection.audios!.map((e) => e.path).toList(),
-    );
 
     update();
   }
