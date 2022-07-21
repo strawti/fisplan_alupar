@@ -130,10 +130,10 @@ class FiltersWidget extends StatelessWidget {
               return Visibility(
                 visible: controller.showEquipment,
                 child: ListTile(
-                  title: const Text('Equipamento'),
+                  title: const Text('Equipamentos'),
                   trailing: const Icon(Icons.arrow_drop_down),
                   subtitle: Text(
-                    controller.selectedEquipment?.name ?? '',
+                    controller.nameSelectedEquipments,
                     textScaleFactor: 1.1,
                   ),
                   onTap: controller.getEquipments,

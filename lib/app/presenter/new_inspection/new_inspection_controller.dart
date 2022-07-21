@@ -139,10 +139,14 @@ class NewInspectionController extends GetxController with LoaderManager {
       },
     );
 
-    selectedEquipment =
+    final selectedEquipment =
         equipmentController.equipmentsFiltered.firstWhereOrNull((e) {
       return e.id == inspection.equipmentId;
     });
+
+    if (selectedEquipment != null) {
+      selectedEquipments = [selectedEquipment];
+    }
 
     selectedEquipmentsCategory = equipmentsCategoryController
         .equipmentsCategoriesFiltered
@@ -322,6 +326,10 @@ class NewInspectionController extends GetxController with LoaderManager {
 
     if (result != null) {
       selectedEquipmentsCategory = result.item;
+      selectedTensionLevel = null;
+      selectedEquipments = null;
+      selectedStep = null;
+      selectedActivity = null;
       update();
     }
   }
@@ -345,7 +353,11 @@ class NewInspectionController extends GetxController with LoaderManager {
     }
   }
 
-  EquipmentModel? selectedEquipment;
+  List<EquipmentModel>? selectedEquipments;
+  String get nameSelectedEquipments {
+    return selectedEquipments?.map((t) => t.name).join(', ') ?? '';
+  }
+
   Future getEquipments() async {
     equipmentController.filterEquipments(
       selectedEquipmentsCategory!.id,
@@ -353,14 +365,29 @@ class NewInspectionController extends GetxController with LoaderManager {
       selectedTensionLevel!.id,
     );
 
-    final ItemSelectionModel<dynamic>? result = await goToSelectionPage(
-      'Equipamento',
-      equipmentController.equipmentsFiltered,
-      selectedEquipment,
+    final result = await Get.toNamed(
+      SelectionPage.route,
+      arguments: SelectionPageArguments(
+        title: 'Equipamento',
+        isMultipleSelection: true,
+        items: equipmentController.equipmentsFiltered.map(
+          (tower) {
+            return ItemSelectionModel<EquipmentModel>(
+              title: tower.name,
+              item: tower,
+              isChecked: selectedEquipments?.where((e) {
+                    return e.id == tower.id;
+                  }).isNotEmpty ??
+                  false,
+            );
+          },
+        ).toList(),
+      ),
     );
 
     if (result != null) {
-      selectedEquipment = result.item;
+      selectedEquipments = List<EquipmentModel>.from(result.map((e) => e.item));
+
       update();
     }
   }
@@ -454,7 +481,7 @@ class NewInspectionController extends GetxController with LoaderManager {
     selectedEquipmentsCategory = null;
     selectedTensionLevel = null;
     selectedActivity = null;
-    selectedEquipment = null;
+    selectedEquipments = null;
     selectedStep = null;
     selectedInstallation = null;
   }
@@ -510,7 +537,7 @@ class NewInspectionController extends GetxController with LoaderManager {
     return selectedInstallationType != null &&
             selectedInstallation != null &&
             selectedEquipmentsCategory != null &&
-            selectedEquipment != null &&
+            selectedEquipments != null &&
             selectedTensionLevel != null ||
         selectedTowers != null;
   }
@@ -558,7 +585,7 @@ class NewInspectionController extends GetxController with LoaderManager {
     }
 
     if (showEquipment) {
-      if (selectedEquipment == null) {
+      if (selectedEquipments == null) {
         CustomSnackbar.to.show("Selecione um equipamento");
         return;
       }
@@ -660,7 +687,7 @@ class NewInspectionController extends GetxController with LoaderManager {
       installationTypeId: selectedInstallationType!.id,
       equipmentCategoryId: selectedEquipmentsCategory?.id,
       towerId: selectedTowers?.first.id,
-      equipmentId: selectedEquipment?.id,
+      equipmentId: selectedEquipments?.first.id,
       stepId: selectedStep?.id,
       createdAt: DateTime.now().toString(),
       updatedAt: DateTime.now().toString(),
@@ -767,7 +794,7 @@ class NewInspectionController extends GetxController with LoaderManager {
       installationTypeId: selectedInstallationType!.id,
       equipmentCategoryId: selectedEquipmentsCategory?.id,
       towerId: selectedTowers?.first.id,
-      equipmentId: selectedEquipment?.id,
+      equipmentId: selectedEquipments?.first.id,
       stepId: selectedStep?.id,
       createdAt: arguments.inspectionRequest!.createdAt,
       updatedAt: DateTime.now().toString(),

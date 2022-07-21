@@ -64,9 +64,7 @@ class SelectionController extends GetxController {
 
   void selectItem(ItemSelectionModel item) {
     if (routeArguments.isMultipleSelection) {
-      selectedItems.clear();
       setSelectedItems(item);
-      Get.back(result: selectedItems);
     } else {
       Get.back(result: item);
     }
