@@ -142,6 +142,9 @@ class InspectionsController extends GetxController with LoaderManager {
 
       if (insp.isSendInspection == false) {
         insp = await sendInspection(insp);
+        if (singleInspection != null) {
+          singleInspection = insp;
+        }
       }
 
       if (insp.isSendPhotos == false) {
@@ -169,10 +172,38 @@ class InspectionsController extends GetxController with LoaderManager {
       title: 'Enviando Inspeções',
       middleText: 'Isso pode demorar um pouco...',
     );
+
     await Future.wait(data.map((e) => _buildFuture(e)));
-    await Future.wait(data.map((e) => _buildFuture(e, onlyPhotos: true)));
-    await _getInspectionsNotSynced();
     Get.back();
+
+    if (singleInspection == null) {
+      data = inspectionsUnsynchronized.toList();
+    } else {
+      data = [singleInspection!];
+    }
+
+    bool? sendImagesToday = false;
+    if (data.where((e) => e.photos.isNotEmpty).isNotEmpty) {
+      sendImagesToday = await CustomDialog().showDialog(
+        title: 'Deseja enviar as imagens agora ?',
+        middleText: 'As imagens podem demorar mais tempo...',
+        textConfirm: 'Sim',
+        textCancel: 'Não',
+        onConfirm: () => Get.back(result: true),
+        onCancel: () => false,
+      );
+    }
+
+    if (sendImagesToday == true) {
+      CustomDialog().showDialog(
+        title: 'Enviando Imagens',
+        middleText: 'As imagens levam mais tempo...',
+      );
+      await Future.wait(data.map((e) => _buildFuture(e, onlyPhotos: true)));
+      Get.back();
+    }
+
+    await _getInspectionsNotSynced();
 
     if (inspectionsUnsynchronized.isEmpty && data.isNotEmpty) {
       CustomDialog().showDialog(
@@ -182,7 +213,10 @@ class InspectionsController extends GetxController with LoaderManager {
         middleText: 'Deseja sincronizar as inspenções?',
         onConfirm: () {
           Get.back();
-          fetch(online: true);
+
+          if (isLoading == false) {
+            fetch(online: true);
+          }
         },
         onCancel: Get.back,
       );
@@ -199,17 +233,19 @@ class InspectionsController extends GetxController with LoaderManager {
     if (responseSendInspection.isSuccess) {
       inspectionsUnsynchronized.remove(inspection);
 
-      inspection = inspection.copyWith(
-        id: responseSendInspection.data!,
-        isSendInspection: true,
-      );
-
-      inspectionsUnsynchronized.add(inspection);
+      inspectionsUnsynchronized.addAll(responseSendInspection.data!.map(
+        (id) {
+          return inspection.copyWith(
+            id: id,
+            isSendInspection: true,
+          );
+        },
+      ).toList());
 
       await _setLocalInspections();
     }
 
-    return inspection;
+    return inspectionsUnsynchronized.last;
   }
 
   Future<InspectionRequestModel> sendPhotos(
@@ -231,19 +267,11 @@ class InspectionsController extends GetxController with LoaderManager {
     await Future.wait(inspection.photos.map((p) => _buildFuture(p)));
 
     inspectionsUnsynchronized.remove(inspection);
-    if (imagesUnsync.isNotEmpty) {
-      inspection = inspection.copyWith(
-        id: inspection.id,
-        photos: imagesUnsync,
-        isSendPhotos: false,
-      );
-    } else {
-      inspection = inspection.copyWith(
-        id: inspection.id,
-        photos: imagesUnsync,
-        isSendPhotos: true,
-      );
-    }
+    inspection = inspection.copyWith(
+      id: inspection.id,
+      photos: imagesUnsync,
+      isSendPhotos: imagesUnsync.isEmpty,
+    );
     inspectionsUnsynchronized.add(inspection);
 
     await _setLocalInspections();

@@ -69,7 +69,7 @@ class InspectionsRepository {
     );
   }
 
-  Future<ApiResponseModel<int?>> sendInspection(
+  Future<ApiResponseModel<List<int>?>> sendInspection(
     InspectionRequestModel inspection,
   ) async {
     final response = await _connect.post(
@@ -80,14 +80,16 @@ class InspectionsRepository {
     final responseModel = DefaultResponseModel.fromMap({
       'success': response.statusCode == 200,
       'statusCode': response.statusCode,
-      'data': response.body,
+      'data': json.decode(response.body),
       'error': {
         "message": response.body,
       }
     });
 
     if (responseModel.success) {
-      return ApiResponseModel(data: responseModel.data["id"]);
+      return ApiResponseModel(
+        data: List<int>.from(responseModel.data.map((e) => e['id'])),
+      );
     }
 
     return ApiErrorDefaultModel(

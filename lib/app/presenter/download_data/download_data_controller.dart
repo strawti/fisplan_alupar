@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 
 import '../../shared/controllers/activities_controller.dart';
@@ -44,17 +46,38 @@ class DownloadDataController extends GetxController {
         Get.find<HomeController>().isLoading;
   }
 
-  void syncAll() {
+  Future syncAll() async {
     if (isLoading() == false) {
-      Future.sync(() async {
+      if (Get.find<InspectionsController>()
+          .inspectionsUnsynchronized
+          .isNotEmpty) {
         await Get.find<InspectionsController>().syncInspections();
+        return;
+      }
+
+      scheduleMicrotask(() {
         Future.wait([
           Get.find<InspectionsController>().fetch(online: true),
           Get.find<TowersController>().fetch(online: true),
+        ]);
+      });
+
+      scheduleMicrotask(() {
+        Future.wait([
           Get.find<InstallationTypeController>().fetch(online: true),
           Get.find<InstallationsController>().fetch(online: true),
+        ]);
+      });
+
+      scheduleMicrotask(() {
+        Future.wait([
           Get.find<EquipmentsController>().fetch(online: true),
           Get.find<EquipmentsCategoriesController>().fetch(online: true),
+        ]);
+      });
+
+      scheduleMicrotask(() {
+        Future.wait([
           Get.find<CompaniesTensionLevelController>().fetch(online: true),
           Get.find<ActivitiesController>().fetch(online: true),
           Get.find<HomeController>().fetch(online: true),

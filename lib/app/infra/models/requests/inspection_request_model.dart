@@ -13,8 +13,8 @@ class InspectionRequestModel {
   final int installationId;
   final int installationTypeId;
   final int? equipmentCategoryId;
-  final int? towerId;
-  final int? equipmentId;
+  final List<int>? towerId;
+  final List<int>? equipmentId;
   final int? stepId;
   final String createdAt;
   final String updatedAt;
@@ -110,8 +110,16 @@ class InspectionRequestModel {
       installationId: map['installation_id'],
       installationTypeId: map['installation_type_id'],
       equipmentCategoryId: map['equipment_category_id'],
-      towerId: map['tower_id'],
-      equipmentId: map['equipment_id'],
+      towerId: map['tower_id'] is int
+          ? [int.parse("${map['tower_id']}")]
+          : map['tower_id'] != null
+              ? List<int>.from(map['tower_id'])
+              : map['tower_id'],
+      equipmentId: map['equipment_id'] is int
+          ? [int.parse("${map['equipment_id']}")]
+          : map['equipment_id'] != null
+              ? List<int>.from(map['equipment_id'])
+              : map['equipment_id'],
       stepId: map['step_id'],
       createdAt: map['created_at'],
       updatedAt: map['updated_at'],
@@ -156,8 +164,8 @@ class InspectionRequestModel {
     int? installationId,
     int? installationTypeId,
     int? equipmentCategoryId,
-    int? towerId,
-    int? equipmentId,
+    List<int>? towerId,
+    List<int>? equipmentId,
     int? stepId,
     String? createdAt,
     String? updatedAt,
@@ -177,7 +185,7 @@ class InspectionRequestModel {
   }) {
     return InspectionRequestModel(
       date: date ?? this.date,
-      id: id,
+      id: id ?? this.id,
       userId: userId ?? this.userId,
       activityId: activityId ?? this.activityId,
       projectId: projectId ?? this.projectId,

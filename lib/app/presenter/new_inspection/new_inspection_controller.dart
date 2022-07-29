@@ -125,7 +125,7 @@ class NewInspectionController extends GetxController with LoaderManager {
     });
 
     final selectedTower = towersController.towersFiltered.firstWhereOrNull(
-      (e) => e.id == inspection.towerId,
+      (e) => e.id == inspection.towerId?.first,
     );
 
     if (selectedTower != null) {
@@ -141,7 +141,7 @@ class NewInspectionController extends GetxController with LoaderManager {
 
     final selectedEquipment =
         equipmentController.equipmentsFiltered.firstWhereOrNull((e) {
-      return e.id == inspection.equipmentId;
+      return e.id == inspection.equipmentId?.first;
     });
 
     if (selectedEquipment != null) {
@@ -443,6 +443,8 @@ class NewInspectionController extends GetxController with LoaderManager {
       selectedStep!.id,
     );
 
+    answers.clear();
+
     update();
   }
 
@@ -686,8 +688,8 @@ class NewInspectionController extends GetxController with LoaderManager {
       installationId: selectedInstallation!.id,
       installationTypeId: selectedInstallationType!.id,
       equipmentCategoryId: selectedEquipmentsCategory?.id,
-      towerId: selectedTowers?.first.id,
-      equipmentId: selectedEquipments?.first.id,
+      towerId: selectedTowers?.map((e) => e.id).toList(),
+      equipmentId: selectedEquipments?.map((e) => e.id).toList(),
       stepId: selectedStep?.id,
       createdAt: DateTime.now().toString(),
       updatedAt: DateTime.now().toString(),
@@ -700,6 +702,7 @@ class NewInspectionController extends GetxController with LoaderManager {
       comments: comments,
       latitude: position!.latitude,
       longitude: position!.longitude,
+      isSendPhotos: photos.isEmpty,
     );
 
     _getInspectionsUnsynchronized().then(
@@ -793,8 +796,8 @@ class NewInspectionController extends GetxController with LoaderManager {
       installationId: selectedInstallation!.id,
       installationTypeId: selectedInstallationType!.id,
       equipmentCategoryId: selectedEquipmentsCategory?.id,
-      towerId: selectedTowers?.first.id,
-      equipmentId: selectedEquipments?.first.id,
+      towerId: selectedTowers?.map((e) => e.id).toList(),
+      equipmentId: selectedEquipments?.map((e) => e.id).toList(),
       stepId: selectedStep?.id,
       createdAt: arguments.inspectionRequest!.createdAt,
       updatedAt: DateTime.now().toString(),
@@ -807,6 +810,7 @@ class NewInspectionController extends GetxController with LoaderManager {
       comments: comments,
       latitude: position!.latitude,
       longitude: position!.longitude,
+      isSendPhotos: photos.isEmpty,
     );
 
     _getInspectionsUnsynchronized().then(

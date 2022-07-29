@@ -37,7 +37,7 @@ class ImagesController extends GetxController with LoaderManager {
       if (['jpg', 'png', 'jpeg'].contains(image.name.split('.').last)) {
         final finalImage = await ImageCropper().cropImage(
           sourcePath: image.path,
-          compressQuality: 80,
+          compressQuality: 20,
         );
 
         if (finalImage != null) {

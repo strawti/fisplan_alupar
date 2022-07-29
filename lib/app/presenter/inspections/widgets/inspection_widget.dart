@@ -68,8 +68,12 @@ class InspectionWidget extends StatelessWidget {
                             installationId: inspection.installationId,
                             installationTypeId: inspection.installationTypeId,
                             equipmentCategoryId: inspection.equipmentCategoryId,
-                            towerId: inspection.towerId,
-                            equipmentId: inspection.equipmentId,
+                            towerId: inspection.towerId != null
+                                ? [inspection.towerId!]
+                                : null,
+                            equipmentId: inspection.equipmentId != null
+                                ? [inspection.equipmentId!]
+                                : null,
                             stepId: inspection.stepId,
                             createdAt: inspection.createdAt,
                             updatedAt: inspection.updatedAt,

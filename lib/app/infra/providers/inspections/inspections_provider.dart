@@ -40,7 +40,7 @@ class InspectionsProvider {
     }
   }
 
-  Future<ProviderResponseModel> sendInspection(
+  Future<ProviderResponseModel<List<int>?>> sendInspection(
     InspectionRequestModel request,
   ) async {
     try {
