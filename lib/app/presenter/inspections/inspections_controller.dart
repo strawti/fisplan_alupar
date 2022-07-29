@@ -169,7 +169,7 @@ class InspectionsController extends GetxController with LoaderManager {
     }
 
     CustomDialog().showDialog(
-      title: 'Enviando Inspeções',
+      title: 'Enviando ${data.length} Inspeções',
       middleText: 'Isso pode demorar um pouco...',
     );
 
@@ -199,6 +199,7 @@ class InspectionsController extends GetxController with LoaderManager {
         title: 'Enviando Imagens',
         middleText: 'As imagens levam mais tempo...',
       );
+      await Future.delayed(const Duration(seconds: 1));
       await Future.wait(data.map((e) => _buildFuture(e, onlyPhotos: true)));
       Get.back();
     }
